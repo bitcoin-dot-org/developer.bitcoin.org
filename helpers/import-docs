@@ -1,0 +1,88 @@
+#!/usr/bin/env ruby
+
+require "liquid"
+require "open3"
+require "fileutils"
+require "optparse"
+
+require_relative "importer"
+require_relative "custom_liquid_tags"
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: import-docs [options]"
+
+  opts.on("--skip-sections", "Skip import of sections") do |v|
+    options[:skip_sections] = v
+  end
+
+  opts.on("--file", "Process only one file") do |v|
+    options[:file] = v
+  end
+end.parse!
+
+if ARGV.length != 1
+  STDERR.puts "Usage: import-docs <bitcoin.org source git dir>"
+  exit 1
+end
+
+importer = Importer.new
+
+importer.base_dir = ARGV[0]
+importer.target_base_dir = File.expand_path("../../", __FILE__)
+
+include_dir = File.join(importer.base_dir, "_includes")
+Liquid::Template.file_system = Liquid::LocalFileSystem.new(include_dir)
+
+sections = [
+  {
+    target_dir: "devguide",
+    source_dir: "_data/devdocs/en/guides",
+    pages: {
+      "intro" => "Introduction",
+      "block_chain" => nil,
+      "transactions" => nil,
+      "contracts" => nil,
+      "wallets" => nil,
+      "payment_processing" => nil,
+      "operating_modes" => nil,
+      "p2p_network" => nil,
+      "mining" => nil,
+    }
+  },
+  {
+    target_dir: "reference",
+    source_dir: "_data/devdocs/en/references",
+    pages: {
+      "intro" => "Introduction",
+      "block_chain" => nil,
+      "transactions" => nil,
+      "wallets" => nil,
+      "p2p_networking" => nil
+    }
+  },
+  {
+    target_dir: "examples",
+    source_dir: "_data/devdocs/en/examples",
+    pages: {
+      "intro" => "Introduction",
+      "testing" => nil,
+      "transactions" => nil,
+      "payment_processing" => nil,
+      "p2p_networking" => nil,
+    }
+  }
+]
+
+Liquid::Template.error_mode = :warn
+
+if options[:file]
+  puts importer.render_template(ARGV[0])
+else
+  # Run glossary first because it generates the links for the sections
+  importer.import_glossary
+  if !options[:skip_sections]
+    importer.import_sections(sections)
+    importer.import_images
+  end
+end
