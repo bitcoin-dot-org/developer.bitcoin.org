@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>getrawmempool &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="gettxout" href="gettxout.html" />
+    <link rel="prev" title="getmempoolinfo" href="getmempoolinfo.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RPC API Reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="getbestblockhash.html">getbestblockhash</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblock.html">getblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockchaininfo.html">getblockchaininfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockcount.html">getblockcount</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockhash.html">getblockhash</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockheader.html">getblockheader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockstats.html">getblockstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getchaintips.html">getchaintips</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getchaintxstats.html">getchaintxstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getdifficulty.html">getdifficulty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmempoolancestors.html">getmempoolancestors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmempooldescendants.html">getmempooldescendants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmempoolentry.html">getmempoolentry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmempoolinfo.html">getmempoolinfo</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">getrawmempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettxout.html">gettxout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettxoutproof.html">gettxoutproof</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettxoutsetinfo.html">gettxoutsetinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="preciousblock.html">preciousblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pruneblockchain.html">pruneblockchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="savemempool.html">savemempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scantxoutset.html">scantxoutset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="verifychain.html">verifychain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="verifytxoutproof.html">verifytxoutproof</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#wallet-rpcs">Wallet RPCs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+        
+          <li><a href="index.html">RPC API Reference</a> &raquo;</li>
+        
+      <li>getrawmempool</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/reference/rpc/getrawmempool.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getrawmempool">
+<h1>getrawmempool<a class="headerlink" href="#getrawmempool" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">getrawmempool</span> <span class="pre">(</span> <span class="pre">verbose</span> <span class="pre">)</span></code></p>
+<p>Returns all transaction ids in memory pool as a json array of string transaction ids.</p>
+<p>Hint: use getmempoolentry to fetch a specific transaction from the mempool.</p>
+<div class="section" id="argument-1-verbose">
+<h2>Argument #1 - verbose<a class="headerlink" href="#argument-1-verbose" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> boolean, optional, default=false</p>
+<p>True for a json object, false for array of transaction ids</p>
+</div>
+<div class="section" id="result-for-verbose-false">
+<h2>Result (for verbose = false)<a class="headerlink" href="#result-for-verbose-false" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>                     <span class="p">(</span><span class="n">json</span> <span class="n">array</span> <span class="n">of</span> <span class="n">string</span><span class="p">)</span>
+  <span class="s2">&quot;transactionid&quot;</span>     <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">The</span> <span class="n">transaction</span> <span class="nb">id</span>
+  <span class="p">,</span><span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result-for-verbose-true">
+<h2>Result (for verbose = true)<a class="headerlink" href="#result-for-verbose-true" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>                           <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span>
+  <span class="s2">&quot;transactionid&quot;</span> <span class="p">:</span> <span class="p">{</span>       <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span>
+    <span class="s2">&quot;size&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>             <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">virtual</span> <span class="n">transaction</span> <span class="n">size</span> <span class="k">as</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">BIP</span> <span class="mf">141.</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">different</span> <span class="kn">from</span> <span class="nn">actual</span> <span class="n">serialized</span> <span class="n">size</span> <span class="k">for</span> <span class="n">witness</span> <span class="n">transactions</span> <span class="k">as</span> <span class="n">witness</span> <span class="n">data</span> <span class="ow">is</span> <span class="n">discounted</span><span class="o">.</span>
+    <span class="s2">&quot;fee&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>              <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">transaction</span> <span class="n">fee</span> <span class="ow">in</span> <span class="n">BTC</span> <span class="p">(</span><span class="n">DEPRECATED</span><span class="p">)</span>
+    <span class="s2">&quot;modifiedfee&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>      <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">transaction</span> <span class="n">fee</span> <span class="k">with</span> <span class="n">fee</span> <span class="n">deltas</span> <span class="n">used</span> <span class="k">for</span> <span class="n">mining</span> <span class="n">priority</span> <span class="p">(</span><span class="n">DEPRECATED</span><span class="p">)</span>
+    <span class="s2">&quot;time&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>             <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">local</span> <span class="n">time</span> <span class="n">transaction</span> <span class="n">entered</span> <span class="n">pool</span> <span class="ow">in</span> <span class="n">seconds</span> <span class="n">since</span> <span class="mi">1</span> <span class="n">Jan</span> <span class="mi">1970</span> <span class="n">GMT</span>
+    <span class="s2">&quot;height&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>           <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">block</span> <span class="n">height</span> <span class="n">when</span> <span class="n">transaction</span> <span class="n">entered</span> <span class="n">pool</span>
+    <span class="s2">&quot;descendantcount&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>  <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">number</span> <span class="n">of</span> <span class="ow">in</span><span class="o">-</span><span class="n">mempool</span> <span class="n">descendant</span> <span class="n">transactions</span> <span class="p">(</span><span class="n">including</span> <span class="n">this</span> <span class="n">one</span><span class="p">)</span>
+    <span class="s2">&quot;descendantsize&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>   <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">virtual</span> <span class="n">transaction</span> <span class="n">size</span> <span class="n">of</span> <span class="ow">in</span><span class="o">-</span><span class="n">mempool</span> <span class="n">descendants</span> <span class="p">(</span><span class="n">including</span> <span class="n">this</span> <span class="n">one</span><span class="p">)</span>
+    <span class="s2">&quot;descendantfees&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>   <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">modified</span> <span class="n">fees</span> <span class="p">(</span><span class="n">see</span> <span class="n">above</span><span class="p">)</span> <span class="n">of</span> <span class="ow">in</span><span class="o">-</span><span class="n">mempool</span> <span class="n">descendants</span> <span class="p">(</span><span class="n">including</span> <span class="n">this</span> <span class="n">one</span><span class="p">)</span> <span class="p">(</span><span class="n">DEPRECATED</span><span class="p">)</span>
+    <span class="s2">&quot;ancestorcount&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>    <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">number</span> <span class="n">of</span> <span class="ow">in</span><span class="o">-</span><span class="n">mempool</span> <span class="n">ancestor</span> <span class="n">transactions</span> <span class="p">(</span><span class="n">including</span> <span class="n">this</span> <span class="n">one</span><span class="p">)</span>
+    <span class="s2">&quot;ancestorsize&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>     <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">virtual</span> <span class="n">transaction</span> <span class="n">size</span> <span class="n">of</span> <span class="ow">in</span><span class="o">-</span><span class="n">mempool</span> <span class="n">ancestors</span> <span class="p">(</span><span class="n">including</span> <span class="n">this</span> <span class="n">one</span><span class="p">)</span>
+    <span class="s2">&quot;ancestorfees&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>     <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">modified</span> <span class="n">fees</span> <span class="p">(</span><span class="n">see</span> <span class="n">above</span><span class="p">)</span> <span class="n">of</span> <span class="ow">in</span><span class="o">-</span><span class="n">mempool</span> <span class="n">ancestors</span> <span class="p">(</span><span class="n">including</span> <span class="n">this</span> <span class="n">one</span><span class="p">)</span> <span class="p">(</span><span class="n">DEPRECATED</span><span class="p">)</span>
+    <span class="s2">&quot;wtxid&quot;</span> <span class="p">:</span> <span class="nb">hash</span><span class="p">,</span>         <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="nb">hash</span> <span class="n">of</span> <span class="n">serialized</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">including</span> <span class="n">witness</span> <span class="n">data</span>
+    <span class="s2">&quot;fees&quot;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;base&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>         <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">transaction</span> <span class="n">fee</span> <span class="ow">in</span> <span class="n">BTC</span>
+        <span class="s2">&quot;modified&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>     <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">transaction</span> <span class="n">fee</span> <span class="k">with</span> <span class="n">fee</span> <span class="n">deltas</span> <span class="n">used</span> <span class="k">for</span> <span class="n">mining</span> <span class="n">priority</span> <span class="ow">in</span> <span class="n">BTC</span>
+        <span class="s2">&quot;ancestor&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>     <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">modified</span> <span class="n">fees</span> <span class="p">(</span><span class="n">see</span> <span class="n">above</span><span class="p">)</span> <span class="n">of</span> <span class="ow">in</span><span class="o">-</span><span class="n">mempool</span> <span class="n">ancestors</span> <span class="p">(</span><span class="n">including</span> <span class="n">this</span> <span class="n">one</span><span class="p">)</span> <span class="ow">in</span> <span class="n">BTC</span>
+        <span class="s2">&quot;descendant&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>   <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">modified</span> <span class="n">fees</span> <span class="p">(</span><span class="n">see</span> <span class="n">above</span><span class="p">)</span> <span class="n">of</span> <span class="ow">in</span><span class="o">-</span><span class="n">mempool</span> <span class="n">descendants</span> <span class="p">(</span><span class="n">including</span> <span class="n">this</span> <span class="n">one</span><span class="p">)</span> <span class="ow">in</span> <span class="n">BTC</span>
+    <span class="p">}</span>
+    <span class="s2">&quot;depends&quot;</span> <span class="p">:</span> <span class="p">[</span>           <span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="n">unconfirmed</span> <span class="n">transactions</span> <span class="n">used</span> <span class="k">as</span> <span class="n">inputs</span> <span class="k">for</span> <span class="n">this</span> <span class="n">transaction</span>
+        <span class="s2">&quot;transactionid&quot;</span><span class="p">,</span>    <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">parent</span> <span class="n">transaction</span> <span class="nb">id</span>
+       <span class="o">...</span> <span class="p">]</span>
+    <span class="s2">&quot;spentby&quot;</span> <span class="p">:</span> <span class="p">[</span>           <span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="n">unconfirmed</span> <span class="n">transactions</span> <span class="n">spending</span> <span class="n">outputs</span> <span class="kn">from</span> <span class="nn">this</span> <span class="n">transaction</span>
+        <span class="s2">&quot;transactionid&quot;</span><span class="p">,</span>    <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">child</span> <span class="n">transaction</span> <span class="nb">id</span>
+       <span class="o">...</span> <span class="p">]</span>
+    <span class="s2">&quot;bip125-replaceable&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>  <span class="p">(</span><span class="n">boolean</span><span class="p">)</span> <span class="n">Whether</span> <span class="n">this</span> <span class="n">transaction</span> <span class="n">could</span> <span class="n">be</span> <span class="n">replaced</span> <span class="n">due</span> <span class="n">to</span> <span class="n">BIP125</span> <span class="p">(</span><span class="n">replace</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="n">fee</span><span class="p">)</span>
+  <span class="p">},</span> <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli getrawmempool <span class="nb">true</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl --user myusername --data-binary <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getrawmempool&quot;, &quot;params&quot;: [true] }&#39;</span> -H <span class="s1">&#39;content-type: text/plain;&#39;</span> http://127.0.0.1:8332/
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gettxout.html" class="btn btn-neutral float-right" title="gettxout" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getmempoolinfo.html" class="btn btn-neutral float-left" title="getmempoolinfo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Transactions &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contracts" href="contracts.html" />
+    <link rel="prev" title="Block Chain" href="block_chain.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guides</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="block_chain.html">Block Chain</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Transactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#p2pkh-script-validation">P2PKH Script Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#p2sh-scripts">P2SH Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#standard-transactions">Standard Transactions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pay-to-public-key-hash-p2pkh">Pay To Public Key Hash (P2PKH)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pay-to-script-hash-p2sh">Pay To Script Hash (P2SH)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#multisig">Multisig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pubkey">Pubkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#null-data">Null Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#non-standard-transactions">Non-Standard Transactions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#signature-hash-types">Signature Hash Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#locktime-and-sequence-number">Locktime And Sequence Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transaction-fees-and-change">Transaction Fees And Change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#avoiding-key-reuse">Avoiding Key Reuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transaction-malleability">Transaction Malleability</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contracts.html">Contracts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wallets.html">Wallets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payment_processing.html">Payment Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operating_modes.html">Operating Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="p2p_network.html">P2P Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mining.html">Mining</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer Guides</a> &raquo;</li>
+        
+      <li>Transactions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/devguide/transactions.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="transactions">
+<h1>Transactions<a class="headerlink" href="#transactions" title="Permalink to this headline">¶</a></h1>
+<p>Transactions let users spend satoshis. Each transaction is constructed out of several parts which enable both simple direct payments and complex transactions. This section will describe each part and demonstrate how to use them together to build complete transactions.</p>
+<p>To keep things simple, this section pretends coinbase transactions do not exist. Coinbase transactions can only be created by Bitcoin miners and they’re an exception to many of the rules listed below. Instead of pointing out the coinbase exception to each rule, we invite you to read about coinbase transactions in the block chain section of this guide.</p>
+<div class="figure align-center" id="id1">
+<img alt="The Parts Of A Transaction" src="../_images/en-tx-overview.svg" /><p class="caption"><span class="caption-text">The Parts Of A Transaction</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>The figure above shows the main parts of a Bitcoin transaction. Each transaction has at least one input and one output. Each <a class="reference external" href="../reference/glossary.html#input">input</a> spends the satoshis paid to a previous output. Each <a class="reference external" href="../reference/glossary.html#output">output</a> then waits as an Unspent Transaction Output (UTXO) until a later input spends it. When your Bitcoin wallet tells you that you have a 10,000 satoshi balance, it really means that you have 10,000 satoshis waiting in one or more UTXOs.</p>
+<p>Each transaction is prefixed by a four-byte <a class="reference external" href="/en/developer-guide#term-transaction-version-number">transaction version number</a> which tells Bitcoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.</p>
+<div class="figure align-center" id="id2">
+<img alt="Spending An Output" src="../_images/en-tx-overview-spending.svg" /><p class="caption"><span class="caption-text">Spending An Output</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>An output has an implied index number based on its location in the transaction—the index of the first output is zero. The output also has an amount in satoshis which it pays to a conditional pubkey script. Anyone who can satisfy the conditions of that pubkey script can spend up to the amount of satoshis paid to it.</p>
+<p>An input uses a transaction identifier (txid) and an <a class="reference external" href="/en/developer-guide#term-output-index">output index</a> number (often called “vout” for output vector) to identify a particular output to be spent. It also has a signature script which allows it to provide data parameters that satisfy the conditionals in the pubkey script. (The sequence number and locktime are related and will be covered together in a later subsection.)</p>
+<p>The figures below help illustrate how these features are used by showing the workflow Alice uses to send Bob a transaction and which Bob later uses to spend that transaction. Both Alice and Bob will use the most common form of the standard Pay-To-Public-Key-Hash (P2PKH) transaction type. <a class="reference external" href="../reference/glossary.html#p2pkh-address">P2PKH</a> lets Alice spend satoshis to a typical Bitcoin address, and then lets Bob further spend those satoshis using a simple cryptographic <a class="reference external" href="/en/developer-guide#term-key-pair">key pair</a>.</p>
+<div class="figure align-center" id="id3">
+<img alt="Creating A P2PKH Public Key Hash To Receive Payment" src="../_images/en-creating-p2pkh-output.svg" /><p class="caption"><span class="caption-text">Creating A P2PKH Public Key Hash To Receive Payment</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>Bob must first generate a private/public <a class="reference external" href="/en/developer-guide#term-key-pair">key pair</a> before Alice can create the first transaction. Bitcoin uses the Elliptic Curve Digital Signature Algorithm (<a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a>) with the <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> curve; <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> <a class="reference external" href="../reference/glossary.html#private-key">private keys</a> are 256 bits of random data. A copy of that data is deterministically transformed into an <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> <a class="reference external" href="../reference/glossary.html#public-key">public key</a>. Because the transformation can be reliably repeated later, the public key does not need to be stored.</p>
+<p>The public key (pubkey) is then cryptographically hashed. This pubkey hash can also be reliably repeated later, so it also does not need to be stored. The hash shortens and obfuscates the public key, making manual transcription easier and providing security against unanticipated problems which might allow reconstruction of private keys from public key data at some later point.</p>
+<p>Bob provides the pubkey hash to Alice. Pubkey hashes are almost always sent encoded as Bitcoin <a class="reference external" href="../reference/glossary.html#address">addresses</a>, which are base58-encoded strings containing an address version number, the hash, and an error-detection checksum to catch typos. The address can be transmitted through any medium, including one-way mediums which prevent the spender from communicating with the receiver, and it can be further encoded into another format, such as a QR code containing a <a class="reference external" href="/en/developer-guide#term-bitcoin-uri">“bitcoin:” URI</a>.</p>
+<p>Once Alice has the address and decodes it back into a standard hash, she can create the first transaction. She creates a standard P2PKH transaction output containing instructions which allow anyone to spend that output if they can prove they control the private key corresponding to Bob’s hashed public key. These instructions are called the <a class="reference external" href="../reference/glossary.html#pubkey-script">pubkey script</a> or scriptPubKey.</p>
+<p>Alice broadcasts the transaction and it is added to the block chain. The <a class="reference external" href="/en/developer-guide#term-network">network</a> categorizes it as an Unspent Transaction Output (UTXO), and Bob’s wallet software displays it as a spendable balance.</p>
+<p>When, some time later, Bob decides to spend the UTXO, he must create an input which references the transaction Alice created by its hash, called a Transaction Identifier (txid), and the specific output she used by its index number (<a class="reference external" href="/en/developer-guide#term-output-index">output index</a>). He must then create a <a class="reference external" href="../reference/glossary.html#signature-script">signature script</a>—a collection of data parameters which satisfy the conditions Alice placed in the previous output’s pubkey script. Signature scripts are also called scriptSigs.</p>
+<p>Pubkey scripts and signature scripts combine <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> pubkeys and signatures with conditional logic, creating a programmable authorization mechanism.</p>
+<div class="figure align-center" id="id4">
+<img alt="Unlocking A P2PKH Output For Spending" src="../_images/en-unlocking-p2pkh-output.svg" /><p class="caption"><span class="caption-text">Unlocking A P2PKH Output For Spending</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>For a P2PKH-style output, Bob’s signature script will contain the following two pieces of data:</p>
+<ol class="arabic simple">
+<li><p>His full (unhashed) public key, so the pubkey script can check that it hashes to the same value as the pubkey hash provided by Alice.</p></li>
+<li><p>An <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> <a class="reference external" href="../reference/glossary.html#signature">signature</a> made by using the <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> cryptographic formula to combine certain transaction data (described below) with Bob’s private key. This lets the pubkey script verify that Bob owns the private key which created the public key.</p></li>
+</ol>
+<p>Bob’s <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the <a class="reference external" href="/en/developer-guide#term-network">peer-to-peer network</a>.</p>
+<div class="figure align-center" id="id5">
+<img alt="Some Things Signed When Spending An Output" src="../_images/en-signing-output-to-spend.svg" /><p class="caption"><span class="caption-text">Some Things Signed When Spending An Output</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>As illustrated in the figure above, the data Bob signs includes the txid and <a class="reference external" href="/en/developer-guide#term-output-index">output index</a> of the previous transaction, the previous output’s pubkey script, the pubkey script Bob creates which will let the next recipient spend this transaction’s output, and the amount of satoshis to spend to the next recipient. In essence, the entire transaction is signed except for any signature scripts, which hold the full public keys and <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> signatures.</p>
+<p>After putting his signature and public key in the signature script, Bob broadcasts the transaction to Bitcoin miners through the <a class="reference external" href="/en/developer-guide#term-network">peer-to-peer network</a>. Each peer and miner independently validates the transaction before broadcasting it further or attempting to include it in a new block of transactions.</p>
+<div class="section" id="p2pkh-script-validation">
+<h2>P2PKH Script Validation<a class="headerlink" href="#p2pkh-script-validation" title="Permalink to this headline">¶</a></h2>
+<p>The validation procedure requires evaluation of the signature script and pubkey script. In a P2PKH output, the pubkey script is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OP_DUP</span> <span class="n">OP_HASH160</span> <span class="o">&lt;</span><span class="n">PubkeyHash</span><span class="o">&gt;</span> <span class="n">OP_EQUALVERIFY</span> <span class="n">OP_CHECKSIG</span>
+</pre></div>
+</div>
+<p>The spender’s signature script is evaluated and prefixed to the beginning of the script. In a P2PKH transaction, the signature script contains an <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> signature (sig) and full public key (pubkey), creating the following concatenation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Sig</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">PubKey</span><span class="o">&gt;</span> <span class="n">OP_DUP</span> <span class="n">OP_HASH160</span> <span class="o">&lt;</span><span class="n">PubkeyHash</span><span class="o">&gt;</span> <span class="n">OP_EQUALVERIFY</span> <span class="n">OP_CHECKSIG</span>
+</pre></div>
+</div>
+<p>The script language is a <a class="reference external" href="https://en.wikipedia.org/wiki/Forth_%28programming_language%29">Forth-like</a> stack-based language deliberately designed to be stateless and not Turing complete. Statelessness ensures that once a transaction is added to the block chain, there is no condition which renders it permanently unspendable. Turing-incompleteness (specifically, a lack of loops or gotos) makes the script language less flexible and more predictable, greatly simplifying the security model.</p>
+<p>To test whether the transaction is valid, signature script and pubkey script operations are executed one item at a time, starting with Bob’s signature script and continuing to the end of Alice’s pubkey script. The figure below shows the evaluation of a standard P2PKH pubkey script; below the figure is a description of the process.</p>
+<div class="figure align-center" id="id6">
+<img alt="P2PKH Stack Evaluation" src="../_images/en-p2pkh-stack.svg" /><p class="caption"><span class="caption-text">P2PKH Stack Evaluation</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<ul>
+<li><p>The signature (from Bob’s signature script) is added (pushed) to an empty stack. Because it’s just data, nothing is done except adding it to the stack. The public key (also from the signature script) is pushed on top of the signature.</p></li>
+<li><p>From Alice’s pubkey script, the <a class="reference external" href="/en/developer-reference#term-op-dup">“OP_DUP”</a> operation is executed. <a class="reference external" href="/en/developer-reference#term-op-dup">“OP_DUP”</a> pushes onto the stack a copy of the data currently at the top of it—in this case creating a copy of the public key Bob provided.</p></li>
+<li><p>The operation executed next, <a class="reference external" href="/en/developer-reference#term-op-hash160">“OP_HASH160”</a>, pushes onto the stack a hash of the data currently on top of it—in this case, Bob’s public key. This creates a hash of Bob’s public key.</p></li>
+<li><p>Alice’s pubkey script then pushes the pubkey hash that Bob gave her for the first transaction. At this point, there should be two copies of Bob’s pubkey hash at the top of the stack.</p></li>
+<li><p>Now it gets interesting: Alice’s pubkey script executes <a class="reference external" href="/en/developer-reference#term-op-equalverify">“OP_EQUALVERIFY”</a>. <a class="reference external" href="/en/developer-reference#term-op-equalverify">“OP_EQUALVERIFY”</a> is equivalent to executing <a class="reference external" href="/en/developer-reference#term-op-equal">“OP_EQUAL”</a> followed by <a class="reference external" href="/en/developer-reference#term-op-verify">“OP_VERIFY”</a> (not shown).</p>
+<p><a class="reference external" href="/en/developer-reference#term-op-equal">“OP_EQUAL”</a> (not shown) checks the two values at the top of the stack; in this case, it checks whether the pubkey hash generated from the full public key Bob provided equals the pubkey hash Alice provided when she created transaction #1. <a class="reference external" href="/en/developer-reference#term-op-equal">“OP_EQUAL”</a> pops (removes from the top of the stack) the two values it compared, and replaces them with the result of that comparison: zero (<em>false</em>) or one (<em>true</em>).</p>
+<p><a class="reference external" href="/en/developer-reference#term-op-verify">“OP_VERIFY”</a> (not shown) checks the value at the top of the stack. If the value is <em>false</em> it immediately terminates evaluation and the transaction validation fails. Otherwise it pops the <em>true</em> value off the stack.</p>
+</li>
+<li><p>Finally, Alice’s pubkey script executes <a class="reference external" href="/en/developer-reference#term-op-checksig">“OP_CHECKSIG”</a>, which checks the signature Bob provided against the now-authenticated public key he also provided. If the signature matches the public key and was generated using all of the data required to be signed, <a class="reference external" href="/en/developer-reference#term-op-checksig">“OP_CHECKSIG”</a> pushes the value <em>true</em> onto the top of the stack.</p></li>
+</ul>
+<p>If <em>false</em> is not at the top of the stack after the pubkey script has been evaluated, the transaction is valid (provided there are no other problems with it).</p>
+</div>
+<div class="section" id="p2sh-scripts">
+<h2>P2SH Scripts<a class="headerlink" href="#p2sh-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Pubkey scripts are created by spenders who have little interest what that script does. Receivers do care about the script conditions and, if they want, they can ask spenders to use a particular pubkey script. Unfortunately, custom pubkey scripts are less convenient than short Bitcoin addresses and there was no standard way to communicate them between programs prior to widespread implementation of the <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki">BIP70</a> Payment Protocol discussed later.</p>
+<p>To solve these problems, pay-to-script-hash (<a class="reference external" href="../reference/glossary.html#p2sh-address">P2SH</a>) transactions were created in 2012 to let a spender create a pubkey script containing a hash of a second script, the <a class="reference external" href="../reference/glossary.html#redeem-script">redeem script</a>.</p>
+<p>The basic P2SH workflow, illustrated below, looks almost identical to the P2PKH workflow. Bob creates a redeem script with whatever script he wants, hashes the redeem script, and provides the redeem script hash to Alice. Alice creates a P2SH-style output containing Bob’s redeem script hash.</p>
+<div class="figure align-center" id="id7">
+<img alt="Creating A P2SH Redeem Script And Hash" src="../_images/en-creating-p2sh-output.svg" /><p class="caption"><span class="caption-text">Creating A P2SH Redeem Script And Hash</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>When Bob wants to spend the output, he provides his signature along with the full (serialized) redeem script in the signature script. The <a class="reference external" href="/en/developer-guide#term-network">peer-to-peer network</a> ensures the full redeem script hashes to the same value as the script hash Alice put in her output; it then processes the redeem script exactly as it would if it were the primary pubkey script, letting Bob spend the output if the redeem script does not return false.</p>
+<div class="figure align-center" id="id8">
+<img alt="Unlocking A P2SH Output For Spending" src="../_images/en-unlocking-p2sh-output.svg" /><p class="caption"><span class="caption-text">Unlocking A P2SH Output For Spending</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>The hash of the redeem script has the same properties as a pubkey hash—so it can be transformed into the standard Bitcoin address format with only one small change to differentiate it from a standard address. This makes collecting a P2SH-style address as simple as collecting a P2PKH-style address. The hash also obfuscates any public keys in the redeem script, so P2SH scripts are as secure as P2PKH pubkey hashes.</p>
+</div>
+<div class="section" id="standard-transactions">
+<h2>Standard Transactions<a class="headerlink" href="#standard-transactions" title="Permalink to this headline">¶</a></h2>
+<p>After the discovery of several dangerous bugs in early versions of Bitcoin, a test was added which only accepted transactions from the <a class="reference external" href="/en/developer-guide#term-network">network</a> if their pubkey scripts and signature scripts matched a small set of believed-to-be-safe templates, and if the rest of the transaction didn’t violate another small set of rules enforcing good <a class="reference external" href="/en/developer-guide#term-network">network</a> behavior. This is the <code class="docutils literal notranslate"><span class="pre">IsStandard()</span></code> test, and transactions which pass it are called standard transactions.</p>
+<p>Non-standard transactions—those that fail the test—may be accepted by nodes not using the default Bitcoin Core settings. If they are included in blocks, they will also avoid the IsStandard test and be processed.</p>
+<p>Besides making it more difficult for someone to attack Bitcoin for free by broadcasting harmful transactions, the standard transaction test also helps prevent users from creating transactions today that would make adding new transaction features in the future more difficult. For example, as described above, each transaction includes a version number—if users started arbitrarily changing the version number, it would become useless as a tool for introducing backwards-incompatible features.</p>
+<p>As of Bitcoin Core 0.9, the standard pubkey script types are:</p>
+<div class="section" id="pay-to-public-key-hash-p2pkh">
+<h3>Pay To Public Key Hash (P2PKH)<a class="headerlink" href="#pay-to-public-key-hash-p2pkh" title="Permalink to this headline">¶</a></h3>
+<p>P2PKH is the most common form of pubkey script used to send a transaction to one or multiple Bitcoin addresses.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pubkey</span> <span class="n">script</span><span class="p">:</span> <span class="n">OP_DUP</span> <span class="n">OP_HASH160</span> <span class="o">&lt;</span><span class="n">PubKeyHash</span><span class="o">&gt;</span> <span class="n">OP_EQUALVERIFY</span> <span class="n">OP_CHECKSIG</span>
+<span class="n">Signature</span> <span class="n">script</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">sig</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">pubkey</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pay-to-script-hash-p2sh">
+<h3>Pay To Script Hash (P2SH)<a class="headerlink" href="#pay-to-script-hash-p2sh" title="Permalink to this headline">¶</a></h3>
+<p>P2SH is used to send a transaction to a script hash. Each of the standard pubkey scripts can be used as a P2SH redeem script, excluding P2SH itself. As of Bitcoin Core 0.9.2, P2SH transactions can contain any valid redeemScript, making the P2SH standard much more flexible and allowing for experimentation with many novel and complex types of transactions. The most common use of P2SH is the standard multisig pubkey script, with the second most common use being the <a class="reference external" href="https://github.com/OpenAssets/open-assets-protocol/blob/master/specification.mediawiki">Open Assets Protocol</a>.</p>
+<p>Another common redeemScript used for P2SH is storing textual data on the blockchain. The first bitcoin transaction ever made included text, and P2SH is a convenient method of storing text on the blockchain as its possible to store up to 1.5kb of text data. An example of storing text on the blockchain using P2SH can be found in this <a class="reference external" href="https://github.com/petertodd/checklocktimeverify-demos/blob/master/lib/python-bitcoinlib/examples/publish-text.py">repository</a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pubkey</span> <span class="n">script</span><span class="p">:</span> <span class="n">OP_HASH160</span> <span class="o">&lt;</span><span class="n">Hash160</span><span class="p">(</span><span class="n">redeemScript</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">OP_EQUAL</span>
+<span class="n">Signature</span> <span class="n">script</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">sig</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">sig</span><span class="p">]</span> <span class="p">[</span><span class="n">sig</span><span class="o">...</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">redeemScript</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>This script combination looks perfectly fine to old nodes as long as the script hash matches the redeem script. However, after the soft fork is activated, new nodes will perform a further verification for the redeem script. They will extract the redeem script from the signature script, decode it, and execute it with the remaining stack items(&lt;sig&gt; [sig] [sig..]part). Therefore, to redeem a P2SH transaction, the spender must provide the valid signature or answer in addition to the correct redeem script.</p>
+<p>This last step is similar to the verification step in P2PKH or P2Multisig scripts, where the initial part of the signature script(&lt;sig&gt; [sig] [sig..]) acts as the “signature script” in P2PKH/P2Multisig, and the redeem script acts as the “pubkey script”.</p>
+</div>
+<div class="section" id="multisig">
+<h3>Multisig<a class="headerlink" href="#multisig" title="Permalink to this headline">¶</a></h3>
+<p>Although P2SH multisig is now generally used for multisig transactions, this base script can be used to require multiple signatures before a UTXO can be spent.</p>
+<p>In multisig pubkey scripts, called m-of-n, <em>m</em> is the <em>minimum</em> number of signatures which must match a public key; <em>n</em> is the <em>number</em> of public keys being provided. Both <em>m</em> and <em>n</em> should be opcodes <code class="docutils literal notranslate"><span class="pre">OP_1</span></code> through <code class="docutils literal notranslate"><span class="pre">OP_16</span></code>, corresponding to the number desired.</p>
+<p>Because of an off-by-one error in the original Bitcoin implementation which must be preserved for compatibility, <a class="reference external" href="/en/developer-reference#term-op-checkmultisig">“OP_CHECKMULTISIG”</a> consumes one more value from the stack than indicated by <em>m</em>, so the list of <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> signatures in the signature script must be prefaced with an extra value (<code class="docutils literal notranslate"><span class="pre">OP_0</span></code>) which will be consumed but not used.</p>
+<p>The signature script must provide signatures in the same order as the corresponding public keys appear in the pubkey script or redeem script. See the description in <a class="reference external" href="/en/developer-reference#term-op-checkmultisig">“OP_CHECKMULTISIG”</a> for details.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pubkey</span> <span class="n">script</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">m</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">A</span> <span class="n">pubkey</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">B</span> <span class="n">pubkey</span><span class="p">]</span> <span class="p">[</span><span class="n">C</span> <span class="n">pubkey</span><span class="o">...</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">n</span><span class="o">&gt;</span> <span class="n">OP_CHECKMULTISIG</span>
+<span class="n">Signature</span> <span class="n">script</span><span class="p">:</span> <span class="n">OP_0</span> <span class="o">&lt;</span><span class="n">A</span> <span class="n">sig</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">B</span> <span class="n">sig</span><span class="p">]</span> <span class="p">[</span><span class="n">C</span> <span class="n">sig</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Although it’s not a separate transaction type, this is a P2SH multisig with 2-of-3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pubkey</span> <span class="n">script</span><span class="p">:</span> <span class="n">OP_HASH160</span> <span class="o">&lt;</span><span class="n">Hash160</span><span class="p">(</span><span class="n">redeemScript</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">OP_EQUAL</span>
+<span class="n">Redeem</span> <span class="n">script</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">OP_2</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">A</span> <span class="n">pubkey</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">B</span> <span class="n">pubkey</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">C</span> <span class="n">pubkey</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">OP_3</span><span class="o">&gt;</span> <span class="n">OP_CHECKMULTISIG</span>
+<span class="n">Signature</span> <span class="n">script</span><span class="p">:</span> <span class="n">OP_0</span> <span class="o">&lt;</span><span class="n">A</span> <span class="n">sig</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">C</span> <span class="n">sig</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">redeemScript</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pubkey">
+<h3>Pubkey<a class="headerlink" href="#pubkey" title="Permalink to this headline">¶</a></h3>
+<p>Pubkey outputs are a simplified form of the P2PKH pubkey script, but they aren’t as secure as P2PKH, so they generally aren’t used in new transactions anymore.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pubkey</span> <span class="n">script</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">pubkey</span><span class="o">&gt;</span> <span class="n">OP_CHECKSIG</span>
+<span class="n">Signature</span> <span class="n">script</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">sig</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="null-data">
+<h3>Null Data<a class="headerlink" href="#null-data" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="../reference/glossary.html#null-data-transaction">Null data</a> transaction type relayed and mined by default in <a class="reference external" href="/en/release/v0.9.0">Bitcoin Core 0.9.0</a> and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don’t have to store in their UTXO database. It is preferable to use null data transactions over transactions that bloat the UTXO database because they cannot be automatically pruned; however, it is usually even more preferable to store data outside transactions if possible.</p>
+<p>Consensus rules allow null data outputs up to the maximum allowed pubkey script size of 10,000 bytes provided they follow all other consensus rules, such as not having any data pushes larger than 520 bytes.</p>
+<p>Bitcoin Core 0.9.x to 0.10.x will, by default, relay and mine null data transactions with up to 40 bytes in a single data push and only one null data output that pays exactly 0 satoshis:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pubkey</span> <span class="n">Script</span><span class="p">:</span> <span class="n">OP_RETURN</span> <span class="o">&lt;</span><span class="mi">0</span> <span class="n">to</span> <span class="mi">40</span> <span class="nb">bytes</span> <span class="n">of</span> <span class="n">data</span><span class="o">&gt;</span>
+<span class="p">(</span><span class="n">Null</span> <span class="n">data</span> <span class="n">scripts</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">spent</span><span class="p">,</span> <span class="n">so</span> <span class="n">there</span><span class="s1">&#39;s no signature script.)</span>
+</pre></div>
+</div>
+<p>Bitcoin Core 0.11.x increases this default to 80 bytes, with the other rules remaining the same.</p>
+<p>Bitcoin Core 0.12.0 defaults to relaying and mining null data outputs with up to 83 bytes with any number of data pushes, provided the total byte limit is not exceeded. There must still only be a single null data output and it must still pay exactly 0 satoshis.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-datacarriersize</span></code> Bitcoin Core configuration option allows you to set the maximum number of bytes in null data outputs that you will relay or mine.</p>
+</div>
+<div class="section" id="non-standard-transactions">
+<h3>Non-Standard Transactions<a class="headerlink" href="#non-standard-transactions" title="Permalink to this headline">¶</a></h3>
+<p>If you use anything besides a standard pubkey script in an output, peers and miners using the default Bitcoin Core settings will neither accept, broadcast, nor mine your transaction. When you try to broadcast your transaction to a peer running the default settings, you will receive an error.</p>
+<p>If you create a redeem script, hash it, and use the hash in a P2SH output, the <a class="reference external" href="/en/developer-guide#term-network">network</a> sees only the hash, so it will accept the output as valid no matter what the redeem script says. This allows payment to non-standard scripts, and as of Bitcoin Core 0.11, almost all valid redeem scripts can be spent. The exception is scripts that use unassigned <a class="reference external" href="https://en.bitcoin.it/wiki/Script#Reserved_words">NOP opcodes</a>; these opcodes are reserved for future soft forks and can only be relayed or mined by nodes that don’t follow the standard mempool policy.</p>
+<p>Note: standard transactions are designed to protect and help the <a class="reference external" href="/en/developer-guide#term-network">network</a>, not prevent you from making mistakes. It’s easy to create standard transactions which make the satoshis sent to them unspendable.</p>
+<p>As of <a class="reference external" href="/en/release/v0.9.3">Bitcoin Core 0.9.3</a>, standard transactions must also meet the following conditions:</p>
+<ul class="simple">
+<li><p>The transaction must be finalized: either its locktime must be in the past (or less than or equal to the current block height), or all of its sequence numbers must be 0xffffffff.</p></li>
+<li><p>The transaction must be smaller than 100,000 bytes. That’s around 200 times larger than a typical single-input, single-output P2PKH transaction.</p></li>
+<li><p>Each of the transaction’s signature scripts must be smaller than 1,650 bytes. That’s large enough to allow 15-of-15 multisig transactions in P2SH using compressed public keys.</p></li>
+<li><p>Bare (non-P2SH) multisig transactions which require more than 3 public keys are currently non-standard.</p></li>
+<li><p>The transaction’s signature script must only push data to the script evaluation stack. It cannot push new opcodes, with the exception of opcodes which solely push data to the stack.</p></li>
+<li><p>The transaction must not include any outputs which receive fewer than 1/3 as many satoshis as it would take to spend it in a typical input. That’s <a class="reference external" href="https://github.com/bitcoin/bitcoin/commit/6a4c196dd64da2fd33dc7ae77a8cdd3e4cf0eff1">currently 546 satoshis</a> for a P2PKH or P2SH output on a Bitcoin Core node with the default relay fee. Exception: standard null data outputs must receive zero satoshis.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="signature-hash-types">
+<h2>Signature Hash Types<a class="headerlink" href="#signature-hash-types" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="/en/developer-reference#term-op-checksig">“OP_CHECKSIG”</a> extracts a non-stack argument from each signature it evaluates, allowing the signer to decide which parts of the transaction to sign. Since the signature protects those parts of the transaction from modification, this lets signers selectively choose to let other people modify their transactions.</p>
+<p>The various options for what to sign are called <a class="reference external" href="../reference/glossary.html#signature-hash">signature hash</a> types. There are three base SIGHASH types currently available:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../reference/glossary.html#sighash-all">“SIGHASH_ALL”</a>, the default, signs all the inputs and outputs, protecting everything except the signature scripts against modification.</p></li>
+<li><p><a class="reference external" href="../reference/glossary.html#sighash-none">“SIGHASH_NONE”</a> signs all of the inputs but none of the outputs, allowing anyone to change where the satoshis are going unless other signatures using other signature hash flags protect the outputs.</p></li>
+<li><p><a class="reference external" href="../reference/glossary.html#sighash-single">“SIGHASH_SINGLE”</a> the only output signed is the one corresponding to this input (the output with the same <a class="reference external" href="/en/developer-guide#term-output-index">output index</a> number as this input), ensuring nobody can change your part of the transaction but allowing other signers to change their part of the transaction. The corresponding output must exist or the value “1” will be signed, breaking the security scheme. This input, as well as other inputs, are included in the signature. The sequence numbers of other inputs are not included in the signature, and can be updated.</p></li>
+</ul>
+<p>The base types can be modified with the <a class="reference external" href="../reference/glossary.html#sighash-anyonecanpay">“SIGHASH_ANYONECANPAY”</a> (anyone can pay) flag, creating three new combined types:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SIGHASH_ALL|SIGHASH_ANYONECANPAY</span></code> signs all of the outputs but only this one input, and it also allows anyone to add or remove other inputs, so anyone can contribute additional satoshis but they cannot change how many satoshis are sent nor where they go.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SIGHASH_NONE|SIGHASH_ANYONECANPAY</span></code> signs only this one input and allows anyone to add or remove other inputs or outputs, so anyone who gets a copy of this input can spend it however they’d like.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SIGHASH_SINGLE|SIGHASH_ANYONECANPAY</span></code> signs this one input and its corresponding output. Allows anyone to add or remove other inputs.</p></li>
+</ul>
+<p>Because each input is signed, a transaction with multiple inputs can have multiple signature hash types signing different parts of the transaction. For example, a single-input transaction signed with <code class="docutils literal notranslate"><span class="pre">NONE</span></code> could have its output changed by the miner who adds it to the block chain. On the other hand, if a two-input transaction has one input signed with <code class="docutils literal notranslate"><span class="pre">NONE</span></code> and one input signed with <code class="docutils literal notranslate"><span class="pre">ALL</span></code>, the <code class="docutils literal notranslate"><span class="pre">ALL</span></code> signer can choose where to spend the satoshis without consulting the <code class="docutils literal notranslate"><span class="pre">NONE</span></code> signer—but nobody else can modify the transaction.</p>
+</div>
+<div class="section" id="locktime-and-sequence-number">
+<h2>Locktime And Sequence Number<a class="headerlink" href="#locktime-and-sequence-number" title="Permalink to this headline">¶</a></h2>
+<p>One thing all signature hash types sign is the transaction’s <a class="reference external" href="../reference/glossary.html#locktime">locktime</a>. (Called nLockTime in the Bitcoin Core source code.) The locktime indicates the earliest time a transaction can be added to the block chain.</p>
+<p>Locktime allows signers to create time-locked transactions which will only become valid in the future, giving the signers a chance to change their minds.</p>
+<p>If any of the signers change their mind, they can create a new non-locktime transaction. The new transaction will use, as one of its inputs, one of the same outputs which was used as an input to the locktime transaction. This makes the locktime transaction invalid if the new transaction is added to the block chain before the time lock expires.</p>
+<p>Care must be taken near the expiry time of a time lock. The <a class="reference external" href="/en/developer-guide#term-network">peer-to-peer network</a> allows block time to be up to two hours ahead of real time, so a locktime transaction can be added to the block chain up to two hours before its time lock officially expires. Also, blocks are not created at guaranteed intervals, so any attempt to cancel a valuable transaction should be made a few hours before the time lock expires.</p>
+<p>Previous versions of Bitcoin Core provided a feature which prevented transaction signers from using the method described above to cancel a time-locked transaction, but a necessary part of this feature was disabled to prevent denial of service attacks. A legacy of this system are four-byte <a class="reference external" href="../reference/glossary.html#sequence-number">sequence numbers</a> in every input. Sequence numbers were meant to allow multiple signers to agree to update a transaction; when they finished updating the transaction, they could agree to set every input’s sequence number to the four-byte unsigned maximum (0xffffffff), allowing the transaction to be added to a block even if its time lock had not expired.</p>
+<p>Even today, setting all sequence numbers to 0xffffffff (the default in Bitcoin Core) can still disable the time lock, so if you want to use locktime, at least one input must have a sequence number below the maximum. Since sequence numbers are not used by the <a class="reference external" href="/en/developer-guide#term-network">network</a> for any other purpose, setting any sequence number to zero is sufficient to enable locktime.</p>
+<p>Locktime itself is an unsigned 4-byte integer which can be parsed two ways:</p>
+<ul class="simple">
+<li><p>If less than 500 million, locktime is parsed as a block height. The transaction can be added to any block which has this height or higher.</p></li>
+<li><p>If greater than or equal to 500 million, locktime is parsed using the <a class="reference external" href="https://en.wikipedia.org/wiki/Unix_time">Unix epoch time</a> format (the number of seconds elapsed since 1970-01-01T00:00 UTC—currently over 1.395 billion). The transaction can be added to any block whose block time is greater than the locktime.</p></li>
+</ul>
+</div>
+<div class="section" id="transaction-fees-and-change">
+<h2>Transaction Fees And Change<a class="headerlink" href="#transaction-fees-and-change" title="Permalink to this headline">¶</a></h2>
+<p>Transactions pay fees based on the total byte size of the signed transaction. Fees per byte are calculated based on current demand for space in mined blocks with fees rising as demand increases. The transaction fee is given to the Bitcoin miner, as explained in the <a class="reference external" href="/en/developer-guide#block-chain">block chain section</a>, and so it is ultimately up to each miner to choose the minimum transaction fee they will accept.</p>
+<p>There is also a concept of so-called “<a class="reference external" href="../reference/glossary.html#high-priority-transaction">high-priority transactions</a>” which spend satoshis that have not moved for a long time.</p>
+<p>In the past, these “priority” transaction were often exempt from the normal fee requirements. Before Bitcoin Core 0.12, 50 KB of each block would be reserved for these high-priority transactions, however this is now set to 0 KB by default. After the priority area, all transactions are prioritized based on their fee per byte, with higher-paying transactions being added in sequence until all of the available space is filled.</p>
+<p>As of Bitcoin Core 0.9, a <a class="reference external" href="../reference/glossary.html#minimum-relay-fee">minimum fee</a> (currently 1,000 satoshis) has been required to broadcast a transaction across the <a class="reference external" href="/en/developer-guide#term-network">network</a>. Any transaction paying only the minimum fee should be prepared to wait a long time before there’s enough spare space in a block to include it. Please see the <a class="reference external" href="/en/developer-guide#verifying-payment">verifying payment section</a> for why this could be important.</p>
+<p>Since each transaction spends Unspent Transaction Outputs (UTXOs) and because a UTXO can only be spent once, the full value of the included UTXOs must be spent or given to a miner as a transaction fee. Few people will have UTXOs that exactly match the amount they want to pay, so most transactions include a change output.</p>
+<p><a class="reference external" href="../reference/glossary.html#change-address">Change outputs</a> are regular outputs which spend the surplus satoshis from the UTXOs back to the spender. They can reuse the same P2PKH pubkey hash or P2SH script hash as was used in the UTXO, but for the reasons described in the <a class="reference external" href="#avoiding-key-reuse">next subsection</a>, it is highly recommended that change outputs be sent to a new P2PKH or P2SH address.</p>
+</div>
+<div class="section" id="avoiding-key-reuse">
+<h2>Avoiding Key Reuse<a class="headerlink" href="#avoiding-key-reuse" title="Permalink to this headline">¶</a></h2>
+<p>In a transaction, the spender and receiver each reveal to each other all public keys or addresses used in the transaction. This allows either person to use the public block chain to track past and future transactions involving the other person’s same public keys or addresses.</p>
+<p>If the same public key is reused often, as happens when people use Bitcoin addresses (hashed public keys) as static payment addresses, other people can easily track the receiving and spending habits of that person, including how many satoshis they control in known addresses.</p>
+<p>It doesn’t have to be that way. If each public key is used exactly twice—once to receive a payment and once to spend that payment—the user can gain a significant amount of financial privacy.</p>
+<p>Even better, using new public keys or <a class="reference external" href="/en/developer-guide#term-unique-address">unique addresses</a> when accepting payments or creating change outputs can be combined with other techniques discussed later, such as CoinJoin or <a class="reference external" href="/en/developer-guide#term-merge-avoidance">merge avoidance</a>, to make it extremely difficult to use the block chain by itself to reliably track how users receive and spend their satoshis.</p>
+<p>Avoiding key reuse can also provide security against attacks which might allow reconstruction of private keys from public keys (hypothesized) or from signature comparisons (possible today under certain circumstances described below, with more general attacks hypothesized).</p>
+<ol class="arabic simple">
+<li><p>Unique (non-reused) P2PKH and P2SH addresses protect against the first type of attack by keeping <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> public keys hidden (hashed) until the first time satoshis sent to those addresses are spent, so attacks are effectively useless unless they can reconstruct private keys in less than the hour or two it takes for a transaction to be well protected by the block chain.</p></li>
+<li><p>Unique (non-reused) private keys protect against the second type of attack by only generating one signature per private key, so attackers never get a subsequent signature to use in comparison-based attacks. Existing comparison-based attacks are only practical today when insufficient entropy is used in signing or when the entropy used is exposed by some means, such as a <a class="reference external" href="https://en.wikipedia.org/wiki/Side_channel_attack">side-channel attack</a>.</p></li>
+</ol>
+<p>So, for both privacy and security, we encourage you to build your applications to avoid public key reuse and, when possible, to discourage users from reusing addresses. If your application needs to provide a fixed URI to which payments should be sent, please see the <code class="docutils literal notranslate"><span class="pre">`bitcoin:</span></code> URI section &lt;/en/developer-guide#bitcoin-uri&gt;`__ below.</p>
+</div>
+<div class="section" id="transaction-malleability">
+<h2>Transaction Malleability<a class="headerlink" href="#transaction-malleability" title="Permalink to this headline">¶</a></h2>
+<p>None of Bitcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called <a class="reference external" href="../reference/glossary.html#malleability">transaction malleability</a>{:.term}{:#term-transaction-malleability}. The signature script contains the <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.</p>
+<p>Although the modifications are non-functional—so they do not change what inputs the transaction uses nor what outputs it pays—they do change the computed hash of the transaction. Since each transaction links to previous transactions using hashes as a transaction identifier (txid), a modified transaction will not have the txid its creator expected.</p>
+<p>This isn’t a problem for most Bitcoin transactions which are designed to be added to the block chain immediately. But it does become a problem when the output from a transaction is spent before that transaction is added to the block chain.</p>
+<p>Bitcoin developers have been working to reduce transaction malleability among standard transaction types, one outcome of those efforts is <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki">BIP 141: Segregated Witness</a>, which is supported by Bitcoin Core and was activated in August 2017. When SegWit is not being used, new transactions should not depend on previous transactions which have not been added to the block chain yet, especially if large amounts of satoshis are at stake.</p>
+<p>Transaction malleability also affects payment tracking. Bitcoin Core’s <a class="reference external" href="/en/developer-reference#remote-procedure-calls-rpcs">RPC</a> interface lets you track transactions by their txid—but if that txid changes because the transaction was modified, it may appear that the transaction has disappeared from the <a class="reference external" href="/en/developer-guide#term-network">network</a>.</p>
+<p>Current best practices for transaction tracking dictate that a transaction should be tracked by the transaction outputs (UTXOs) it spends as inputs, as they cannot be changed without invalidating the transaction.</p>
+<p>Best practices further dictate that if a transaction does seem to disappear from the <a class="reference external" href="/en/developer-guide#term-network">network</a> and needs to be reissued, that it be reissued in a way that invalidates the lost transaction. One method which will always work is to ensure the reissued payment spends all of the same outputs that the lost transaction used as inputs.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="contracts.html" class="btn btn-neutral float-right" title="Contracts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="block_chain.html" class="btn btn-neutral float-left" title="Block Chain" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

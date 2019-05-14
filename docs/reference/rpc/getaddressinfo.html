@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>getaddressinfo &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="getbalance" href="getbalance.html" />
+    <link rel="prev" title="getaddressesbylabel" href="getaddressesbylabel.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RPC API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#wallet-rpcs">Wallet RPCs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="abandontransaction.html">abandontransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="abortrescan.html">abortrescan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="addmultisigaddress.html">addmultisigaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="backupwallet.html">backupwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bumpfee.html">bumpfee</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createwallet.html">createwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dumpprivkey.html">dumpprivkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dumpwallet.html">dumpwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="encryptwallet.html">encryptwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getaddressesbylabel.html">getaddressesbylabel</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">getaddressinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getbalance.html">getbalance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getnewaddress.html">getnewaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getrawchangeaddress.html">getrawchangeaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getreceivedbyaddress.html">getreceivedbyaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getreceivedbylabel.html">getreceivedbylabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettransaction.html">gettransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getunconfirmedbalance.html">getunconfirmedbalance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getwalletinfo.html">getwalletinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importaddress.html">importaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importmulti.html">importmulti</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importprivkey.html">importprivkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importprunedfunds.html">importprunedfunds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importpubkey.html">importpubkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importwallet.html">importwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="keypoolrefill.html">keypoolrefill</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listaddressgroupings.html">listaddressgroupings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listlabels.html">listlabels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listlockunspent.html">listlockunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listreceivedbyaddress.html">listreceivedbyaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listreceivedbylabel.html">listreceivedbylabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listsinceblock.html">listsinceblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listtransactions.html">listtransactions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listunspent.html">listunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listwalletdir.html">listwalletdir</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listwallets.html">listwallets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loadwallet.html">loadwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lockunspent.html">lockunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="removeprunedfunds.html">removeprunedfunds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rescanblockchain.html">rescanblockchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sendmany.html">sendmany</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sendtoaddress.html">sendtoaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sethdseed.html">sethdseed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setlabel.html">setlabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="settxfee.html">settxfee</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signmessage.html">signmessage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signrawtransactionwithwallet.html">signrawtransactionwithwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="unloadwallet.html">unloadwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletcreatefundedpsbt.html">walletcreatefundedpsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletlock.html">walletlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletpassphrase.html">walletpassphrase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletpassphrasechange.html">walletpassphrasechange</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletprocesspsbt.html">walletprocesspsbt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+        
+          <li><a href="index.html">RPC API Reference</a> &raquo;</li>
+        
+      <li>getaddressinfo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/reference/rpc/getaddressinfo.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getaddressinfo">
+<h1>getaddressinfo<a class="headerlink" href="#getaddressinfo" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">getaddressinfo</span> <span class="pre">&quot;address&quot;</span></code></p>
+<p>Return information about the given bitcoin address. Some information requires the address
+to be in the wallet.</p>
+<div class="section" id="argument-1-address">
+<h2>Argument #1 - address<a class="headerlink" href="#argument-1-address" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> string, required</p>
+<p>The bitcoin address to get the information of.</p>
+</div>
+<div class="section" id="result">
+<h2>Result<a class="headerlink" href="#result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;address&quot;</span> <span class="p">:</span> <span class="s2">&quot;address&quot;</span><span class="p">,</span>        <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">The</span> <span class="n">bitcoin</span> <span class="n">address</span> <span class="n">validated</span>
+  <span class="s2">&quot;scriptPubKey&quot;</span> <span class="p">:</span> <span class="s2">&quot;hex&quot;</span><span class="p">,</span>       <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">The</span> <span class="nb">hex</span><span class="o">-</span><span class="n">encoded</span> <span class="n">scriptPubKey</span> <span class="n">generated</span> <span class="n">by</span> <span class="n">the</span> <span class="n">address</span>
+  <span class="s2">&quot;ismine&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>        <span class="p">(</span><span class="n">boolean</span><span class="p">)</span> <span class="n">If</span> <span class="n">the</span> <span class="n">address</span> <span class="ow">is</span> <span class="n">yours</span> <span class="ow">or</span> <span class="ow">not</span>
+  <span class="s2">&quot;iswatchonly&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>   <span class="p">(</span><span class="n">boolean</span><span class="p">)</span> <span class="n">If</span> <span class="n">the</span> <span class="n">address</span> <span class="ow">is</span> <span class="n">watchonly</span>
+  <span class="s2">&quot;solvable&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>      <span class="p">(</span><span class="n">boolean</span><span class="p">)</span> <span class="n">Whether</span> <span class="n">we</span> <span class="n">know</span> <span class="n">how</span> <span class="n">to</span> <span class="n">spend</span> <span class="n">coins</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">this</span> <span class="n">address</span><span class="p">,</span> <span class="n">ignoring</span> <span class="n">the</span> <span class="n">possible</span> <span class="n">lack</span> <span class="n">of</span> <span class="n">private</span> <span class="n">keys</span>
+  <span class="s2">&quot;desc&quot;</span> <span class="p">:</span> <span class="s2">&quot;desc&quot;</span><span class="p">,</span>            <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">A</span> <span class="n">descriptor</span> <span class="k">for</span> <span class="n">spending</span> <span class="n">coins</span> <span class="n">sent</span> <span class="n">to</span> <span class="n">this</span> <span class="n">address</span> <span class="p">(</span><span class="n">only</span> <span class="n">when</span> <span class="n">solvable</span><span class="p">)</span>
+  <span class="s2">&quot;isscript&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>      <span class="p">(</span><span class="n">boolean</span><span class="p">)</span> <span class="n">If</span> <span class="n">the</span> <span class="n">key</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">script</span>
+  <span class="s2">&quot;ischange&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>      <span class="p">(</span><span class="n">boolean</span><span class="p">)</span> <span class="n">If</span> <span class="n">the</span> <span class="n">address</span> <span class="n">was</span> <span class="n">used</span> <span class="k">for</span> <span class="n">change</span> <span class="n">output</span>
+  <span class="s2">&quot;iswitness&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>     <span class="p">(</span><span class="n">boolean</span><span class="p">)</span> <span class="n">If</span> <span class="n">the</span> <span class="n">address</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">witness</span> <span class="n">address</span>
+  <span class="s2">&quot;witness_version&quot;</span> <span class="p">:</span> <span class="n">version</span>   <span class="p">(</span><span class="n">numeric</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="n">version</span> <span class="n">number</span> <span class="n">of</span> <span class="n">the</span> <span class="n">witness</span> <span class="n">program</span>
+  <span class="s2">&quot;witness_program&quot;</span> <span class="p">:</span> <span class="s2">&quot;hex&quot;</span>     <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="nb">hex</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">witness</span> <span class="n">program</span>
+  <span class="s2">&quot;script&quot;</span> <span class="p">:</span> <span class="s2">&quot;type&quot;</span>             <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="n">output</span> <span class="n">script</span> <span class="nb">type</span><span class="o">.</span> <span class="n">Only</span> <span class="k">if</span> <span class="s2">&quot;isscript&quot;</span> <span class="ow">is</span> <span class="n">true</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">redeemscript</span> <span class="ow">is</span> <span class="n">known</span><span class="o">.</span> <span class="n">Possible</span> <span class="n">types</span><span class="p">:</span> <span class="n">nonstandard</span><span class="p">,</span> <span class="n">pubkey</span><span class="p">,</span> <span class="n">pubkeyhash</span><span class="p">,</span> <span class="n">scripthash</span><span class="p">,</span> <span class="n">multisig</span><span class="p">,</span> <span class="n">nulldata</span><span class="p">,</span> <span class="n">witness_v0_keyhash</span><span class="p">,</span> <span class="n">witness_v0_scripthash</span><span class="p">,</span> <span class="n">witness_unknown</span>
+  <span class="s2">&quot;hex&quot;</span> <span class="p">:</span> <span class="s2">&quot;hex&quot;</span><span class="p">,</span>                <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="n">redeemscript</span> <span class="k">for</span> <span class="n">the</span> <span class="n">p2sh</span> <span class="n">address</span>
+  <span class="s2">&quot;pubkeys&quot;</span>                     <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">Array</span> <span class="n">of</span> <span class="n">pubkeys</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">the</span> <span class="n">known</span> <span class="n">redeemscript</span> <span class="p">(</span><span class="n">only</span> <span class="k">if</span> <span class="s2">&quot;script&quot;</span> <span class="ow">is</span> <span class="s2">&quot;multisig&quot;</span><span class="p">)</span>
+    <span class="p">[</span>
+      <span class="s2">&quot;pubkey&quot;</span>
+      <span class="p">,</span><span class="o">...</span>
+    <span class="p">]</span>
+  <span class="s2">&quot;sigsrequired&quot;</span> <span class="p">:</span> <span class="n">xxxxx</span>        <span class="p">(</span><span class="n">numeric</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">signatures</span> <span class="n">required</span> <span class="n">to</span> <span class="n">spend</span> <span class="n">multisig</span> <span class="n">output</span> <span class="p">(</span><span class="n">only</span> <span class="k">if</span> <span class="s2">&quot;script&quot;</span> <span class="ow">is</span> <span class="s2">&quot;multisig&quot;</span><span class="p">)</span>
+  <span class="s2">&quot;pubkey&quot;</span> <span class="p">:</span> <span class="s2">&quot;publickeyhex&quot;</span><span class="p">,</span>    <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="nb">hex</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">raw</span> <span class="n">public</span> <span class="n">key</span><span class="p">,</span> <span class="k">for</span> <span class="n">single</span><span class="o">-</span><span class="n">key</span> <span class="n">addresses</span> <span class="p">(</span><span class="n">possibly</span> <span class="n">embedded</span> <span class="ow">in</span> <span class="n">P2SH</span> <span class="ow">or</span> <span class="n">P2WSH</span><span class="p">)</span>
+  <span class="s2">&quot;embedded&quot;</span> <span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">},</span>           <span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">Information</span> <span class="n">about</span> <span class="n">the</span> <span class="n">address</span> <span class="n">embedded</span> <span class="ow">in</span> <span class="n">P2SH</span> <span class="ow">or</span> <span class="n">P2WSH</span><span class="p">,</span> <span class="k">if</span> <span class="n">relevant</span> <span class="ow">and</span> <span class="n">known</span><span class="o">.</span> <span class="n">It</span> <span class="n">includes</span> <span class="nb">all</span> <span class="n">getaddressinfo</span> <span class="n">output</span> <span class="n">fields</span> <span class="k">for</span> <span class="n">the</span> <span class="n">embedded</span> <span class="n">address</span><span class="p">,</span> <span class="n">excluding</span> <span class="n">metadata</span> <span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;hdkeypath&quot;</span><span class="p">,</span> <span class="s2">&quot;hdseedid&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">relation</span> <span class="n">to</span> <span class="n">the</span> <span class="n">wallet</span> <span class="p">(</span><span class="s2">&quot;ismine&quot;</span><span class="p">,</span> <span class="s2">&quot;iswatchonly&quot;</span><span class="p">)</span><span class="o">.</span>
+  <span class="s2">&quot;iscompressed&quot;</span> <span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>  <span class="p">(</span><span class="n">boolean</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">If</span> <span class="n">the</span> <span class="n">pubkey</span> <span class="ow">is</span> <span class="n">compressed</span>
+  <span class="s2">&quot;label&quot;</span> <span class="p">:</span>  <span class="s2">&quot;label&quot;</span>         <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">The</span> <span class="n">label</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">the</span> <span class="n">address</span><span class="p">,</span> <span class="s2">&quot;&quot;</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">default</span> <span class="n">label</span>
+  <span class="s2">&quot;timestamp&quot;</span> <span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>      <span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="n">creation</span> <span class="n">time</span> <span class="n">of</span> <span class="n">the</span> <span class="n">key</span> <span class="k">if</span> <span class="n">available</span> <span class="ow">in</span> <span class="n">seconds</span> <span class="n">since</span> <span class="n">epoch</span> <span class="p">(</span><span class="n">Jan</span> <span class="mi">1</span> <span class="mi">1970</span> <span class="n">GMT</span><span class="p">)</span>
+  <span class="s2">&quot;hdkeypath&quot;</span> <span class="p">:</span> <span class="s2">&quot;keypath&quot;</span>       <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="n">HD</span> <span class="n">keypath</span> <span class="k">if</span> <span class="n">the</span> <span class="n">key</span> <span class="ow">is</span> <span class="n">HD</span> <span class="ow">and</span> <span class="n">available</span>
+  <span class="s2">&quot;hdseedid&quot;</span> <span class="p">:</span> <span class="s2">&quot;&lt;hash160&gt;&quot;</span>      <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="n">Hash160</span> <span class="n">of</span> <span class="n">the</span> <span class="n">HD</span> <span class="n">seed</span>
+  <span class="s2">&quot;hdmasterfingerprint&quot;</span> <span class="p">:</span> <span class="s2">&quot;&lt;hash160&gt;&quot;</span> <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">The</span> <span class="n">fingperint</span> <span class="n">of</span> <span class="n">the</span> <span class="n">master</span> <span class="n">key</span><span class="o">.</span>
+  <span class="s2">&quot;labels&quot;</span>                      <span class="p">(</span><span class="nb">object</span><span class="p">)</span> <span class="n">Array</span> <span class="n">of</span> <span class="n">labels</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">the</span> <span class="n">address</span><span class="o">.</span>
+    <span class="p">[</span>
+      <span class="p">{</span> <span class="p">(</span><span class="n">json</span> <span class="nb">object</span> <span class="n">of</span> <span class="n">label</span> <span class="n">data</span><span class="p">)</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;labelname&quot;</span> <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">The</span> <span class="n">label</span>
+        <span class="s2">&quot;purpose&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span> <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">Purpose</span> <span class="n">of</span> <span class="n">address</span> <span class="p">(</span><span class="s2">&quot;send&quot;</span> <span class="k">for</span> <span class="n">sending</span> <span class="n">address</span><span class="p">,</span> <span class="s2">&quot;receive&quot;</span> <span class="k">for</span> <span class="n">receiving</span> <span class="n">address</span><span class="p">)</span>
+      <span class="p">},</span><span class="o">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli getaddressinfo <span class="s2">&quot;1PSSGeFHDnKNxiEyFrD1wcEaHr9hrQDDWc&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl --user myusername --data-binary <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getaddressinfo&quot;, &quot;params&quot;: [&quot;1PSSGeFHDnKNxiEyFrD1wcEaHr9hrQDDWc&quot;] }&#39;</span> -H <span class="s1">&#39;content-type: text/plain;&#39;</span> http://127.0.0.1:8332/
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getbalance.html" class="btn btn-neutral float-right" title="getbalance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getaddressesbylabel.html" class="btn btn-neutral float-left" title="getaddressesbylabel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

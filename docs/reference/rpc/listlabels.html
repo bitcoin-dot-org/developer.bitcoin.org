@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>listlabels &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="listlockunspent" href="listlockunspent.html" />
+    <link rel="prev" title="listaddressgroupings" href="listaddressgroupings.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RPC API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#wallet-rpcs">Wallet RPCs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="abandontransaction.html">abandontransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="abortrescan.html">abortrescan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="addmultisigaddress.html">addmultisigaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="backupwallet.html">backupwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bumpfee.html">bumpfee</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createwallet.html">createwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dumpprivkey.html">dumpprivkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dumpwallet.html">dumpwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="encryptwallet.html">encryptwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getaddressesbylabel.html">getaddressesbylabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getaddressinfo.html">getaddressinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getbalance.html">getbalance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getnewaddress.html">getnewaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getrawchangeaddress.html">getrawchangeaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getreceivedbyaddress.html">getreceivedbyaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getreceivedbylabel.html">getreceivedbylabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettransaction.html">gettransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getunconfirmedbalance.html">getunconfirmedbalance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getwalletinfo.html">getwalletinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importaddress.html">importaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importmulti.html">importmulti</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importprivkey.html">importprivkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importprunedfunds.html">importprunedfunds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importpubkey.html">importpubkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importwallet.html">importwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="keypoolrefill.html">keypoolrefill</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listaddressgroupings.html">listaddressgroupings</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">listlabels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listlockunspent.html">listlockunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listreceivedbyaddress.html">listreceivedbyaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listreceivedbylabel.html">listreceivedbylabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listsinceblock.html">listsinceblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listtransactions.html">listtransactions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listunspent.html">listunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listwalletdir.html">listwalletdir</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listwallets.html">listwallets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loadwallet.html">loadwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lockunspent.html">lockunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="removeprunedfunds.html">removeprunedfunds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rescanblockchain.html">rescanblockchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sendmany.html">sendmany</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sendtoaddress.html">sendtoaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sethdseed.html">sethdseed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setlabel.html">setlabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="settxfee.html">settxfee</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signmessage.html">signmessage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signrawtransactionwithwallet.html">signrawtransactionwithwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="unloadwallet.html">unloadwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletcreatefundedpsbt.html">walletcreatefundedpsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletlock.html">walletlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletpassphrase.html">walletpassphrase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletpassphrasechange.html">walletpassphrasechange</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletprocesspsbt.html">walletprocesspsbt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+        
+          <li><a href="index.html">RPC API Reference</a> &raquo;</li>
+        
+      <li>listlabels</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/reference/rpc/listlabels.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="listlabels">
+<h1>listlabels<a class="headerlink" href="#listlabels" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">listlabels</span> <span class="pre">(</span> <span class="pre">&quot;purpose&quot;</span> <span class="pre">)</span></code></p>
+<p>Returns the list of all labels, or labels that are assigned to addresses with a specific purpose.</p>
+<div class="section" id="argument-1-purpose">
+<h2>Argument #1 - purpose<a class="headerlink" href="#argument-1-purpose" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> string, optional</p>
+<p>Address purpose to list labels for (‘send’,’receive’). An empty string is the same as not providing this argument.</p>
+</div>
+<div class="section" id="result">
+<h2>Result<a class="headerlink" href="#result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>               <span class="p">(</span><span class="n">json</span> <span class="n">array</span> <span class="n">of</span> <span class="n">string</span><span class="p">)</span>
+  <span class="s2">&quot;label&quot;</span><span class="p">,</span>      <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">Label</span> <span class="n">name</span>
+  <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>List all labels:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli listlabels
+</pre></div>
+</div>
+<p>List labels that have receiving addresses:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli listlabels receive
+</pre></div>
+</div>
+<p>List labels that have sending addresses:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli listlabels send
+</pre></div>
+</div>
+<p>As a JSON-RPC call:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl --user myusername --data-binary <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;listlabels&quot;, &quot;params&quot;: [receive] }&#39;</span> -H <span class="s1">&#39;content-type: text/plain;&#39;</span> http://127.0.0.1:8332/
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="listlockunspent.html" class="btn btn-neutral float-right" title="listlockunspent" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="listaddressgroupings.html" class="btn btn-neutral float-left" title="listaddressgroupings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

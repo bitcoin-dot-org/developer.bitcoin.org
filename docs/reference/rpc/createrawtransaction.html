@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>createrawtransaction &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="decodepsbt" href="decodepsbt.html" />
+    <link rel="prev" title="createpsbt" href="createpsbt.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RPC API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="analyzepsbt.html">analyzepsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="combinepsbt.html">combinepsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="combinerawtransaction.html">combinerawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="converttopsbt.html">converttopsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createpsbt.html">createpsbt</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">createrawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decodepsbt.html">decodepsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decoderawtransaction.html">decoderawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decodescript.html">decodescript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finalizepsbt.html">finalizepsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fundrawtransaction.html">fundrawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getrawtransaction.html">getrawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="joinpsbts.html">joinpsbts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sendrawtransaction.html">sendrawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signrawtransactionwithkey.html">signrawtransactionwithkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="testmempoolaccept.html">testmempoolaccept</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utxoupdatepsbt.html">utxoupdatepsbt</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#wallet-rpcs">Wallet RPCs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+        
+          <li><a href="index.html">RPC API Reference</a> &raquo;</li>
+        
+      <li>createrawtransaction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/reference/rpc/createrawtransaction.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="createrawtransaction">
+<h1>createrawtransaction<a class="headerlink" href="#createrawtransaction" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">createrawtransaction</span> <span class="pre">[{&quot;txid&quot;:&quot;hex&quot;,&quot;vout&quot;:n,&quot;sequence&quot;:n},...]</span> <span class="pre">[{&quot;address&quot;:amount},{&quot;data&quot;:&quot;hex&quot;},...]</span> <span class="pre">(</span> <span class="pre">locktime</span> <span class="pre">replaceable</span> <span class="pre">)</span></code></p>
+<p>Create a transaction spending the given inputs and creating new outputs.</p>
+<p>Outputs can be addresses or data.</p>
+<p>Returns hex-encoded raw transaction.</p>
+<p>Note that the transaction’s inputs are not signed, and
+it is not stored in the wallet or transmitted to the network.</p>
+<div class="section" id="argument-1-inputs">
+<h2>Argument #1 - inputs<a class="headerlink" href="#argument-1-inputs" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> json array, required</p>
+<p>A json array of json objects</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>                       <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span>
+    <span class="s2">&quot;txid&quot;</span><span class="p">:</span> <span class="s2">&quot;hex&quot;</span><span class="p">,</span>        <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span> <span class="n">The</span> <span class="n">transaction</span> <span class="nb">id</span>
+    <span class="s2">&quot;vout&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span>            <span class="p">(</span><span class="n">numeric</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span> <span class="n">The</span> <span class="n">output</span> <span class="n">number</span>
+    <span class="s2">&quot;sequence&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span>        <span class="p">(</span><span class="n">numeric</span><span class="p">,</span> <span class="n">optional</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">depends</span> <span class="n">on</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="s1">&#39;replaceable&#39;</span> <span class="ow">and</span> <span class="s1">&#39;locktime&#39;</span> <span class="n">arguments</span><span class="p">)</span> <span class="n">The</span> <span class="n">sequence</span> <span class="n">number</span>
+  <span class="p">},</span>
+  <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="argument-2-outputs">
+<h2>Argument #2 - outputs<a class="headerlink" href="#argument-2-outputs" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> json array, required</p>
+<dl class="simple">
+<dt>a json array with outputs (key-value pairs), where none of the keys are duplicated.</dt><dd><p>That is, each address can only appear once and there can only be one ‘data’ object.
+For compatibility reasons, a dictionary, which holds the key-value pairs directly, is also
+accepted as second parameter.</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>                       <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span>
+    <span class="s2">&quot;address&quot;</span><span class="p">:</span> <span class="n">amount</span><span class="p">,</span>    <span class="p">(</span><span class="n">numeric</span> <span class="ow">or</span> <span class="n">string</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span> <span class="n">A</span> <span class="n">key</span><span class="o">-</span><span class="n">value</span> <span class="n">pair</span><span class="o">.</span> <span class="n">The</span> <span class="n">key</span> <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">bitcoin</span> <span class="n">address</span><span class="p">,</span> <span class="n">the</span> <span class="n">value</span> <span class="p">(</span><span class="nb">float</span> <span class="ow">or</span> <span class="n">string</span><span class="p">)</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">amount</span> <span class="ow">in</span> <span class="n">BTC</span>
+  <span class="p">},</span>
+  <span class="p">{</span>                       <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="s2">&quot;hex&quot;</span><span class="p">,</span>        <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">required</span><span class="p">)</span> <span class="n">A</span> <span class="n">key</span><span class="o">-</span><span class="n">value</span> <span class="n">pair</span><span class="o">.</span> <span class="n">The</span> <span class="n">key</span> <span class="n">must</span> <span class="n">be</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">the</span> <span class="n">value</span> <span class="ow">is</span> <span class="nb">hex</span><span class="o">-</span><span class="n">encoded</span> <span class="n">data</span>
+  <span class="p">},</span>
+  <span class="o">...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="argument-3-locktime">
+<h2>Argument #3 - locktime<a class="headerlink" href="#argument-3-locktime" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> numeric, optional, default=0</p>
+<p>Raw locktime. Non-0 value also locktime-activates inputs</p>
+</div>
+<div class="section" id="argument-4-replaceable">
+<h2>Argument #4 - replaceable<a class="headerlink" href="#argument-4-replaceable" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> boolean, optional, default=false</p>
+<dl class="simple">
+<dt>Marks this transaction as BIP125-replaceable.</dt><dd><p>Allows this transaction to be replaced by a transaction with higher fees. If provided, it is an error if explicit sequence numbers are incompatible.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="result">
+<h2>Result<a class="headerlink" href="#result" title="Permalink to this headline">¶</a></h2>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>transaction</p></td>
+<td><p>string</p></td>
+<td><p>hex string of the transaction</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli createrawtransaction <span class="s2">&quot;[{\&quot;txid\&quot;:\&quot;myid\&quot;,\&quot;vout\&quot;:0}]&quot;</span> <span class="s2">&quot;[{\&quot;address\&quot;:0.01}]&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli createrawtransaction <span class="s2">&quot;[{\&quot;txid\&quot;:\&quot;myid\&quot;,\&quot;vout\&quot;:0}]&quot;</span> <span class="s2">&quot;[{\&quot;data\&quot;:\&quot;00010203\&quot;}]&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl --user myusername --data-binary <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;createrawtransaction&quot;, &quot;params&quot;: [&quot;[{\&quot;txid\&quot;:\&quot;myid\&quot;,\&quot;vout\&quot;:0}]&quot;, &quot;[{\&quot;address\&quot;:0.01}]&quot;] }&#39;</span> -H <span class="s1">&#39;content-type: text/plain;&#39;</span> http://127.0.0.1:8332/
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl --user myusername --data-binary <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;createrawtransaction&quot;, &quot;params&quot;: [&quot;[{\&quot;txid\&quot;:\&quot;myid\&quot;,\&quot;vout\&quot;:0}]&quot;, &quot;[{\&quot;data\&quot;:\&quot;00010203\&quot;}]&quot;] }&#39;</span> -H <span class="s1">&#39;content-type: text/plain;&#39;</span> http://127.0.0.1:8332/
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="decodepsbt.html" class="btn btn-neutral float-right" title="decodepsbt" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="createpsbt.html" class="btn btn-neutral float-left" title="createpsbt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>getmemoryinfo &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="getrpcinfo" href="getrpcinfo.html" />
+    <link rel="prev" title="verifytxoutproof" href="verifytxoutproof.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RPC API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">getmemoryinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getrpcinfo.html">getrpcinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="help.html">help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="logging.html">logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stop.html">stop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="uptime.html">uptime</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#wallet-rpcs">Wallet RPCs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+        
+          <li><a href="index.html">RPC API Reference</a> &raquo;</li>
+        
+      <li>getmemoryinfo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/reference/rpc/getmemoryinfo.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getmemoryinfo">
+<h1>getmemoryinfo<a class="headerlink" href="#getmemoryinfo" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">getmemoryinfo</span> <span class="pre">(</span> <span class="pre">&quot;mode&quot;</span> <span class="pre">)</span></code></p>
+<p>Returns an object containing information about memory usage.</p>
+<div class="section" id="argument-1-mode">
+<h2>Argument #1 - mode<a class="headerlink" href="#argument-1-mode" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> string, optional, default=”stats”</p>
+<dl class="simple">
+<dt>determines what kind of information is returned.</dt><dd><ul class="simple">
+<li><p>“stats” returns general statistics about memory usage in the daemon.</p></li>
+<li><p>“mallocinfo” returns an XML string describing low-level heap state (only available if compiled with glibc 2.10+).</p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="result-mode-stats">
+<h2>Result (mode “stats”)<a class="headerlink" href="#result-mode-stats" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;locked&quot;</span><span class="p">:</span> <span class="p">{</span>               <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span> <span class="n">Information</span> <span class="n">about</span> <span class="n">locked</span> <span class="n">memory</span> <span class="n">manager</span>
+    <span class="s2">&quot;used&quot;</span><span class="p">:</span> <span class="n">xxxxx</span><span class="p">,</span>          <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">Number</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">used</span>
+    <span class="s2">&quot;free&quot;</span><span class="p">:</span> <span class="n">xxxxx</span><span class="p">,</span>          <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">Number</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">available</span> <span class="ow">in</span> <span class="n">current</span> <span class="n">arenas</span>
+    <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="n">xxxxxxx</span><span class="p">,</span>       <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">Total</span> <span class="n">number</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">managed</span>
+    <span class="s2">&quot;locked&quot;</span><span class="p">:</span> <span class="n">xxxxxx</span><span class="p">,</span>       <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">Amount</span> <span class="n">of</span> <span class="nb">bytes</span> <span class="n">that</span> <span class="n">succeeded</span> <span class="n">locking</span><span class="o">.</span> <span class="n">If</span> <span class="n">this</span> <span class="n">number</span> <span class="ow">is</span> <span class="n">smaller</span> <span class="n">than</span> <span class="n">total</span><span class="p">,</span> <span class="n">locking</span> <span class="n">pages</span> <span class="n">failed</span> <span class="n">at</span> <span class="n">some</span> <span class="n">point</span> <span class="ow">and</span> <span class="n">key</span> <span class="n">data</span> <span class="n">could</span> <span class="n">be</span> <span class="n">swapped</span> <span class="n">to</span> <span class="n">disk</span><span class="o">.</span>
+    <span class="s2">&quot;chunks_used&quot;</span><span class="p">:</span> <span class="n">xxxxx</span><span class="p">,</span>   <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">Number</span> <span class="n">allocated</span> <span class="n">chunks</span>
+    <span class="s2">&quot;chunks_free&quot;</span><span class="p">:</span> <span class="n">xxxxx</span><span class="p">,</span>   <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">Number</span> <span class="n">unused</span> <span class="n">chunks</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result-mode-mallocinfo">
+<h2>Result (mode “mallocinfo”)<a class="headerlink" href="#result-mode-mallocinfo" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;&lt;malloc version=&quot;</span><span class="mi">1</span><span class="s2">&quot;&gt;...&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli getmemoryinfo
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl --user myusername --data-binary <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getmemoryinfo&quot;, &quot;params&quot;: [] }&#39;</span> -H <span class="s1">&#39;content-type: text/plain;&#39;</span> http://127.0.0.1:8332/
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getrpcinfo.html" class="btn btn-neutral float-right" title="getrpcinfo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="verifytxoutproof.html" class="btn btn-neutral float-left" title="verifytxoutproof" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

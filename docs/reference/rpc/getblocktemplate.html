@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>getblocktemplate &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="getmininginfo" href="getmininginfo.html" />
+    <link rel="prev" title="generatetoaddress" href="generatetoaddress.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RPC API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">getblocktemplate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmininginfo.html">getmininginfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getnetworkhashps.html">getnetworkhashps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prioritisetransaction.html">prioritisetransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="submitblock.html">submitblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="submitheader.html">submitheader</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#wallet-rpcs">Wallet RPCs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+        
+          <li><a href="index.html">RPC API Reference</a> &raquo;</li>
+        
+      <li>getblocktemplate</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/reference/rpc/getblocktemplate.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getblocktemplate">
+<h1>getblocktemplate<a class="headerlink" href="#getblocktemplate" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">getblocktemplate</span> <span class="pre">&quot;template_request&quot;</span></code></p>
+<p>If the request parameters include a ‘mode’ key, that is used to explicitly select between the default ‘template’ request or a ‘proposal’.</p>
+<p>It returns data needed to construct a block to work on.</p>
+<p>For full specification, see BIPs 22, 23, 9, and 145:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki</a>
+<a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki</a>
+<a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes">https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes</a>
+<a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki</a></p>
+</div></blockquote>
+<div class="section" id="argument-1-template-request">
+<h2>Argument #1 - template_request<a class="headerlink" href="#argument-1-template-request" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> json object, required</p>
+<dl class="simple">
+<dt>A json object in the following spec</dt><dd><p>“rules”: [           (json array, required) A list of strings
+“support”,         (string) client side supported softfork deployment
+…
+],
+}</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span>       <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">This</span> <span class="n">must</span> <span class="n">be</span> <span class="nb">set</span> <span class="n">to</span> <span class="s2">&quot;template&quot;</span><span class="p">,</span> <span class="s2">&quot;proposal&quot;</span> <span class="p">(</span><span class="n">see</span> <span class="n">BIP</span> <span class="mi">23</span><span class="p">),</span> <span class="ow">or</span> <span class="n">omitted</span>
+  <span class="s2">&quot;capabilities&quot;</span><span class="p">:</span> <span class="p">[</span>    <span class="p">(</span><span class="n">json</span> <span class="n">array</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">A</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">strings</span>
+    <span class="s2">&quot;support&quot;</span><span class="p">,</span>         <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">client</span> <span class="n">side</span> <span class="n">supported</span> <span class="n">feature</span><span class="p">,</span> <span class="s1">&#39;longpoll&#39;</span><span class="p">,</span> <span class="s1">&#39;coinbasetxn&#39;</span><span class="p">,</span> <span class="s1">&#39;coinbasevalue&#39;</span><span class="p">,</span> <span class="s1">&#39;proposal&#39;</span><span class="p">,</span> <span class="s1">&#39;serverlist&#39;</span><span class="p">,</span> <span class="s1">&#39;workid&#39;</span>
+    <span class="o">...</span>
+  <span class="p">],</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result">
+<h2>Result<a class="headerlink" href="#result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;version&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>                    <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">The</span> <span class="n">preferred</span> <span class="n">block</span> <span class="n">version</span>
+  <span class="s2">&quot;rules&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;rulename&quot;</span><span class="p">,</span> <span class="o">...</span> <span class="p">],</span>    <span class="p">(</span><span class="n">array</span> <span class="n">of</span> <span class="n">strings</span><span class="p">)</span> <span class="n">specific</span> <span class="n">block</span> <span class="n">rules</span> <span class="n">that</span> <span class="n">are</span> <span class="n">to</span> <span class="n">be</span> <span class="n">enforced</span>
+  <span class="s2">&quot;vbavailable&quot;</span> <span class="p">:</span> <span class="p">{</span>                 <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">pending</span><span class="p">,</span> <span class="n">supported</span> <span class="n">versionbit</span> <span class="p">(</span><span class="n">BIP</span> <span class="mi">9</span><span class="p">)</span> <span class="n">softfork</span> <span class="n">deployments</span>
+      <span class="s2">&quot;rulename&quot;</span> <span class="p">:</span> <span class="n">bitnumber</span>          <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">identifies</span> <span class="n">the</span> <span class="n">bit</span> <span class="n">number</span> <span class="k">as</span> <span class="n">indicating</span> <span class="n">acceptance</span> <span class="ow">and</span> <span class="n">readiness</span> <span class="k">for</span> <span class="n">the</span> <span class="n">named</span> <span class="n">softfork</span> <span class="n">rule</span>
+      <span class="p">,</span><span class="o">...</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;vbrequired&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>                 <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">bit</span> <span class="n">mask</span> <span class="n">of</span> <span class="n">versionbits</span> <span class="n">the</span> <span class="n">server</span> <span class="n">requires</span> <span class="nb">set</span> <span class="ow">in</span> <span class="n">submissions</span>
+  <span class="s2">&quot;previousblockhash&quot;</span> <span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>     <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">The</span> <span class="nb">hash</span> <span class="n">of</span> <span class="n">current</span> <span class="n">highest</span> <span class="n">block</span>
+  <span class="s2">&quot;transactions&quot;</span> <span class="p">:</span> <span class="p">[</span>                <span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="n">contents</span> <span class="n">of</span> <span class="n">non</span><span class="o">-</span><span class="n">coinbase</span> <span class="n">transactions</span> <span class="n">that</span> <span class="n">should</span> <span class="n">be</span> <span class="n">included</span> <span class="ow">in</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">block</span>
+      <span class="p">{</span>
+         <span class="s2">&quot;data&quot;</span> <span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>             <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">transaction</span> <span class="n">data</span> <span class="n">encoded</span> <span class="ow">in</span> <span class="n">hexadecimal</span> <span class="p">(</span><span class="n">byte</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">byte</span><span class="p">)</span>
+         <span class="s2">&quot;txid&quot;</span> <span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>             <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">transaction</span> <span class="nb">id</span> <span class="n">encoded</span> <span class="ow">in</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">hexadecimal</span>
+         <span class="s2">&quot;hash&quot;</span> <span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>             <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="nb">hash</span> <span class="n">encoded</span> <span class="ow">in</span> <span class="n">little</span><span class="o">-</span><span class="n">endian</span> <span class="n">hexadecimal</span> <span class="p">(</span><span class="n">including</span> <span class="n">witness</span> <span class="n">data</span><span class="p">)</span>
+         <span class="s2">&quot;depends&quot;</span> <span class="p">:</span> <span class="p">[</span>                <span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="n">array</span> <span class="n">of</span> <span class="n">numbers</span>
+             <span class="n">n</span>                          <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">transactions</span> <span class="n">before</span> <span class="n">this</span> <span class="n">one</span> <span class="p">(</span><span class="n">by</span> <span class="mi">1</span><span class="o">-</span><span class="n">based</span> <span class="n">index</span> <span class="ow">in</span> <span class="s1">&#39;transactions&#39;</span> <span class="nb">list</span><span class="p">)</span> <span class="n">that</span> <span class="n">must</span> <span class="n">be</span> <span class="n">present</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">final</span> <span class="n">block</span> <span class="k">if</span> <span class="n">this</span> <span class="n">one</span> <span class="ow">is</span>
+             <span class="p">,</span><span class="o">...</span>
+         <span class="p">],</span>
+         <span class="s2">&quot;fee&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span>                    <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">difference</span> <span class="ow">in</span> <span class="n">value</span> <span class="n">between</span> <span class="n">transaction</span> <span class="n">inputs</span> <span class="ow">and</span> <span class="n">outputs</span> <span class="p">(</span><span class="ow">in</span> <span class="n">satoshis</span><span class="p">);</span> <span class="k">for</span> <span class="n">coinbase</span> <span class="n">transactions</span><span class="p">,</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">negative</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">the</span> <span class="n">total</span> <span class="n">collected</span> <span class="n">block</span> <span class="n">fees</span> <span class="p">(</span><span class="n">ie</span><span class="p">,</span> <span class="ow">not</span> <span class="n">including</span> <span class="n">the</span> <span class="n">block</span> <span class="n">subsidy</span><span class="p">);</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">present</span><span class="p">,</span> <span class="n">fee</span> <span class="ow">is</span> <span class="n">unknown</span> <span class="ow">and</span> <span class="n">clients</span> <span class="n">MUST</span> <span class="n">NOT</span> <span class="n">assume</span> <span class="n">there</span> <span class="n">isn</span><span class="s1">&#39;t one</span>
+         <span class="s2">&quot;sigops&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>                <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">total</span> <span class="n">SigOps</span> <span class="n">cost</span><span class="p">,</span> <span class="k">as</span> <span class="n">counted</span> <span class="k">for</span> <span class="n">purposes</span> <span class="n">of</span> <span class="n">block</span> <span class="n">limits</span><span class="p">;</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">present</span><span class="p">,</span> <span class="n">sigop</span> <span class="n">cost</span> <span class="ow">is</span> <span class="n">unknown</span> <span class="ow">and</span> <span class="n">clients</span> <span class="n">MUST</span> <span class="n">NOT</span> <span class="n">assume</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">zero</span>
+         <span class="s2">&quot;weight&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>                <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">total</span> <span class="n">transaction</span> <span class="n">weight</span><span class="p">,</span> <span class="k">as</span> <span class="n">counted</span> <span class="k">for</span> <span class="n">purposes</span> <span class="n">of</span> <span class="n">block</span> <span class="n">limits</span>
+      <span class="p">}</span>
+      <span class="p">,</span><span class="o">...</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;coinbaseaux&quot;</span> <span class="p">:</span> <span class="p">{</span>                 <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span> <span class="n">data</span> <span class="n">that</span> <span class="n">should</span> <span class="n">be</span> <span class="n">included</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">coinbase</span><span class="s1">&#39;s scriptSig content</span>
+      <span class="s2">&quot;flags&quot;</span> <span class="p">:</span> <span class="s2">&quot;xx&quot;</span>                  <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">key</span> <span class="n">name</span> <span class="ow">is</span> <span class="n">to</span> <span class="n">be</span> <span class="n">ignored</span><span class="p">,</span> <span class="ow">and</span> <span class="n">value</span> <span class="n">included</span> <span class="ow">in</span> <span class="n">scriptSig</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;coinbasevalue&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>              <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">maximum</span> <span class="n">allowable</span> <span class="nb">input</span> <span class="n">to</span> <span class="n">coinbase</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">including</span> <span class="n">the</span> <span class="n">generation</span> <span class="n">award</span> <span class="ow">and</span> <span class="n">transaction</span> <span class="n">fees</span> <span class="p">(</span><span class="ow">in</span> <span class="n">satoshis</span><span class="p">)</span>
+  <span class="s2">&quot;coinbasetxn&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>          <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span> <span class="n">information</span> <span class="k">for</span> <span class="n">coinbase</span> <span class="n">transaction</span>
+  <span class="s2">&quot;target&quot;</span> <span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>                <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">The</span> <span class="nb">hash</span> <span class="n">target</span>
+  <span class="s2">&quot;mintime&quot;</span> <span class="p">:</span> <span class="n">xxx</span><span class="p">,</span>                  <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">The</span> <span class="n">minimum</span> <span class="n">timestamp</span> <span class="n">appropriate</span> <span class="k">for</span> <span class="nb">next</span> <span class="n">block</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">seconds</span> <span class="n">since</span> <span class="n">epoch</span> <span class="p">(</span><span class="n">Jan</span> <span class="mi">1</span> <span class="mi">1970</span> <span class="n">GMT</span><span class="p">)</span>
+  <span class="s2">&quot;mutable&quot;</span> <span class="p">:</span> <span class="p">[</span>                     <span class="p">(</span><span class="n">array</span> <span class="n">of</span> <span class="n">string</span><span class="p">)</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">ways</span> <span class="n">the</span> <span class="n">block</span> <span class="n">template</span> <span class="n">may</span> <span class="n">be</span> <span class="n">changed</span>
+     <span class="s2">&quot;value&quot;</span>                          <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">A</span> <span class="n">way</span> <span class="n">the</span> <span class="n">block</span> <span class="n">template</span> <span class="n">may</span> <span class="n">be</span> <span class="n">changed</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;transactions&#39;</span><span class="p">,</span> <span class="s1">&#39;prevblock&#39;</span>
+     <span class="p">,</span><span class="o">...</span>
+  <span class="p">],</span>
+  <span class="s2">&quot;noncerange&quot;</span> <span class="p">:</span> <span class="s2">&quot;00000000ffffffff&quot;</span><span class="p">,(</span><span class="n">string</span><span class="p">)</span> <span class="n">A</span> <span class="nb">range</span> <span class="n">of</span> <span class="n">valid</span> <span class="n">nonces</span>
+  <span class="s2">&quot;sigoplimit&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>                 <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">limit</span> <span class="n">of</span> <span class="n">sigops</span> <span class="ow">in</span> <span class="n">blocks</span>
+  <span class="s2">&quot;sizelimit&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>                  <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">limit</span> <span class="n">of</span> <span class="n">block</span> <span class="n">size</span>
+  <span class="s2">&quot;weightlimit&quot;</span> <span class="p">:</span> <span class="n">n</span><span class="p">,</span>                <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">limit</span> <span class="n">of</span> <span class="n">block</span> <span class="n">weight</span>
+  <span class="s2">&quot;curtime&quot;</span> <span class="p">:</span> <span class="n">ttt</span><span class="p">,</span>                  <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">current</span> <span class="n">timestamp</span> <span class="ow">in</span> <span class="n">seconds</span> <span class="n">since</span> <span class="n">epoch</span> <span class="p">(</span><span class="n">Jan</span> <span class="mi">1</span> <span class="mi">1970</span> <span class="n">GMT</span><span class="p">)</span>
+  <span class="s2">&quot;bits&quot;</span> <span class="p">:</span> <span class="s2">&quot;xxxxxxxx&quot;</span><span class="p">,</span>              <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">compressed</span> <span class="n">target</span> <span class="n">of</span> <span class="nb">next</span> <span class="n">block</span>
+  <span class="s2">&quot;height&quot;</span> <span class="p">:</span> <span class="n">n</span>                      <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">The</span> <span class="n">height</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">next</span> <span class="n">block</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli getblocktemplate <span class="o">{</span><span class="s2">&quot;rules&quot;</span>: <span class="o">[</span><span class="s2">&quot;segwit&quot;</span><span class="o">]}</span>
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl --user myusername --data-binary <span class="s1">&#39;{&quot;jsonrpc&quot;: &quot;1.0&quot;, &quot;id&quot;:&quot;curltest&quot;, &quot;method&quot;: &quot;getblocktemplate&quot;, &quot;params&quot;: [{&quot;rules&quot;: [&quot;segwit&quot;]}] }&#39;</span> -H <span class="s1">&#39;content-type: text/plain;&#39;</span> http://127.0.0.1:8332/
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getmininginfo.html" class="btn btn-neutral float-right" title="getmininginfo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="generatetoaddress.html" class="btn btn-neutral float-left" title="generatetoaddress" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

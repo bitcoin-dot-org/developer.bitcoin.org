@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bumpfee &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="createwallet" href="createwallet.html" />
+    <link rel="prev" title="backupwallet" href="backupwallet.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">RPC API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#wallet-rpcs">Wallet RPCs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="abandontransaction.html">abandontransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="abortrescan.html">abortrescan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="addmultisigaddress.html">addmultisigaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="backupwallet.html">backupwallet</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">bumpfee</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createwallet.html">createwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dumpprivkey.html">dumpprivkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dumpwallet.html">dumpwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="encryptwallet.html">encryptwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getaddressesbylabel.html">getaddressesbylabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getaddressinfo.html">getaddressinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getbalance.html">getbalance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getnewaddress.html">getnewaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getrawchangeaddress.html">getrawchangeaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getreceivedbyaddress.html">getreceivedbyaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getreceivedbylabel.html">getreceivedbylabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettransaction.html">gettransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getunconfirmedbalance.html">getunconfirmedbalance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getwalletinfo.html">getwalletinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importaddress.html">importaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importmulti.html">importmulti</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importprivkey.html">importprivkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importprunedfunds.html">importprunedfunds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importpubkey.html">importpubkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="importwallet.html">importwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="keypoolrefill.html">keypoolrefill</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listaddressgroupings.html">listaddressgroupings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listlabels.html">listlabels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listlockunspent.html">listlockunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listreceivedbyaddress.html">listreceivedbyaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listreceivedbylabel.html">listreceivedbylabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listsinceblock.html">listsinceblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listtransactions.html">listtransactions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listunspent.html">listunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listwalletdir.html">listwalletdir</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listwallets.html">listwallets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="loadwallet.html">loadwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lockunspent.html">lockunspent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="removeprunedfunds.html">removeprunedfunds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rescanblockchain.html">rescanblockchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sendmany.html">sendmany</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sendtoaddress.html">sendtoaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sethdseed.html">sethdseed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setlabel.html">setlabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="settxfee.html">settxfee</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signmessage.html">signmessage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signrawtransactionwithwallet.html">signrawtransactionwithwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="unloadwallet.html">unloadwallet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletcreatefundedpsbt.html">walletcreatefundedpsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletlock.html">walletlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletpassphrase.html">walletpassphrase</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletpassphrasechange.html">walletpassphrasechange</a></li>
+<li class="toctree-l4"><a class="reference internal" href="walletprocesspsbt.html">walletprocesspsbt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Reference</a> &raquo;</li>
+        
+          <li><a href="index.html">RPC API Reference</a> &raquo;</li>
+        
+      <li>bumpfee</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/reference/rpc/bumpfee.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bumpfee">
+<h1>bumpfee<a class="headerlink" href="#bumpfee" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">bumpfee</span> <span class="pre">&quot;txid&quot;</span> <span class="pre">(</span> <span class="pre">options</span> <span class="pre">)</span></code></p>
+<p>Bumps the fee of an opt-in-RBF transaction T, replacing it with a new transaction B.</p>
+<p>An opt-in RBF transaction with the given txid must be in the wallet.</p>
+<p>The command will pay the additional fee by decreasing (or perhaps removing) its change output.</p>
+<p>If the change output is not big enough to cover the increased fee, the command will currently fail
+instead of adding new inputs to compensate. (A future implementation could improve this.)
+The command will fail if the wallet or mempool contains a transaction that spends one of T’s outputs.</p>
+<p>By default, the new fee will be calculated automatically using estimatesmartfee.</p>
+<p>The user can specify a confirmation target for estimatesmartfee.</p>
+<p>Alternatively, the user can specify totalFee, or use RPC settxfee to set a higher fee rate.</p>
+<p>At a minimum, the new fee rate must be high enough to pay an additional new relay fee (incrementalfee
+returned by getnetworkinfo) to enter the node’s mempool.</p>
+<div class="section" id="argument-1-txid">
+<h2>Argument #1 - txid<a class="headerlink" href="#argument-1-txid" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> string, required</p>
+<p>The txid to be bumped</p>
+</div>
+<div class="section" id="argument-2-options">
+<h2>Argument #2 - options<a class="headerlink" href="#argument-2-options" title="Permalink to this headline">¶</a></h2>
+<p><strong>Type:</strong> json object, optional</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;confTarget&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span>           <span class="p">(</span><span class="n">numeric</span><span class="p">,</span> <span class="n">optional</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">fallback</span> <span class="n">to</span> <span class="n">wallet</span><span class="s1">&#39;s default) Confirmation target (in blocks)</span>
+  <span class="s2">&quot;totalFee&quot;</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span>             <span class="p">(</span><span class="n">numeric</span><span class="p">,</span> <span class="n">optional</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">fallback</span> <span class="n">to</span> <span class="s1">&#39;confTarget&#39;</span><span class="p">)</span> <span class="n">Total</span> <span class="n">fee</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">feerate</span><span class="p">)</span> <span class="n">to</span> <span class="n">pay</span><span class="p">,</span> <span class="ow">in</span> <span class="n">satoshis</span><span class="o">.</span>
+                             <span class="n">In</span> <span class="n">rare</span> <span class="n">cases</span><span class="p">,</span> <span class="n">the</span> <span class="n">actual</span> <span class="n">fee</span> <span class="n">paid</span> <span class="n">might</span> <span class="n">be</span> <span class="n">slightly</span> <span class="n">higher</span> <span class="n">than</span> <span class="n">the</span> <span class="n">specified</span>
+                             <span class="n">totalFee</span> <span class="k">if</span> <span class="n">the</span> <span class="n">tx</span> <span class="n">change</span> <span class="n">output</span> <span class="n">has</span> <span class="n">to</span> <span class="n">be</span> <span class="n">removed</span> <span class="n">because</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">too</span> <span class="n">close</span> <span class="n">to</span>
+                             <span class="n">the</span> <span class="n">dust</span> <span class="n">threshold</span><span class="o">.</span>
+  <span class="s2">&quot;replaceable&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>       <span class="p">(</span><span class="n">boolean</span><span class="p">,</span> <span class="n">optional</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">true</span><span class="p">)</span> <span class="n">Whether</span> <span class="n">the</span> <span class="n">new</span> <span class="n">transaction</span> <span class="n">should</span> <span class="n">still</span> <span class="n">be</span>
+                             <span class="n">marked</span> <span class="n">bip</span><span class="o">-</span><span class="mi">125</span> <span class="n">replaceable</span><span class="o">.</span> <span class="n">If</span> <span class="n">true</span><span class="p">,</span> <span class="n">the</span> <span class="n">sequence</span> <span class="n">numbers</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">transaction</span> <span class="n">will</span>
+                             <span class="n">be</span> <span class="n">left</span> <span class="n">unchanged</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">original</span><span class="o">.</span> <span class="n">If</span> <span class="n">false</span><span class="p">,</span> <span class="nb">any</span> <span class="nb">input</span> <span class="n">sequence</span> <span class="n">numbers</span> <span class="ow">in</span> <span class="n">the</span>
+                             <span class="n">original</span> <span class="n">transaction</span> <span class="n">that</span> <span class="n">were</span> <span class="n">less</span> <span class="n">than</span> <span class="mh">0xfffffffe</span> <span class="n">will</span> <span class="n">be</span> <span class="n">increased</span> <span class="n">to</span> <span class="mh">0xfffffffe</span>
+                             <span class="n">so</span> <span class="n">the</span> <span class="n">new</span> <span class="n">transaction</span> <span class="n">will</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">explicitly</span> <span class="n">bip</span><span class="o">-</span><span class="mi">125</span> <span class="n">replaceable</span> <span class="p">(</span><span class="n">though</span> <span class="n">it</span> <span class="n">may</span>
+                             <span class="n">still</span> <span class="n">be</span> <span class="n">replaceable</span> <span class="ow">in</span> <span class="n">practice</span><span class="p">,</span> <span class="k">for</span> <span class="n">example</span> <span class="k">if</span> <span class="n">it</span> <span class="n">has</span> <span class="n">unconfirmed</span> <span class="n">ancestors</span> <span class="n">which</span>
+                             <span class="n">are</span> <span class="n">replaceable</span><span class="p">)</span><span class="o">.</span>
+  <span class="s2">&quot;estimate_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span>    <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">UNSET</span><span class="p">)</span> <span class="n">The</span> <span class="n">fee</span> <span class="n">estimate</span> <span class="n">mode</span><span class="p">,</span> <span class="n">must</span> <span class="n">be</span> <span class="n">one</span> <span class="n">of</span><span class="p">:</span>
+                             <span class="s2">&quot;UNSET&quot;</span>
+                             <span class="s2">&quot;ECONOMICAL&quot;</span>
+                             <span class="s2">&quot;CONSERVATIVE&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result">
+<h2>Result<a class="headerlink" href="#result" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;txid&quot;</span><span class="p">:</span>    <span class="s2">&quot;value&quot;</span><span class="p">,</span>   <span class="p">(</span><span class="n">string</span><span class="p">)</span>  <span class="n">The</span> <span class="nb">id</span> <span class="n">of</span> <span class="n">the</span> <span class="n">new</span> <span class="n">transaction</span>
+  <span class="s2">&quot;origfee&quot;</span><span class="p">:</span>  <span class="n">n</span><span class="p">,</span>         <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">Fee</span> <span class="n">of</span> <span class="n">the</span> <span class="n">replaced</span> <span class="n">transaction</span>
+  <span class="s2">&quot;fee&quot;</span><span class="p">:</span>      <span class="n">n</span><span class="p">,</span>         <span class="p">(</span><span class="n">numeric</span><span class="p">)</span> <span class="n">Fee</span> <span class="n">of</span> <span class="n">the</span> <span class="n">new</span> <span class="n">transaction</span>
+  <span class="s2">&quot;errors&quot;</span><span class="p">:</span>  <span class="p">[</span> <span class="nb">str</span><span class="o">...</span> <span class="p">]</span> <span class="p">(</span><span class="n">json</span> <span class="n">array</span> <span class="n">of</span> <span class="n">strings</span><span class="p">)</span> <span class="n">Errors</span> <span class="n">encountered</span> <span class="n">during</span> <span class="n">processing</span> <span class="p">(</span><span class="n">may</span> <span class="n">be</span> <span class="n">empty</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Bump the fee, get the new transaction’s txid:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bitcoin-cli bumpfee &lt;txid&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="createwallet.html" class="btn btn-neutral float-right" title="createwallet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="backupwallet.html" class="btn btn-neutral float-left" title="backupwallet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

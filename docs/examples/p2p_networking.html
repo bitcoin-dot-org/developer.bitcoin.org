@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>P2P Network &mdash; Bitcoin  documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Glossary" href="../glossary.html" />
+    <link rel="prev" title="Payment Processing" href="payment_processing.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
+          
+
+          
+            <a href="../index.html">
+          
+
+          
+            
+            <img src="../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devguide/index.html">Developer Guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html">Testing Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="payment_processing.html">Payment Processing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">P2P Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-bloom-filter">Creating A Bloom Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#evaluating-a-bloom-filter">Evaluating A Bloom Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieving-a-merkleblock">Retrieving A MerkleBlock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parsing-a-merkleblock">Parsing A MerkleBlock</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bitcoin</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Examples</a> &raquo;</li>
+        
+      <li>P2P Network</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/examples/p2p_networking.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="p2p-network">
+<h1>P2P Network<a class="headerlink" href="#p2p-network" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="creating-a-bloom-filter">
+<h2>Creating A Bloom Filter<a class="headerlink" href="#creating-a-bloom-filter" title="Permalink to this headline">¶</a></h2>
+<p>In this section, we’ll use variable names that correspond to the field names in the <code class="docutils literal notranslate"><span class="pre">`filterload</span></code> message documentation &lt;/en/developer-reference#filterclear&gt;`__. Each code block precedes the paragraph describing it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="n">BYTES_MAX</span> <span class="o">=</span> <span class="mi">36000</span>
+<span class="n">FUNCS_MAX</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">nFlags</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>We start by setting some maximum values defined in <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki">BIP37</a>: the maximum number of bytes allowed in a filter and the maximum number of hash functions used to hash each piece of data. We also set nFlags to zero, indicating we don’t want the remote node to update the filter for us. (We won’t use nFlags again in the sample program, but real programs will need to use it.)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.0001</span>
+</pre></div>
+</div>
+<p>We define the number (n) of elements we plan to insert into the filter and the false positive rate (p) we want to help protect our privacy. For this example, we will set <em>n</em> to one element and <em>p</em> to a rate of 1-in-10,000 to produce a small and precise filter for illustration purposes. In actual use, your filters will probably be much larger.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">log</span>
+<span class="n">nFilterBytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">BYTES_MAX</span><span class="p">))</span>
+<span class="n">nHashFuncs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">nFilterBytes</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">/</span> <span class="n">n</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">FUNCS_MAX</span><span class="p">))</span>
+
+<span class="kn">from</span> <span class="nn">bitarray</span> <span class="kn">import</span> <span class="n">bitarray</span>  <span class="c1"># from pypi.python.org/pypi/bitarray</span>
+<span class="n">vData</span> <span class="o">=</span> <span class="n">nFilterBytes</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">bitarray</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">endian</span><span class="o">=</span><span class="s2">&quot;little&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the formula described in <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki">BIP37</a>, we calculate the ideal size of the filter (in bytes) and the ideal number of hash functions to use. Both are truncated down to the nearest whole number and both are also constrained to the maximum values we defined earlier. The results of this particular fixed computation are 2 filter bytes and 11 hash functions. We then use <em>nFilterBytes</em> to create a little-endian bit array of the appropriate size.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nTweak</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>We also should choose a value for <em>nTweak</em>. In this case, we’ll simply use zero.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyhash</span>  <span class="c1"># from https://github.com/flier/pyfasthash</span>
+<span class="n">murmur3</span> <span class="o">=</span> <span class="n">pyhash</span><span class="o">.</span><span class="n">murmur3_32</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">bloom_hash</span><span class="p">(</span><span class="n">nHashNum</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">seed</span> <span class="o">=</span> <span class="p">(</span><span class="n">nHashNum</span> <span class="o">*</span> <span class="mh">0xfba4c795</span> <span class="o">+</span> <span class="n">nTweak</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffffffff</span>
+    <span class="k">return</span><span class="p">(</span> <span class="n">murmur3</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">nFilterBytes</span> <span class="o">*</span> <span class="mi">8</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>We setup our hash function template using the formula and 0xfba4c795 constant set in <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki">BIP37</a>. Note that we limit the size of the seed to four bytes and that we’re returning the result of the hash modulo the size of the filter in bits.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_to_hash</span> <span class="o">=</span> <span class="s2">&quot;019f5b01d4195ecbc9398fbf3c3b1fa9&quot;</span> \
+               <span class="o">+</span> <span class="s2">&quot;bb3183301d7a1fb3bd174fcfa40a2b65&quot;</span>
+<span class="n">data_to_hash</span> <span class="o">=</span> <span class="n">data_to_hash</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For the data to add to the filter, we’re adding a TXID. Note that the TXID is in internal byte order.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">&quot;                             Filter (As Bits)&quot;</span>
+<span class="k">print</span> <span class="s2">&quot;nHashNum   nIndex   Filter   0123456789abcdef&quot;</span>
+<span class="k">print</span> <span class="s2">&quot;~~~~~~~~   ~~~~~~   ~~~~~~   ~~~~~~~~~~~~~~~~&quot;</span>
+<span class="k">for</span> <span class="n">nHashNum</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nHashFuncs</span><span class="p">):</span>
+    <span class="n">nIndex</span> <span class="o">=</span> <span class="n">bloom_hash</span><span class="p">(</span><span class="n">nHashNum</span><span class="p">,</span> <span class="n">data_to_hash</span><span class="p">)</span>
+
+    <span class="c1">## Set the bit at nIndex to 1</span>
+    <span class="n">vData</span><span class="p">[</span><span class="n">nIndex</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="c1">## Debug: print current state</span>
+    <span class="k">print</span> <span class="s1">&#39;      {0:2}      {1:2}     {2}   {3}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">nHashNum</span><span class="p">,</span>
+        <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">nIndex</span><span class="p">)),</span>
+        <span class="n">vData</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">),</span>
+        <span class="n">vData</span><span class="o">.</span><span class="n">to01</span><span class="p">()</span>
+    <span class="p">)</span>
+
+<span class="k">print</span>
+<span class="k">print</span> <span class="s2">&quot;Bloom filter:&quot;</span><span class="p">,</span> <span class="n">vData</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we use the hash function template to run a slightly different hash function for <em>nHashFuncs</em> times. The result of each function being run on the transaction is used as an index number: the bit at that index is set to 1. We can see this in the printed debugging output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                             Filter (As Bits)
+nHashNum   nIndex   Filter   0123456789abcdef
+~~~~~~~~   ~~~~~~   ~~~~~~   ~~~~~~~~~~~~~~~~
+       0      0x7     8000   0000000100000000
+       1      0x9     8002   0000000101000000
+       2      0xa     8006   0000000101100000
+       3      0x2     8406   0010000101100000
+       4      0xb     840e   0010000101110000
+       5      0x5     a40e   0010010101110000
+       6      0x0     a50e   1010010101110000
+       7      0x8     a50f   1010010111110000
+       8      0x5     a50f   1010010111110000
+       9      0x8     a50f   1010010111110000
+      10      0x4     b50f   1010110111110000
+
+Bloom filter: b50f
+</pre></div>
+</div>
+<p>Notice that in iterations 8 and 9, the filter did not change because the corresponding bit was already set in a previous iteration (5 and 7, respectively). This is a normal part of bloom filter operation.</p>
+<p>We only added one element to the filter above, but we could repeat the process with additional elements and continue to add them to the same filter. (To maintain the same false-positive rate, you would need a larger filter size as computed earlier.)</p>
+<p>Note: for a more optimized Python implementation with fewer external dependencies, see <a class="reference external" href="https://github.com/petertodd/python-bitcoinlib">python-bitcoinlib’s</a> bloom filter module which is based directly on Bitcoin Core’s C++ implementation.</p>
+<p>Using the <a class="reference external" href="/en/developer-reference#filterclear">“filterload” message</a> format, the complete filter created above would be the binary form of the annotated hexdump shown below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>02 ......... Filter bytes: 2
+b50f ....... Filter: 1010 1101 1111 0000
+0b000000 ... nHashFuncs: 11
+00000000 ... nTweak: 0/none
+00 ......... nFlags: BLOOM_UPDATE_NONE
+</pre></div>
+</div>
+</div>
+<div class="section" id="evaluating-a-bloom-filter">
+<h2>Evaluating A Bloom Filter<a class="headerlink" href="#evaluating-a-bloom-filter" title="Permalink to this headline">¶</a></h2>
+<p>Using a bloom filter to find matching data is nearly identical to constructing a bloom filter—except that at each step we check to see if the calculated index bit is set in the existing filter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vData</span> <span class="o">=</span> <span class="n">bitarray</span><span class="p">(</span><span class="n">endian</span><span class="o">=</span><span class="s1">&#39;little&#39;</span><span class="p">)</span>
+<span class="n">vData</span><span class="o">.</span><span class="n">frombytes</span><span class="p">(</span><span class="s2">&quot;b50f&quot;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">))</span>
+<span class="n">nHashFuncs</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">nTweak</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">nFlags</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>Using the bloom filter created above, we import its various parameters. Note, as indicated in the section above, we won’t actually use <em>nFlags</em> to update the filter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">contains</span><span class="p">(</span><span class="n">nHashFuncs</span><span class="p">,</span> <span class="n">data_to_hash</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">nHashNum</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nHashFuncs</span><span class="p">):</span>
+        <span class="c1">## bloom_hash as defined in previous section</span>
+        <span class="n">nIndex</span> <span class="o">=</span> <span class="n">bloom_hash</span><span class="p">(</span><span class="n">nHashNum</span><span class="p">,</span> <span class="n">data_to_hash</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">vData</span><span class="p">[</span><span class="n">nIndex</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s2">&quot;MATCH FAILURE: Index {0} not set in {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">hex</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">nIndex</span><span class="p">)),</span>
+                <span class="n">vData</span><span class="o">.</span><span class="n">to01</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<p>We define a function to check an element against the provided filter. When checking whether the filter might contain an element, we test to see whether a particular bit in the filter is already set to 1 (if it isn’t, the match fails).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Test 1: Same TXID as previously added to filter</span>
+<span class="n">data_to_hash</span> <span class="o">=</span> <span class="s2">&quot;019f5b01d4195ecbc9398fbf3c3b1fa9&quot;</span> \
+               <span class="o">+</span> <span class="s2">&quot;bb3183301d7a1fb3bd174fcfa40a2b65&quot;</span>
+<span class="n">data_to_hash</span> <span class="o">=</span> <span class="n">data_to_hash</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+<span class="n">contains</span><span class="p">(</span><span class="n">nHashFuncs</span><span class="p">,</span> <span class="n">data_to_hash</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Testing the filter against the data element we previously added, we get no output (indicating a possible match). Recall that bloom filters have a zero false negative rate—so they should always match the inserted elements.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Test 2: Arbitrary string</span>
+<span class="n">data_to_hash</span> <span class="o">=</span> <span class="s2">&quot;1/10,000 chance this ASCII string will match&quot;</span>
+<span class="n">contains</span><span class="p">(</span><span class="n">nHashFuncs</span><span class="p">,</span> <span class="n">data_to_hash</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Testing the filter against an arbitrary element, we get the failure output below. Note: we created the filter with a 1-in-10,000 false positive rate (which was rounded up somewhat when we truncated), so it was possible this arbitrary string would’ve matched the filter anyway. It is not possible to set a bloom filter to a false positive rate of zero, so your program will always have to deal with false positives. The output below shows us that one of the hash functions returned an index number of 0x06, but that bit wasn’t set in the filter, causing the match failure:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>MATCH FAILURE: Index 0x6 not set in 1010110111110000
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieving-a-merkleblock">
+<h2>Retrieving A MerkleBlock<a class="headerlink" href="#retrieving-a-merkleblock" title="Permalink to this headline">¶</a></h2>
+<p>For the <a class="reference external" href="/en/developer-reference#merkleblock">“merkleblock” message</a> documentation on the reference page, an actual merkle block was retrieved from the <a class="reference external" href="/en/developer-guide#term-network">network</a> and manually processed. This section walks through each step of the process, demonstrating basic <a class="reference external" href="/en/developer-guide#term-network">network</a> communication and merkle block processing.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">sha256</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">network_string</span> <span class="o">=</span> <span class="s2">&quot;f9beb4d9&quot;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>  <span class="c1"># Mainnet</span>
+
+<span class="k">def</span> <span class="nf">send</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="n">payload</span><span class="p">):</span>
+    <span class="c1">## Command is ASCII text, null padded to 12 bytes</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="n">msg</span> <span class="o">+</span> <span class="p">(</span> <span class="p">(</span> <span class="mi">12</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="p">)</span> <span class="o">*</span> <span class="s2">&quot;</span><span class="se">\00</span><span class="s2">&quot;</span> <span class="p">)</span>
+
+    <span class="c1">## Payload length is a uint32_t</span>
+    <span class="n">payload_raw</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+    <span class="n">payload_len</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload_raw</span><span class="p">))</span>
+
+    <span class="c1">## Checksum is first 4 bytes of SHA256(SHA256(&lt;payload&gt;))</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="n">sha256</span><span class="p">(</span><span class="n">sha256</span><span class="p">(</span><span class="n">payload_raw</span><span class="p">)</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span><span class="o">.</span><span class="n">digest</span><span class="p">()[:</span><span class="mi">4</span><span class="p">]</span>
+
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+        <span class="n">network_string</span>
+        <span class="o">+</span> <span class="n">command</span>
+        <span class="o">+</span> <span class="n">payload_len</span>
+        <span class="o">+</span> <span class="n">checksum</span>
+        <span class="o">+</span> <span class="n">payload_raw</span>
+    <span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To connect to the P2P <a class="reference external" href="/en/developer-guide#term-network">network</a>, the trivial Python function above was developed to compute message headers and send payloads decoded from hex.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Create a version message</span>
+<span class="n">send</span><span class="p">(</span><span class="s2">&quot;version&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;71110100&quot;</span> <span class="c1"># ........................ Protocol Version: 70001</span>
+    <span class="o">+</span> <span class="s2">&quot;0000000000000000&quot;</span> <span class="c1"># ................ Services: Headers Only (SPV)</span>
+    <span class="o">+</span> <span class="s2">&quot;c6925e5400000000&quot;</span> <span class="c1"># ................ Time: 1415484102</span>
+    <span class="o">+</span> <span class="s2">&quot;00000000000000000000000000000000&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;0000ffff7f000001208d&quot;</span> <span class="c1"># ............ Receiver IP Address/Port</span>
+    <span class="o">+</span> <span class="s2">&quot;00000000000000000000000000000000&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;0000ffff7f000001208d&quot;</span> <span class="c1"># ............ Sender IP Address/Port</span>
+    <span class="o">+</span> <span class="s2">&quot;0000000000000000&quot;</span> <span class="c1"># ................ Nonce (not used here)</span>
+    <span class="o">+</span> <span class="s2">&quot;1b&quot;</span> <span class="c1"># .............................. Bytes in version string</span>
+    <span class="o">+</span> <span class="s2">&quot;2f426974636f696e2e6f726720457861&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;6d706c653a302e392e332f&quot;</span> <span class="c1"># .......... Version string</span>
+    <span class="o">+</span> <span class="s2">&quot;93050500&quot;</span> <span class="c1"># ........................ Starting block height: 329107</span>
+    <span class="o">+</span> <span class="s2">&quot;00&quot;</span> <span class="c1"># .............................. Relay transactions: false</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Peers on the <a class="reference external" href="/en/developer-guide#term-network">network</a> will not accept any requests until you send them a <a class="reference external" href="/en/developer-reference#version">“version” message</a>. The receiving node will reply with their <a class="reference external" href="/en/developer-reference#version">“version” message</a> and a <a class="reference external" href="/en/developer-reference#verack">“verack” message</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">send</span><span class="p">(</span><span class="s2">&quot;verack&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We’re not going to validate their <a class="reference external" href="/en/developer-reference#version">“version” message</a> with this simple script, but we will sleep a short bit and send back our own <a class="reference external" href="/en/developer-reference#verack">“verack” message</a> as if we had accepted their <a class="reference external" href="/en/developer-reference#version">“version” message</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;filterload&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;02&quot;</span>  <span class="c1"># ........ Filter bytes: 2</span>
+    <span class="o">+</span> <span class="s2">&quot;b50f&quot;</span> <span class="c1"># ....... Filter: 1010 1101 1111 0000</span>
+    <span class="o">+</span> <span class="s2">&quot;0b000000&quot;</span> <span class="c1"># ... nHashFuncs: 11</span>
+    <span class="o">+</span> <span class="s2">&quot;00000000&quot;</span> <span class="c1"># ... nTweak: 0/none</span>
+    <span class="o">+</span> <span class="s2">&quot;00&quot;</span> <span class="c1"># ......... nFlags: BLOOM_UPDATE_NONE</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>We set a bloom filter with the <a class="reference external" href="/en/developer-reference#filterclear">“filterload” message</a>. This filter is described in the two preceeding sections.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;getdata&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;01&quot;</span> <span class="c1"># ................................. Number of inventories: 1</span>
+    <span class="o">+</span> <span class="s2">&quot;03000000&quot;</span> <span class="c1"># ........................... Inventory type: filtered block</span>
+    <span class="o">+</span> <span class="s2">&quot;a4deb66c0d726b0aefb03ed51be407fb&quot;</span>
+    <span class="o">+</span> <span class="s2">&quot;ad7331c6e8f9eef231b7000000000000&quot;</span> <span class="c1"># ... Block header hash</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>We request a merkle block for transactions matching our filter, completing our script.</p>
+<p>To run the script, we simply pipe it to the Unix <code class="docutils literal notranslate"><span class="pre">`netcat</span></code> command &lt;<a class="reference external" href="https://en.wikipedia.org/wiki/Netcat">https://en.wikipedia.org/wiki/Netcat</a>&gt;`__ or one of its many clones, one of which is available for practically any platform. For example, with the original netcat and using hexdump (<code class="docutils literal notranslate"><span class="pre">hd</span></code>) to display the output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">## Connect to the Bitcoin Core peer running on localhost</span>
+python get-merkle.py <span class="p">|</span> nc localhost <span class="m">8333</span> <span class="p">|</span> hd
+</pre></div>
+</div>
+<p>Part of the response is shown in the section below.</p>
+</div>
+<div class="section" id="parsing-a-merkleblock">
+<h2>Parsing A MerkleBlock<a class="headerlink" href="#parsing-a-merkleblock" title="Permalink to this headline">¶</a></h2>
+<p>In the section above, we retrieved a merkle block from the <a class="reference external" href="/en/developer-guide#term-network">network</a>; now we will parse it. Most of the block header has been omitted. For a more complete hexdump, see the example in the <code class="docutils literal notranslate"><span class="pre">`merkleblock</span></code> message section &lt;/en/developer-reference#merkleblock&gt;`__.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>7f16c5962e8bd963659c793ce370d95f
+093bc7e367117b3c30c1f8fdd0d97287 ... Merkle root
+
+07000000 ........................... Transaction count: 7
+04 ................................. Hash count: 4
+
+3612262624047ee87660be1a707519a4
+43b1c1ce3d248cbfc6c15870f6c5daa2 ... Hash #1
+019f5b01d4195ecbc9398fbf3c3b1fa9
+bb3183301d7a1fb3bd174fcfa40a2b65 ... Hash #2
+41ed70551dd7e841883ab8f0b16bf041
+76b7d1480e4f0af9f3d4c3595768d068 ... Hash #3
+20d2a7bc994987302e5b1ac80fc425fe
+25f8b63169ea78e68fbaaefa59379bbf ... Hash #4
+
+01 ................................. Flag bytes: 1
+1d ................................. Flags: 1 0 1 1 1 0 0 0
+</pre></div>
+</div>
+<p>We parse the above <a class="reference external" href="/en/developer-reference#merkleblock">“merkleblock” message</a> using the following instructions. Each illustration is described in the paragraph below it.</p>
+<div class="figure align-center" id="id1">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-001.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>We start by building the structure of a merkle tree based on the number of transactions in the block.</p>
+<div class="figure align-center" id="id2">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-002.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>The first flag is a 1 and the merkle root is (as always) a non-TXID node, so we will need to compute the hash later based on this node’s children. Accordingly, we descend into the merkle root’s left child and look at the next flag for instructions.</p>
+<div class="figure align-center" id="id3">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-003.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>The next flag in the example is a 0 and this is also a non-TXID node, so we apply the first hash from the <a class="reference external" href="/en/developer-reference#merkleblock">“merkleblock” message</a> to this node. We also don’t process any child nodes—according to the peer which created the <a class="reference external" href="/en/developer-reference#merkleblock">“merkleblock” message</a>, none of those nodes will lead to TXIDs of transactions that match our filter, so we don’t need them. We go back up to the merkle root and then descend into its right child and look at the next (third) flag for instructions.</p>
+<div class="figure align-center" id="id4">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-004.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<p>The third flag in the example is another 1 on another non-TXID node, so we descend into its left child.</p>
+<div class="figure align-center" id="id5">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-005.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>The fourth flag is also a 1 on another non-TXID node, so we descend again—we will always continue descending until we reach a TXID node or a non-TXID node with a 0 flag (or we finish filling out the tree).</p>
+<div class="figure align-center" id="id6">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-006.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+<p>Finally, on the fifth flag in the example (a 1), we reach a TXID node. The 1 flag indicates this TXID’s transaction matches our filter and that we should take the next (second) hash and use it as this node’s TXID.</p>
+<div class="figure align-center" id="id7">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-007.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+<p>The sixth flag also applies to a TXID, but it’s a 0 flag, so this TXID’s transaction doesn’t match our filter; still, we take the next (third) hash and use it as this node’s TXID.</p>
+<div class="figure align-center" id="id8">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-008.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<p>We now have enough information to compute the hash for the fourth node we encountered—it’s the hash of the concatenated hashes of the two TXIDs we filled out.</p>
+<div class="figure align-center" id="id9">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-009.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>Moving to the right child of the third node we encountered, we fill it out using the seventh flag and final hash—and discover there are no more child nodes to process.</p>
+<div class="figure align-center" id="id10">
+<img alt="Parsing A MerkleBlock" src="../_images/en-merkleblock-parsing-011.svg" /><p class="caption"><span class="caption-text">Parsing A MerkleBlock</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+<p>We hash as appropriate to fill out the tree. Note that the eighth flag is not used—this is acceptable as it was required to pad out a flag byte.</p>
+<p>The final steps would be to ensure the computed merkle root is identical to the merkle root in the header and check the other steps of the parsing checklist in the <a class="reference external" href="/en/developer-reference#merkleblock">“merkleblock” message</a> section.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="payment_processing.html" class="btn btn-neutral float-left" title="Payment Processing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Bitcoin.org
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
