@@ -78,6 +78,7 @@ Liquid::Template.error_mode = :warn
 if options[:file]
   puts importer.render_template(ARGV[0])
 else
+  importer.read_summaries
   # Run glossary first because it generates the links for the sections
   importer.import_glossary
   if !options[:skip_sections]

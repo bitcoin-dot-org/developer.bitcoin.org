@@ -1,5 +1,5 @@
 Introduction
-------------
+============
 
 The Developer Reference aims to provide technical details and API information to help you start building Bitcoin-based applications, but it is `not a specification </en/developer-reference#not-a-specification>`__. To make the best use of this documentation, you may want to install the current version of Bitcoin Core, either from `source <https://github.com/bitcoin/bitcoin>`__ or from a `pre-compiled executable </en/download>`__.
 
@@ -18,6 +18,6 @@ Bitcoin security depends on consensus. Should your program diverge from consensu
 
 The only correct specification of consensus behavior is the actual behavior of programs on the `network </en/developer-guide#term-network>`__ which maintain consensus. As that behavior is subject to arbitrary inputs in a large variety of unique environments, it cannot ever be fully documented here or anywhere else.
 
-However, the Bitcoin Core developers are working on making their consensus code portable so other implementations can use it. `Bitcoin Core 0.10.0 </en/release/v0.10.0>`__ will provide ``libbitcoinconsensus``, a first attempt at exporting some consensus code. Future versions of Bitcoin Core will likely provide consensus code that is more complete, more portable, and more consistent in diverse environments.
+However, the Bitcoin Core developers are working on making their consensus code portable so other implementations can use it. `Bitcoin Core 0.10.0 </en/release/v0.10.0>`__ provided ``libbitcoinconsensus``, as the first attempt at exporting some consensus code. Future versions of Bitcoin Core also provided consensus code that is more complete, more portable, and more consistent in diverse environments.
 
 In addition, we also warn you that this documentation has not been extensively reviewed by Bitcoin experts and so likely contains numerous errors. At the bottom of the menu on the left, you will find links that allow you to report an issue or to edit the documentation on GitHub. Please use those links if you find any errors or important missing information.

@@ -6,6 +6,8 @@ Payment Protocol
 
 To request payment using the payment protocol, you use an extended (but backwards-compatible) `“bitcoin:” URI </en/developer-guide#term-bitcoin-uri>`__. For example:
 
+|Warning icon| **Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Bitcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Bitcoin Core version 0.18 when using `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ URI’s. Merchants should transition away from `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ to more secure options such as `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__. Merchants should never require `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ payments and should provide `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__ fallbacks.
+
 ::
 
    bitcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
@@ -361,3 +363,6 @@ The following screenshot shows how the authenticated `PaymentDetails </en/develo
    :alt: Bitcoin Core Showing Validated Payment Request
 
    Bitcoin Core Showing Validated Payment Request
+
+.. |Warning icon| image:: /img/icons/icon_warning.svg
+

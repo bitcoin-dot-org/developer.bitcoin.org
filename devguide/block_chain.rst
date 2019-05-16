@@ -1,12 +1,12 @@
 Block Chain
------------
+===========
 
-The block chain provides Bitcoin’s public ledger, an ordered and timestamped record of transactions. This system is used to protect against double spending and modification of previous transaction records.
+The block chain provides Bitcoin's public ledger, an ordered and timestamped record of transactions. This system is used to protect against double spending and modification of previous transaction records.
+
+Introduction
+------------
 
 Each full node in the Bitcoin `network </en/developer-guide#term-network>`__ independently stores a block chain containing only blocks validated by that node. When several nodes all have the same blocks in their block chain, they are considered to be in `consensus <../reference/glossary.html#consensus>`__. The validation rules these nodes follow to maintain consensus are called `consensus rules <../reference/glossary.html#consensus-rules>`__. This section describes many of the consensus rules used by Bitcoin Core.
-
-Block Chain Overview
-~~~~~~~~~~~~~~~~~~~~
 
 .. figure:: /img/dev/en-blockchain-overview.svg
    :alt: Block Chain Overview
@@ -33,7 +33,7 @@ Because each output of a particular transaction can only be spent once, the outp
 Ignoring coinbase transactions (described later), if the value of a transaction’s outputs exceed its inputs, the transaction will be rejected—but if the inputs exceed the value of the outputs, any difference in value may be claimed as a `transaction fee <../reference/glossary.html#transaction-fee>`__ by the Bitcoin `miner <../reference/glossary.html#mining>`__ who creates the block containing that transaction. For example, in the illustration above, each transaction spends 10,000 satoshis fewer than it receives from its combined inputs, effectively paying a 10,000 satoshi transaction fee.
 
 Proof Of Work
-~~~~~~~~~~~~~
+-------------
 
 The block chain is collaboratively maintained by anonymous peers on the `network </en/developer-guide#term-network>`__, so Bitcoin requires that each block prove a significant amount of work was invested in its creation to ensure that untrustworthy peers who want to modify past blocks have to work harder than honest peers who only want to add new blocks to the block chain.
 
@@ -58,7 +58,7 @@ Because each block header must hash to a value below the target threshold, and b
 The block header provides several easy-to-modify fields, such as a dedicated nonce field, so obtaining new hashes doesn’t require waiting for new transactions. Also, only the 80-byte block header is hashed for proof-of-work, so including a large volume of transaction data in a block does not slow down hashing with extra I/O, and adding additional transaction data only requires the recalculation of the ancestor hashes in the merkle tree.
 
 Block Height And Forking
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 Any Bitcoin miner who successfully hashes a block header to a value below the target threshold can add the entire block to the block chain (assuming the block is otherwise valid). These blocks are commonly addressed by their `block height <../reference/glossary.html#block-height>`__—the number of blocks between them and the first Bitcoin block (block 0, most commonly known as the `genesis block <../reference/glossary.html#genesis-block>`__). For example, block 2016 is where difficulty could have first been adjusted.
 
@@ -78,7 +78,7 @@ Long-term forks are possible if different miners work at cross-purposes, such as
 Since multiple blocks can have the same height during a block chain fork, block height should not be used as a globally unique identifier. Instead, blocks are usually referenced by the hash of their header (often with the byte order reversed, and in hexadecimal).
 
 Transaction Data
-~~~~~~~~~~~~~~~~
+----------------
 
 Every block must include one or more transactions. The first one of these transactions must be a coinbase transaction, also called a generation transaction, which should collect and spend the block reward (comprised of a block subsidy and any transaction fees paid by transactions included in this block).
 
@@ -111,7 +111,7 @@ For example, to verify transaction D was added to the block, an SPV client only 
 Note: If identical txids are found within the same block, there is a possibility that the merkle tree may collide with a block with some or all duplicates removed due to how unbalanced merkle trees are implemented (duplicating the lone hash). Since it is impractical to have separate transactions with identical txids, this does not impose a burden on honest software, but must be checked if the invalid status of a block is to be cached; otherwise, a valid block with the duplicates eliminated could have the same merkle root and block hash, but be rejected by the cached invalid outcome, resulting in security bugs such as `CVE-2012-2459 <https://en.bitcoin.it/wiki/CVEs#CVE-2012-2459>`__.
 
 Consensus Rule Changes
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 To maintain consensus, all full nodes validate blocks using the same consensus rules. However, sometimes the consensus rules are changed to introduce new features or prevent `network </en/developer-guide#term-network>`__ abuse. When the new rules are implemented, there will likely be a period of time when non-upgraded nodes follow the old rules and upgraded nodes follow the new rules, creating two possible ways consensus can break:
 
@@ -142,7 +142,7 @@ Later soft forks waited for a majority of hash rate (typically 75% or 95%) to si
 **Resources:** `BIP16 <https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki>`__, `BIP30 <https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki>`__, and `BIP34 <https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki>`__ were implemented as changes which might have lead to soft forks. `BIP50 <https://github.com/bitcoin/bips/blob/master/bip-0050.mediawiki>`__ describes both an accidental hard fork, resolved by temporary downgrading the capabilities of upgraded nodes, and an intentional hard fork when the temporary downgrade was removed. A document from Gavin Andresen outlines `how future rule changes may be implemented <https://gist.github.com/gavinandresen/2355445>`__.
 
 Detecting Forks
-^^^^^^^^^^^^^^^
+---------------
 
 Non-upgraded nodes may use and distribute incorrect information during both types of forks, creating several situations which could lead to financial loss. In particular, non-upgraded nodes may relay and accept transactions that are considered invalid by upgraded nodes and so will never become part of the universally-recognized best block chain. Non-upgraded nodes may also refuse to relay blocks or transactions which have already been added to the best block chain, or soon will be, and so provide incomplete information.
 

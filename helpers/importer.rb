@@ -1,6 +1,21 @@
 class Importer
   attr_accessor :base_dir, :target_base_dir
 
+  def read_summaries()
+    tr_file = File.join(base_dir, "_translations", "en.yml")
+    tr = YAML.load_file(tr_file)
+    @summaries = {
+      "devguide/block_chain" => tr["en"]["blockchain-guide"]["summary"],
+      "devguide/transactions" => tr["en"]["transactions-guide"]["summary"],
+      "devguide/contracts" => tr["en"]["contracts-guide"]["summary"],
+      "devguide/wallets" => tr["en"]["wallets-guide"]["summary"],
+      "devguide/payment_processing" => tr["en"]["payment-processing-guide"]["summary"],
+      "devguide/operating_modes" => tr["en"]["operating-modes-guide"]["summary"],
+      "devguide/p2p_network" => tr["en"]["p2p-network-guide"]["summary"],
+      "devguide/mining" => tr["en"]["mining-guide"]["summary"],
+    }
+  end
+
   def render_template(filename)
     source = File.read(filename)
     # TODO: Import and convert references
@@ -13,7 +28,31 @@ class Importer
     }})
   end
 
-  def import_file(source_file, target_file, title)
+  def post_process_markdown(markdown, remove_divs: false)
+    processed = ""
+    markdown.each_line do |line|
+      # Remove divs if requested
+      next if remove_divs && (line.include?("<div") or line.include?("</div>"))
+
+      # Replace backticks by regular quotes because RST can't handle this kind
+      # of nested markup
+      line.gsub!(/\[\`(.*?)\`\]/, '["\1"]')
+
+      # Remove term attributes because we currently don't support them in der
+      # converted help
+      line.gsub!(/\{:#term.*\}\{:\.term\}/,'')
+
+      # Fix up header consistency
+      if line == "#### Orphan Blocks\n"
+        line = "### Orphan Blocks\n"
+      end
+
+      processed += line
+    end
+    processed
+  end
+
+  def import_file(source_file, target_file, title, summary, remove_divs: false)
     print "Importing #{source_file} as #{target_file}"
     if title
       print " under title #{title}"
@@ -25,11 +64,7 @@ class Importer
 
     rendered = render_template(source_path)
 
-    # Replace backticks by regular quotes because RST can't handle this kind
-    # of nested markup
-    rendered.gsub!(/\[\`(.*?)\`\]/, '["\1"]')
-
-    rendered.gsub!(/\{:#term.*\}\{:\.term\}/,'')
+    rendered = post_process_markdown(rendered, remove_divs: remove_divs)
 
     # Convert Markdown to reStructuredText
     Open3.popen2("pandoc -f markdown -t rst --wrap none") do |i,o,t|
@@ -38,10 +73,18 @@ class Importer
 
       converted = o.read
 
+      preamble = ""
+
       if title
         # Prepend title to document so Sphinx puts it into the table of contents
-        converted = title + "\n" + "-" * title.length + "\n\n" + converted
+        preamble += title + "\n" + "=" * title.length + "\n\n"
       end
+
+      if summary
+        preamble += summary + "\n\n"
+      end
+
+      converted = preamble + converted
 
       # Remove trailing `?` from path of images
       converted.gsub!(/\.\. figure:: (.+)\?/, '.. figure:: \1')
@@ -58,10 +101,12 @@ class Importer
     sections.each do |section|
       source_dir = section[:source_dir]
       target_dir = section[:target_dir]
+      remove_divs = target_dir == "devguide"
       section[:pages].each do |page, title|
         source_file = File.join(source_dir, page + ".md")
         target_file = File.join(target_dir, page + ".rst")
-        import_file(source_file, target_file, title)
+        summary = @summaries["#{target_dir}/#{page}"]
+        import_file(source_file, target_file, title, summary, remove_divs: remove_divs)
       end
     end
   end

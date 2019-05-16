@@ -6,7 +6,6 @@ Find detailed information about the Bitcoin protocol and related specifications.
 .. toctree::
   :maxdepth: 2
 
-  intro
   block_chain
   transactions
   contracts

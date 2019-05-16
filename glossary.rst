@@ -131,7 +131,7 @@ Glossary
     **Not to be confused with:** HD wallet seeds
 
   Double spend
-    A transaction that uses the same input as an already broadcast transaction. The attempt of duplication, deceit, or conversion,  will be adjudicated when only one of the transactions is recorded in the blockchain.
+    A transaction that uses the same input as an already broadcast transaction. The attempt of duplication, deceit, or conversion, will be adjudicated when only one of the transactions is recorded in the blockchain.
 
   Escrow contract
     A transaction in which a spender and receiver place funds in a 2-of-2 (or other m-of-n) multisig output so that neither can spend the funds until they're both satisfied with some external outcome.
@@ -333,7 +333,7 @@ Glossary
 
   Payment protocol
   Payment request
-    The protocol defined in BIP70 (and other BIPs) which lets spenders get signed payment details from receivers.
+    The deprecated protocol defined in BIP70 (and other BIPs) which lets spenders get signed payment details from receivers.
 
     **Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of Bitcoin)
 
@@ -431,7 +431,7 @@ Glossary
     A method for verifying if particular transactions are included in a block without downloading the entire block.  The method is used by some lightweight Bitcoin clients.
 
   Soft fork
-    A softfork is a change to the bitcoin protocol  wherein only previously valid blocks/transactions  are made invalid. Since old nodes will recognise  the new blocks as valid, a softfork is backward-compatible.
+    A softfork is a change to the bitcoin protocol wherein only previously valid blocks/transactions are made invalid. Since old nodes will recognise the new blocks as valid, a softfork is backward-compatible.
 
     **Not to be confused with:** Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
 

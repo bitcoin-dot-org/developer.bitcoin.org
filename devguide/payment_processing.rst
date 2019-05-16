@@ -1,7 +1,12 @@
 Payment Processing
-------------------
+==================
 
-Payment processing encompasses the steps spenders and receivers perform to make and accept payments in exchange for products or services. The basic steps have not changed since the dawn of commerce, but the technology has. This section will explain how receivers and spenders can, respectively, request and make payments using Bitcoin—and how they can deal with complications such as `refunds </en/developer-guide#issuing-refunds>`__ and `recurrent rebilling </en/developer-guide#rebilling-recurring-payments>`__.
+Payment processing encompasses the steps spenders and receivers perform to make and accept payments in exchange for products or services. The basic steps have not changed since the dawn of commerce, but the technology has. 
+
+Introduction
+------------
+
+This section will explain how receivers and spenders can, respectively, request and make payments using Bitcoin—and how they can deal with complications such as `refunds </en/developer-guide#issuing-refunds>`__ and `recurrent rebilling </en/developer-guide#rebilling-recurring-payments>`__.
 
 .. figure:: /img/dev/en-payment-processing.svg
    :alt: Bitcoin Payment Processing
@@ -13,7 +18,7 @@ The figure above illustrates payment processing using Bitcoin from a receiver’
 It is worth mentioning that each of these steps can be outsourced by using third party APIs and services.
 
 Pricing Orders
-~~~~~~~~~~~~~~
+--------------
 
 Because of exchange rate variability between satoshis and national currencies (`fiat </en/developer-guide#term-fiat>`__), many Bitcoin orders are priced in `fiat </en/developer-guide#term-fiat>`__ but paid in satoshis, necessitating a price conversion.
 
@@ -32,9 +37,9 @@ Because the exchange rate fluctuates over time, order totals pegged to `fiat </e
 Shorter expiration periods increase the chance the invoice will expire before payment is received, possibly necessitating manual intervention to request an additional payment or to issue a `refund </en/developer-guide#issuing-refunds>`__. Longer expiration periods increase the chance that the exchange rate will fluctuate a significant amount before payment is received.
 
 Requesting Payments
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
-Before requesting payment, your application must create a Bitcoin address, or acquire an address from another program such as Bitcoin Core. Bitcoin addresses are described in detail in the `Transactions <#transactions>`__ section. Also described in that section are two important reasons to `avoid using an address more than once <#avoiding-key-reuse>`__—but a third reason applies especially to payment requests:
+Before requesting payment, your application must create a Bitcoin address, or acquire an address from another program such as Bitcoin Core. Bitcoin addresses are described in detail in the `Transactions </en/transactions-guide>`__ guide. Also described in that section are two important reasons to avoid using an address more than once—but a third reason applies especially to payment requests:
 
 Using a separate address for each incoming payment makes it trivial to determine which customers have paid their payment requests. Your applications need only track the association between a particular payment request and the address used in it, and then scan the block chain for transactions matching that address.
 
@@ -51,7 +56,7 @@ The next subsections will describe in detail the following four compatible ways 
 |Warning icon| **Warning:** Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacks from replacing your Bitcoin address with the attacker’s address.
 
 Plain Text
-^^^^^^^^^^
+~~~~~~~~~~
 
 To specify an amount directly for copying and pasting, you must provide the address, the amount, and the denomination. An expiration time for the offer may also be specified. For example:
 
@@ -82,7 +87,7 @@ Indicating the denomination is critical. As of this writing, popular Bitcoin wal
 +------------+-----------------------------+
 
 bitcoin: URI
-^^^^^^^^^^^^
+~~~~~~~~~~~~
 
 The ```bitcoin:`` URI </en/developer-guide#term-bitcoin-uri>`__ scheme defined in `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__ eliminates denomination confusion and saves the spender from copying and pasting two separate values. It also lets the payment request provide some additional information to the spender. An example:
 
@@ -108,7 +113,7 @@ The URI scheme can be extended, as will be seen in the payment protocol section 
 Programs accepting URIs in any form must ask the user for permission before paying unless the user has explicitly disabled prompting (as might be the case for micropayments).
 
 QR Codes
-^^^^^^^^
+~~~~~~~~
 
 QR codes are a popular way to exchange `“bitcoin:” URIs </en/developer-guide#term-bitcoin-uri>`__ in person, in images, or in videos. Most mobile Bitcoin wallet apps, and some desktop wallets, support scanning QR codes to pre-fill their payment screens.
 
@@ -122,7 +127,9 @@ The figure below shows the same `“bitcoin:” URI </en/developer-guide#term-bi
 The error correction is combined with a checksum to ensure the `Bitcoin QR code </en/developer-guide#term-uri-qr-code>`__ cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
 
 Payment Protocol
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
+
+|Warning icon| **Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Bitcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Bitcoin Core version 0.18 when using `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ URI’s. Merchants should transition away from `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ to more secure options such as `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__. Merchants should never require `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ payments and should provide `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__ fallbacks.
 
 Bitcoin Core 0.9 supports the new `payment protocol <../reference/glossary.html#payment-protocol>`__. The payment protocol adds many important features to payment requests:
 
@@ -211,7 +218,7 @@ In the case of a dispute, Charlie can generate a cryptographically proven `recei
 If a `refund </en/developer-guide#issuing-refunds>`__ needs to be issued, Bob’s server can safely pay the `refund </en/developer-guide#issuing-refunds>`__-to pubkey script provided by Charlie. See the `Refunds </en/developer-guide#issuing-refunds>`__ section below for more details.
 
 Verifying Payment
-~~~~~~~~~~~~~~~~~
+-----------------
 
 As explained in the `Transactions </en/developer-guide#transactions>`__ and `Block Chain </en/developer-guide#block-chain>`__ sections, broadcasting a transaction to the `network </en/developer-guide#term-network>`__ doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
 
@@ -246,7 +253,7 @@ Another example could be to detect a fork when multiple peers report differing b
 Another good source of double-spend protection can be human intelligence. For example, fraudsters may act differently from legitimate customers, letting savvy merchants manually flag them as high risk. Your program can provide a safe mode which stops automatic payment acceptance on a global or per-customer basis.
 
 Issuing Refunds
-~~~~~~~~~~~~~~~
+---------------
 
 Occasionally receivers using your applications will need to issue `refunds </en/developer-guide#issuing-refunds>`__. The obvious way to do that, which is very unsafe, is simply to return the satoshis to the pubkey script from which they came. For example:
 
@@ -267,7 +274,7 @@ This leaves receivers only two correct ways to issue `refunds </en/developer-gui
 Note: it would be wise to contact the spender directly if the `refund </en/developer-guide#issuing-refunds>`__ is being issued a long time after the original payment was made. This allows you to ensure the user still has access to the key or keys for the ``refund_to`` address.
 
 Disbursing Income (Limiting Forex Risk)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
 
 Many receivers worry that their satoshis will be less valuable in the future than they are now, called foreign exchange (forex) risk. To limit forex risk, many receivers choose to disburse newly-acquired payments soon after they’re received.
 
@@ -280,7 +287,7 @@ If your application provides this business logic, it will need to choose which o
 -  A first-in-first-out (FIFO) algorithm spends the oldest satoshis first, which can help ensure that the receiver’s payments always confirm, although this has utility only in a few edge cases.
 
 Merge Avoidance
-^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~
 
 When a receiver receives satoshis in an output, the spender can track (in a crude way) how the receiver spends those satoshis. But the spender can’t automatically see other satoshis paid to the receiver by other spenders as long as the receiver uses `unique addresses </en/developer-guide#term-unique-address>`__ for each transaction.
 
@@ -293,7 +300,7 @@ A crude `merge avoidance </en/developer-guide#term-merge-avoidance>`__ strategy 
 More advanced `merge avoidance </en/developer-guide#term-merge-avoidance>`__ strategies largely depend on enhancements to the payment protocol which will allow payers to avoid merging by intelligently distributing their payments among multiple outputs provided by the receiver.
 
 Last In, First Out (LIFO)
-^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Outputs can be spent as soon as they’re received—even before they’re confirmed. Since recent outputs are at the greatest risk of being double-spent, spending them before older outputs allows the spender to hold on to older confirmed outputs which are much less likely to be double-spent.
 
@@ -310,7 +317,7 @@ Because LIFO puts the recipient of secondary transactions in as much double-spen
 LIFO should not be used when the primary transaction recipient’s reputation might be at stake, such as when paying employees. In these cases, it’s better to wait for transactions to be fully verified (see the `Verification subsection </en/developer-guide#verifying-payment>`__ above) before using them to make payments.
 
 First In, First Out (FIFO)
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The oldest outputs are the most reliable, as the longer it’s been since they were received, the more blocks would need to be modified to double spend them. However, after just a few blocks, a point of rapidly diminishing returns is reached. The `original Bitcoin paper <https://bitcoin.org/en/bitcoin-paper>`__ predicts the chance of an attacker being able to modify old blocks, assuming the attacker has 30% of the total `network </en/developer-guide#term-network>`__ hashing power:
 
@@ -343,7 +350,7 @@ FIFO does have a small advantage when it comes to transaction fees, as older out
 The only practical use of FIFO is by receivers who spend all or most of their income within a few blocks, and who want to reduce the chance of their payments becoming accidentally invalid. For example, a receiver who holds each payment for six confirmations, and then spends 100% of `verified payments </en/developer-guide#verifying-payment>`__ to vendors and a savings account on a bi-hourly schedule.
 
 Rebilling Recurring Payments
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 Automated recurring payments are not possible with decentralized Bitcoin wallets. Even if a wallet supported automatically sending non-reversible payments on a regular schedule, the user would still need to start the program at the appointed time, or leave it running all the time unprotected by encryption.
 

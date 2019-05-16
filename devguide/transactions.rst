@@ -1,7 +1,12 @@
 Transactions
+============
+
+Transactions let users spend satoshis. Each transaction is constructed out of several parts which enable both simple direct payments and complex transactions. 
+
+Introduction
 ------------
 
-Transactions let users spend satoshis. Each transaction is constructed out of several parts which enable both simple direct payments and complex transactions. This section will describe each part and demonstrate how to use them together to build complete transactions.
+This section will describe each part and demonstrate how to use them together to build complete transactions.
 
 To keep things simple, this section pretends coinbase transactions do not exist. Coinbase transactions can only be created by Bitcoin miners and they’re an exception to many of the rules listed below. Instead of pointing out the coinbase exception to each rule, we invite you to read about coinbase transactions in the block chain section of this guide.
 
@@ -67,7 +72,7 @@ As illustrated in the figure above, the data Bob signs includes the txid and `ou
 After putting his signature and public key in the signature script, Bob broadcasts the transaction to Bitcoin miners through the `peer-to-peer network </en/developer-guide#term-network>`__. Each peer and miner independently validates the transaction before broadcasting it further or attempting to include it in a new block of transactions.
 
 P2PKH Script Validation
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 The validation procedure requires evaluation of the signature script and pubkey script. In a P2PKH output, the pubkey script is:
 
@@ -109,9 +114,9 @@ To test whether the transaction is valid, signature script and pubkey script ope
 If *false* is not at the top of the stack after the pubkey script has been evaluated, the transaction is valid (provided there are no other problems with it).
 
 P2SH Scripts
-~~~~~~~~~~~~
+------------
 
-Pubkey scripts are created by spenders who have little interest what that script does. Receivers do care about the script conditions and, if they want, they can ask spenders to use a particular pubkey script. Unfortunately, custom pubkey scripts are less convenient than short Bitcoin addresses and there was no standard way to communicate them between programs prior to widespread implementation of the `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ Payment Protocol discussed later.
+Pubkey scripts are created by spenders who have little interest what that script does. Receivers do care about the script conditions and, if they want, they can ask spenders to use a particular pubkey script. Unfortunately, custom pubkey scripts are less convenient than short Bitcoin addresses and there was no standard way to communicate them between programs prior to widespread implementation of the now deprecated `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ Payment Protocol discussed later.
 
 To solve these problems, pay-to-script-hash (`P2SH <../reference/glossary.html#p2sh-address>`__) transactions were created in 2012 to let a spender create a pubkey script containing a hash of a second script, the `redeem script <../reference/glossary.html#redeem-script>`__.
 
@@ -132,7 +137,7 @@ When Bob wants to spend the output, he provides his signature along with the ful
 The hash of the redeem script has the same properties as a pubkey hash—so it can be transformed into the standard Bitcoin address format with only one small change to differentiate it from a standard address. This makes collecting a P2SH-style address as simple as collecting a P2PKH-style address. The hash also obfuscates any public keys in the redeem script, so P2SH scripts are as secure as P2PKH pubkey hashes.
 
 Standard Transactions
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 After the discovery of several dangerous bugs in early versions of Bitcoin, a test was added which only accepted transactions from the `network </en/developer-guide#term-network>`__ if their pubkey scripts and signature scripts matched a small set of believed-to-be-safe templates, and if the rest of the transaction didn’t violate another small set of rules enforcing good `network </en/developer-guide#term-network>`__ behavior. This is the ``IsStandard()`` test, and transactions which pass it are called standard transactions.
 
@@ -142,10 +147,14 @@ Besides making it more difficult for someone to attack Bitcoin for free by broad
 
 As of Bitcoin Core 0.9, the standard pubkey script types are:
 
+-  Pay To Public Key Hash (P2PKH)
+-  Pay To Script Hash (P2SH)
+-  Multisig
+-  Pubkey
+-  Null Data
+
 Pay To Public Key Hash (P2PKH)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 P2PKH is the most common form of pubkey script used to send a transaction to one or multiple Bitcoin addresses.
 
@@ -155,9 +164,7 @@ P2PKH is the most common form of pubkey script used to send a transaction to one
    Signature script: <sig> <pubkey>
 
 Pay To Script Hash (P2SH)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 P2SH is used to send a transaction to a script hash. Each of the standard pubkey scripts can be used as a P2SH redeem script, excluding P2SH itself. As of Bitcoin Core 0.9.2, P2SH transactions can contain any valid redeemScript, making the P2SH standard much more flexible and allowing for experimentation with many novel and complex types of transactions. The most common use of P2SH is the standard multisig pubkey script, with the second most common use being the `Open Assets Protocol <https://github.com/OpenAssets/open-assets-protocol/blob/master/specification.mediawiki>`__.
 
@@ -173,9 +180,7 @@ This script combination looks perfectly fine to old nodes as long as the script 
 This last step is similar to the verification step in P2PKH or P2Multisig scripts, where the initial part of the signature script(<sig> [sig] [sig..]) acts as the “signature script” in P2PKH/P2Multisig, and the redeem script acts as the “pubkey script”.
 
 Multisig
-^^^^^^^^
-
-
+~~~~~~~~
 
 Although P2SH multisig is now generally used for multisig transactions, this base script can be used to require multiple signatures before a UTXO can be spent.
 
@@ -199,7 +204,7 @@ Although it’s not a separate transaction type, this is a P2SH multisig with 2-
    Signature script: OP_0 <A sig> <C sig> <redeemScript>
 
 Pubkey
-^^^^^^
+~~~~~~
 
 
 
@@ -211,9 +216,7 @@ Pubkey outputs are a simplified form of the P2PKH pubkey script, but they aren�
    Signature script: <sig>
 
 Null Data
-^^^^^^^^^
-
-
+~~~~~~~~~
 
 `Null data <../reference/glossary.html#null-data-transaction>`__ transaction type relayed and mined by default in `Bitcoin Core 0.9.0 </en/release/v0.9.0>`__ and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don’t have to store in their UTXO database. It is preferable to use null data transactions over transactions that bloat the UTXO database because they cannot be automatically pruned; however, it is usually even more preferable to store data outside transactions if possible.
 
@@ -233,7 +236,7 @@ Bitcoin Core 0.12.0 defaults to relaying and mining null data outputs with up to
 The ``-datacarriersize`` Bitcoin Core configuration option allows you to set the maximum number of bytes in null data outputs that you will relay or mine.
 
 Non-Standard Transactions
-^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you use anything besides a standard pubkey script in an output, peers and miners using the default Bitcoin Core settings will neither accept, broadcast, nor mine your transaction. When you try to broadcast your transaction to a peer running the default settings, you will receive an error.
 
@@ -256,7 +259,7 @@ As of `Bitcoin Core 0.9.3 </en/release/v0.9.3>`__, standard transactions must al
 -  The transaction must not include any outputs which receive fewer than 1/3 as many satoshis as it would take to spend it in a typical input. That’s `currently 546 satoshis <https://github.com/bitcoin/bitcoin/commit/6a4c196dd64da2fd33dc7ae77a8cdd3e4cf0eff1>`__ for a P2PKH or P2SH output on a Bitcoin Core node with the default relay fee. Exception: standard null data outputs must receive zero satoshis.
 
 Signature Hash Types
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 `“OP_CHECKSIG” </en/developer-reference#term-op-checksig>`__ extracts a non-stack argument from each signature it evaluates, allowing the signer to decide which parts of the transaction to sign. Since the signature protects those parts of the transaction from modification, this lets signers selectively choose to let other people modify their transactions.
 
@@ -279,7 +282,7 @@ The base types can be modified with the `“SIGHASH_ANYONECANPAY” <../referenc
 Because each input is signed, a transaction with multiple inputs can have multiple signature hash types signing different parts of the transaction. For example, a single-input transaction signed with ``NONE`` could have its output changed by the miner who adds it to the block chain. On the other hand, if a two-input transaction has one input signed with ``NONE`` and one input signed with ``ALL``, the ``ALL`` signer can choose where to spend the satoshis without consulting the ``NONE`` signer—but nobody else can modify the transaction.
 
 Locktime And Sequence Number
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 One thing all signature hash types sign is the transaction’s `locktime <../reference/glossary.html#locktime>`__. (Called nLockTime in the Bitcoin Core source code.) The locktime indicates the earliest time a transaction can be added to the block chain.
 
@@ -300,7 +303,7 @@ Locktime itself is an unsigned 4-byte integer which can be parsed two ways:
 -  If greater than or equal to 500 million, locktime is parsed using the `Unix epoch time <https://en.wikipedia.org/wiki/Unix_time>`__ format (the number of seconds elapsed since 1970-01-01T00:00 UTC—currently over 1.395 billion). The transaction can be added to any block whose block time is greater than the locktime.
 
 Transaction Fees And Change
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 Transactions pay fees based on the total byte size of the signed transaction. Fees per byte are calculated based on current demand for space in mined blocks with fees rising as demand increases. The transaction fee is given to the Bitcoin miner, as explained in the `block chain section </en/developer-guide#block-chain>`__, and so it is ultimately up to each miner to choose the minimum transaction fee they will accept.
 
@@ -315,7 +318,7 @@ Since each transaction spends Unspent Transaction Outputs (UTXOs) and because a 
 `Change outputs <../reference/glossary.html#change-address>`__ are regular outputs which spend the surplus satoshis from the UTXOs back to the spender. They can reuse the same P2PKH pubkey hash or P2SH script hash as was used in the UTXO, but for the reasons described in the `next subsection <#avoiding-key-reuse>`__, it is highly recommended that change outputs be sent to a new P2PKH or P2SH address.
 
 Avoiding Key Reuse
-~~~~~~~~~~~~~~~~~~
+------------------
 
 In a transaction, the spender and receiver each reveal to each other all public keys or addresses used in the transaction. This allows either person to use the public block chain to track past and future transactions involving the other person’s same public keys or addresses.
 
@@ -334,7 +337,7 @@ Avoiding key reuse can also provide security against attacks which might allow r
 So, for both privacy and security, we encourage you to build your applications to avoid public key reuse and, when possible, to discourage users from reusing addresses. If your application needs to provide a fixed URI to which payments should be sent, please see the ```bitcoin:`` URI section </en/developer-guide#bitcoin-uri>`__ below.
 
 Transaction Malleability
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 None of Bitcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called `transaction malleability <../reference/glossary.html#malleability>`__\ {:.term}{:#term-transaction-malleability}. The signature script contains the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
 

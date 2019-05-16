@@ -1,5 +1,5 @@
 Introduction
-------------
+============
 
 The following guide aims to provide examples to help you start building Bitcoin-based applications. To make the best use of this document, you may want to install the current version of Bitcoin Core, either from `source <https://github.com/bitcoin/bitcoin>`__ or from a `pre-compiled executable </en/download>`__.
 

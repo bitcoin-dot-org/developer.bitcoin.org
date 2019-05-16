@@ -1,14 +1,19 @@
 Mining
-------
+======
 
-Mining adds new blocks to the block chain, making transaction history hard to modify. Mining today takes on two forms:
+Mining adds new blocks to the block chain, making transaction history hard to modify.
+
+Introduction
+------------
+
+Mining today takes on two forms:
 
 -  Solo mining, where the miner attempts to generate new blocks on his own, with the proceeds from the block reward and transaction fees going entirely to himself, allowing him to receive large payments with a higher variance (longer time between payments)
 
 -  Pooled mining, where the miner pools resources with other miners to find blocks more often, with the proceeds being shared among the pool miners in rough correlation to the amount of hashing power they each contributed, allowing the miner to receive small payments with a lower variance (shorter time between payments).
 
 Solo Mining
-~~~~~~~~~~~
+-----------
 
 As illustrated below, solo miners typically use ``bitcoind`` to get new transactions from the `network </en/developer-guide#term-network>`__. Their mining software periodically polls ``bitcoind`` for new transactions using the `“getblocktemplate” RPC </en/developer-reference#getblocktemplate>`__, which provides the list of new transactions plus the public key to which the coinbase transaction should be sent.
 
@@ -24,7 +29,7 @@ If none of the hashes are below the threshold, the mining hardware gets an updat
 On the other hand, if a hash is found below the target threshold, the mining hardware returns the block header with the successful nonce to the mining software. The mining software combines the header with the block and sends the completed block to ``bitcoind`` to be broadcast to the `network </en/developer-guide#term-network>`__ for addition to the block chain.
 
 Pool Mining
-~~~~~~~~~~~
+-----------
 
 Pool miners follow a similar workflow, illustrated below, which allows mining pool operators to pay miners based on their share of the work done. The mining pool gets new transactions from the `network </en/developer-guide#term-network>`__ using ``bitcoind``. Using one of the methods discussed later, each miner’s mining software connects to the pool and requests the information it needs to construct block headers.
 
@@ -42,17 +47,17 @@ The information the miner sends to the pool is called a share because it proves 
 The block reward and transaction fees that come from mining that block are paid to the mining pool. The mining pool pays out a portion of these proceeds to individual miners based on how many shares they generated. For example, if the mining pool’s target threshold is 100 times lower than the `network </en/developer-guide#term-network>`__ target threshold, 100 shares will need to be generated on average to create a successful block, so the mining pool can pay 1/100th of its payout for each share received. Different mining pools use different reward distribution systems based on this basic share system.
 
 Block Prototypes
-~~~~~~~~~~~~~~~~
+----------------
 
-In both solo and pool mining, the mining software needs to get the information necessary to construct block headers. This subsection describes, in a linear way, how that information is transmitted and used. However, in actual implementations, parallel threads and queuing are used to keep ASIC hashers working at maximum capacity,
+In both solo and pool mining, the mining software needs to get the information necessary to construct block headers. This subsection describes, in a linear way, how that information is transmitted and used. However, in actual implementations, parallel threads and queuing are used to keep ASIC hashers working at maximum capacity.
 
 getwork RPC
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 The simplest and earliest method was the now-deprecated Bitcoin Core `“getwork” RPC </en/developer-reference#getwork>`__, which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of `“getwork” </en/developer-reference#getwork>`__ requests a second. Solo miners may still use `“getwork” </en/developer-reference#getwork>`__ on v0.9.5 or below, but most pools today discourage or disallow its use.
 
 getblocktemplate RPC
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 An improved method is the Bitcoin Core `“getblocktemplate” RPC </en/developer-reference#getblocktemplate>`__. This provides the mining software with much more information:
 
@@ -69,7 +74,7 @@ Using the transactions received, the mining software adds a nonce to the coinbas
 Like all ``bitcoind`` `RPCs </en/developer-reference#remote-procedure-calls-rpcs>`__, `“getblocktemplate” </en/developer-reference#getblocktemplate>`__ is sent over HTTP. To ensure they get the most recent work, most miners use `HTTP longpoll <https://en.wikipedia.org/wiki/Push_technology#Long_polling>`__ to leave a `“getblocktemplate” </en/developer-reference#getblocktemplate>`__ request open at all times. This allows the mining pool to push a new `“getblocktemplate” </en/developer-reference#getblocktemplate>`__ to the miner as soon as any miner on the `peer-to-peer network </en/developer-guide#term-network>`__ publishes a new block or the pool wants to send more transactions to the mining software.
 
 Stratum
-^^^^^^^
+-------
 
 A widely used alternative to `“getblocktemplate” </en/developer-reference#getblocktemplate>`__ is the `Stratum mining protocol <http://mining.bitcoin.cz/stratum-mining>`__. Stratum focuses on giving miners the minimal information they need to construct block headers on their own:
 
