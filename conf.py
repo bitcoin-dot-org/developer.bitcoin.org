@@ -13,13 +13,14 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import sphinxbootstrap4theme
 
 
 # -- Project information -----------------------------------------------------
 
-project = u'Bitcoin'
-copyright = u'2019, Bitcoin.org'
-author = u'Bitcoin.org'
+project = u'Bitcoin for Developers'
+copyright = u'2019 Bitcoin Developer Documentation'
+author = u'Bitcoin Developer Documentation'
 
 # The short X.Y version
 version = u''
@@ -72,8 +73,8 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
-html_logo = 'bitcoin-logo.png'
+html_theme = 'sphinxbootstrap4theme'
+html_theme_path = [sphinxbootstrap4theme.get_path()]
 html_favicon = 'favicon.ico'
 
 # Theme options are theme-specific and customize the look and feel of a theme
@@ -81,8 +82,9 @@ html_favicon = 'favicon.ico'
 # documentation.
 #
 html_theme_options = {
-    "logo_only": True,
-    "style_nav_header_background": "white",
+    'navbar_color_class' : 'dark',
+    'navbar_show_pages' : False,
+    'sidebar_fixed': True,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

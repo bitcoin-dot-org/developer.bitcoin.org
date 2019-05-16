@@ -1,106 +1,396 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>abandontransaction &mdash; Bitcoin  documentation</title>
-  
 
-  
-  
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <title>abandontransaction &#8212; Bitcoin for Developers  documentation</title>
+
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-4.3.1-dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinxbootstrap4.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../_static/sphinxbootstrap4.js"></script>
     <link rel="shortcut icon" href="../../_static/favicon.ico"/>
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="abortrescan" href="abortrescan.html" />
     <link rel="prev" title="verifymessage" href="verifymessage.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search"  style="background: white" >
-          
-
-          
-            <a href="../../index.html">
-          
-
-          
-            
-            <img src="../../_static/bitcoin-logo.png" class="logo" alt="Logo"/>
-          
+  </head><body>
+  <nav class="navbar navbar-expand-md  fixed-top navbar-dark bg-dark flex-wrap">
+    <button class="navbar-toggler ml-auto py-2" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+      &#9776;
+    </button>
+      <div class="navbar-collapse collapse" id="exCollapsingNavbar2">
+           <a class="navbar-brand py-1" href="../../index.html">
+                  Bitcoin for Developers
           </a>
+          <ul class="navbar-nav mr-auto">
+          
+          </ul>
+          <div class="dropdown-divider d-block d-sm-none mb-4"></div>
+             
+<form class="form-inline" action="../../search.html" method="get">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      </div>
 
-          
-            
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
+      <!--<div class="row hidden-sm-up">
+          <div class="collapse navbar-toggleable-xs container" id="exCollapsingNavbar2">
+              <div class="container">
+             　　 <a class="navbar-brand" href="../../index.html">
+                      Bitcoin for Developers
+                  </a>
+              </div>
+              <ul class="nav navbar-nav">
+              </ul>
+              <div class="dropdown-divider"></div>
+              <div class="navbar-text">search<div>
               
+<form class="form-inline" action="../../search.html" method="get">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          </div>
+      </div>-->
+    </nav>
+  </div>
+
+    <div class="related d-flex justify-content-between bg-light flex-wrap" role="navigation" aria-label="related navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../../index.html">Bitcoin for Developers  documentation</a></li>
+                <li class="breadcrumb-item"><a href="../index.html"
+                       >Reference</a></li>
+                <li class="breadcrumb-item"><a href="index.html"
+                       
+                         accesskey="U"
+                         class="active"
+                       >RPC API Reference</a></li>
+            <li class="breadcrumb-item active">abandontransaction</li>
+        </ol>
+       <div>
+          <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+               <a href="verifymessage.html" title="Previous Chapter: verifymessage" class="btn btn-primary" role="botton" accesskey="P">
+                   &laquo; verifymessage
+               </a>
+               <a href="abortrescan.html" title="Next Chapter: abortrescan" class="btn btn-primary" role="botton" accesskey="N">
+                   abortrescan &raquo;
+               </a>
+           </div>
+       </div>
+    </div>
+
+  <div class="main container-fluid">
+    <div class="row"> 
+      <div class="sphinxsidebar d-none d-md-block">
+        <div class="sphinxsidebarwrapper">          
+            <h4>Table Of Contents</h4>
             
             
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a></li>
+              <div class="sidebartoctree">
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devguide/index.html">Developer Guides</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/block_chain.html">Block Chain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/block_chain.html#block-chain-overview">Block Chain Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/block_chain.html#proof-of-work">Proof Of Work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/block_chain.html#block-height-and-forking">Block Height And Forking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/block_chain.html#transaction-data">Transaction Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/block_chain.html#consensus-rule-changes">Consensus Rule Changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/block_chain.html#detecting-forks">Detecting Forks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/transactions.html">Transactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/transactions.html#p2pkh-script-validation">P2PKH Script Validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/transactions.html#p2sh-scripts">P2SH Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/transactions.html#standard-transactions">Standard Transactions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/transactions.html#pay-to-public-key-hash-p2pkh">Pay To Public Key Hash (P2PKH)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/transactions.html#pay-to-script-hash-p2sh">Pay To Script Hash (P2SH)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/transactions.html#multisig">Multisig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/transactions.html#pubkey">Pubkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/transactions.html#null-data">Null Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/transactions.html#non-standard-transactions">Non-Standard Transactions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/transactions.html#signature-hash-types">Signature Hash Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/transactions.html#locktime-and-sequence-number">Locktime And Sequence Number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/transactions.html#transaction-fees-and-change">Transaction Fees And Change</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/transactions.html#avoiding-key-reuse">Avoiding Key Reuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/transactions.html#transaction-malleability">Transaction Malleability</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/contracts.html">Contracts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/contracts.html#escrow-and-arbitration">Escrow And Arbitration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/contracts.html#micropayment-channel">Micropayment Channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/contracts.html#coinjoin">CoinJoin</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/wallets.html">Wallets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/wallets.html#wallet-programs">Wallet Programs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/wallets.html#full-service-wallets">Full-Service Wallets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/wallets.html#signing-only-wallets">Signing-Only Wallets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/wallets.html#distributing-only-wallets">Distributing-Only Wallets</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/wallets.html#wallet-files">Wallet Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/wallets.html#private-key-formats">Private Key Formats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/wallets.html#public-key-formats">Public Key Formats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/wallets.html#hierarchical-deterministic-key-creation">Hierarchical Deterministic Key Creation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/wallets.html#loose-key-wallets">Loose-Key Wallets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/payment_processing.html">Payment Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/payment_processing.html#pricing-orders">Pricing Orders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/payment_processing.html#requesting-payments">Requesting Payments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/payment_processing.html#plain-text">Plain Text</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/payment_processing.html#bitcoin-uri">bitcoin: URI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/payment_processing.html#qr-codes">QR Codes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/payment_processing.html#payment-protocol">Payment Protocol</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/payment_processing.html#verifying-payment">Verifying Payment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/payment_processing.html#issuing-refunds">Issuing Refunds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/payment_processing.html#disbursing-income-limiting-forex-risk">Disbursing Income (Limiting Forex Risk)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/payment_processing.html#merge-avoidance">Merge Avoidance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/payment_processing.html#last-in-first-out-lifo">Last In, First Out (LIFO)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/payment_processing.html#first-in-first-out-fifo">First In, First Out (FIFO)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/payment_processing.html#rebilling-recurring-payments">Rebilling Recurring Payments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/operating_modes.html">Operating Modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/operating_modes.html#full-node">Full Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/operating_modes.html#simplified-payment-verification-spv">Simplified Payment Verification (SPV)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/operating_modes.html#potential-spv-weaknesses">Potential SPV Weaknesses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/operating_modes.html#bloom-filters">Bloom Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/operating_modes.html#application-of-bloom-filters">Application Of Bloom Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/operating_modes.html#future-proposals">Future Proposals</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/p2p_network.html">P2P Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/p2p_network.html#peer-discovery">Peer Discovery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/p2p_network.html#connecting-to-peers">Connecting To Peers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/p2p_network.html#initial-block-download">Initial Block Download</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/p2p_network.html#blocks-first">Blocks-First</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/p2p_network.html#headers-first">Headers-First</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/p2p_network.html#block-broadcasting">Block Broadcasting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/p2p_network.html#orphan-blocks">Orphan Blocks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/p2p_network.html#transaction-broadcasting">Transaction Broadcasting</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/p2p_network.html#memory-pool">Memory Pool</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/p2p_network.html#misbehaving-nodes">Misbehaving Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/p2p_network.html#alerts">Alerts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../devguide/mining.html">Mining</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/mining.html#solo-mining">Solo Mining</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/mining.html#pool-mining">Pool Mining</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../devguide/mining.html#block-prototypes">Block Prototypes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/mining.html#getwork-rpc">getwork RPC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/mining.html#getblocktemplate-rpc">getblocktemplate RPC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../devguide/mining.html#stratum">Stratum</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../intro.html#not-a-specification">Not A Specification</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../block_chain.html">Block Chain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../block_chain.html#block-headers">Block Headers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../block_chain.html#block-versions">Block Versions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../block_chain.html#merkle-trees">Merkle Trees</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../block_chain.html#target-nbits">Target nBits</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../block_chain.html#serialized-blocks">Serialized Blocks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../transactions.html">Transactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../transactions.html#opcodes">OpCodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../transactions.html#address-conversion">Address Conversion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../transactions.html#raw-transaction-format">Raw Transaction Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../transactions.html#txin-a-transaction-input-non-coinbase">TxIn: A Transaction Input (Non-Coinbase)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../transactions.html#outpoint-the-specific-part-of-a-specific-output">Outpoint: The Specific Part Of A Specific Output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../transactions.html#txout-a-transaction-output">TxOut: A Transaction Output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../transactions.html#coinbase-input-the-input-of-the-first-transaction-in-a-block">Coinbase Input: The Input Of The First Transaction In A Block</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../wallets.html">Wallets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../wallets.html#deterministic-wallet-formats">Deterministic Wallet Formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../wallets.html#type-1-single-chain-wallets">Type 1: Single Chain Wallets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../wallets.html#type-2-hierarchical-deterministic-hd-wallets">Type 2: Hierarchical Deterministic (HD) Wallets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../p2p_networking.html">P2P Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../p2p_networking.html#constants-and-defaults">Constants And Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../p2p_networking.html#protocol-versions">Protocol Versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../p2p_networking.html#message-headers">Message Headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../p2p_networking.html#data-messages">Data Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#block">Block</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#getblocks">GetBlocks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#getdata">GetData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#getheaders">GetHeaders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#headers">Headers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#inv">Inv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#mempool">MemPool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#merkleblock">MerkleBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#cmpctblock">CmpctBlock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#sendcmpct">SendCmpct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#getblocktxn">GetBlockTxn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#blocktxn">BlockTxn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#notfound">NotFound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#tx">Tx</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../p2p_networking.html#control-messages">Control Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#addr">Addr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#alert">Alert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#feefilter">FeeFilter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#filteradd">FilterAdd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#filterclear">FilterClear</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#filterload">FilterLoad</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#getaddr">GetAddr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#ping">Ping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#pong">Pong</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#reject">Reject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#sendheaders">SendHeaders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#verack">VerAck</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../p2p_networking.html#version">Version</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">RPC API Reference</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#blockchain-rpcs">Blockchain RPCs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="getbestblockhash.html">getbestblockhash</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblock.html">getblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockchaininfo.html">getblockchaininfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockcount.html">getblockcount</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockhash.html">getblockhash</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockheader.html">getblockheader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getblockstats.html">getblockstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getchaintips.html">getchaintips</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getchaintxstats.html">getchaintxstats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getdifficulty.html">getdifficulty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmempoolancestors.html">getmempoolancestors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmempooldescendants.html">getmempooldescendants</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmempoolentry.html">getmempoolentry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmempoolinfo.html">getmempoolinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getrawmempool.html">getrawmempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettxout.html">gettxout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettxoutproof.html">gettxoutproof</a></li>
+<li class="toctree-l4"><a class="reference internal" href="gettxoutsetinfo.html">gettxoutsetinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="preciousblock.html">preciousblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pruneblockchain.html">pruneblockchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="savemempool.html">savemempool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="scantxoutset.html">scantxoutset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="verifychain.html">verifychain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="verifytxoutproof.html">verifytxoutproof</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#control-rpcs">Control RPCs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="getmemoryinfo.html">getmemoryinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getrpcinfo.html">getrpcinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="help.html">help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="logging.html">logging</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stop.html">stop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="uptime.html">uptime</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#generating-rpcs">Generating RPCs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generate.html">generate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generatetoaddress.html">generatetoaddress</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#mining-rpcs">Mining RPCs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="getblocktemplate.html">getblocktemplate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getmininginfo.html">getmininginfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getnetworkhashps.html">getnetworkhashps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="prioritisetransaction.html">prioritisetransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="submitblock.html">submitblock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="submitheader.html">submitheader</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#network-rpcs">Network RPCs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="addnode.html">addnode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clearbanned.html">clearbanned</a></li>
+<li class="toctree-l4"><a class="reference internal" href="disconnectnode.html">disconnectnode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getaddednodeinfo.html">getaddednodeinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getconnectioncount.html">getconnectioncount</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getnettotals.html">getnettotals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getnetworkinfo.html">getnetworkinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getnodeaddresses.html">getnodeaddresses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getpeerinfo.html">getpeerinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="listbanned.html">listbanned</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ping.html">ping</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setban.html">setban</a></li>
+<li class="toctree-l4"><a class="reference internal" href="setnetworkactive.html">setnetworkactive</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#rawtransactions-rpcs">Rawtransactions RPCs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="analyzepsbt.html">analyzepsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="combinepsbt.html">combinepsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="combinerawtransaction.html">combinerawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="converttopsbt.html">converttopsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createpsbt.html">createpsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="createrawtransaction.html">createrawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decodepsbt.html">decodepsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decoderawtransaction.html">decoderawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="decodescript.html">decodescript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finalizepsbt.html">finalizepsbt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="fundrawtransaction.html">fundrawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getrawtransaction.html">getrawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="joinpsbts.html">joinpsbts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sendrawtransaction.html">sendrawtransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signrawtransactionwithkey.html">signrawtransactionwithkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="testmempoolaccept.html">testmempoolaccept</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utxoupdatepsbt.html">utxoupdatepsbt</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#util-rpcs">Util RPCs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="createmultisig.html">createmultisig</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deriveaddresses.html">deriveaddresses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="estimatesmartfee.html">estimatesmartfee</a></li>
+<li class="toctree-l4"><a class="reference internal" href="getdescriptorinfo.html">getdescriptorinfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="signmessagewithprivkey.html">signmessagewithprivkey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="validateaddress.html">validateaddress</a></li>
+<li class="toctree-l4"><a class="reference internal" href="verifymessage.html">verifymessage</a></li>
+</ul>
+</li>
 <li class="toctree-l3 current"><a class="reference internal" href="index.html#wallet-rpcs">Wallet RPCs</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">abandontransaction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="abortrescan.html">abortrescan</a></li>
@@ -161,77 +451,72 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/intro.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/testing.html">Testing Applications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/testing.html#testnet">Testnet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/testing.html#regtest-mode">Regtest Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/transactions.html">Transactions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/transactions.html#transaction-tutorial">Transaction Tutorial</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../examples/transactions.html#simple-spending">Simple Spending</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../examples/transactions.html#simple-raw-transaction">Simple Raw Transaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../examples/transactions.html#complex-raw-transaction">Complex Raw Transaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../examples/transactions.html#offline-signing">Offline Signing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../examples/transactions.html#p2sh-multisig">P2SH Multisig</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/payment_processing.html">Payment Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/payment_processing.html#payment-protocol">Payment Protocol</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../examples/payment_processing.html#paymentrequest-paymentdetails">PaymentRequest &amp; PaymentDetails</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/p2p_networking.html">P2P Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/p2p_networking.html#creating-a-bloom-filter">Creating A Bloom Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/p2p_networking.html#evaluating-a-bloom-filter">Evaluating A Bloom Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/p2p_networking.html#retrieving-a-merkleblock">Retrieving A MerkleBlock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../examples/p2p_networking.html#parsing-a-merkleblock">Parsing A MerkleBlock</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
 </ul>
 
+              </div>
             
           
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Bitcoin</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../index.html">Reference</a> &raquo;</li>
-        
-          <li><a href="index.html">RPC API Reference</a> &raquo;</li>
-        
-      <li>abandontransaction</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            
-              <a href="https://github.com/cornelius/bitcoin-dev-docs/blob/master/reference/rpc/abandontransaction.rst" class="fa fa-github"> Edit on GitHub</a>
-            
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="verifymessage.html"
+                        title="previous chapter">verifymessage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="abortrescan.html"
+                        title="next chapter">abortrescan</a></p>
+<div id="searchbox" style="display: none">
+    <form class="form search" action="../../search.html" method="get">
+      <input type="text" name="q" class="form-control" placeholder="Search..." />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+
+<script type="text/javascript">$('#searchbox').show(0);</script>
+  <ul class="this-page-menu list-unstyled text-right">
+    <li><a href="../../_sources/reference/rpc/abandontransaction.rst.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+        </div>
+      </div> 
+
+      <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
             
   <div class="section" id="abandontransaction">
 <h1>abandontransaction<a class="headerlink" href="#abandontransaction" title="Permalink to this headline">¶</a></h1>
@@ -258,52 +543,21 @@ for their inputs to be respent.  It can be used to replace “stuck” or evicte
 </div>
 
 
-           </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="abortrescan.html" class="btn btn-neutral float-right" title="abortrescan" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="verifymessage.html" class="btn btn-neutral float-left" title="verifymessage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Bitcoin.org
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
         </div>
       </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+    </div>
+      <div class="clearer"></div>
+      </div>
+    </div>
+<footer class="footer d-flex justify-content-between flex-wrap">
+    <div class="copyright">
+        <div>&copy; Copyright 2019 Bitcoin Developer Documentation.</div>
+      <div>Generated by <a href="http://sphinx.pocoo.org/">Sphinx</a> 2.0.1 using <a href="https://github.com/myyasuda/sphinxbootstrap4theme">sphinxbootstrap4theme</a> 0.6.0.</div>
+    </div>
+    <div>
+        <a href="#" class="btn btn-primary btn-sm" role="botton">Back to top</a>
+    </div>
+</footer>
+  </body>
 </html>
