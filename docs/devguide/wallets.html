@@ -87,11 +87,11 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guides</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="block_chain.html">Block Chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contracts.html">Contracts</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Wallets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introductions">Introductions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#wallet-programs">Wallet Programs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#full-service-wallets">Full-Service Wallets</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#signing-only-wallets">Signing-Only Wallets</a></li>
@@ -186,8 +186,12 @@
             
   <div class="section" id="wallets">
 <h1>Wallets<a class="headerlink" href="#wallets" title="Permalink to this headline">¶</a></h1>
-<p>A Bitcoin wallet can refer to either a wallet program or a wallet file. Wallet programs create public keys to receive satoshis and use the corresponding private keys to spend those satoshis. Wallet files store private keys and (optionally) other information related to transactions for the wallet program.</p>
+<p>A Bitcoin wallet can refer to either a wallet program or a wallet file.</p>
+<div class="section" id="introductions">
+<h2>Introductions<a class="headerlink" href="#introductions" title="Permalink to this headline">¶</a></h2>
+<p>Wallet programs create public keys to receive satoshis and use the corresponding private keys to spend those satoshis. Wallet files store private keys and (optionally) other information related to transactions for the wallet program.</p>
 <p>Wallet programs and wallet files are addressed below in separate subsections, and this document attempts to always make it clear whether we’re talking about wallet programs or wallet files.</p>
+</div>
 <div class="section" id="wallet-programs">
 <h2>Wallet Programs<a class="headerlink" href="#wallet-programs" title="Permalink to this headline">¶</a></h2>
 <p>Permitting receiving and spending of satoshis is the only essential feature of wallet software—but a particular wallet program doesn’t need to do both things. Two wallet programs can work together, one program distributing public keys in order to receive satoshis and another program signing transactions spending those satoshis.</p>
@@ -197,8 +201,8 @@
 <div class="section" id="full-service-wallets">
 <h3>Full-Service Wallets<a class="headerlink" href="#full-service-wallets" title="Permalink to this headline">¶</a></h3>
 <p>The simplest wallet is a program which performs all three functions: it generates private keys, derives the corresponding public keys, helps distribute those public keys as necessary, monitors for outputs spent to those public keys, creates and signs transactions spending those outputs, and broadcasts the signed transactions.</p>
-<div class="figure align-center" id="id1">
-<img alt="Full-Service Wallets" src="../_images/en-wallets-full-service.svg" /><p class="caption"><span class="caption-text">Full-Service Wallets</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id1">
+<img alt="Full-Service Wallets" src="../_images/en-wallets-full-service.svg" /><p class="caption"><span class="caption-text">Full-Service Wallets</span></p>
 </div>
 <p>As of this writing, almost all popular wallets can be used as full-service wallets.</p>
 <p>The main advantage of full-service wallets is that they are easy to use. A single program does everything the user needs to receive and spend satoshis.</p>
@@ -209,8 +213,8 @@
 <h3>Signing-Only Wallets<a class="headerlink" href="#signing-only-wallets" title="Permalink to this headline">¶</a></h3>
 <p>To increase security, private keys can be generated and stored by a separate wallet program operating in a more secure environment. These signing-only wallets work in conjunction with a networked wallet which interacts with the <a class="reference external" href="/en/developer-guide#term-network">peer-to-peer network</a>.</p>
 <p>Signing-only wallets programs typically use deterministic key creation (described in a later subsection) to create parent private and public keys which can create child private and public keys.</p>
-<div class="figure align-center" id="id2">
-<img alt="Signing-Only Wallets" src="../_images/en-wallets-signing-only.svg" /><p class="caption"><span class="caption-text">Signing-Only Wallets</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id2">
+<img alt="Signing-Only Wallets" src="../_images/en-wallets-signing-only.svg" /><p class="caption"><span class="caption-text">Signing-Only Wallets</span></p>
 </div>
 <p>When first run, the signing-only wallet creates a parent private key and transfers the corresponding parent public key to the networked wallet.</p>
 <p>The networked wallet uses the parent public key to derive child public keys, optionally helps distribute them, monitors for outputs spent to those public keys, creates unsigned transactions spending those outputs, and transfers the unsigned transactions to the signing-only wallet.</p>
@@ -223,10 +227,10 @@
 <p>Several full-service wallets programs will also operate as two separate wallets: one program instance acting as a signing-only wallet (often called an “offline wallet”) and the other program instance acting as the networked wallet (often called an “online wallet” or “watching-only wallet”).</p>
 <p>The offline wallet is so named because it is intended to be run on a device which does not connect to any <a class="reference external" href="/en/developer-guide#term-network">network</a>, greatly reducing the number of attack vectors. If this is the case, it is usually up to the user to handle all data transfer using removable media such as USB drives. The user’s workflow is something like:</p>
 <ol class="arabic simple">
-<li><p>(Offline) Disable all <a class="reference external" href="/en/developer-guide#term-network">network</a> connections on a device and install the wallet software. Start the wallet software in offline mode to create the parent private and public keys. Copy the parent public key to removable media.</p></li>
-<li><p>(Online) Install the wallet software on another device, this one connected to the Internet, and import the parent public key from the removable media. As you would with a full-service wallet, distribute public keys to receive payment. When ready to spend satoshis, fill in the output details and save the unsigned transaction generated by the wallet to removable media.</p></li>
-<li><p>(Offline) Open the unsigned transaction in the offline instance, review the output details to make sure they spend the correct amount to the correct address. This prevents malware on the online wallet from tricking the user into signing a transaction which pays an attacker. After review, sign the transaction and save it to removable media.</p></li>
-<li><p>(Online) Open the signed transaction in the online instance so it can broadcast it to the <a class="reference external" href="/en/developer-guide#term-network">peer-to-peer network</a>.</p></li>
+<li>(Offline) Disable all <a class="reference external" href="/en/developer-guide#term-network">network</a> connections on a device and install the wallet software. Start the wallet software in offline mode to create the parent private and public keys. Copy the parent public key to removable media.</li>
+<li>(Online) Install the wallet software on another device, this one connected to the Internet, and import the parent public key from the removable media. As you would with a full-service wallet, distribute public keys to receive payment. When ready to spend satoshis, fill in the output details and save the unsigned transaction generated by the wallet to removable media.</li>
+<li>(Offline) Open the unsigned transaction in the offline instance, review the output details to make sure they spend the correct amount to the correct address. This prevents malware on the online wallet from tricking the user into signing a transaction which pays an attacker. After review, sign the transaction and save it to removable media.</li>
+<li>(Online) Open the signed transaction in the online instance so it can broadcast it to the <a class="reference external" href="/en/developer-guide#term-network">peer-to-peer network</a>.</li>
 </ol>
 <p>The primary advantage of offline wallets is their possibility for greatly improved security over full-service wallets. As long as the offline wallet is not compromised (or flawed) and the user reviews all outgoing transactions before signing, the user’s satoshis are safe even if the online wallet is compromised.</p>
 <p>The primary disadvantage of offline wallets is hassle. For maximum security, they require the user dedicate a device to only offline tasks. The offline device must be booted up whenever funds are to be spent, and the user must physically copy data from the online device to the offline device and back.</p>
@@ -235,10 +239,10 @@
 <h4>Hardware Wallets<a class="headerlink" href="#hardware-wallets" title="Permalink to this headline">¶</a></h4>
 <p>Hardware wallets are devices dedicated to running a signing-only wallet. Their dedication lets them eliminate many of the vulnerabilities present in operating systems designed for general use, allowing them to safely communicate directly with other devices so users don’t need to transfer data manually. The user’s workflow is something like:</p>
 <ol class="arabic simple">
-<li><p>(Hardware) Create parent private and public keys. Connect hardware wallet to a networked device so it can get the parent public key.</p></li>
-<li><p>(Networked) As you would with a full-service wallet, distribute public keys to receive payment. When ready to spend satoshis, fill in the transaction details, connect the hardware wallet, and click Spend. The networked wallet will automatically send the transaction details to the hardware wallet.</p></li>
-<li><p>(Hardware) Review the transaction details on the hardware wallet’s screen. Some hardware wallets may prompt for a passphrase or PIN number. The hardware wallet signs the transaction and uploads it to the networked wallet.</p></li>
-<li><p>(Networked) The networked wallet receives the signed transaction from the hardware wallet and broadcasts it to the <a class="reference external" href="/en/developer-guide#term-network">network</a>.</p></li>
+<li>(Hardware) Create parent private and public keys. Connect hardware wallet to a networked device so it can get the parent public key.</li>
+<li>(Networked) As you would with a full-service wallet, distribute public keys to receive payment. When ready to spend satoshis, fill in the transaction details, connect the hardware wallet, and click Spend. The networked wallet will automatically send the transaction details to the hardware wallet.</li>
+<li>(Hardware) Review the transaction details on the hardware wallet’s screen. Some hardware wallets may prompt for a passphrase or PIN number. The hardware wallet signs the transaction and uploads it to the networked wallet.</li>
+<li>(Networked) The networked wallet receives the signed transaction from the hardware wallet and broadcasts it to the <a class="reference external" href="/en/developer-guide#term-network">network</a>.</li>
 </ol>
 <p>The primary advantage of hardware wallets is their possibility for greatly improved security over full-service wallets with much less hassle than offline wallets.</p>
 <p>The primary disadvantage of hardware wallets is their hassle. Even though the hassle is less than that of offline wallets, the user must still purchase a hardware wallet device and carry it with them whenever they need to make a transaction using the signing-only wallet.</p>
@@ -248,12 +252,12 @@
 <div class="section" id="distributing-only-wallets">
 <h3>Distributing-Only Wallets<a class="headerlink" href="#distributing-only-wallets" title="Permalink to this headline">¶</a></h3>
 <p>Wallet programs which run in difficult-to-secure environments, such as webservers, can be designed to distribute public keys (including P2PKH or P2SH addresses) and nothing more. There are two common ways to design these minimalist wallets:</p>
-<div class="figure align-center" id="id3">
-<img alt="Distributing-Only Wallets" src="../_images/en-wallets-distributing-only.svg" /><p class="caption"><span class="caption-text">Distributing-Only Wallets</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id3">
+<img alt="Distributing-Only Wallets" src="../_images/en-wallets-distributing-only.svg" /><p class="caption"><span class="caption-text">Distributing-Only Wallets</span></p>
 </div>
 <ul class="simple">
-<li><p>Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To <a class="reference external" href="/en/developer-guide#avoiding-key-reuse">avoid key reuse</a>, webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.</p></li>
-<li><p>Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the <a class="reference external" href="/en/developer-guide#term-key-index">key index</a> number.</p></li>
+<li>Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To <a class="reference external" href="/en/developer-guide#avoiding-key-reuse">avoid key reuse</a>, webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.</li>
+<li>Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the <a class="reference external" href="/en/developer-guide#term-key-index">key index</a> number.</li>
 </ul>
 <p>Neither method adds a significant amount of overhead, especially if a database is used anyway to associate each incoming payment with a separate public key for payment tracking. See the <a class="reference external" href="/en/developer-guide#payment-processing">Payment Processing</a> section for details.</p>
 </div>
@@ -269,14 +273,14 @@
 <h4>Wallet Import Format (WIF)<a class="headerlink" href="#wallet-import-format-wif" title="Permalink to this headline">¶</a></h4>
 <p>In order to make copying of private keys less prone to error, <a class="reference external" href="../reference/glossary.html#wallet-import-format">Wallet Import Format</a> may be utilized. WIF uses base58Check encoding on an private key, greatly decreasing the chance of copying error, much like standard Bitcoin addresses.</p>
 <ol class="arabic simple">
-<li><p>Take a private key.</p></li>
-<li><p>Add a 0x80 byte in front of it for mainnet addresses or 0xef for testnet addresses.</p></li>
-<li><p>Append a 0x01 byte after it if it should be used with compressed public keys (described in a later subsection). Nothing is appended if it is used with uncompressed public keys.</p></li>
-<li><p>Perform a SHA-256 hash on the extended key.</p></li>
-<li><p>Perform a SHA-256 hash on result of SHA-256 hash.</p></li>
-<li><p>Take the first four bytes of the second SHA-256 hash; this is the checksum.</p></li>
-<li><p>Add the four checksum bytes from point 5 at the end of the extended key from point 2.</p></li>
-<li><p>Convert the result from a byte string into a Base58 string using Base58Check encoding.</p></li>
+<li>Take a private key.</li>
+<li>Add a 0x80 byte in front of it for mainnet addresses or 0xef for testnet addresses.</li>
+<li>Append a 0x01 byte after it if it should be used with compressed public keys (described in a later subsection). Nothing is appended if it is used with uncompressed public keys.</li>
+<li>Perform a SHA-256 hash on the extended key.</li>
+<li>Perform a SHA-256 hash on result of SHA-256 hash.</li>
+<li>Take the first four bytes of the second SHA-256 hash; this is the checksum.</li>
+<li>Add the four checksum bytes from point 5 at the end of the extended key from point 2.</li>
+<li>Convert the result from a byte string into a Base58 string using Base58Check encoding.</li>
 </ol>
 <p>The process is easily reversible, using the Base58 decoding function, and removing the padding.</p>
 </div>
@@ -284,10 +288,10 @@
 <h4>Mini Private Key Format<a class="headerlink" href="#mini-private-key-format" title="Permalink to this headline">¶</a></h4>
 <p>Mini private key format is a method for encoding a private key in under 30 characters, enabling keys to be embedded in a small physical space, such as physical bitcoin tokens, and more damage-resistant QR codes.</p>
 <ol class="arabic simple">
-<li><p>The first character of mini keys is ‘S’.</p></li>
-<li><p>In order to determine if a mini private key is well-formatted, a question mark is added to the private key.</p></li>
-<li><p>The SHA256 hash is calculated. If the first byte produced is a `00’, it is well-formatted. This key restriction acts as a typo-checking mechanism. A user brute forces the process using random numbers until a well-formatted mini private key is produced.</p></li>
-<li><p>In order to derive the full private key, the user simply takes a single SHA256 hash of the original mini private key. This process is one-way: it is intractable to compute the mini private key format from the derived key.</p></li>
+<li>The first character of mini keys is ‘S’.</li>
+<li>In order to determine if a mini private key is well-formatted, a question mark is added to the private key.</li>
+<li>The SHA256 hash is calculated. If the first byte produced is a `00’, it is well-formatted. This key restriction acts as a typo-checking mechanism. A user brute forces the process using random numbers until a well-formatted mini private key is produced.</li>
+<li>In order to derive the full private key, the user simply takes a single SHA256 hash of the original mini private key. This process is one-way: it is intractable to compute the mini private key format from the derived key.</li>
 </ol>
 <p>Many implementations disallow the character ‘1’ in the mini private key due to its visual similarity to ‘l’.</p>
 <p><strong>Resource:</strong> A common tool to create and redeem these keys is the <a class="reference external" href="https://github.com/casascius/Bitcoin-Address-Utility">Casascius Bitcoin Address Utility</a>.</p>
@@ -295,9 +299,9 @@
 </div>
 <div class="section" id="public-key-formats">
 <h3>Public Key Formats<a class="headerlink" href="#public-key-formats" title="Permalink to this headline">¶</a></h3>
-<p>Bitcoin <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> public keys represent a point on a particular Elliptic Curve (EC) defined in <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a>. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Bitcoin, y2 = x3 + 7, over a field of contiguous numbers.</p>
-<div class="figure align-center" id="id4">
-<img alt="Point On ECDSA Curve" src="../_images/en-ecdsa-compressed-public-key.svg" /><p class="caption"><span class="caption-text">Point On ECDSA Curve</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+<p>Bitcoin <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> public keys represent a point on a particular Elliptic Curve (EC) defined in <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a>. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Bitcoin, y2&nbsp;=&nbsp;x3&nbsp;+&nbsp;7, over a field of contiguous numbers.</p>
+<div class="figure" id="id4">
+<img alt="Point On ECDSA Curve" src="../_images/en-ecdsa-compressed-public-key.svg" /><p class="caption"><span class="caption-text">Point On ECDSA Curve</span></p>
 </div>
 <p>(<a class="reference external" href="http://www.secg.org/sec2-v2.pdf">Secp256k1</a> actually modulos coordinates by a large prime, which produces a field of non-contiguous integers and a significantly less clear plot, although the principles are the same.)</p>
 <p>An almost 50% reduction in public key size can be realized without changing any fundamentals by dropping the Y coordinate. This is possible because only two points along the curve share any particular X coordinate, so the 32-byte Y coordinate can be replaced with a single bit indicating whether the point is on what appears in the illustration as the “top” side or the “bottom” side.</p>
@@ -306,8 +310,8 @@
 <p>However, Bitcoin Core prior to 0.6 used uncompressed keys. This creates a few complications, as the hashed form of an uncompressed key is different than the hashed form of a compressed key, so the same key works with two different P2PKH addresses. This also means that the key must be submitted in the correct format in the signature script so it matches the hash in the previous output’s pubkey script.</p>
 <p>For this reason, Bitcoin Core uses several different identifier bytes to help programs identify how keys should be used:</p>
 <ul class="simple">
-<li><p>Private keys meant to be used with compressed public keys have 0x01 appended to them before being Base-58 encoded. (See the private key encoding section above.)</p></li>
-<li><p>Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> documentation.</p></li>
+<li>Private keys meant to be used with compressed public keys have 0x01 appended to them before being Base-58 encoded. (See the private key encoding section above.)</li>
+<li>Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> documentation.</li>
 </ul>
 </div>
 <div class="section" id="hierarchical-deterministic-key-creation">
@@ -331,14 +335,14 @@ For consistent word ordering:
 </div>
 <p>Whether creating child public keys or further-descended public keys, a predictable sequence of integer values would be no better than using a single public key for all transactions, as anyone who knew one child public key could find all of the other child public keys created from the same parent public key. Instead, a random seed can be used to deterministically generate the sequence of integer values so that the relationship between the child public keys is invisible to anyone without that seed.</p>
 <p>The HD protocol uses a single root seed to create a hierarchy of child, grandchild, and other descended keys with unlinkable deterministically-generated integer values. Each child key also gets a deterministically-generated seed from its parent, called a <a class="reference external" href="../reference/glossary.html#chain-code">chain code</a>, so the compromising of one chain code doesn’t necessarily compromise the integer sequence for the whole hierarchy, allowing the <a class="reference external" href="../reference/glossary.html#master-chain-code-and-private-key">master chain code</a> to continue being useful even if, for example, a web-based public key distribution program gets hacked.</p>
-<div class="figure align-center" id="id5">
-<img alt="Overview Of Hierarchical Deterministic Key Derivation" src="../_images/en-hd-overview.svg" /><p class="caption"><span class="caption-text">Overview Of Hierarchical Deterministic Key Derivation</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id5">
+<img alt="Overview Of Hierarchical Deterministic Key Derivation" src="../_images/en-hd-overview.svg" /><p class="caption"><span class="caption-text">Overview Of Hierarchical Deterministic Key Derivation</span></p>
 </div>
 <p>As illustrated above, HD key derivation takes four inputs:</p>
 <ul class="simple">
-<li><p>The <a class="reference external" href="../reference/glossary.html#parent-key">parent private key</a> and <em>parent public key</em> are regular uncompressed 256-bit <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> keys.</p></li>
-<li><p>The <a class="reference external" href="../reference/glossary.html#chain-code">parent chain code</a> is 256 bits of seemingly-random data.</p></li>
-<li><p>The <a class="reference external" href="/en/developer-guide#term-key-index">index</a> number is a 32-bit integer specified by the program.</p></li>
+<li>The <a class="reference external" href="../reference/glossary.html#parent-key">parent private key</a> and <em>parent public key</em> are regular uncompressed 256-bit <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> keys.</li>
+<li>The <a class="reference external" href="../reference/glossary.html#chain-code">parent chain code</a> is 256 bits of seemingly-random data.</li>
+<li>The <a class="reference external" href="/en/developer-guide#term-key-index">index</a> number is a 32-bit integer specified by the program.</li>
 </ul>
 <p>In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash (<a class="reference external" href="https://en.wikipedia.org/wiki/HMAC">HMAC-SHA512</a>) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">child_private_key</span> <span class="o">==</span> <span class="p">(</span><span class="n">parent_private_key</span> <span class="o">+</span> <span class="n">lefthand_hash_output</span><span class="p">)</span> <span class="o">%</span> <span class="n">G</span>
@@ -348,8 +352,8 @@ For consistent word ordering:
 </div>
 <p>Specifying different index numbers will create different unlinkable child keys from the same parent keys. Repeating the procedure for the child keys using the child chain code will create unlinkable grandchild keys.</p>
 <p>Because creating child keys requires both a key and a chain code, the key and chain code together are called the <a class="reference external" href="../reference/glossary.html#extended-key">extended key</a>. An <a class="reference external" href="../reference/glossary.html#extended-key">extended private key</a> and its corresponding <a class="reference external" href="../reference/glossary.html#extended-key">extended public key</a> have the same chain code. The (top-level parent) <a class="reference external" href="../reference/glossary.html#master-chain-code-and-private-key">master private key</a> and master chain code are derived from random data, as illustrated below.</p>
-<div class="figure align-center" id="id6">
-<img alt="Creating A Root Extended Key Pair" src="../_images/en-hd-root-keys.svg" /><p class="caption"><span class="caption-text">Creating A Root Extended Key Pair</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id6">
+<img alt="Creating A Root Extended Key Pair" src="../_images/en-hd-root-keys.svg" /><p class="caption"><span class="caption-text">Creating A Root Extended Key Pair</span></p>
 </div>
 <p>A <a class="reference external" href="../reference/glossary.html#hd-wallet-seed">root seed</a> is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.</p>
 <p><img alt="Warning icon" src="../_images/icon_warning.svg" /> <strong>Warning:</strong> As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.</p>
@@ -357,23 +361,23 @@ For consistent word ordering:
 <div class="section" id="hardened-keys">
 <h4>Hardened Keys<a class="headerlink" href="#hardened-keys" title="Permalink to this headline">¶</a></h4>
 <p>Hardened extended keys fix a potential problem with normal extended keys. If an attacker gets a normal parent chain code and parent public key, he can brute-force all chain codes deriving from it. If the attacker also obtains a child, grandchild, or further-descended private key, he can use the chain code to generate all of the extended private keys descending from that private key, as shown in the grandchild and great-grandchild generations of the illustration below.</p>
-<div class="figure align-center" id="id7">
-<img alt="Cross-Generational Key Compromise" src="../_images/en-hd-cross-generational-key-compromise.svg" /><p class="caption"><span class="caption-text">Cross-Generational Key Compromise</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id7">
+<img alt="Cross-Generational Key Compromise" src="../_images/en-hd-cross-generational-key-compromise.svg" /><p class="caption"><span class="caption-text">Cross-Generational Key Compromise</span></p>
 </div>
 <p>Perhaps worse, the attacker can reverse the normal child private key derivation formula and subtract a parent chain code from a child private key to recover the parent private key, as shown in the child and parent generations of the illustration above. This means an attacker who acquires an extended public key and any private key descended from it can recover that public key’s private key and all keys descended from it.</p>
 <p>For this reason, the chain code part of an extended public key should be better secured than standard public keys and users should be advised against exporting even non-extended private keys to possibly-untrustworthy environments.</p>
 <p>This can be fixed, with some tradeoffs, by replacing the normal key derivation formula with a hardened key derivation formula.</p>
 <p>The normal key derivation formula, described in the section above, combines together the index number, the parent chain code, and the parent public key to create the child chain code and the integer value which is combined with the parent private key to create the child private key.</p>
-<div class="figure align-center" id="id8">
-<img alt="Creating Child Public Keys From An Extended Private Key" src="../_images/en-hd-private-parent-to-private-child.svg" /><p class="caption"><span class="caption-text">Creating Child Public Keys From An Extended Private Key</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id8">
+<img alt="Creating Child Public Keys From An Extended Private Key" src="../_images/en-hd-private-parent-to-private-child.svg" /><p class="caption"><span class="caption-text">Creating Child Public Keys From An Extended Private Key</span></p>
 </div>
 <p>The hardened formula, illustrated above, combines together the index number, the parent chain code, and the parent private key to create the data used to generate the child chain code and child private key. This formula makes it impossible to create child public keys without knowing the parent private key. In other words, parent extended public keys can’t create hardened child public keys.</p>
 <p>Because of that, a <a class="reference external" href="../reference/glossary.html#hardened-extended-key">hardened extended private key</a> is much less useful than a normal extended private key—however, hardened extended private keys create a firewall through which multi-level key derivation compromises cannot happen. Because hardened child extended public keys cannot generate grandchild chain codes on their own, the compromise of a parent extended public key cannot be combined with the compromise of a grandchild private key to create great-grandchild extended private keys.</p>
 <p>The HD protocol uses different index numbers to indicate whether a normal or hardened key should be generated. Index numbers from 0x00 to 0x7fffffff (0 to 231-1) will generate a normal key; index numbers from 0x80000000 to 0xffffffff will generate a hardened key. To make descriptions easy, many developers use the <a class="reference external" href="https://en.wikipedia.org/wiki/Prime_%28symbol%29">prime symbol</a> to indicate hardened keys, so the first normal key (0x00) is 0 and the first hardened key (0x80000000) is 0´.</p>
 <p>(Bitcoin developers typically use the ASCII apostrophe rather than the unicode prime symbol, a convention we will henceforth follow.)</p>
 <p>This compact description is further combined with slashes prefixed by <em>m</em> or <em>M</em> to indicate hierarchy and key type, with <em>m</em> being a private key and <em>M</em> being a public key. For example, m/0’/0/122’ refers to the 123rd hardened private child (by index number) of the first normal child (by index) of the first hardened child (by index) of the master private key. The following hierarchy illustrates prime notation and hardened key firewalls.</p>
-<div class="figure align-center" id="id9">
-<img alt="Example HD Wallet Tree Using Prime Notation" src="../_images/en-hd-tree.svg" /><p class="caption"><span class="caption-text">Example HD Wallet Tree Using Prime Notation</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id9">
+<img alt="Example HD Wallet Tree Using Prime Notation" src="../_images/en-hd-tree.svg" /><p class="caption"><span class="caption-text">Example HD Wallet Tree Using Prime Notation</span></p>
 </div>
 <p>Wallets following the <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32</a> HD protocol only create hardened children of the master private key (<em>m</em>) to prevent a compromised child key from compromising the master key. As there are no normal children for the master keys, the master public key is not used in HD wallets. All other keys can have normal children, so the corresponding extended public keys may be used instead.</p>
 <p>The HD protocol also describes a serialization format for extended public keys and extended private keys. For details, please see the <a class="reference external" href="/en/developer-reference#wallets">wallet section in the developer reference</a> or <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki">BIP32</a> for the full HD protocol specification.</p>
@@ -382,31 +386,31 @@ For consistent word ordering:
 <h4>Storing Root Seeds<a class="headerlink" href="#storing-root-seeds" title="Permalink to this headline">¶</a></h4>
 <p>Root seeds in the HD protocol are 128, 256, or 512 bits of random data which must be backed up precisely. To make it more convenient to use non-digital backup methods, such as memorization or hand-copying, <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> defines a method for creating a 512-bit root seed from a pseudo-sentence (mnemonic) of common natural-language words which was itself created from 128 to 256 bits of entropy and optionally protected by a password.</p>
 <p>The number of words generated correlates to the amount of entropy used:</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 67%" />
-<col style="width: 33%" />
+<col width="67%" />
+<col width="33%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Entropy Bits</p></th>
-<th class="head"><p>Words</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Entropy Bits</th>
+<th class="head">Words</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>128</p></td>
-<td><p>12</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>128</td>
+<td>12</td>
 </tr>
-<tr class="row-odd"><td><p>160</p></td>
-<td><p>15</p></td>
+<tr class="row-odd"><td>160</td>
+<td>15</td>
 </tr>
-<tr class="row-even"><td><p>192</p></td>
-<td><p>18</p></td>
+<tr class="row-even"><td>192</td>
+<td>18</td>
 </tr>
-<tr class="row-odd"><td><p>224</p></td>
-<td><p>21</p></td>
+<tr class="row-odd"><td>224</td>
+<td>21</td>
 </tr>
-<tr class="row-even"><td><p>256</p></td>
-<td><p>24</p></td>
+<tr class="row-even"><td>256</td>
+<td>24</td>
 </tr>
 </tbody>
 </table>

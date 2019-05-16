@@ -1,14 +1,17 @@
 Contracts
----------
+=========
 
 Contracts are transactions which use the decentralized Bitcoin system to enforce financial agreements. Bitcoin contracts can often be crafted to minimize dependency on outside agents, such as the court system, which significantly decreases the risk of dealing with unknown entities in financial transactions.
+
+Introduction
+------------
 
 The following subsections will describe a variety of Bitcoin contracts already in use. Because contracts deal with real people, not just transactions, they are framed below in story format.
 
 Besides the contract types described below, many other contract types have been proposed. Several of them are collected on the `Contracts page <https://en.bitcoin.it/wiki/Contracts>`__ of the Bitcoin Wiki.
 
 Escrow And Arbitration
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 Charlie-the-customer wants to buy a product from Bob-the-businessman, but neither of them trusts the other person, so they use a contract to help ensure Charlie gets his merchandise and Bob gets his payment.
 
@@ -47,7 +50,7 @@ However, if Alice created and signed a transaction neither of them would agree t
 **Resource:** `BitRated <https://www.bitrated.com/>`__ provides a multisig arbitration service interface using HTML/JavaScript on a GNU AGPL-licensed website.
 
 Micropayment Channel
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Alice also works part time moderating forum posts for Bob. Every time someone posts to Bob’s busy forum, Alice skims the post to make sure it isn’t offensive or spam. Alas, Bob often forgets to pay her, so Alice demands to be paid immediately after each post she approves or rejects. Bob says he can’t do that because hundreds of small payments will cost him thousands of satoshis in transaction fees, so Alice suggests they use a `micropayment channel </en/developer-guide#term-micropayment-channel>`__.
 
@@ -75,7 +78,7 @@ For larger payments, Bitcoin transaction fees are very low as a percentage of th
 **Resource:** The `bitcoinj <http://bitcoinj.github.io>`__ Java library provides a complete set of micropayment functions, an example implementation, and `a tutorial <https://bitcoinj.github.io/working-with-micropayments>`__ all under an Apache license.
 
 CoinJoin
-~~~~~~~~
+--------
 
 Alice is concerned about her privacy. She knows every transaction gets added to the public block chain, so when Bob and Charlie pay her, they can each easily track those satoshis to learn what Bitcoin addresses she pays, how much she pays them, and possibly how many satoshis she has left.
 
@@ -90,7 +93,7 @@ Also in the chatroom are “Nemo” and “Neminem.” They collectively agree t
 
 Each contributor looks through their collection of Unspent Transaction Outputs (UTXOs) for 100 millibitcoins they can spend. They then each generate a brand new public key and give UTXO details and pubkey hashes to the facilitator. In this case, the facilitator is AnonGirl; she creates a transaction spending each of the UTXOs to three equally-sized outputs. One output goes to each of the contributors’ pubkey hashes.
 
-AnonGirl then signs her inputs using ``SIGHASH_ALL`` to ensure nobody can change the input or output details. She gives the partially-signed transaction to Nemo who signs his inputs the same way and passes it to Neminem, who also signs it the same way. Neminem then broadcasts the transaction to the `peer-to-peer network </en/developer-guide#term-network>`__, mixing all of the millibitcoins in a single transaction.
+AnonGirl then signs her inputs using ``SIGHASH_ALL`` to ensure nobody can change the input or output details. She gives the partially-signed transaction to Nemo who signs his inputs the same way and passes it to Neminem, who also signs it the same way. Neminem then broadcasts the transaction to the Bitcoin `peer-to-peer network </en/developer-guide#term-network>`__, mixing all of the millibitcoins in a single transaction.
 
 As you can see in the illustration, there’s no way for anyone besides AnonGirl, Nemo, and Neminem to confidently determine who received which output, so they can each spend their output with plausible deniability.
 
@@ -104,4 +107,8 @@ AnonGirl waits in the IRC chatroom until she wants to make a purchase. She annou
 
 Since they would’ve had to pay a transaction fee to make their purchases anyway, AnonGirl and her co-spenders don’t pay anything extra—but because they reduced overhead by combining multiple transactions, saving bytes, they may be able to pay a smaller aggregate transaction fee, saving each one of them a tiny amount of satoshis.
 
-**Resource:** An alpha-quality (as of this writing) implementation of decentralized CoinJoin is `CoinMux <http://coinmux.com/>`__, available under the Apache license.
+**Current Working Implementations:** As of today, in 2018, `JoinMarket <https://github.com/JoinMarket-Org/>`__ and `Wasabi Wallet <http://wasabiwallet.io>`__ are the operational CoinJoin implementations for Bitcoin.
+
+JoinMarket style CoinJoins differ from the above described scheme by splitting the participants into two sections: market makers and market takers. Market makers are publishing their CoinJoin intentions to an IRC room and waiting for market takers to take their offers. When a taker comes along, it selects a set of makers and creates a shared transaction with them, while also paying a small fee. Unlike the above described scheme, this happens automatically.
+
+Wasabi Wallet style CoinJoins are called Chaumian CoinJoins. It employs a CoinJoin coordinator, where various peers can register. When the pre-defined number of participants registered, a CoinJoin-round kicks in. In this scheme Chaumian Blind Signatures are utilized to prevent the coordinator and the peers from learning which outputs correspond to which inputs. An example for Chaumian CoinJoin is the following transaction: `8fee07b90f26e85e22e87da13e1618cd9eeaf98f3f3774273c9307cd40ff98e8 <https://www.smartbit.com.au/tx/8fee07b90f26e85e22e87da13e1618cd9eeaf98f3f3774273c9307cd40ff98e8>`__

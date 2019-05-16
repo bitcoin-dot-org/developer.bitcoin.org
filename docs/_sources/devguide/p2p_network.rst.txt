@@ -1,14 +1,19 @@
 P2P Network
------------
+===========
 
-The Bitcoin `network </en/developer-guide#term-network>`__ protocol allows full nodes (peers) to collaboratively maintain a `peer-to-peer network </en/developer-guide#term-network>`__ for block and transaction exchange. Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the Bitcoin `network </en/developer-guide#term-network>`__ protocol to connect to full nodes.
+The Bitcoin network protocol allows full nodes (peers) to collaboratively maintain a peer-to-peer network for block and transaction exchange. 
+
+Introduction
+------------
+
+Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the Bitcoin `network </en/developer-guide#term-network>`__ protocol to connect to full nodes.
 
 Consensus rules do not cover networking, so Bitcoin programs may use alternative networks and protocols, such as the `high-speed block relay network <https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg03189.html>`__ used by some miners and the `dedicated transaction information servers <https://github.com/spesmilo/electrum-server>`__ used by some wallets that provide SPV-level security.
 
 To provide practical examples of the Bitcoin `peer-to-peer network </en/developer-guide#term-network>`__, this section uses Bitcoin Core as a representative full node and `BitcoinJ <http://bitcoinj.github.io>`__ as a representative SPV client. Both programs are flexible, so only default behavior is described. Also, for privacy, actual IP addresses in the example output below have been replaced with `RFC5737 <http://tools.ietf.org/html/rfc5737>`__ reserved IP addresses.
 
 Peer Discovery
-~~~~~~~~~~~~~~
+--------------
 
 When started for the first time, programs don’t know the IP addresses of any active full nodes. In order to discover some IP addresses, they query one or more DNS names (called `DNS seeds <../reference/glossary.html#dns-seed>`__) hardcoded into Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__. The response to the lookup should include one or more `DNS A records <http://tools.ietf.org/html/rfc1035#section-3.2.2>`__ with the IP addresses of full nodes that may accept new incoming connections. For example, using the `Unix ``dig`` command <https://en.wikipedia.org/wiki/Dig_%28Unix_command%29>`__:
 
@@ -40,7 +45,7 @@ As a manual fallback option, Bitcoin Core also provides several command-line con
 **Resources:** `Bitcoin Seeder <https://github.com/sipa/bitcoin-seeder>`__, the program run by several of the seeds used by Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__. The Bitcoin Core `DNS Seed Policy <https://github.com/bitcoin/bitcoin/blob/master/doc/dnsseed-policy.md>`__. The hardcoded list of IP addresses used by Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__ is generated using the `makeseeds script <https://github.com/bitcoin/bitcoin/tree/master/contrib/seeds>`__.
 
 Connecting To Peers
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 Connecting to a peer is done by sending a `“version” message </en/developer-reference#version>`__, which contains your version number, block, and current time to the remote node. The remote node responds with its own `“version” message </en/developer-reference#version>`__. Then both nodes send a `“verack” message </en/developer-reference#verack>`__ to the other node to indicate the connection has been established.
 
@@ -49,7 +54,7 @@ Once connected, the client can send to the remote node ``getaddr`` and `“addr�
 In order to maintain a connection with a peer, nodes by default will send a message to peers before 30 minutes of inactivity. If 90 minutes pass without a message being received by a peer, the client will assume that connection has closed.
 
 Initial Block Download
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 Before a full node can validate unconfirmed transactions and recently-mined blocks, it must download and validate all blocks from block 1 (the block after the hardcoded genesis block) to the current tip of the best block chain. This is the Initial Block Download (IBD) or initial sync.
 
@@ -58,7 +63,7 @@ Although the word “initial” implies this method is only used once, it can al
 Bitcoin Core uses the IBD method any time the last block on its local best block chain has a block header time more than 24 hours in the past. `Bitcoin Core 0.10.0 </en/release/v0.10.0>`__ will also perform IBD if its local best block chain is more than 144 blocks lower than its local best header chain (that is, the local block chain is more than about 24 hours in the past).
 
 Blocks-First
-^^^^^^^^^^^^
+~~~~~~~~~~~~
 
 Bitcoin Core (up until version `0.9.3 </en/release/v0.9.3>`__) uses a simple initial block download (IBD) method we’ll call *blocks-first*. The goal is to download the blocks from the best block chain in sequence.
 
@@ -117,7 +122,7 @@ This repeated search allows the sync node to send useful inventories even if the
 When the IBD node receives the second `“inv” message </en/developer-reference#inv>`__, it will request those blocks using `“getdata” messages </en/developer-reference#getdata>`__. The sync node will respond with `“block” messages </en/developer-reference#block>`__. Then the IBD node will request more inventories with another `“getblocks” message </en/developer-reference#getblocks>`__—and the cycle will repeat until the IBD node is synced to the tip of the block chain. At that point, the node will accept blocks sent through the regular block broadcasting described in a later subsection.
 
 Blocks-First Advantages & Disadvantages
-'''''''''''''''''''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 
@@ -140,7 +145,7 @@ All of these problems are addressed in part or in full by the headers-first IBD 
 | **Payload** \| One or more header hashes \| Up to 500 block inventories (unique identifiers) \| One or more block inventories \| One serialized block
 
 Headers-First
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~
 
 `Bitcoin Core 0.10.0 </en/release/v0.10.0>`__ uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best `header chain <../reference/glossary.html#header-chain>`__, partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
 
@@ -193,7 +198,7 @@ Once the IBD node is synced to the tip of the block chain, it will accept blocks
 | **Payload** \| One or more header hashes \| Up to 2,000 block headers \| One or more block inventories derived from header hashes \| One serialized block
 
 Block Broadcasting
-~~~~~~~~~~~~~~~~~~
+------------------
 
 When a miner discovers a new block, it broadcasts the new block to its peers using one of the following methods:
 
@@ -225,7 +230,7 @@ Full nodes validate the received block and then advertise it to their peers usin
 | **Payload** \| The new block in `serialized format </en/developer-reference#serialized-blocks>`__ \| The new block filtered into a merkle block \| Serialized transactions from the new block that match the bloom filter \|
 
 Orphan Blocks
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~
 
 Blocks-first nodes may download orphan blocks—blocks whose `previous block header hash </en/developer-reference#term-previous-block-header-hash>`__ field refers to a block header this node hasn’t seen yet. In other words, orphan blocks have no known parent (unlike stale blocks, which have known parents but which aren’t part of the best block chain).
 
@@ -241,12 +246,12 @@ Headers-first nodes avoid some of this complexity by always requesting block hea
 However, orphan discarding does mean that headers-first nodes will ignore orphan blocks sent by miners in an `unsolicited block push </en/developer-guide#term-unsolicited-block-push>`__.
 
 Transaction Broadcasting
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 In order to send a transaction to a peer, an `“inv” message </en/developer-reference#inv>`__ is sent. If a ``getdata`` response message is received, the transaction is sent using ``tx``. The peer receiving this transaction also forwards the transaction in the same manner, given that it is a valid transaction.
 
 Memory Pool
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 Full peers may keep track of unconfirmed transactions which are eligible to be included in the next block. This is essential for miners who will actually mine some or all of those transactions, but it’s also useful for any peer who wants to keep track of unconfirmed transactions, such as peers serving unconfirmed transaction information to SPV clients.
 
@@ -257,12 +262,12 @@ Transactions which are mined into blocks that later become stale blocks may be a
 SPV clients don’t have a memory pool for the same reason they don’t relay transactions. They can’t independently verify that a transaction hasn’t yet been included in a block and that it only spends UTXOs, so they can’t know which transactions are eligible to be included in the next block.
 
 Misbehaving Nodes
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Take note that for both types of broadcasting, mechanisms are in place to punish misbehaving peers who take up bandwidth and computing resources by sending false information. If a peer gets a banscore above the ``-banscore=<n>`` threshold, he will be banned for the number of seconds defined by ``-bantime=<n>``, which is 86,400 by default (24 hours).
 
 Alerts
-~~~~~~
+------
 
 *Removed in*\ `Bitcoin Core 0.13.0 </en/release/v0.13.0>`__
 

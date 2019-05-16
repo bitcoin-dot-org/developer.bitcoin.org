@@ -256,11 +256,11 @@ Implements the Creator and Updater roles.</p>
 <div class="section" id="argument-2-outputs">
 <h2>Argument #2 - outputs<a class="headerlink" href="#argument-2-outputs" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> json array, required</p>
-<dl class="simple">
-<dt>a json array with outputs (key-value pairs), where none of the keys are duplicated.</dt><dd><p>That is, each address can only appear once and there can only be one ‘data’ object.
+<dl class="docutils">
+<dt>a json array with outputs (key-value pairs), where none of the keys are duplicated.</dt>
+<dd>That is, each address can only appear once and there can only be one ‘data’ object.
 For compatibility reasons, a dictionary, which holds the key-value pairs directly, is also
-accepted as second parameter.</p>
-</dd>
+accepted as second parameter.</dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="p">{</span>                              <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span>
@@ -282,15 +282,15 @@ accepted as second parameter.</p>
 <div class="section" id="argument-4-options">
 <h2>Argument #4 - options<a class="headerlink" href="#argument-4-options" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> json object, optional</p>
-<dl class="simple">
-<dt>“replaceable”: bool,           (boolean, optional, default=false) Marks this transaction as BIP125 replaceable.</dt><dd><p>Allows this transaction to be replaced by a transaction with higher fees
+<dl class="docutils">
+<dt>“replaceable”: bool,           (boolean, optional, default=false) Marks this transaction as BIP125 replaceable.</dt>
+<dd>Allows this transaction to be replaced by a transaction with higher fees
 “conf_target”: n,              (numeric, optional, default=Fallback to wallet’s confirmation target) Confirmation target (in blocks)
 “estimate_mode”: “str”,        (string, optional, default=UNSET) The fee estimate mode, must be one of:
 “UNSET”
 “ECONOMICAL”
 “CONSERVATIVE”
-}</p>
-</dd>
+}</dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;changeAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;hex&quot;</span><span class="p">,</span>        <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">pool</span> <span class="n">address</span><span class="p">)</span> <span class="n">The</span> <span class="n">bitcoin</span> <span class="n">address</span> <span class="n">to</span> <span class="n">receive</span> <span class="n">the</span> <span class="n">change</span>

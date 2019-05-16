@@ -87,13 +87,13 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guides</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="block_chain.html">Block Chain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transactions.html">Transactions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contracts.html">Contracts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="wallets.html">Wallets</a></li>
 <li class="toctree-l2"><a class="reference internal" href="payment_processing.html">Payment Processing</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Operating Modes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#full-node">Full Node</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#simplified-payment-verification-spv">Simplified Payment Verification (SPV)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#potential-spv-weaknesses">Potential SPV Weaknesses</a></li>
@@ -181,13 +181,17 @@
             
   <div class="section" id="operating-modes">
 <h1>Operating Modes<a class="headerlink" href="#operating-modes" title="Permalink to this headline">¶</a></h1>
+<p>The Bitcoin software has different levels of security and tradeoffs in order to verify the blockchain.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Currently there are two primary methods of validating the block chain as a client: Full nodes and SPV clients. Other methods, such as server-trusting methods, are not discussed as they are not recommended.</p>
+</div>
 <div class="section" id="full-node">
 <h2>Full Node<a class="headerlink" href="#full-node" title="Permalink to this headline">¶</a></h2>
 <p>The first and most secure model is the one followed by Bitcoin Core, also known as a “thick” or “full chain” client. This security model assures the validity of the block chain by downloading and validating blocks from the genesis block all the way to the most recently discovered block. This is known as using the <em>height</em> of a particular block to verify the client’s view of the <a class="reference external" href="/en/developer-guide#term-network">network</a>.</p>
 <p>For a client to be fooled, an adversary would need to give a complete alternative block chain history that is of greater difficulty than the current “true” chain, which is computationally expensive (if not impossible) due to the fact that the chain with the most cumulative proof of work is by definition the “true” chain. Due to the computational difficulty required to generate a new block at the tip of the chain, the ability to fool a full node becomes very expensive after 6 confirmations. This form of verification is highly resistent to sybil attacks—only a single honest <a class="reference external" href="/en/developer-guide#term-network">network</a> peer is required in order to receive and verify the complete state of the “true” block chain.</p>
-<div class="figure align-center" id="id1">
-<img alt="Block Height Compared To Block Depth" src="../_images/en-block-height-vs-depth.svg" /><p class="caption"><span class="caption-text">Block Height Compared To Block Depth</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id1">
+<img alt="Block Height Compared To Block Depth" src="../_images/en-block-height-vs-depth.svg" /><p class="caption"><span class="caption-text">Block Height Compared To Block Depth</span></p>
 </div>
 </div>
 <div class="section" id="simplified-payment-verification-spv">

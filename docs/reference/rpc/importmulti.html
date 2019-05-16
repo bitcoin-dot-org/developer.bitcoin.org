@@ -244,16 +244,16 @@ may report that the imported keys, addresses or scripts exists but related trans
 <div class="section" id="argument-1-requests">
 <h2>Argument #1 - requests<a class="headerlink" href="#argument-1-requests" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> json array, required</p>
-<dl class="simple">
-<dt>Data to be imported</dt><dd><p>“range”: n or [n,n],                                       (numeric or array) If a ranged descriptor is used, this specifies the end or the range (in the form [begin,end]) to import
+<dl class="docutils">
+<dt>Data to be imported</dt>
+<dd>“range”: n or [n,n],                                       (numeric or array) If a ranged descriptor is used, this specifies the end or the range (in the form [begin,end]) to import
 “internal”: bool,                                          (boolean, optional, default=false) Stating whether matching outputs should be treated as not incoming payments (also known as change)
 “watchonly”: bool,                                         (boolean, optional, default=false) Stating whether matching outputs should be considered watchonly.
 “label”: “str”,                                            (string, optional, default=’‘) Label to assign to the address, only allowed with internal=false
 “keypool”: bool,                                           (boolean, optional, default=false) Stating whether imported public keys should be added to the keypool for when users request new addresses. Only allowed when wallet private keys are disabled
 },
 …
-]</p>
-</dd>
+]</dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="p">{</span>                                                            <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span>

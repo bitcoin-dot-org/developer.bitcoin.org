@@ -204,9 +204,9 @@
 <p>This will not modify existing inputs, and will add at most one change output to the outputs.</p>
 <p>No existing outputs will be modified unless “subtractFeeFromOutputs” is specified.</p>
 <p>Note that inputs which were signed may need to be resigned after completion since in/outputs have been added.</p>
-<dl class="simple">
-<dt>The inputs added will not be signed, use signrawtransactionwithkey</dt><dd><p>or signrawtransactionwithwallet for that.</p>
-</dd>
+<dl class="docutils">
+<dt>The inputs added will not be signed, use signrawtransactionwithkey</dt>
+<dd>or signrawtransactionwithwallet for that.</dd>
 </dl>
 <p>Note that all existing inputs must have their previous output transaction be in the wallet.</p>
 <p>Note that all inputs selected must be of standard form and P2SH scripts must be
@@ -221,16 +221,16 @@ in the wallet using importaddress or addmultisigaddress (to calculate fees).</p>
 <div class="section" id="argument-2-options">
 <h2>Argument #2 - options<a class="headerlink" href="#argument-2-options" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> json object, optional</p>
-<dl class="simple">
-<dt>for backward compatibility: passing in a true instead of an object will result in {“includeWatching”:true}</dt><dd><p>“replaceable”: bool,           (boolean, optional, default=fallback to wallet’s default) Marks this transaction as BIP125 replaceable.
+<dl class="docutils">
+<dt>for backward compatibility: passing in a true instead of an object will result in {“includeWatching”:true}</dt>
+<dd>“replaceable”: bool,           (boolean, optional, default=fallback to wallet’s default) Marks this transaction as BIP125 replaceable.
 Allows this transaction to be replaced by a transaction with higher fees
 “conf_target”: n,              (numeric, optional, default=fallback to wallet’s default) Confirmation target (in blocks)
 “estimate_mode”: “str”,        (string, optional, default=UNSET) The fee estimate mode, must be one of:
 “UNSET”
 “ECONOMICAL”
 “CONSERVATIVE”
-}</p>
-</dd>
+}</dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;changeAddress&quot;</span><span class="p">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span>        <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">pool</span> <span class="n">address</span><span class="p">)</span> <span class="n">The</span> <span class="n">bitcoin</span> <span class="n">address</span> <span class="n">to</span> <span class="n">receive</span> <span class="n">the</span> <span class="n">change</span>
@@ -252,9 +252,9 @@ Allows this transaction to be replaced by a transaction with higher fees
 <div class="section" id="argument-3-iswitness">
 <h2>Argument #3 - iswitness<a class="headerlink" href="#argument-3-iswitness" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> boolean, optional, default=depends on heuristic tests</p>
-<dl class="simple">
-<dt>Whether the transaction hex is a serialized witness transaction</dt><dd><p>If iswitness is not present, heuristic tests will be used in decoding</p>
-</dd>
+<dl class="docutils">
+<dt>Whether the transaction hex is a serialized witness transaction</dt>
+<dd>If iswitness is not present, heuristic tests will be used in decoding</dd>
 </dl>
 </div>
 <div class="section" id="result">

@@ -1,12 +1,17 @@
 Wallets
--------
+=======
 
-A Bitcoin wallet can refer to either a wallet program or a wallet file. Wallet programs create public keys to receive satoshis and use the corresponding private keys to spend those satoshis. Wallet files store private keys and (optionally) other information related to transactions for the wallet program.
+A Bitcoin wallet can refer to either a wallet program or a wallet file.
+
+Introductions
+-------------
+
+Wallet programs create public keys to receive satoshis and use the corresponding private keys to spend those satoshis. Wallet files store private keys and (optionally) other information related to transactions for the wallet program.
 
 Wallet programs and wallet files are addressed below in separate subsections, and this document attempts to always make it clear whether we’re talking about wallet programs or wallet files.
 
 Wallet Programs
-~~~~~~~~~~~~~~~
+---------------
 
 Permitting receiving and spending of satoshis is the only essential feature of wallet software—but a particular wallet program doesn’t need to do both things. Two wallet programs can work together, one program distributing public keys in order to receive satoshis and another program signing transactions spending those satoshis.
 
@@ -17,7 +22,7 @@ This leaves us with three necessary, but separable, parts of a wallet system: a 
 Note: we speak about distributing public keys generically. In many cases, P2PKH or P2SH hashes will be distributed instead of public keys, with the actual public keys only being distributed when the outputs they control are spent.
 
 Full-Service Wallets
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 The simplest wallet is a program which performs all three functions: it generates private keys, derives the corresponding public keys, helps distribute those public keys as necessary, monitors for outputs spent to those public keys, creates and signs transactions spending those outputs, and broadcasts the signed transactions.
 
@@ -35,7 +40,7 @@ The main disadvantage of full-service wallets is that they store the private key
 To help protect against theft, many wallet programs offer users the option of encrypting the wallet files which contain the private keys. This protects the private keys when they aren’t being used, but it cannot protect against an attack designed to capture the encryption key or to read the decrypted keys from memory.
 
 Signing-Only Wallets
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
 To increase security, private keys can be generated and stored by a separate wallet program operating in a more secure environment. These signing-only wallets work in conjunction with a networked wallet which interacts with the `peer-to-peer network </en/developer-guide#term-network>`__.
 
@@ -59,7 +64,7 @@ The networked wallet then broadcasts the signed transactions to the `peer-to-pee
 The following subsections describe the two most common variants of signing-only wallets: offline wallets and hardware wallets.
 
 Offline Wallets
-'''''''''''''''
+^^^^^^^^^^^^^^^
 
 Several full-service wallets programs will also operate as two separate wallets: one program instance acting as a signing-only wallet (often called an “offline wallet”) and the other program instance acting as the networked wallet (often called an “online wallet” or “watching-only wallet”).
 
@@ -78,7 +83,7 @@ The primary advantage of offline wallets is their possibility for greatly improv
 The primary disadvantage of offline wallets is hassle. For maximum security, they require the user dedicate a device to only offline tasks. The offline device must be booted up whenever funds are to be spent, and the user must physically copy data from the online device to the offline device and back.
 
 Hardware Wallets
-''''''''''''''''
+^^^^^^^^^^^^^^^^
 
 Hardware wallets are devices dedicated to running a signing-only wallet. Their dedication lets them eliminate many of the vulnerabilities present in operating systems designed for general use, allowing them to safely communicate directly with other devices so users don’t need to transfer data manually. The user’s workflow is something like:
 
@@ -97,7 +102,7 @@ The primary disadvantage of hardware wallets is their hassle. Even though the ha
 An additional (hopefully temporary) disadvantage is that, as of this writing, very few popular wallet programs support hardware wallets—although almost all popular wallet programs have announced their intention to support at least one model of hardware wallet.
 
 Distributing-Only Wallets
-^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Wallet programs which run in difficult-to-secure environments, such as webservers, can be designed to distribute public keys (including P2PKH or P2SH addresses) and nothing more. There are two common ways to design these minimalist wallets:
 
@@ -113,19 +118,19 @@ Wallet programs which run in difficult-to-secure environments, such as webserver
 Neither method adds a significant amount of overhead, especially if a database is used anyway to associate each incoming payment with a separate public key for payment tracking. See the `Payment Processing </en/developer-guide#payment-processing>`__ section for details.
 
 Wallet Files
-~~~~~~~~~~~~
+------------
 
 Bitcoin wallets at their core are a collection of private keys. These collections are stored digitally in a file, or can even be physically stored on pieces of paper.
 
 Private Key Formats
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~
 
 Private keys are what are used to unlock satoshis from a particular address. In Bitcoin, a private key in standard format is simply a 256-bit number, between the values:
 
 0x01 and 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4140, representing nearly the entire range of 2256-1 values. The range is governed by the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ encryption standard used by Bitcoin.
 
 Wallet Import Format (WIF)
-''''''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In order to make copying of private keys less prone to error, `Wallet Import Format <../reference/glossary.html#wallet-import-format>`__ may be utilized. WIF uses base58Check encoding on an private key, greatly decreasing the chance of copying error, much like standard Bitcoin addresses.
 
@@ -148,7 +153,7 @@ In order to make copying of private keys less prone to error, `Wallet Import For
 The process is easily reversible, using the Base58 decoding function, and removing the padding.
 
 Mini Private Key Format
-'''''''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Mini private key format is a method for encoding a private key in under 30 characters, enabling keys to be embedded in a small physical space, such as physical bitcoin tokens, and more damage-resistant QR codes.
 
@@ -165,7 +170,7 @@ Many implementations disallow the character ‘1’ in the mini private key due 
 **Resource:** A common tool to create and redeem these keys is the `Casascius Bitcoin Address Utility <https://github.com/casascius/Bitcoin-Address-Utility>`__.
 
 Public Key Formats
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 Bitcoin `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public keys represent a point on a particular Elliptic Curve (EC) defined in `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Bitcoin, y2 = x3 + 7, over a field of contiguous numbers.
 
@@ -191,11 +196,11 @@ For this reason, Bitcoin Core uses several different identifier bytes to help pr
 -  Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ documentation.
 
 Hierarchical Deterministic Key Creation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. raw:: html
 
-   <!-- 
+   <!--
    For consistent word ordering:
    [normal|hardened|] [master|parent|child|grandchild] [extended|non-extended|] [private|public|chain] [key|code]
    -->
@@ -263,7 +268,7 @@ A `root seed <../reference/glossary.html#hd-wallet-seed>`__ is created from eith
 The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using `“point()” </en/developer-guide#term-point-function>`__, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
 
 Hardened Keys
-'''''''''''''
+^^^^^^^^^^^^^
 
 Hardened extended keys fix a potential problem with normal extended keys. If an attacker gets a normal parent chain code and parent public key, he can brute-force all chain codes deriving from it. If the attacker also obtains a child, grandchild, or further-descended private key, he can use the chain code to generate all of the extended private keys descending from that private key, as shown in the grandchild and great-grandchild generations of the illustration below.
 
@@ -305,7 +310,7 @@ Wallets following the `BIP32 <https://github.com/bitcoin/bips/blob/master/bip-00
 The HD protocol also describes a serialization format for extended public keys and extended private keys. For details, please see the `wallet section in the developer reference </en/developer-reference#wallets>`__ or `BIP32 <https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki>`__ for the full HD protocol specification.
 
 Storing Root Seeds
-''''''''''''''''''
+^^^^^^^^^^^^^^^^^^
 
 Root seeds in the HD protocol are 128, 256, or 512 bits of random data which must be backed up precisely. To make it more convenient to use non-digital backup methods, such as memorization or hand-copying, `BIP39 <https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki>`__ defines a method for creating a 512-bit root seed from a pseudo-sentence (mnemonic) of common natural-language words which was itself created from 128 to 256 bits of entropy and optionally protected by a password.
 
@@ -330,7 +335,7 @@ The passphrase can be of any length. It is simply appended to the mnemonic pseud
 For implementation details, please see `BIP39 <https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki>`__.
 
 Loose-Key Wallets
-^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~
 
 Loose-Key wallets, also called “Just a Bunch Of Keys (JBOK)”, are a deprecated form of wallet that originated from the Bitcoin Core client wallet. The Bitcoin Core client wallet would create 100 private key/public key pairs automatically via a Pseudo-Random-Number Generator (PRNG) for later use.
 

@@ -806,7 +806,7 @@ This specific operation is typically what offline signing wallets do. The online
 
    ::
 
-      error: {"code":-22,"message":"TX rejected"}
+      {"error": {"code":-22,"message":"TX rejected"}}
 
 Attempt to broadcast the second transaction before we’ve broadcast the first transaction. The node rejects this attempt because the second transaction spends an output which is not a UTXO the node knows about.
 

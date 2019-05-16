@@ -184,20 +184,29 @@
 <h2>OpCodes<a class="headerlink" href="#opcodes" title="Permalink to this headline">¶</a></h2>
 <p>The opcodes used in the pubkey scripts of standard transactions are:</p>
 <ul>
-<li><p>Various data pushing opcodes from 0x00 to 0x4e (1–78). These aren’t typically shown in examples, but they must be used to push signatures and public keys onto the stack. See the link below this list for a description.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">OP_TRUE</span></code>/<code class="docutils literal notranslate"><span class="pre">OP_1</span></code> (0x51) and <code class="docutils literal notranslate"><span class="pre">OP_2</span></code> through <code class="docutils literal notranslate"><span class="pre">OP_16</span></code> (0x52–0x60), which push the values 1 through 16 to the stack.</p></li>
-<li><p><a class="reference external" href="/en/developer-reference#term-op-checksig">“OP_CHECKSIG”</a> consumes a signature and a full public key, and pushes true onto the stack if the transaction data specified by the SIGHASH flag was converted into the signature using the same <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> private key that generated the public key. Otherwise, it pushes false onto the stack.</p></li>
-<li><p><a class="reference external" href="/en/developer-reference#term-op-dup">“OP_DUP”</a> pushes a copy of the topmost stack item on to the stack.</p></li>
-<li><p><a class="reference external" href="/en/developer-reference#term-op-hash160">“OP_HASH160”</a> consumes the topmost item on the stack, computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.</p></li>
-<li><p><a class="reference external" href="/en/developer-reference#term-op-equal">“OP_EQUAL”</a> consumes the top two items on the stack, compares them, and pushes true onto the stack if they are the same, false if not.</p></li>
-<li><p><a class="reference external" href="/en/developer-reference#term-op-verify">“OP_VERIFY”</a> consumes the topmost item on the stack. If that item is zero (false) it terminates the script in failure.</p></li>
-<li><p><a class="reference external" href="/en/developer-reference#term-op-equalverify">“OP_EQUALVERIFY”</a> runs <a class="reference external" href="/en/developer-reference#term-op-equal">“OP_EQUAL”</a> and then <a class="reference external" href="/en/developer-reference#term-op-verify">“OP_VERIFY”</a> in sequence.</p></li>
-<li><p><a class="reference external" href="/en/developer-reference#term-op-checkmultisig">“OP_CHECKMULTISIG”</a> consumes the value (n) at the top of the stack, consumes that many of the next stack levels (public keys), consumes the value (m) now at the top of the stack, and consumes that many of the next values (signatures) plus one extra value.</p>
+<li><p class="first">Various data pushing opcodes from 0x00 to 0x4e (1–78). These aren’t typically shown in examples, but they must be used to push signatures and public keys onto the stack. See the link below this list for a description.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">OP_TRUE</span></code>/<code class="docutils literal notranslate"><span class="pre">OP_1</span></code> (0x51) and <code class="docutils literal notranslate"><span class="pre">OP_2</span></code> through <code class="docutils literal notranslate"><span class="pre">OP_16</span></code> (0x52–0x60), which push the values 1 through 16 to the stack.</p>
+</li>
+<li><p class="first"><a class="reference external" href="/en/developer-reference#term-op-checksig">“OP_CHECKSIG”</a> consumes a signature and a full public key, and pushes true onto the stack if the transaction data specified by the SIGHASH flag was converted into the signature using the same <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> private key that generated the public key. Otherwise, it pushes false onto the stack.</p>
+</li>
+<li><p class="first"><a class="reference external" href="/en/developer-reference#term-op-dup">“OP_DUP”</a> pushes a copy of the topmost stack item on to the stack.</p>
+</li>
+<li><p class="first"><a class="reference external" href="/en/developer-reference#term-op-hash160">“OP_HASH160”</a> consumes the topmost item on the stack, computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.</p>
+</li>
+<li><p class="first"><a class="reference external" href="/en/developer-reference#term-op-equal">“OP_EQUAL”</a> consumes the top two items on the stack, compares them, and pushes true onto the stack if they are the same, false if not.</p>
+</li>
+<li><p class="first"><a class="reference external" href="/en/developer-reference#term-op-verify">“OP_VERIFY”</a> consumes the topmost item on the stack. If that item is zero (false) it terminates the script in failure.</p>
+</li>
+<li><p class="first"><a class="reference external" href="/en/developer-reference#term-op-equalverify">“OP_EQUALVERIFY”</a> runs <a class="reference external" href="/en/developer-reference#term-op-equal">“OP_EQUAL”</a> and then <a class="reference external" href="/en/developer-reference#term-op-verify">“OP_VERIFY”</a> in sequence.</p>
+</li>
+<li><p class="first"><a class="reference external" href="/en/developer-reference#term-op-checkmultisig">“OP_CHECKMULTISIG”</a> consumes the value (n) at the top of the stack, consumes that many of the next stack levels (public keys), consumes the value (m) now at the top of the stack, and consumes that many of the next values (signatures) plus one extra value.</p>
 <p>The “one extra value” it consumes is the result of an off-by-one error in the Bitcoin Core implementation. This value is not used, so signature scripts prefix the list of <a class="reference external" href="http://www.secg.org/sec2-v2.pdf">secp256k1</a> signatures with a single OP_0 (0x00).</p>
 <p><a class="reference external" href="/en/developer-reference#term-op-checkmultisig">“OP_CHECKMULTISIG”</a> compares the first signature against each public key until it finds an <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> match. Starting with the subsequent public key, it compares the second signature against each remaining public key until it finds an <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> match. The process is repeated until all signatures have been checked or not enough public keys remain to produce a successful result.</p>
 <p>Because public keys are not checked again if they fail any signature comparison, signatures must be placed in the signature script using the same order as their corresponding public keys were placed in the pubkey script or redeem script. See the <a class="reference external" href="/en/developer-reference#term-op-checkmultisig">“OP_CHECKMULTISIG”</a> warning below for more details.</p>
 </li>
-<li><p><a class="reference external" href="/en/developer-reference#term-op-return">“OP_RETURN”</a> terminates the script in failure when executed.</p></li>
+<li><p class="first"><a class="reference external" href="/en/developer-reference#term-op-return">“OP_RETURN”</a> terminates the script in failure when executed.</p>
+</li>
 </ul>
 <p>A complete list of opcodes can be found on the Bitcoin Wiki <a class="reference external" href="https://en.bitcoin.it/wiki/Script">Script Page</a>, with an authoritative list in the <code class="docutils literal notranslate"><span class="pre">opcodetype</span></code> enum of the Bitcoin Core <a class="reference external" href="https://github.com/bitcoin/bitcoin/blob/master/src/script/script.h">script header file</a></p>
 <p><img alt="Warning icon" src="../_images/icon_warning.svg" /> <strong>Signature script modification warning:</strong> Signature scripts are not signed, so anyone can modify them. This means signature scripts should only contain data and data-pushing opcodes which can’t be modified without causing the pubkey script to fail. Placing non-data-pushing opcodes in the signature script currently makes a transaction non-standard, and future consensus rules may forbid such transactions altogether. (Non-data-pushing opcodes are already forbidden in signature scripts when spending a P2SH pubkey script.)</p>
@@ -238,17 +247,16 @@ Failure, aborted: two signature matches required but none found so far, and ther
 <p>The hashes used in P2PKH and P2SH outputs are commonly encoded as Bitcoin addresses. This is the procedure to encode those hashes and decode the addresses.</p>
 <p>First, get your hash. For P2PKH, you RIPEMD-160(SHA256()) hash a <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> public key derived from your 256-bit <a class="reference external" href="https://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> private key (random data). For P2SH, you RIPEMD-160(SHA256()) hash a redeem script serialized in the format used in raw transactions (described in a <a class="reference external" href="/en/developer-reference#raw-transaction-format">following sub-section</a>). Taking the resulting hash:</p>
 <ol class="arabic simple">
-<li><p>Add an address version byte in front of the hash. The version bytes commonly used by Bitcoin are:</p>
-<ul class="simple">
-<li><p>0x00 for P2PKH addresses on the main Bitcoin <a class="reference external" href="/en/developer-guide#term-network">network</a> (mainnet)</p></li>
-<li><p>0x6f for P2PKH addresses on the Bitcoin testing <a class="reference external" href="/en/developer-guide#term-network">network</a> (testnet)</p></li>
-<li><p>0x05 for P2SH addresses on mainnet</p></li>
-<li><p>0xc4 for P2SH addresses on testnet</p></li>
+<li>Add an address version byte in front of the hash. The version bytes commonly used by Bitcoin are:<ul>
+<li>0x00 for P2PKH addresses on the main Bitcoin <a class="reference external" href="/en/developer-guide#term-network">network</a> (mainnet)</li>
+<li>0x6f for P2PKH addresses on the Bitcoin testing <a class="reference external" href="/en/developer-guide#term-network">network</a> (testnet)</li>
+<li>0x05 for P2SH addresses on mainnet</li>
+<li>0xc4 for P2SH addresses on testnet</li>
 </ul>
 </li>
-<li><p>Create a copy of the version and hash; then hash that twice with SHA256: <code class="docutils literal notranslate"><span class="pre">SHA256(SHA256(version</span> <span class="pre">.</span> <span class="pre">hash))</span></code></p></li>
-<li><p>Extract the first four bytes from the double-hashed copy. These are used as a checksum to ensure the base hash gets transmitted correctly.</p></li>
-<li><p>Append the checksum to the version and hash, and encode it as a base58 string: <code class="docutils literal notranslate"><span class="pre">BASE58(version</span> <span class="pre">.</span> <span class="pre">hash</span> <span class="pre">.</span> <span class="pre">checksum)</span></code></p></li>
+<li>Create a copy of the version and hash; then hash that twice with SHA256: <code class="docutils literal notranslate"><span class="pre">SHA256(SHA256(version</span> <span class="pre">.</span> <span class="pre">hash))</span></code></li>
+<li>Extract the first four bytes from the double-hashed copy. These are used as a checksum to ensure the base hash gets transmitted correctly.</li>
+<li>Append the checksum to the version and hash, and encode it as a base58 string: <code class="docutils literal notranslate"><span class="pre">BASE58(version</span> <span class="pre">.</span> <span class="pre">hash</span> <span class="pre">.</span> <span class="pre">checksum)</span></code></li>
 </ol>
 <p>Bitcoin’s base58 encoding, called <a class="reference external" href="../reference/glossary.html#base58check">Base58Check</a> may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki <a class="reference external" href="https://en.bitcoin.it/wiki/Base58Check_encoding">Base58Check encoding</a> page under the <a class="reference external" href="https://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 license</a>:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">code_string</span> <span class="o">=</span> <span class="s">&quot;123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz&quot;</span>
@@ -279,50 +287,50 @@ Failure, aborted: two signature matches required but none found so far, and ther
 <p>Bitcoin Core and many other tools print and accept raw transactions encoded as hex.</p>
 <p>As of <a class="reference external" href="/en/release/v0.9.3">Bitcoin Core 0.9.3</a> (October 2014), all transactions use the version 1 format described below. (Note: transactions in the block chain are allowed to list a higher version number to permit soft forks, but they are treated as version 1 transactions by current software.)</p>
 <p>A raw transaction has the following top-level format:</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 3%" />
-<col style="width: 4%" />
-<col style="width: 5%" />
-<col style="width: 89%" />
+<col width="3%" />
+<col width="4%" />
+<col width="5%" />
+<col width="89%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Bytes</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Data Type</p></th>
-<th class="head"><p>Description</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Bytes</th>
+<th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>4</p></td>
-<td><p>version</p></td>
-<td><p>uint32_t</p></td>
-<td><p><a class="reference external" href="/en/developer-guide#term-transaction-version-number">Transaction version number</a>; currently version 1 or 2. Programs creating transactions using newer consensus rules may use higher version numbers. Version 2 means that <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki#specification">BIP 68</a> applies.</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>4</td>
+<td>version</td>
+<td>uint32_t</td>
+<td><a class="reference external" href="/en/developer-guide#term-transaction-version-number">Transaction version number</a>; currently version 1 or 2. Programs creating transactions using newer consensus rules may use higher version numbers. Version 2 means that <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki#specification">BIP 68</a> applies.</td>
 </tr>
-<tr class="row-odd"><td><p><em>Varies</em></p></td>
-<td><p>tx_in count</p></td>
-<td><p>compactSize uint</p></td>
-<td><p>Number of inputs in this transaction.</p></td>
+<tr class="row-odd"><td><em>Varies</em></td>
+<td>tx_in count</td>
+<td>compactSize uint</td>
+<td>Number of inputs in this transaction.</td>
 </tr>
-<tr class="row-even"><td><p><em>Varies</em></p></td>
-<td><p>tx_in</p></td>
-<td><p>txIn</p></td>
-<td><p>Transaction inputs. See description of txIn below.</p></td>
+<tr class="row-even"><td><em>Varies</em></td>
+<td>tx_in</td>
+<td>txIn</td>
+<td>Transaction inputs. See description of txIn below.</td>
 </tr>
-<tr class="row-odd"><td><p><em>Varies</em></p></td>
-<td><p>tx_out count</p></td>
-<td><p>compactSize uint</p></td>
-<td><p>Number of outputs in this transaction.</p></td>
+<tr class="row-odd"><td><em>Varies</em></td>
+<td>tx_out count</td>
+<td>compactSize uint</td>
+<td>Number of outputs in this transaction.</td>
 </tr>
-<tr class="row-even"><td><p><em>Varies</em></p></td>
-<td><p>tx_out</p></td>
-<td><p>txOut</p></td>
-<td><p>Transaction outputs. See description of txOut below.</p></td>
+<tr class="row-even"><td><em>Varies</em></td>
+<td>tx_out</td>
+<td>txOut</td>
+<td>Transaction outputs. See description of txOut below.</td>
 </tr>
-<tr class="row-odd"><td><p>4</p></td>
-<td><p>lock_time</p></td>
-<td><p>uint32_t</p></td>
-<td><p>A time (<a class="reference external" href="https://en.wikipedia.org/wiki/Unix_time">Unix epoch time</a>) or block number. See the <a class="reference external" href="/en/developer-guide#locktime_parsing_rules">locktime parsing rules</a>.</p></td>
+<tr class="row-odd"><td>4</td>
+<td>lock_time</td>
+<td>uint32_t</td>
+<td>A time (<a class="reference external" href="https://en.wikipedia.org/wiki/Unix_time">Unix epoch time</a>) or block number. See the <a class="reference external" href="/en/developer-guide#locktime_parsing_rules">locktime parsing rules</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -330,40 +338,40 @@ Failure, aborted: two signature matches required but none found so far, and ther
 <div class="section" id="txin-a-transaction-input-non-coinbase">
 <span id="txin"></span><h3>TxIn: A Transaction Input (Non-Coinbase)<a class="headerlink" href="#txin-a-transaction-input-non-coinbase" title="Permalink to this headline">¶</a></h3>
 <p>Each non-coinbase input spends an outpoint from a previous transaction. (Coinbase inputs are described separately after the example section below.)</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 3%" />
-<col style="width: 6%" />
-<col style="width: 6%" />
-<col style="width: 84%" />
+<col width="3%" />
+<col width="6%" />
+<col width="6%" />
+<col width="84%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Bytes</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Data Type</p></th>
-<th class="head"><p>Description</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Bytes</th>
+<th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>36</p></td>
-<td><p>previous_output</p></td>
-<td><p>outpoint</p></td>
-<td><p>The previous outpoint being spent. See description of outpoint below.</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>36</td>
+<td>previous_output</td>
+<td>outpoint</td>
+<td>The previous outpoint being spent. See description of outpoint below.</td>
 </tr>
-<tr class="row-odd"><td><p><em>Varies</em></p></td>
-<td><p>script bytes</p></td>
-<td><p>compactSize uint</p></td>
-<td><p>The number of bytes in the signature script. Maximum is 10,000 bytes.</p></td>
+<tr class="row-odd"><td><em>Varies</em></td>
+<td>script bytes</td>
+<td>compactSize uint</td>
+<td>The number of bytes in the signature script. Maximum is 10,000 bytes.</td>
 </tr>
-<tr class="row-even"><td><p><em>Varies</em></p></td>
-<td><p>signature script</p></td>
-<td><p>char[]</p></td>
-<td><p>A script-language script which satisfies the conditions placed in the outpoint’s pubkey script. Should only contain data pushes; see the <a class="reference external" href="/en/developer-reference#signature_script_modification_warning">signature script modification warning</a>.</p></td>
+<tr class="row-even"><td><em>Varies</em></td>
+<td>signature script</td>
+<td>char[]</td>
+<td>A script-language script which satisfies the conditions placed in the outpoint’s pubkey script. Should only contain data pushes; see the <a class="reference external" href="/en/developer-reference#signature_script_modification_warning">signature script modification warning</a>.</td>
 </tr>
-<tr class="row-odd"><td><p>4</p></td>
-<td><p>sequence</p></td>
-<td><p>uint32_t</p></td>
-<td><p>Sequence number. Default for Bitcoin Core and almost all other programs is 0xffffffff.</p></td>
+<tr class="row-odd"><td>4</td>
+<td>sequence</td>
+<td>uint32_t</td>
+<td>Sequence number. Default for Bitcoin Core and almost all other programs is 0xffffffff.</td>
 </tr>
 </tbody>
 </table>
@@ -371,30 +379,30 @@ Failure, aborted: two signature matches required but none found so far, and ther
 <div class="section" id="outpoint-the-specific-part-of-a-specific-output">
 <span id="outpoint"></span><h3>Outpoint: The Specific Part Of A Specific Output<a class="headerlink" href="#outpoint-the-specific-part-of-a-specific-output" title="Permalink to this headline">¶</a></h3>
 <p>Because a single transaction can include multiple outputs, the outpoint structure includes both a TXID and an <a class="reference external" href="/en/developer-guide#term-output-index">output index</a> number to refer to specific output.</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 6%" />
-<col style="width: 86%" />
+<col width="4%" />
+<col width="4%" />
+<col width="6%" />
+<col width="86%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Bytes</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Data Type</p></th>
-<th class="head"><p>Description</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Bytes</th>
+<th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>32</p></td>
-<td><p>hash</p></td>
-<td><p>char[32]</p></td>
-<td><p>The TXID of the transaction holding the output to spend. The TXID is a hash provided here in internal byte order.</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>32</td>
+<td>hash</td>
+<td>char[32]</td>
+<td>The TXID of the transaction holding the output to spend. The TXID is a hash provided here in internal byte order.</td>
 </tr>
-<tr class="row-odd"><td><p>4</p></td>
-<td><p>index</p></td>
-<td><p>uint32_t</p></td>
-<td><p>The <a class="reference external" href="/en/developer-guide#term-output-index">output index</a> number of the specific output to spend from the transaction. The first output is 0x00000000.</p></td>
+<tr class="row-odd"><td>4</td>
+<td>index</td>
+<td>uint32_t</td>
+<td>The <a class="reference external" href="/en/developer-guide#term-output-index">output index</a> number of the specific output to spend from the transaction. The first output is 0x00000000.</td>
 </tr>
 </tbody>
 </table>
@@ -402,35 +410,35 @@ Failure, aborted: two signature matches required but none found so far, and ther
 <div class="section" id="txout-a-transaction-output">
 <span id="txout"></span><h3>TxOut: A Transaction Output<a class="headerlink" href="#txout-a-transaction-output" title="Permalink to this headline">¶</a></h3>
 <p>Each output spends a certain number of satoshis, placing them under control of anyone who can satisfy the provided pubkey script.</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 3%" />
-<col style="width: 6%" />
-<col style="width: 6%" />
-<col style="width: 85%" />
+<col width="3%" />
+<col width="6%" />
+<col width="6%" />
+<col width="85%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Bytes</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Data Type</p></th>
-<th class="head"><p>Description</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Bytes</th>
+<th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>8</p></td>
-<td><p>value</p></td>
-<td><p>int64_t</p></td>
-<td><p>Number of satoshis to spend. May be zero; the sum of all outputs may not exceed the sum of satoshis previously spent to the outpoints provided in the input section. (Exception: coinbase transactions spend the block subsidy and collected transaction fees.)</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>8</td>
+<td>value</td>
+<td>int64_t</td>
+<td>Number of satoshis to spend. May be zero; the sum of all outputs may not exceed the sum of satoshis previously spent to the outpoints provided in the input section. (Exception: coinbase transactions spend the block subsidy and collected transaction fees.)</td>
 </tr>
-<tr class="row-odd"><td><p>1+</p></td>
-<td><p>pk_script bytes</p></td>
-<td><p>compactSize uint</p></td>
-<td><p>Number of bytes in the pubkey script. Maximum is 10,000 bytes.</p></td>
+<tr class="row-odd"><td>1+</td>
+<td>pk_script bytes</td>
+<td>compactSize uint</td>
+<td>Number of bytes in the pubkey script. Maximum is 10,000 bytes.</td>
 </tr>
-<tr class="row-even"><td><p><em>Varies</em></p></td>
-<td><p>pk_script</p></td>
-<td><p>char[]</p></td>
-<td><p>Defines the conditions which must be satisfied to spend this output.</p></td>
+<tr class="row-even"><td><em>Varies</em></td>
+<td>pk_script</td>
+<td>char[]</td>
+<td>Defines the conditions which must be satisfied to spend this output.</td>
 </tr>
 </tbody>
 </table>
@@ -473,50 +481,50 @@ Failure, aborted: two signature matches required but none found so far, and ther
 <div class="section" id="coinbase-input-the-input-of-the-first-transaction-in-a-block">
 <span id="coinbase"></span><h3>Coinbase Input: The Input Of The First Transaction In A Block<a class="headerlink" href="#coinbase-input-the-input-of-the-first-transaction-in-a-block" title="Permalink to this headline">¶</a></h3>
 <p>The first transaction in a block, called the coinbase transaction, must have exactly one input, called a coinbase. The coinbase input currently has the following format.</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 2%" />
-<col style="width: 3%" />
-<col style="width: 3%" />
-<col style="width: 91%" />
+<col width="2%" />
+<col width="3%" />
+<col width="3%" />
+<col width="91%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Bytes</p></th>
-<th class="head"><p>Name</p></th>
-<th class="head"><p>Data Type</p></th>
-<th class="head"><p>Description</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Bytes</th>
+<th class="head">Name</th>
+<th class="head">Data Type</th>
+<th class="head">Description</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>32</p></td>
-<td><p>hash (null)</p></td>
-<td><p>char[32]</p></td>
-<td><p>A 32-byte null, as a coinbase has no previous outpoint.</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>32</td>
+<td>hash (null)</td>
+<td>char[32]</td>
+<td>A 32-byte null, as a coinbase has no previous outpoint.</td>
 </tr>
-<tr class="row-odd"><td><p>4</p></td>
-<td><p>index (UINT32_MAX)</p></td>
-<td><p>uint32_t</p></td>
-<td><p>0xffffffff, as a coinbase has no previous outpoint.</p></td>
+<tr class="row-odd"><td>4</td>
+<td>index (UINT32_MAX)</td>
+<td>uint32_t</td>
+<td>0xffffffff, as a coinbase has no previous outpoint.</td>
 </tr>
-<tr class="row-even"><td><p><em>Varies</em></p></td>
-<td><p>script bytes</p></td>
-<td><p>compactSize uint</p></td>
-<td><p>The number of bytes in the coinbase script, up to a maximum of 100 bytes.</p></td>
+<tr class="row-even"><td><em>Varies</em></td>
+<td>script bytes</td>
+<td>compactSize uint</td>
+<td>The number of bytes in the coinbase script, up to a maximum of 100 bytes.</td>
 </tr>
-<tr class="row-odd"><td><p><em>Varies</em> (4)</p></td>
-<td><p>height</p></td>
-<td><p>script</p></td>
-<td><p>The <a class="reference external" href="../reference/glossary.html#coinbase">block height</a> of this block as required by <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki">BIP34</a>. Uses script language: starts with a data-pushing opcode that indicates how many bytes to push to the stack followed by the block height as a little-endian unsigned integer. This script must be as short as possible, otherwise it may be rejected. The data-pushing opcode will be 0x03 and the total size four bytes until block 16,777,216 about 300 years from now.</p></td>
+<tr class="row-odd"><td><em>Varies</em> (4)</td>
+<td>height</td>
+<td>script</td>
+<td>The <a class="reference external" href="../reference/glossary.html#coinbase">block height</a> of this block as required by <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki">BIP34</a>. Uses script language: starts with a data-pushing opcode that indicates how many bytes to push to the stack followed by the block height as a little-endian unsigned integer. This script must be as short as possible, otherwise it may be rejected. The data-pushing opcode will be 0x03 and the total size four bytes until block 16,777,216 about 300 years from now.</td>
 </tr>
-<tr class="row-even"><td><p><em>Varies</em></p></td>
-<td><p>coinbase script</p></td>
-<td><p><em>None</em></p></td>
-<td><p>The <a class="reference external" href="../reference/glossary.html#coinbase">coinbase field</a>: Arbitrary data not exceeding 100 bytes minus the (4) height bytes. Miners commonly place an extra nonce in this field to update the block header merkle root during hashing.</p></td>
+<tr class="row-even"><td><em>Varies</em></td>
+<td>coinbase script</td>
+<td><em>None</em></td>
+<td>The <a class="reference external" href="../reference/glossary.html#coinbase">coinbase field</a>: Arbitrary data not exceeding 100 bytes minus the (4) height bytes. Miners commonly place an extra nonce in this field to update the block header merkle root during hashing.</td>
 </tr>
-<tr class="row-odd"><td><p>4</p></td>
-<td><p>sequence</p></td>
-<td><p>uint32_t</p></td>
-<td><p>Sequence number.</p></td>
+<tr class="row-odd"><td>4</td>
+<td>sequence</td>
+<td>uint32_t</td>
+<td>Sequence number.</td>
 </tr>
 </tbody>
 </table>
@@ -552,34 +560,34 @@ Failure, aborted: two signature matches required but none found so far, and ther
 <p>The raw transaction format and several <a class="reference external" href="/en/developer-guide#term-network">peer-to-peer network</a> messages use a type of variable-length integer to indicate the number of bytes in a following piece of data.</p>
 <p>Bitcoin Core code and this document refers to these variable length integers as compactSize. Many other documents refer to them as var_int or varInt, but this risks conflation with other variable-length integer encodings—such as the CVarInt class used in Bitcoin Core for serializing data to disk. Because it’s used in the transaction format, the format of compactSize unsigned integers is part of the consensus rules.</p>
 <p>For numbers from 0 to 252, compactSize unsigned integers look like regular unsigned integers. For other numbers up to 0xffffffffffffffff, a byte is prefixed to the number to indicate its length—but otherwise the numbers look like regular unsigned integers in little-endian order.</p>
-<table class="docutils align-center">
+<table border="1" class="docutils">
 <colgroup>
-<col style="width: 44%" />
-<col style="width: 13%" />
-<col style="width: 44%" />
+<col width="44%" />
+<col width="13%" />
+<col width="44%" />
 </colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Value</p></th>
-<th class="head"><p>Bytes Used</p></th>
-<th class="head"><p>Format</p></th>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Value</th>
+<th class="head">Bytes Used</th>
+<th class="head">Format</th>
 </tr>
 </thead>
-<tbody>
-<tr class="row-even"><td><p>&gt;= 0 &amp;&amp; &lt;= 252</p></td>
-<td><p>1</p></td>
-<td><p>uint8_t</p></td>
+<tbody valign="top">
+<tr class="row-even"><td>&gt;= 0 &amp;&amp; &lt;= 252</td>
+<td>1</td>
+<td>uint8_t</td>
 </tr>
-<tr class="row-odd"><td><p>&gt;= 253 &amp;&amp; &lt;= 0xffff</p></td>
-<td><p>3</p></td>
-<td><p>0xfd followed by the number as uint16_t</p></td>
+<tr class="row-odd"><td>&gt;= 253 &amp;&amp; &lt;= 0xffff</td>
+<td>3</td>
+<td>0xfd followed by the number as uint16_t</td>
 </tr>
-<tr class="row-even"><td><p>&gt;= 0x10000 &amp;&amp; &lt;= 0xffffffff</p></td>
-<td><p>5</p></td>
-<td><p>0xfe followed by the number as uint32_t</p></td>
+<tr class="row-even"><td>&gt;= 0x10000 &amp;&amp; &lt;= 0xffffffff</td>
+<td>5</td>
+<td>0xfe followed by the number as uint32_t</td>
 </tr>
-<tr class="row-odd"><td><p>&gt;= 0x100000000 &amp;&amp; &lt;= 0xffffffffffffffff</p></td>
-<td><p>9</p></td>
-<td><p>0xff followed by the number as uint64_t</p></td>
+<tr class="row-odd"><td>&gt;= 0x100000000 &amp;&amp; &lt;= 0xffffffffffffffff</td>
+<td>9</td>
+<td>0xff followed by the number as uint64_t</td>
 </tr>
 </tbody>
 </table>

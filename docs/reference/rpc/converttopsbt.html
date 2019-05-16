@@ -210,19 +210,19 @@ createpsbt and walletcreatefundedpsbt should be used for new applications.</p>
 <div class="section" id="argument-2-permitsigdata">
 <h2>Argument #2 - permitsigdata<a class="headerlink" href="#argument-2-permitsigdata" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> boolean, optional, default=false</p>
-<dl class="simple">
-<dt>If true, any signatures in the input will be discarded and conversion.</dt><dd><p>will continue. If false, RPC will fail if any signatures are present.</p>
-</dd>
+<dl class="docutils">
+<dt>If true, any signatures in the input will be discarded and conversion.</dt>
+<dd>will continue. If false, RPC will fail if any signatures are present.</dd>
 </dl>
 </div>
 <div class="section" id="argument-3-iswitness">
 <h2>Argument #3 - iswitness<a class="headerlink" href="#argument-3-iswitness" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> boolean, optional, default=depends on heuristic tests</p>
-<dl class="simple">
-<dt>Whether the transaction hex is a serialized witness transaction.</dt><dd><p>If iswitness is not present, heuristic tests will be used in decoding. If true, only witness deserializaion
+<dl class="docutils">
+<dt>Whether the transaction hex is a serialized witness transaction.</dt>
+<dd>If iswitness is not present, heuristic tests will be used in decoding. If true, only witness deserializaion
 will be tried. If false, only non-witness deserialization will be tried. Only has an effect if
-permitsigdata is true.</p>
-</dd>
+permitsigdata is true.</dd>
 </dl>
 </div>
 <div class="section" id="examples">

@@ -242,19 +242,19 @@ HD will have a new HD seed set so that new keys added to the keypool will be der
 <div class="section" id="argument-1-newkeypool">
 <h2>Argument #1 - newkeypool<a class="headerlink" href="#argument-1-newkeypool" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> boolean, optional, default=true</p>
-<dl class="simple">
-<dt>Whether to flush old unused addresses, including change addresses, from the keypool and regenerate it.</dt><dd><p>If true, the next address from getnewaddress and change address from getrawchangeaddress will be from this new seed.
+<dl class="docutils">
+<dt>Whether to flush old unused addresses, including change addresses, from the keypool and regenerate it.</dt>
+<dd>If true, the next address from getnewaddress and change address from getrawchangeaddress will be from this new seed.
 If false, addresses (including change addresses if the wallet already had HD Chain Split enabled) from the existing
-keypool will be used until it has been depleted.</p>
-</dd>
+keypool will be used until it has been depleted.</dd>
 </dl>
 </div>
 <div class="section" id="argument-2-seed">
 <h2>Argument #2 - seed<a class="headerlink" href="#argument-2-seed" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> string, optional, default=random seed</p>
-<dl class="simple">
-<dt>The WIF private key to use as the new HD seed.</dt><dd><p>The seed value can be retrieved using the dumpwallet command. It is the private key marked hdseed=1</p>
-</dd>
+<dl class="docutils">
+<dt>The WIF private key to use as the new HD seed.</dt>
+<dd>The seed value can be retrieved using the dumpwallet command. It is the private key marked hdseed=1</dd>
 </dl>
 </div>
 <div class="section" id="examples">

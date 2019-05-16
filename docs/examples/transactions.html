@@ -568,9 +568,9 @@ e8677d2cc74df51f738285013c260000000000ffffffff02f028d6dc01000000<span class="se"
 </div>
 <p>Signing the raw transaction with <a class="reference external" href="/en/developer-reference#signrawtransaction">“signrawtransaction”</a> gets more complicated as we now have three arguments:</p>
 <ol class="arabic simple">
-<li><p>The unsigned raw transaction.</p></li>
-<li><p>An empty array. We don’t do anything with this argument in this operation, but some valid JSON must be provided to get access to the later positional arguments.</p></li>
-<li><p>The private key we want to use to sign one of the inputs.</p></li>
+<li>The unsigned raw transaction.</li>
+<li>An empty array. We don’t do anything with this argument in this operation, but some valid JSON must be provided to get access to the later positional arguments.</li>
+<li>The private key we want to use to sign one of the inputs.</li>
 </ol>
 <p>The result is a raw transaction with only one input signed; the fact that the transaction isn’t fully signed is indicated by value of the <code class="docutils literal notranslate"><span class="pre">complete</span></code> JSON field. We save the incomplete, partly-signed raw transaction hex to a shell variable.</p>
 <div class="multicode docutils container">
@@ -761,8 +761,8 @@ mfdCHEFL2tW9eEUpizk7XLZJcnFM4hrp78
 </div>
 </div>
 <p>Attempt to sign the raw transaction without any special arguments, the way we successfully signed the the raw transaction in the Simple Raw Transaction subsection. If you’ve read the <a class="reference external" href="/en/developer-guide#transactions">Transaction section</a> of the guide, you may know why the call fails and leaves the raw transaction hex unchanged.</p>
-<div class="figure align-center" id="id1">
-<img alt="Old Transaction Data Required To Be Signed" src="../_images/en-signing-output-to-spend.svg" /><p class="caption"><span class="caption-text">Old Transaction Data Required To Be Signed</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<div class="figure" id="id1">
+<img alt="Old Transaction Data Required To Be Signed" src="../_images/en-signing-output-to-spend.svg" /><p class="caption"><span class="caption-text">Old Transaction Data Required To Be Signed</span></p>
 </div>
 <p>As illustrated above, the data that gets signed includes the txid and vout from the previous transaction. That information is included in the <a class="reference external" href="/en/developer-reference#createrawtransaction">“createrawtransaction”</a> raw transaction. But the data that gets signed also includes the pubkey script from the previous transaction, even though it doesn’t appear in either the unsigned or signed transaction.</p>
 <p>In the other raw transaction subsections above, the previous output was part of the UTXO set known to the wallet, so the wallet was able to use the txid and <a class="reference external" href="/en/developer-guide#term-output-index">output index</a> number to find the previous pubkey script and insert it automatically.</p>
@@ -802,7 +802,7 @@ mfdCHEFL2tW9eEUpizk7XLZJcnFM4hrp78
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt; bitcoin-cli -regtest sendrawtransaction <span class="nv">$SIGNED_RAW_TX</span>
 </pre></div>
 </div>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>error: {&quot;code&quot;:-22,&quot;message&quot;:&quot;TX rejected&quot;}
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="mi">-22</span><span class="p">,</span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;TX rejected&quot;</span><span class="p">}}</span>
 </pre></div>
 </div>
 </div>

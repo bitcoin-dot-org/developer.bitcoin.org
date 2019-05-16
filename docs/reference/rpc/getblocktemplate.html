@@ -193,21 +193,20 @@
 <p>It returns data needed to construct a block to work on.</p>
 <p>For full specification, see BIPs 22, 23, 9, and 145:</p>
 <blockquote>
-<div><p><a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki</a>
+<div><a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0022.mediawiki</a>
 <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0023.mediawiki</a>
 <a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes">https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki#getblocktemplate_changes</a>
-<a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki</a></p>
-</div></blockquote>
+<a class="reference external" href="https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki">https://github.com/bitcoin/bips/blob/master/bip-0145.mediawiki</a></div></blockquote>
 <div class="section" id="argument-1-template-request">
 <h2>Argument #1 - template_request<a class="headerlink" href="#argument-1-template-request" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> json object, required</p>
-<dl class="simple">
-<dt>A json object in the following spec</dt><dd><p>“rules”: [           (json array, required) A list of strings
+<dl class="docutils">
+<dt>A json object in the following spec</dt>
+<dd>“rules”: [           (json array, required) A list of strings
 “support”,         (string) client side supported softfork deployment
 …
 ],
-}</p>
-</dd>
+}</dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;str&quot;</span><span class="p">,</span>       <span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">optional</span><span class="p">)</span> <span class="n">This</span> <span class="n">must</span> <span class="n">be</span> <span class="nb">set</span> <span class="n">to</span> <span class="s2">&quot;template&quot;</span><span class="p">,</span> <span class="s2">&quot;proposal&quot;</span> <span class="p">(</span><span class="n">see</span> <span class="n">BIP</span> <span class="mi">23</span><span class="p">),</span> <span class="ow">or</span> <span class="n">omitted</span>

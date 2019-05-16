@@ -211,12 +211,11 @@
 <p>Scans the unspent transaction output set for entries that match certain output descriptors.</p>
 <p>Examples of output descriptors are:</p>
 <blockquote>
-<div><p>addr(&lt;address&gt;)                      Outputs whose scriptPubKey corresponds to the specified address (does not include P2PK)
+<div>addr(&lt;address&gt;)                      Outputs whose scriptPubKey corresponds to the specified address (does not include P2PK)
 raw(&lt;hex script&gt;)                    Outputs whose scriptPubKey equals the specified hex scripts
 combo(&lt;pubkey&gt;)                      P2PK, P2PKH, P2WPKH, and P2SH-P2WPKH outputs for the given pubkey
 pkh(&lt;pubkey&gt;)                        P2PKH outputs for the given pubkey
-sh(multi(&lt;n&gt;,&lt;pubkey&gt;,&lt;pubkey&gt;,…)) P2SH-multisig outputs for the given threshold and pubkeys</p>
-</div></blockquote>
+sh(multi(&lt;n&gt;,&lt;pubkey&gt;,&lt;pubkey&gt;,…)) P2SH-multisig outputs for the given threshold and pubkeys</div></blockquote>
 <p>In the above, &lt;pubkey&gt; either refers to a fixed public key in hexadecimal notation, or to an xpub/xprv optionally followed by one
 or more path elements separated by “/”, and optionally ending in “/*” (unhardened), or “/*’” or “/*h” (hardened) to specify all
 unhardened or hardened child keys.</p>
@@ -225,19 +224,19 @@ unhardened or hardened child keys.</p>
 <div class="section" id="argument-1-action">
 <h2>Argument #1 - action<a class="headerlink" href="#argument-1-action" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> string, required</p>
-<dl class="simple">
-<dt>The action to execute</dt><dd><p>“start” for starting a scan
+<dl class="docutils">
+<dt>The action to execute</dt>
+<dd>“start” for starting a scan
 “abort” for aborting the current scan (returns true when abort was successful)
-“status” for progress report (in %) of the current scan</p>
-</dd>
+“status” for progress report (in %) of the current scan</dd>
 </dl>
 </div>
 <div class="section" id="argument-2-scanobjects">
 <h2>Argument #2 - scanobjects<a class="headerlink" href="#argument-2-scanobjects" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> json array, required</p>
-<dl class="simple">
-<dt>Array of scan objects</dt><dd><p>Every scan object is either a string descriptor or an object:</p>
-</dd>
+<dl class="docutils">
+<dt>Array of scan objects</dt>
+<dd>Every scan object is either a string descriptor or an object:</dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="s2">&quot;descriptor&quot;</span><span class="p">,</span>             <span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="n">An</span> <span class="n">output</span> <span class="n">descriptor</span>

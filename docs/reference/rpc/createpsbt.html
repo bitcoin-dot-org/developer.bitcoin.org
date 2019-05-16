@@ -220,11 +220,11 @@
 <div class="section" id="argument-2-outputs">
 <h2>Argument #2 - outputs<a class="headerlink" href="#argument-2-outputs" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> json array, required</p>
-<dl class="simple">
-<dt>a json array with outputs (key-value pairs), where none of the keys are duplicated.</dt><dd><p>That is, each address can only appear once and there can only be one ‘data’ object.
+<dl class="docutils">
+<dt>a json array with outputs (key-value pairs), where none of the keys are duplicated.</dt>
+<dd>That is, each address can only appear once and there can only be one ‘data’ object.
 For compatibility reasons, a dictionary, which holds the key-value pairs directly, is also
-accepted as second parameter.</p>
-</dd>
+accepted as second parameter.</dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="p">{</span>                       <span class="p">(</span><span class="n">json</span> <span class="nb">object</span><span class="p">)</span>
@@ -246,9 +246,9 @@ accepted as second parameter.</p>
 <div class="section" id="argument-4-replaceable">
 <h2>Argument #4 - replaceable<a class="headerlink" href="#argument-4-replaceable" title="Permalink to this headline">¶</a></h2>
 <p><strong>Type:</strong> boolean, optional, default=false</p>
-<dl class="simple">
-<dt>Marks this transaction as BIP125 replaceable.</dt><dd><p>Allows this transaction to be replaced by a transaction with higher fees. If provided, it is an error if explicit sequence numbers are incompatible.</p>
-</dd>
+<dl class="docutils">
+<dt>Marks this transaction as BIP125 replaceable.</dt>
+<dd>Allows this transaction to be replaced by a transaction with higher fees. If provided, it is an error if explicit sequence numbers are incompatible.</dd>
 </dl>
 </div>
 <div class="section" id="examples">
