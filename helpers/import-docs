@@ -39,15 +39,14 @@ sections = [
     target_dir: "devguide",
     source_dir: "_data/devdocs/en/guides",
     pages: {
-      "intro" => "Introduction",
-      "block_chain" => nil,
-      "transactions" => nil,
-      "contracts" => nil,
-      "wallets" => nil,
-      "payment_processing" => nil,
-      "operating_modes" => nil,
-      "p2p_network" => nil,
-      "mining" => nil,
+      "block_chain" => "Block Chain",
+      "transactions" => "Transactions",
+      "contracts" => "Contracts",
+      "wallets" => "Wallets",
+      "payment_processing" => "Payment Processing",
+      "operating_modes" => "Operating Modes",
+      "p2p_network" => "P2P Network",
+      "mining" => "Mining",
     }
   },
   {
