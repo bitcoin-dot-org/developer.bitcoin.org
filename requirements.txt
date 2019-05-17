@@ -1,2 +1,2 @@
 sphinx
-sphinx-rtd-theme
+sphinxbootstrap4theme
