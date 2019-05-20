@@ -4,7 +4,7 @@ P2P Network
 Creating A Bloom Filter
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-In this section, we’ll use variable names that correspond to the field names in the ```filterload`` message documentation </en/developer-reference#filterclear>`__. Each code block precedes the paragraph describing it.
+In this section, we’ll use variable names that correspond to the field names in the `“filterload” message documentation <../reference/p2p_networking.html#filterload>`__. Each code block precedes the paragraph describing it.
 
 .. highlight:: python
 
@@ -125,7 +125,7 @@ We only added one element to the filter above, but we could repeat the process w
 
 Note: for a more optimized Python implementation with fewer external dependencies, see `python-bitcoinlib’s <https://github.com/petertodd/python-bitcoinlib>`__ bloom filter module which is based directly on Bitcoin Core’s C++ implementation.
 
-Using the `“filterload” message </en/developer-reference#filterclear>`__ format, the complete filter created above would be the binary form of the annotated hexdump shown below:
+Using the `“filterload” message <../reference/p2p_networking.html#filterload>`__ format, the complete filter created above would be the binary form of the annotated hexdump shown below:
 
 .. highlight:: text
 
@@ -203,7 +203,7 @@ Testing the filter against an arbitrary element, we get the failure output below
 Retrieving A MerkleBlock
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-For the `“merkleblock” message </en/developer-reference#merkleblock>`__ documentation on the reference page, an actual merkle block was retrieved from the `network </en/developer-guide#term-network>`__ and manually processed. This section walks through each step of the process, demonstrating basic `network </en/developer-guide#term-network>`__ communication and merkle block processing.
+For the `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ documentation on the reference page, an actual merkle block was retrieved from the `network <../devguide/p2p_network.html>`__ and manually processed. This section walks through each step of the process, demonstrating basic `network <../devguide/p2p_network.html>`__ communication and merkle block processing.
 
 .. highlight:: python
 
@@ -238,7 +238,7 @@ For the `“merkleblock” message </en/developer-reference#merkleblock>`__ docu
        )
        sys.stdout.flush()
 
-To connect to the P2P `network </en/developer-guide#term-network>`__, the trivial Python function above was developed to compute message headers and send payloads decoded from hex.
+To connect to the P2P `network <../devguide/p2p_network.html>`__, the trivial Python function above was developed to compute message headers and send payloads decoded from hex.
 
 .. highlight:: python
 
@@ -261,7 +261,7 @@ To connect to the P2P `network </en/developer-guide#term-network>`__, the trivia
        + "00" # .............................. Relay transactions: false
    )
 
-Peers on the `network </en/developer-guide#term-network>`__ will not accept any requests until you send them a `“version” message </en/developer-reference#version>`__. The receiving node will reply with their `“version” message </en/developer-reference#version>`__ and a `“verack” message </en/developer-reference#verack>`__.
+Peers on the `network <../devguide/p2p_network.html>`__ will not accept any requests until you send them a `“version” message <../reference/p2p_networking.html#version>`__. The receiving node will reply with their `“version” message <../reference/p2p_networking.html#version>`__ and a `“verack” message <../reference/p2p_networking.html#verack>`__.
 
 .. highlight:: python
 
@@ -270,7 +270,7 @@ Peers on the `network </en/developer-guide#term-network>`__ will not accept any 
    sleep(1)
    send("verack", "")
 
-We’re not going to validate their `“version” message </en/developer-reference#version>`__ with this simple script, but we will sleep a short bit and send back our own `“verack” message </en/developer-reference#verack>`__ as if we had accepted their `“version” message </en/developer-reference#version>`__.
+We’re not going to validate their `“version” message <../reference/p2p_networking.html#version>`__ with this simple script, but we will sleep a short bit and send back our own `“verack” message <../reference/p2p_networking.html#verack>`__ as if we had accepted their `“version” message <../reference/p2p_networking.html#version>`__.
 
 .. highlight:: python
 
@@ -284,7 +284,7 @@ We’re not going to validate their `“version” message </en/developer-refere
        + "00" # ......... nFlags: BLOOM_UPDATE_NONE
    )
 
-We set a bloom filter with the `“filterload” message </en/developer-reference#filterclear>`__. This filter is described in the two preceeding sections.
+We set a bloom filter with the `“filterload” message <../reference/p2p_networking.html#filterload>`__. This filter is described in the two preceeding sections.
 
 .. highlight:: python
 
@@ -313,7 +313,7 @@ Part of the response is shown in the section below.
 Parsing A MerkleBlock
 ~~~~~~~~~~~~~~~~~~~~~
 
-In the section above, we retrieved a merkle block from the `network </en/developer-guide#term-network>`__; now we will parse it. Most of the block header has been omitted. For a more complete hexdump, see the example in the ```merkleblock`` message section </en/developer-reference#merkleblock>`__.
+In the section above, we retrieved a merkle block from the `network <../devguide/p2p_network.html>`__; now we will parse it. Most of the block header has been omitted. For a more complete hexdump, see the example in the ```merkleblock`` message section <../reference/p2p_networking.html#merkleblock>`__.
 
 .. highlight:: text
 
@@ -337,7 +337,7 @@ In the section above, we retrieved a merkle block from the `network </en/develop
    01 ................................. Flag bytes: 1
    1d ................................. Flags: 1 0 1 1 1 0 0 0
 
-We parse the above `“merkleblock” message </en/developer-reference#merkleblock>`__ using the following instructions. Each illustration is described in the paragraph below it.
+We parse the above `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ using the following instructions. Each illustration is described in the paragraph below it.
 
 .. figure:: /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-001.svg
    :alt: Parsing A MerkleBlock
@@ -358,7 +358,7 @@ The first flag is a 1 and the merkle root is (as always) a non-TXID node, so we 
 
    Parsing A MerkleBlock
 
-The next flag in the example is a 0 and this is also a non-TXID node, so we apply the first hash from the `“merkleblock” message </en/developer-reference#merkleblock>`__ to this node. We also don’t process any child nodes—according to the peer which created the `“merkleblock” message </en/developer-reference#merkleblock>`__, none of those nodes will lead to TXIDs of transactions that match our filter, so we don’t need them. We go back up to the merkle root and then descend into its right child and look at the next (third) flag for instructions.
+The next flag in the example is a 0 and this is also a non-TXID node, so we apply the first hash from the `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ to this node. We also don’t process any child nodes—according to the peer which created the `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__, none of those nodes will lead to TXIDs of transactions that match our filter, so we don’t need them. We go back up to the merkle root and then descend into its right child and look at the next (third) flag for instructions.
 
 .. figure:: /img/dev/gifs/en-merkleblock-parsing/en-merkleblock-parsing-004.svg
    :alt: Parsing A MerkleBlock
@@ -409,4 +409,4 @@ Moving to the right child of the third node we encountered, we fill it out using
 
 We hash as appropriate to fill out the tree. Note that the eighth flag is not used—this is acceptable as it was required to pad out a flag byte.
 
-The final steps would be to ensure the computed merkle root is identical to the merkle root in the header and check the other steps of the parsing checklist in the `“merkleblock” message </en/developer-reference#merkleblock>`__ section.
+The final steps would be to ensure the computed merkle root is identical to the merkle root in the header and check the other steps of the parsing checklist in the `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ section.

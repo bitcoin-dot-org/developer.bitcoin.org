@@ -1,15 +1,15 @@
 Introduction
 ============
 
-The following guide aims to provide examples to help you start building Bitcoin-based applications. To make the best use of this document, you may want to install the current version of Bitcoin Core, either from `source <https://github.com/bitcoin/bitcoin>`__ or from a `pre-compiled executable </en/download>`__.
+The following guide aims to provide examples to help you start building Bitcoin-based applications. To make the best use of this document, you may want to install the current version of Bitcoin Core, either from `source <https://github.com/bitcoin/bitcoin>`__ or from a `pre-compiled executable <https://bitcoin.org/en/download>`__.
 
 Once installed, you’ll have access to three programs: ``bitcoind``, ``bitcoin-qt``, and ``bitcoin-cli``.
 
--  ``bitcoin-qt`` provides a combination full Bitcoin peer and wallet frontend. From the Help menu, you can access a console where you can enter the `RPC </en/developer-reference#remote-procedure-calls-rpcs>`__ commands used throughout this document.
+-  ``bitcoin-qt`` provides a combination full Bitcoin peer and wallet frontend. From the Help menu, you can access a console where you can enter the `RPC <../reference/rpc/index.html>`__ commands used throughout this document.
 
--  ``bitcoind`` is more useful for programming: it provides a full peer which you can interact with through `RPCs </en/developer-reference#remote-procedure-calls-rpcs>`__ to port 8332 (or 18332 for testnet).
+-  ``bitcoind`` is more useful for programming: it provides a full peer which you can interact with through `RPCs <../reference/rpc/index.html>`__ to port 8332 (or 18332 for testnet).
 
--  ``bitcoin-cli`` allows you to send `RPC </en/developer-reference#remote-procedure-calls-rpcs>`__ commands to ``bitcoind`` from the command line. For example, ``bitcoin-cli help``
+-  ``bitcoin-cli`` allows you to send `RPC <../reference/rpc/index.html>`__ commands to ``bitcoind`` from the command line. For example, ``bitcoin-cli help``
 
 All three programs get settings from ``bitcoin.conf`` in the ``Bitcoin`` application directory:
 
@@ -19,7 +19,7 @@ All three programs get settings from ``bitcoin.conf`` in the ``Bitcoin`` applica
 
 -  Linux: ``$HOME/.bitcoin/``
 
-To use ``bitcoind`` and ``bitcoin-cli``, you will need to add a `RPC </en/developer-reference#remote-procedure-calls-rpcs>`__ password to your ``bitcoin.conf`` file. Both programs will read from the same file if both run on the same system as the same user, so any long random password will work:
+To use ``bitcoind`` and ``bitcoin-cli``, you will need to add a `RPC <../reference/rpc/index.html>`__ password to your ``bitcoin.conf`` file. Both programs will read from the same file if both run on the same system as the same user, so any long random password will work:
 
 ::
 
@@ -31,7 +31,7 @@ You should also make the ``bitcoin.conf`` file only readable to its owner. On Li
 
    chmod 0600 bitcoin.conf
 
-For development, it’s safer and cheaper to use Bitcoin’s test `network </en/developer-guide#term-network>`__ (testnet) or regression test mode (regtest) described below.
+For development, it’s safer and cheaper to use Bitcoin’s test `network <../devguide/p2p_network.html>`__ (testnet) or regression test mode (regtest) described below.
 
 Questions about Bitcoin use are best sent to the `BitcoinTalk forum <https://bitcointalk.org/index.php?board=4.0>`__ and `IRC channels <https://en.bitcoin.it/wiki/IRC_channels>`__. Errors or suggestions related to documentation on Bitcoin.org can be `submitted as an issue <https://github.com/bitcoin-dot-org/bitcoin.org/issues>`__ or posted to the `bitcoin-documentation mailing list <https://groups.google.com/forum/#!forum/bitcoin-documentation>`__.
 

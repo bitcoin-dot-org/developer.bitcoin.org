@@ -4,7 +4,7 @@ Payment Processing
 Payment Protocol
 ~~~~~~~~~~~~~~~~
 
-To request payment using the payment protocol, you use an extended (but backwards-compatible) `“bitcoin:” URI </en/developer-guide#term-bitcoin-uri>`__. For example:
+To request payment using the payment protocol, you use an extended (but backwards-compatible) :ref:`“bitcoin:” URI <term-bitcoin-uri>`. For example:
 
 |Warning icon| **Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Bitcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Bitcoin Core version 0.18 when using `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ URI’s. Merchants should transition away from `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ to more secure options such as `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__. Merchants should never require `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ payments and should provide `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__ fallbacks.
 
@@ -16,23 +16,23 @@ To request payment using the payment protocol, you use an extended (but backward
    &message=Order+of+flowers+%26+chocolates\
    &r=https://example.com/pay.php/invoice%3Dda39a3ee
 
-The browser, QR code reader, or other program processing the URI opens the spender’s Bitcoin wallet program on the URI. If the wallet program is aware of the payment protocol, it accesses the URL specified in the `“r” </en/developer-guide#term-r-parameter>`__ parameter, which should provide it with a serialized `PaymentRequest </en/developer-examples#term-paymentrequest>`__ served with the `MIME <https://en.wikipedia.org/wiki/Internet_media_type>`__ type ``application/bitcoin-paymentrequest``.
+The browser, QR code reader, or other program processing the URI opens the spender’s Bitcoin wallet program on the URI. If the wallet program is aware of the payment protocol, it accesses the URL specified in the :ref:`“r” <term-r-parameter>` parameter, which should provide it with a serialized :ref:`PaymentRequest <term-paymentrequest>` served with the `MIME <https://en.wikipedia.org/wiki/Internet_media_type>`__ type ``application/bitcoin-paymentrequest``.
 
 **Resource:** Gavin Andresen’s `Payment Request Generator <https://github.com/gavinandresen/paymentrequest/blob/master/php/demo_website/createpaymentrequest.php>`__ generates custom example URIs and payment requests for use with testnet.
 
 PaymentRequest & PaymentDetails
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The `PaymentRequest </en/developer-examples#term-paymentrequest>`__ is created with data structures built using Google’s `Protocol Buffers <https://developers.google.com/protocol-buffers/>`__. `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ describes these data structures in the non-sequential way they’re defined in the payment request `protocol buffer <https://developers.google.com/protocol-buffers/>`__ code, but the text below will describe them in a more linear order using a simple (but functional) Python CGI program. (For brevity and clarity, many normal CGI best practices are not used in this program.)
+The :ref:`PaymentRequest <term-paymentrequest>` is created with data structures built using Google’s `Protocol Buffers <https://developers.google.com/protocol-buffers/>`__. `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ describes these data structures in the non-sequential way they’re defined in the payment request `protocol buffer <https://developers.google.com/protocol-buffers/>`__ code, but the text below will describe them in a more linear order using a simple (but functional) Python CGI program. (For brevity and clarity, many normal CGI best practices are not used in this program.)
 
-The full sequence of events is illustrated below, starting with the spender clicking a `“bitcoin:” URI </en/developer-guide#term-bitcoin-uri>`__ or scanning a ``bitcoin:`` QR code.
+The full sequence of events is illustrated below, starting with the spender clicking a :ref:`“bitcoin:” URI <term-bitcoin-uri>` or scanning a ``bitcoin:`` QR code.
 
 .. figure:: /img/dev/en-payment-protocol.svg
    :alt: BIP70 Payment Protocol
 
    BIP70 Payment Protocol
 
-For the script to use the `protocol buffer <https://developers.google.com/protocol-buffers/>`__, you will need a copy of Google’s `Protocol Buffer <https://developers.google.com/protocol-buffers/>`__ compiler (``protoc``), which is available in most modern Linux package managers and `directly from Google. <https://developers.google.com/protocol-buffers/>`__ Non-Google `protocol buffer <https://developers.google.com/protocol-buffers/>`__ compilers are available for a variety of programming languages. You will also need a copy of the `PaymentRequest </en/developer-examples#term-paymentrequest>`__ `Protocol Buffer description <https://github.com/bitcoin/bitcoin/blob/master/src/qt/paymentrequest.proto>`__ from the Bitcoin Core source code.
+For the script to use the `protocol buffer <https://developers.google.com/protocol-buffers/>`__, you will need a copy of Google’s `Protocol Buffer <https://developers.google.com/protocol-buffers/>`__ compiler (``protoc``), which is available in most modern Linux package managers and `directly from Google. <https://developers.google.com/protocol-buffers/>`__ Non-Google `protocol buffer <https://developers.google.com/protocol-buffers/>`__ compilers are available for a variety of programming languages. You will also need a copy of the :ref:`PaymentRequest <term-paymentrequest>` `Protocol Buffer description <https://github.com/bitcoin/bitcoin/blob/master/src/qt/paymentrequest.proto>`__ from the Bitcoin Core source code.
 
 Initialization Code
 '''''''''''''''''''
@@ -63,7 +63,7 @@ The startup code above is quite simple, requiring nothing but the epoch (Unix da
 Configuration Code
 ''''''''''''''''''
 
-Next, we’ll set configuration settings which will typically only change when the receiver wants to do something differently. The code pushes a few settings into the ``request`` (`PaymentRequest </en/developer-examples#term-paymentrequest>`__) and ``details`` (`PaymentDetails </en/developer-examples#term-paymentdetails>`__) objects. When we serialize them, `PaymentDetails </en/developer-examples#term-paymentdetails>`__ will be contained within the `PaymentRequest </en/developer-examples#term-paymentrequest>`__.
+Next, we’ll set configuration settings which will typically only change when the receiver wants to do something differently. The code pushes a few settings into the ``request`` (:ref:`PaymentRequest <term-paymentrequest>`) and ``details`` (:ref:`PaymentDetails <term-paymentdetails>`) objects. When we serialize them, :ref:`PaymentDetails <term-paymentdetails>` will be contained within the :ref:`PaymentRequest <term-paymentrequest>`.
 
 .. highlight:: python
 
@@ -98,13 +98,13 @@ Each line is described below.
 
    request.pki_type = "x509+sha256"  ## Default: none
 
-`“pki_type” </en/developer-examples#term-pp-pki-type>`__: (optional) tell the receiving wallet program what `Public-Key Infrastructure </en/developer-examples#term-pki>`__ (`PKI </en/developer-examples#term-pki>`__) type you’re using to cryptographically sign your `PaymentRequest </en/developer-examples#term-paymentrequest>`__ so that it can’t be modified by a `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attack.
+:ref:`“pki_type” <term-pp-pki-type>`: (optional) tell the receiving wallet program what :ref:`Public-Key Infrastructure <term-pki>` (:ref:`PKI <term-pki>`) type you’re using to cryptographically sign your :ref:`PaymentRequest <term-paymentrequest>` so that it can’t be modified by a `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attack.
 
-If you don’t want to sign the `PaymentRequest </en/developer-examples#term-paymentrequest>`__, you can choose a `“pki_type” </en/developer-examples#term-pp-pki-type>`__ of ``none`` (the default).
+If you don’t want to sign the :ref:`PaymentRequest <term-paymentrequest>`, you can choose a :ref:`“pki_type” <term-pp-pki-type>` of ``none`` (the default).
 
-If you do choose the sign the `PaymentRequest </en/developer-examples#term-paymentrequest>`__, you currently have two options defined by `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__: ``x509+sha1`` and ``x509+sha256``. Both options use the `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificate system, the same system used for HTTP Secure (HTTPS). To use either option, you will need a certificate signed by a certificate authority or one of their intermediaries. (A self-signed certificate will not work.)
+If you do choose the sign the :ref:`PaymentRequest <term-paymentrequest>`, you currently have two options defined by `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__: ``x509+sha1`` and ``x509+sha256``. Both options use the `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificate system, the same system used for HTTP Secure (HTTPS). To use either option, you will need a certificate signed by a certificate authority or one of their intermediaries. (A self-signed certificate will not work.)
 
-Each wallet program may choose which certificate authorities to trust, but it’s likely that they’ll trust whatever certificate authorities their operating system trusts. If the wallet program doesn’t have a full operating system, as might be the case for small hardware wallets, `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ suggests they use the `Mozilla Root Certificate Store <https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/>`__. In general, if a certificate works in your web browser when you connect to your webserver, it will work for your `PaymentRequests </en/developer-examples#term-paymentrequest>`__.
+Each wallet program may choose which certificate authorities to trust, but it’s likely that they’ll trust whatever certificate authorities their operating system trusts. If the wallet program doesn’t have a full operating system, as might be the case for small hardware wallets, `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ suggests they use the `Mozilla Root Certificate Store <https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/>`__. In general, if a certificate works in your web browser when you connect to your webserver, it will work for your :ref:`PaymentRequests <term-paymentrequest>`.
 
 .. highlight:: python
 
@@ -112,7 +112,7 @@ Each wallet program may choose which certificate authorities to trust, but it’
 
    details.[network][network] = "test"  ## Default: main
 
-``network``: (optional) tell the spender’s wallet program what Bitcoin `network </en/developer-guide#term-network>`__ you’re using; `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ defines “main” for mainnet (actual payments) and “test” for testnet (like mainnet, but fake satoshis are used). If the wallet program doesn’t run on the `network </en/developer-guide#term-network>`__ you indicate, it will reject the `PaymentRequest </en/developer-examples#term-paymentrequest>`__.
+``network``: (optional) tell the spender’s wallet program what Bitcoin `network <../devguide/p2p_network.html>`__ you’re using; `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ defines “main” for mainnet (actual payments) and “test” for testnet (like mainnet, but fake satoshis are used). If the wallet program doesn’t run on the `network <../devguide/p2p_network.html>`__ you indicate, it will reject the :ref:`PaymentRequest <term-paymentrequest>`.
 
 .. highlight:: python
 
@@ -128,7 +128,7 @@ Each wallet program may choose which certificate authorities to trust, but it’
 
    request.payment_details_version = 1  ## Default: 1
 
-``payment_details_version``: (optional) tell the spender’s wallet program what version of the `PaymentDetails </en/developer-examples#term-paymentdetails>`__ you’re using. As of this writing, the only version is version 1.
+``payment_details_version``: (optional) tell the spender’s wallet program what version of the :ref:`PaymentDetails <term-paymentdetails>` you’re using. As of this writing, the only version is version 1.
 
 .. highlight:: python
 
@@ -138,7 +138,7 @@ Each wallet program may choose which certificate authorities to trust, but it’
    ## that we'll use to sign:
    x509.certificate.append(file("/etc/apache2/example.com-cert.[der][der]", "r").read())
 
-``x509certificates``: (required for signed `PaymentRequests </en/developer-examples#term-paymentrequest>`__) you must provide the public SSL key/certificate corresponding to the private SSL key you’ll use to sign the `PaymentRequest </en/developer-examples#term-paymentrequest>`__. The certificate must be in ASN.1/\ `DER format <https://en.wikipedia.org/wiki/X.690#DER_encoding>`__.
+``x509certificates``: (required for signed :ref:`PaymentRequests <term-paymentrequest>`) you must provide the public SSL key/certificate corresponding to the private SSL key you’ll use to sign the :ref:`PaymentRequest <term-paymentrequest>`. The certificate must be in ASN.1/\ `DER format <https://en.wikipedia.org/wiki/X.690#DER_encoding>`__.
 
 .. highlight:: python
 
@@ -149,16 +149,16 @@ Each wallet program may choose which certificate authorities to trust, but it’
    ## which signed it:
    #x509.certificate.append(file("/some/intermediate/cert.[der][der]", "r").read())
 
-You must also provide any `intermediate certificates </en/developer-examples#term-intermediate-certificate>`__ necessary to link your certificate to the `root certificate </en/developer-examples#term-root-certificate>`__ of a certificate authority trusted by the spender’s software, such as a certificate from the Mozilla root store.
+You must also provide any :ref:`intermediate certificates <term-intermediate-certificate>` necessary to link your certificate to the :ref:`root certificate <term-root-certificate>` of a certificate authority trusted by the spender’s software, such as a certificate from the Mozilla root store.
 
-The certificates must be provided in a specific order—the same order used by Apache’s ``SSLCertificateFile`` directive and other server software. The figure below shows the `certificate chain </en/developer-examples#term-certificate-chain>`__ of the www.bitcoin.org `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificate and how each certificate (except the `root certificate </en/developer-examples#term-root-certificate>`__) would be loaded into the `X509Certificates </en/developer-examples#term-x509certificates>`__ `protocol buffer <https://developers.google.com/protocol-buffers/>`__ message.
+The certificates must be provided in a specific order—the same order used by Apache’s ``SSLCertificateFile`` directive and other server software. The figure below shows the :ref:`certificate chain <term-certificate-chain>` of the www.bitcoin.org `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificate and how each certificate (except the :ref:`root certificate <term-root-certificate>`) would be loaded into the :ref:`X509Certificates <term-x509certificates>` `protocol buffer <https://developers.google.com/protocol-buffers/>`__ message.
 
 .. figure:: /img/dev/en-cert-order.svg
    :alt: X509Certificates Loading Order
 
    X509Certificates Loading Order
 
-To be specific, the first certificate provided must be the `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificate corresponding to the private SSL key which will make the signature, called the `leaf certificate </en/developer-examples#term-leaf-certificate>`__. Any `intermediate certificates </en/developer-examples#term-intermediate-certificate>`__ necessary to link that signed public SSL key to the `root certificate </en/developer-examples#term-root-certificate>`__ (the certificate authority) are attached separately, with each certificate in `DER format <https://en.wikipedia.org/wiki/X.690#DER_encoding>`__ bearing the signature of the certificate that follows it all the way to (but not including) the `root certificate </en/developer-examples#term-root-certificate>`__.
+To be specific, the first certificate provided must be the `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificate corresponding to the private SSL key which will make the signature, called the :ref:`leaf certificate <term-leaf-certificate>`. Any :ref:`intermediate certificates <term-intermediate-certificate>` necessary to link that signed public SSL key to the :ref:`root certificate <term-root-certificate>` (the certificate authority) are attached separately, with each certificate in `DER format <https://en.wikipedia.org/wiki/X.690#DER_encoding>`__ bearing the signature of the certificate that follows it all the way to (but not including) the :ref:`root certificate <term-root-certificate>`.
 
 .. highlight:: python
 
@@ -168,7 +168,7 @@ To be specific, the first certificate provided must be the `X.509 <https://en.wi
    pw = "test"  ## Key password
    private_key = load_privatekey(FILETYPE_PEM, file(priv_key, "r").read(), pw)
 
-(Required for signed `PaymentRequests </en/developer-examples#term-paymentrequest>`__) you will need a private SSL key in a format your SSL library supports (`DER format <https://en.wikipedia.org/wiki/X.690#DER_encoding>`__ is not required). In this program, we’ll load it from a PEM file. (Embedding your passphrase in your CGI code, as done here, is obviously a bad idea in real life.)
+(Required for signed :ref:`PaymentRequests <term-paymentrequest>`) you will need a private SSL key in a format your SSL library supports (`DER format <https://en.wikipedia.org/wiki/X.690#DER_encoding>`__ is not required). In this program, we’ll load it from a PEM file. (Embedding your passphrase in your CGI code, as done here, is obviously a bad idea in real life.)
 
 The private SSL key will not be transmitted with your request. We’re only loading it into memory here so we can use it to sign the request later.
 
@@ -209,7 +209,7 @@ Each line is described below.
 
    amount = 10000000  ## In satoshis (=100 mBTC)
 
-`“amount” </en/developer-examples#term-pp-amount>`__: (optional) the `amount </en/developer-examples#term-pp-amount>`__ you want the spender to pay. You’ll probably get this value from your shopping cart application or `fiat </en/developer-guide#term-fiat>`__-to-BTC exchange rate conversion tool. If you leave the amount blank, the wallet program will prompt the spender how much to pay (which can be useful for donations).
+:ref:`“amount” <term-pp-amount>`: (optional) the :ref:`amount <term-pp-amount>` you want the spender to pay. You’ll probably get this value from your shopping cart application or :ref:`fiat <term-fiat>`-to-BTC exchange rate conversion tool. If you leave the amount blank, the wallet program will prompt the spender how much to pay (which can be useful for donations).
 
 .. highlight:: python
 
@@ -221,7 +221,7 @@ Each line is described below.
    hex_script = "76" + "a9" + "14" + pubkey_hash + "88" + "ac"
    serialized_script = hex_script.decode("hex")
 
-`“script” </en/developer-examples#term-pp-script>`__: (required) You must specify the pubkey script you want the spender to pay—any valid pubkey script is acceptable. In this example, we’ll request payment to a P2PKH pubkey script.
+:ref:`“script” <term-pp-script>`: (required) You must specify the pubkey script you want the spender to pay—any valid pubkey script is acceptable. In this example, we’ll request payment to a P2PKH pubkey script.
 
 First we get a pubkey hash. The hash above is the hash form of the address used in the URI examples throughout this section, mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN.
 
@@ -235,9 +235,9 @@ Finally, we convert the pubkey script from hex into its serialized form.
 
    details.outputs.add(amount = amount, script = serialized_script)
 
-``outputs``: (required) add the pubkey script and (optional) amount to the `PaymentDetails </en/developer-examples#term-paymentdetails>`__ outputs array.
+``outputs``: (required) add the pubkey script and (optional) amount to the :ref:`PaymentDetails <term-paymentdetails>` outputs array.
 
-It’s possible to specify multiple `“scripts” </en/developer-examples#term-pp-script>`__ and ``amounts`` as part of a `merge avoidance </en/developer-guide#term-merge-avoidance>`__ strategy, described later in the `Merge Avoidance subsection </en/developer-guide#merge-avoidance>`__. However, effective `merge avoidance </en/developer-guide#term-merge-avoidance>`__ is not possible under the base `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ rules in which the spender pays each `“script” </en/developer-examples#term-pp-script>`__ the exact amount specified by its paired `“amount” </en/developer-examples#term-pp-amount>`__. If the amounts are omitted from all `“amount” </en/developer-examples#term-pp-amount>`__/`“script” </en/developer-examples#term-pp-script>`__ pairs, the spender will be prompted to choose an amount to pay.
+It’s possible to specify multiple :ref:`“scripts” <term-pp-script>` and ``amounts`` as part of a :ref:`merge avoidance <term-merge-avoidance>` strategy, described later in the `Merge Avoidance subsection <../devguide/payment_processing.html#merge-avoidance>`__. However, effective :ref:`merge avoidance <term-merge-avoidance>` is not possible under the base `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ rules in which the spender pays each :ref:`“script” <term-pp-script>` the exact amount specified by its paired :ref:`“amount” <term-pp-amount>`. If the amounts are omitted from all :ref:`“amount” <term-pp-amount>`/:ref:`“script” <term-pp-script>` pairs, the spender will be prompted to choose an amount to pay.
 
 .. highlight:: python
 
@@ -245,7 +245,7 @@ It’s possible to specify multiple `“scripts” </en/developer-examples#term-
 
    details.memo = "Flowers & chocolates"
 
-`“memo” </en/developer-examples#term-pp-memo>`__: (optional) add a memo which will be displayed to the spender as plain UTF-8 text. Embedded HTML or other markup will not be processed.
+:ref:`“memo” <term-pp-memo>`: (optional) add a memo which will be displayed to the spender as plain UTF-8 text. Embedded HTML or other markup will not be processed.
 
 .. highlight:: python
 
@@ -253,9 +253,9 @@ It’s possible to specify multiple `“scripts” </en/developer-examples#term-
 
    details.merchant_data = "Invoice #123"
 
-`“merchant_data” </en/developer-examples#term-pp-merchant-data>`__: (optional) add arbitrary data which should be sent back to the receiver when the invoice is paid. You can use this to track your invoices, although you can more reliably track payments by generating a `unique address </en/developer-guide#term-unique-address>`__ for each payment and then tracking when it gets paid.
+:ref:`“merchant_data” <term-pp-merchant-data>`: (optional) add arbitrary data which should be sent back to the receiver when the invoice is paid. You can use this to track your invoices, although you can more reliably track payments by generating a :ref:`unique address <term-unique-address>` for each payment and then tracking when it gets paid.
 
-The `“memo” </en/developer-examples#term-pp-memo>`__ field can be arbitrarily long, but if you make them too long, you’ll run into the 50,000 byte limit on the entire `PaymentRequest </en/developer-examples#term-paymentrequest>`__, which includes the often several kilobytes given over to storing the `certificate chain </en/developer-examples#term-certificate-chain>`__. As will be described in a later subsection, the `“memo” </en/developer-examples#term-pp-memo>`__ field can be used by the spender after payment as part of a cryptographically-proven `receipt </en/developer-guide#term-receipt>`__.
+The :ref:`“memo” <term-pp-memo>` field can be arbitrarily long, but if you make them too long, you’ll run into the 50,000 byte limit on the entire :ref:`PaymentRequest <term-paymentrequest>`, which includes the often several kilobytes given over to storing the :ref:`certificate chain <term-certificate-chain>`. As will be described in a later subsection, the :ref:`“memo” <term-pp-memo>` field can be used by the spender after payment as part of a cryptographically-proven :ref:`receipt <term-receipt>`.
 
 Derivable Data
 ''''''''''''''
@@ -292,7 +292,7 @@ Each line is described below.
 
    details.time = int(time()) ## Current epoch (Unix) time
 
-``time``: (required) `PaymentRequests </en/developer-examples#term-paymentrequest>`__ must indicate when they were created in number of seconds elapsed since 1970-01-01T00:00 UTC (`Unix epoch time <https://en.wikipedia.org/wiki/Unix_time>`__ format).
+``time``: (required) :ref:`PaymentRequests <term-paymentrequest>` must indicate when they were created in number of seconds elapsed since 1970-01-01T00:00 UTC (`Unix epoch time <https://en.wikipedia.org/wiki/Unix_time>`__ format).
 
 .. highlight:: python
 
@@ -300,7 +300,7 @@ Each line is described below.
 
    details.expires = int(time()) + 60 * 10  ## 10 minutes from now
 
-`“expires” </en/developer-examples#term-pp-expires>`__: (optional) the `PaymentRequest </en/developer-examples#term-paymentrequest>`__ may also set an `“expires” </en/developer-examples#term-pp-expires>`__ time after which they’re no longer valid. You probably want to give receivers the ability to configure the expiration time delta; here we used the reasonable choice of 10 minutes. If this request is tied to an order total based on a `fiat </en/developer-guide#term-fiat>`__-to-satoshis exchange rate, you probably want to base this on a delta from the time you got the exchange rate.
+:ref:`“expires” <term-pp-expires>`: (optional) the :ref:`PaymentRequest <term-paymentrequest>` may also set an :ref:`“expires” <term-pp-expires>` time after which they’re no longer valid. You probably want to give receivers the ability to configure the expiration time delta; here we used the reasonable choice of 10 minutes. If this request is tied to an order total based on a :ref:`fiat <term-fiat>`-to-satoshis exchange rate, you probably want to base this on a delta from the time you got the exchange rate.
 
 .. highlight:: python
 
@@ -308,7 +308,7 @@ Each line is described below.
 
    request.serialized_payment_details = details.SerializeToString()
 
-``serialized_payment_details``: (required) we’ve now set everything we need to create the `PaymentDetails </en/developer-examples#term-paymentdetails>`__, so we’ll use the SerializeToString function from the `protocol buffer <https://developers.google.com/protocol-buffers/>`__ code to store the `PaymentDetails </en/developer-examples#term-paymentdetails>`__ in the appropriate field of the `PaymentRequest </en/developer-examples#term-paymentrequest>`__.
+``serialized_payment_details``: (required) we’ve now set everything we need to create the :ref:`PaymentDetails <term-paymentdetails>`, so we’ll use the SerializeToString function from the `protocol buffer <https://developers.google.com/protocol-buffers/>`__ code to store the :ref:`PaymentDetails <term-paymentdetails>` in the appropriate field of the :ref:`PaymentRequest <term-paymentrequest>`.
 
 .. highlight:: python
 
@@ -316,7 +316,7 @@ Each line is described below.
 
    request.pki_data = x509.SerializeToString()
 
-``pki_data``: (required for signed `PaymentRequests </en/developer-examples#term-paymentrequest>`__) serialize the `certificate chain </en/developer-examples#term-certificate-chain>`__ `PKI data </en/developer-examples#term-pp-pki-data>`__ and store it in the `PaymentRequest </en/developer-examples#term-paymentrequest>`__
+``pki_data``: (required for signed :ref:`PaymentRequests <term-paymentrequest>`) serialize the :ref:`certificate chain <term-certificate-chain>` :ref:`PKI data <term-pp-pki-data>` and store it in the :ref:`PaymentRequest <term-paymentrequest>`
 
 .. highlight:: python
 
@@ -324,7 +324,7 @@ Each line is described below.
 
    request.signature = ""
 
-We’ve filled out everything in the `PaymentRequest </en/developer-examples#term-paymentrequest>`__ except the signature, but before we sign it, we have to initialize the signature field by setting it to a zero-byte placeholder.
+We’ve filled out everything in the :ref:`PaymentRequest <term-paymentrequest>` except the signature, but before we sign it, we have to initialize the signature field by setting it to a zero-byte placeholder.
 
 .. highlight:: python
 
@@ -332,12 +332,12 @@ We’ve filled out everything in the `PaymentRequest </en/developer-examples#ter
 
    request.signature = sign(private_key, request.SerializeToString(), "sha256")
 
-``signature``: (required for signed `PaymentRequests </en/developer-examples#term-paymentrequest>`__) now we make the `signature </en/developer-examples#term-ssl-signature>`__ by signing the completed and serialized `PaymentRequest </en/developer-examples#term-paymentrequest>`__. We’ll use the private key we stored in memory in the configuration section and the same hashing formula we specified in `“pki_type” </en/developer-examples#term-pp-pki-type>`__ (sha256 in this case)
+``signature``: (required for signed :ref:`PaymentRequests <term-paymentrequest>`) now we make the :ref:`signature <term-ssl-signature>` by signing the completed and serialized :ref:`PaymentRequest <term-paymentrequest>`. We’ll use the private key we stored in memory in the configuration section and the same hashing formula we specified in :ref:`“pki_type” <term-pp-pki-type>` (sha256 in this case)
 
 Output Code
 '''''''''''
 
-Now that we have `PaymentRequest </en/developer-examples#term-paymentrequest>`__ all filled out, we can serialize it and send it along with the HTTP headers, as shown in the code below.
+Now that we have :ref:`PaymentRequest <term-paymentrequest>` all filled out, we can serialize it and send it along with the HTTP headers, as shown in the code below.
 
 .. highlight:: python
 
@@ -347,7 +347,7 @@ Now that we have `PaymentRequest </en/developer-examples#term-paymentrequest>`__
    print "Content-Transfer-Encoding: binary"
    print ""
 
-(Required) `BIP71 <https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki>`__ defines the content types for `PaymentRequests </en/developer-examples#term-paymentrequest>`__, Payments, and PaymentACKs.
+(Required) `BIP71 <https://github.com/bitcoin/bips/blob/master/bip-0071.mediawiki>`__ defines the content types for :ref:`PaymentRequests <term-paymentrequest>`, Payments, and PaymentACKs.
 
 .. highlight:: python
 
@@ -355,9 +355,9 @@ Now that we have `PaymentRequest </en/developer-examples#term-paymentrequest>`__
 
    file.write(stdout, request.SerializeToString())
 
-``request``: (required) now, to finish, we just dump out the serialized `PaymentRequest </en/developer-examples#term-paymentrequest>`__ (which contains the serialized `PaymentDetails </en/developer-examples#term-paymentdetails>`__). The serialized data is in binary, so we can’t use Python’s print() because it would add an extraneous newline.
+``request``: (required) now, to finish, we just dump out the serialized :ref:`PaymentRequest <term-paymentrequest>` (which contains the serialized :ref:`PaymentDetails <term-paymentdetails>`). The serialized data is in binary, so we can’t use Python’s print() because it would add an extraneous newline.
 
-The following screenshot shows how the authenticated `PaymentDetails </en/developer-examples#term-paymentdetails>`__ created by the program above appears in the GUI from Bitcoin Core 0.9.
+The following screenshot shows how the authenticated :ref:`PaymentDetails <term-paymentdetails>` created by the program above appears in the GUI from Bitcoin Core 0.9.
 
 .. figure:: /img/dev/en-btcc-payment-request.png
    :alt: Bitcoin Core Showing Validated Payment Request

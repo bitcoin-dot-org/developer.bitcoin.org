@@ -4,16 +4,16 @@ Transactions
 Transaction Tutorial
 ~~~~~~~~~~~~~~~~~~~~
 
-Creating transactions is something most Bitcoin applications do. This section describes how to use Bitcoin Core’s `RPC </en/developer-reference#remote-procedure-calls-rpcs>`__ interface to create transactions with various attributes.
+Creating transactions is something most Bitcoin applications do. This section describes how to use Bitcoin Core’s `RPC <../reference/rpc/index.html>`__ interface to create transactions with various attributes.
 
 Your applications may use something besides Bitcoin Core to create transactions, but in any system, you will need to provide the same kinds of data to create transactions with the same attributes as those described below.
 
-In order to use this tutorial, you will need to setup `Bitcoin Core </en/download>`__ and create a regression test mode environment with 50 BTC in your test wallet.
+In order to use this tutorial, you will need to setup `Bitcoin Core <https://bitcoin.org/en/download>`__ and create a regression test mode environment with 50 BTC in your test wallet.
 
 Simple Spending
 ^^^^^^^^^^^^^^^
 
-Bitcoin Core provides several `RPCs </en/developer-reference#remote-procedure-calls-rpcs>`__ which handle all the details of spending, including creating change outputs and paying appropriate fees. Even advanced users should use these `RPCs </en/developer-reference#remote-procedure-calls-rpcs>`__ whenever possible to decrease the chance that satoshis will be lost by mistake.
+Bitcoin Core provides several `RPCs <../reference/rpc/index.html>`__ which handle all the details of spending, including creating change outputs and paying appropriate fees. Even advanced users should use these `RPCs <../reference/rpc/index.html>`__ whenever possible to decrease the chance that satoshis will be lost by mistake.
 
 .. highlight:: bash
 
@@ -33,9 +33,9 @@ Get a new Bitcoin address and save it in the shell variable ``$NEW_ADDRESS``.
    > bitcoin-cli -regtest sendtoaddress $NEW_ADDRESS 10.00
    263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0
 
-Send 10 bitcoins to the address using the `“sendtoaddress” RPC </en/developer-reference#sendtoaddress>`__. The returned hex string is the transaction identifier (txid).
+Send 10 bitcoins to the address using the `“sendtoaddress” RPC <../reference/rpc/sendtoaddress.html>`__. The returned hex string is the transaction identifier (txid).
 
-The `“sendtoaddress” RPC </en/developer-reference#sendtoaddress>`__ automatically selects an unspent transaction output (UTXO) from which to spend the satoshis. In this case, it withdrew the satoshis from our only available UTXO, the coinbase transaction for block #1 which matured with the creation of block #101. To spend a specific UTXO, you could use the `“sendfrom” RPC </en/developer-reference#sendfrom>`__ instead.
+The `“sendtoaddress” RPC <../reference/rpc/sendtoaddress.html>`__ automatically selects an unspent transaction output (UTXO) from which to spend the satoshis. In this case, it withdrew the satoshis from our only available UTXO, the coinbase transaction for block #1 which matured with the creation of block #101. To spend a specific UTXO, you could use the `“sendfrom” RPC <../reference/rpc/sendfrom.html>`__ instead.
 
 .. highlight:: bash
 
@@ -45,7 +45,7 @@ The `“sendtoaddress” RPC </en/developer-reference#sendtoaddress>`__ automati
    [
    ]
 
-Use the `“listunspent” RPC </en/developer-reference#listunspent>`__ to display the UTXOs belonging to this wallet. The list is empty because it defaults to only showing confirmed UTXOs and we just spent our only confirmed UTXO.
+Use the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ to display the UTXOs belonging to this wallet. The list is empty because it defaults to only showing confirmed UTXOs and we just spent our only confirmed UTXO.
 
 .. container:: multicode
 
@@ -87,7 +87,7 @@ Use the `“listunspent” RPC </en/developer-reference#listunspent>`__ to displ
           }
       ]
 
-Re-running the `“listunspent” RPC </en/developer-reference#listunspent>`__ with the argument “0” to also display unconfirmed transactions shows that we have two UTXOs, both with the same txid. The first UTXO shown is a change output that `“sendtoaddress” </en/developer-reference#sendtoaddress>`__ created using a new address from the key pool. The second UTXO shown is the spend to the address we provided. If we had spent those satoshis to someone else, that second transaction would not be displayed in our list of UTXOs.
+Re-running the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ with the argument “0” to also display unconfirmed transactions shows that we have two UTXOs, both with the same txid. The first UTXO shown is a change output that `“sendtoaddress” <../reference/rpc/sendtoaddress.html>`__ created using a new address from the key pool. The second UTXO shown is the spend to the address we provided. If we had spent those satoshis to someone else, that second transaction would not be displayed in our list of UTXOs.
 
 .. highlight:: bash
 
@@ -102,7 +102,7 @@ Create a new block to confirm the transaction above (takes less than a second) a
 Simple Raw Transaction
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The raw transaction `RPCs </en/developer-reference#remote-procedure-calls-rpcs>`__ allow users to create custom transactions and delay broadcasting those transactions. However, mistakes made in raw transactions may not be detected by Bitcoin Core, and a number of raw transaction users have permanently lost large numbers of satoshis, so please be careful using raw transactions on mainnet.
+The raw transaction `RPCs <../reference/rpc/index.html>`__ allow users to create custom transactions and delay broadcasting those transactions. However, mistakes made in raw transactions may not be detected by Bitcoin Core, and a number of raw transaction users have permanently lost large numbers of satoshis, so please be careful using raw transactions on mainnet.
 
 This subsection covers one of the simplest possible raw transactions.
 
@@ -165,7 +165,7 @@ This subsection covers one of the simplest possible raw transactions.
       > UTXO_TXID=3f4fa19803dec4d6a84fae3821da7ac7577080ef75451294e71f[...]
       > UTXO_VOUT=0
 
-Re-run `“listunspent” </en/developer-reference#listunspent>`__. We now have three UTXOs: the two transactions we created before plus the coinbase transaction from block #2. We save the txid and `output index </en/developer-guide#term-output-index>`__ number (vout) of that coinbase UTXO to shell variables.
+Re-run `“listunspent” <../reference/rpc/listunspent.html>`__. We now have three UTXOs: the two transactions we created before plus the coinbase transaction from block #2. We save the txid and :ref:`output index <term-output-index>` number (vout) of that coinbase UTXO to shell variables.
 
 .. highlight:: bash
 
@@ -200,9 +200,9 @@ Get a new address to use in the raw transaction.
 
    > RAW_TX=01000000017b1eabe0209b1fe794124575ef807057c77ada2138ae4[...]
 
-Using two arguments to the `“createrawtransaction” RPC </en/developer-reference#createrawtransaction>`__, we create a new raw format transaction. The first argument (a JSON array) references the txid of the coinbase transaction from block #2 and the index number (0) of the output from that transaction we want to spend. The second argument (a JSON object) creates the output with the address (public key hash) and number of bitcoins we want to transfer. We save the resulting raw format transaction to a shell variable.
+Using two arguments to the `“createrawtransaction” RPC <../reference/rpc/createrawtransaction.html>`__, we create a new raw format transaction. The first argument (a JSON array) references the txid of the coinbase transaction from block #2 and the index number (0) of the output from that transaction we want to spend. The second argument (a JSON object) creates the output with the address (public key hash) and number of bitcoins we want to transfer. We save the resulting raw format transaction to a shell variable.
 
-|Warning icon| **Warning:** `“createrawtransaction” </en/developer-reference#createrawtransaction>`__ does not automatically create change outputs, so you can easily accidentally pay a large transaction fee. In this example, our input had 50.0000 bitcoins and our output (``$NEW_ADDRESS``) is being paid 49.9999 bitcoins, so the transaction will include a fee of 0.0001 bitcoins. If we had paid ``$NEW_ADDRESS`` only 10 bitcoins with no other changes to this transaction, the transaction fee would be a whopping 40 bitcoins. See the Complex Raw Transaction subsection below for how to create a transaction with multiple outputs so you can send the change back to yourself.
+|Warning icon| **Warning:** `“createrawtransaction” <../reference/rpc/createrawtransaction.html>`__ does not automatically create change outputs, so you can easily accidentally pay a large transaction fee. In this example, our input had 50.0000 bitcoins and our output (``$NEW_ADDRESS``) is being paid 49.9999 bitcoins, so the transaction will include a fee of 0.0001 bitcoins. If we had paid ``$NEW_ADDRESS`` only 10 bitcoins with no other changes to this transaction, the transaction fee would be a whopping 40 bitcoins. See the Complex Raw Transaction subsection below for how to create a transaction with multiple outputs so you can send the change back to yourself.
 
 .. container:: multicode
 
@@ -255,7 +255,7 @@ Using two arguments to the `“createrawtransaction” RPC </en/developer-refere
           ]
       }
 
-Use the `“decoderawtransaction” RPC </en/developer-reference#decoderawtransaction>`__ to see exactly what the transaction we just created does.
+Use the `“decoderawtransaction” RPC <../reference/rpc/decoderawtransaction.html>`__ to see exactly what the transaction we just created does.
 
 .. container:: multicode
 
@@ -286,9 +286,9 @@ Use the `“decoderawtransaction” RPC </en/developer-reference#decoderawtransa
 
       > SIGNED_RAW_TX=01000000017b1eabe0209b1fe794124575ef807057c77ada[...]
 
-Use the `“signrawtransaction” RPC </en/developer-reference#signrawtransaction>`__ to sign the transaction created by `“createrawtransaction” </en/developer-reference#createrawtransaction>`__ and save the returned “hex” raw format signed transaction to a shell variable.
+Use the `“signrawtransaction” RPC <../reference/rpc/signrawtransaction.html>`__ to sign the transaction created by `“createrawtransaction” <../reference/rpc/createrawtransaction.html>`__ and save the returned “hex” raw format signed transaction to a shell variable.
 
-Even though the transaction is now complete, the Bitcoin Core node we’re connected to doesn’t know anything about the transaction, nor does any other part of the `network </en/developer-guide#term-network>`__. We’ve created a spend, but we haven’t actually spent anything because we could simply unset the ``$SIGNED_RAW_TX`` variable to eliminate the transaction.
+Even though the transaction is now complete, the Bitcoin Core node we’re connected to doesn’t know anything about the transaction, nor does any other part of the `network <../devguide/p2p_network.html>`__. We’ve created a spend, but we haven’t actually spent anything because we could simply unset the ``$SIGNED_RAW_TX`` variable to eliminate the transaction.
 
 .. highlight:: bash
 
@@ -297,7 +297,7 @@ Even though the transaction is now complete, the Bitcoin Core node we’re conne
    > bitcoin-cli -regtest sendrawtransaction $SIGNED_RAW_TX
    c7736a0a0046d5a8cc61c8c3c2821d4d7517f5de2bc66a966011aaa79965ffba
 
-Send the signed transaction to the connected node using the `“sendrawtransaction” RPC </en/developer-reference#sendrawtransaction>`__. After accepting the transaction, the node would usually then broadcast it to other peers, but we’re not currently connected to other peers because we started in regtest mode.
+Send the signed transaction to the connected node using the `“sendrawtransaction” RPC <../reference/rpc/sendrawtransaction.html>`__. After accepting the transaction, the node would usually then broadcast it to other peers, but we’re not currently connected to other peers because we started in regtest mode.
 
 .. highlight:: bash
 
@@ -391,7 +391,7 @@ In this example, we’ll create a transaction with two inputs and two outputs. W
       > UTXO2_VOUT=0
       > UTXO2_ADDRESS=muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt
 
-For our two inputs, we select two UTXOs by placing the txid and `output index </en/developer-guide#term-output-index>`__ numbers (vouts) in shell variables. We also save the addresses corresponding to the public keys (hashed or unhashed) used in those transactions. We need the addresses so we can get the corresponding private keys from our wallet.
+For our two inputs, we select two UTXOs by placing the txid and :ref:`output index <term-output-index>` numbers (vouts) in shell variables. We also save the addresses corresponding to the public keys (hashed or unhashed) used in those transactions. We need the addresses so we can get the corresponding private keys from our wallet.
 
 .. highlight:: bash
 
@@ -407,9 +407,9 @@ For our two inputs, we select two UTXOs by placing the txid and `output index </
 
    > UTXO2_PRIVATE_KEY=cT26DX6Ctco7pxaUptJujRfbMS2PJvdqiSMaGaoSktHy[...]
 
-Use the `“dumpprivkey” RPC </en/developer-reference#dumpprivkey>`__ to get the private keys corresponding to the public keys used in the two UTXOs we will be spending. We need the private keys so we can sign each of the inputs separately.
+Use the `“dumpprivkey” RPC <../reference/rpc/dumpprivkey.html>`__ to get the private keys corresponding to the public keys used in the two UTXOs we will be spending. We need the private keys so we can sign each of the inputs separately.
 
-|Warning icon| **Warning:** Users should never manually manage private keys on mainnet. As dangerous as raw transactions are (see warnings above), making a mistake with a private key can be much worse—as in the case of a HD wallet `cross-generational key compromise </en/developer-guide#hardened-keys>`__. These examples are to help you learn, not for you to emulate on mainnet.
+|Warning icon| **Warning:** Users should never manually manage private keys on mainnet. As dangerous as raw transactions are (see warnings above), making a mistake with a private key can be much worse—as in the case of a HD wallet `cross-generational key compromise <../devguide/wallets.html#hardened-keys>`__. These examples are to help you learn, not for you to emulate on mainnet.
 
 .. highlight:: bash
 
@@ -454,7 +454,7 @@ For our two outputs, get two new addresses.
 
    > RAW_TX=0100000002f327e86da3e66bd20e1129b1fb36d07056f0b9a117199[...]
 
-Create the raw transaction using `“createrawtransaction” </en/developer-reference#createrawtransaction>`__ much the same as before, except now we have two inputs and two outputs.
+Create the raw transaction using `“createrawtransaction” <../reference/rpc/createrawtransaction.html>`__ much the same as before, except now we have two inputs and two outputs.
 
 .. container:: multicode
 
@@ -500,7 +500,7 @@ Create the raw transaction using `“createrawtransaction” </en/developer-refe
 
       > PARTLY_SIGNED_RAW_TX=0100000002f327e86da3e66bd20e1129b1fb36d07[...]
 
-Signing the raw transaction with `“signrawtransaction” </en/developer-reference#signrawtransaction>`__ gets more complicated as we now have three arguments:
+Signing the raw transaction with `“signrawtransaction” <../reference/rpc/signrawtransaction.html>`__ gets more complicated as we now have three arguments:
 
 1. The unsigned raw transaction.
 
@@ -551,7 +551,7 @@ To sign the second input, we repeat the process we used to sign the first input 
 
    > unset PARTLY_SIGNED_RAW_TX RAW_TX NEW_ADDRESS1 [...]
 
-Clean up the shell variables used. Unlike previous subsections, we’re not going to send this transaction to the connected node with `“sendrawtransaction” </en/developer-reference#sendrawtransaction>`__. This will allow us to illustrate in the Offline Signing subsection below how to spend a transaction which is not yet in the block chain or memory pool.
+Clean up the shell variables used. Unlike previous subsections, we’re not going to send this transaction to the connected node with `“sendrawtransaction” <../reference/rpc/sendrawtransaction.html>`__. This will allow us to illustrate in the Offline Signing subsection below how to spend a transaction which is not yet in the block chain or memory pool.
 
 Offline Signing
 ^^^^^^^^^^^^^^^
@@ -682,7 +682,7 @@ Put the previously signed (but not sent) transaction into a shell variable.
       > UTXO_VALUE=10.00000000
       > UTXO_OUTPUT_SCRIPT=76a914fa5139067622fd7e1e722a05c17c2bb7d5fd6[...]
 
-Decode the signed raw transaction so we can get its txid. Also, choose a specific one of its UTXOs to spend and save that UTXO’s `output index </en/developer-guide#term-output-index>`__ number (vout) and hex pubkey script (scriptPubKey) into shell variables.
+Decode the signed raw transaction so we can get its txid. Also, choose a specific one of its UTXOs to spend and save that UTXO’s :ref:`output index <term-output-index>` number (vout) and hex pubkey script (scriptPubKey) into shell variables.
 
 .. highlight:: bash
 
@@ -739,16 +739,16 @@ Create the raw transaction the same way we’ve done in the previous subsections
               "complete" : false
           }
 
-Attempt to sign the raw transaction without any special arguments, the way we successfully signed the the raw transaction in the Simple Raw Transaction subsection. If you’ve read the `Transaction section </en/developer-guide#transactions>`__ of the guide, you may know why the call fails and leaves the raw transaction hex unchanged.
+Attempt to sign the raw transaction without any special arguments, the way we successfully signed the the raw transaction in the Simple Raw Transaction subsection. If you’ve read the `Transaction section <../devguide/transactions.html>`__ of the guide, you may know why the call fails and leaves the raw transaction hex unchanged.
 
 .. figure:: /img/dev/en-signing-output-to-spend.svg
    :alt: Old Transaction Data Required To Be Signed
 
    Old Transaction Data Required To Be Signed
 
-As illustrated above, the data that gets signed includes the txid and vout from the previous transaction. That information is included in the `“createrawtransaction” </en/developer-reference#createrawtransaction>`__ raw transaction. But the data that gets signed also includes the pubkey script from the previous transaction, even though it doesn’t appear in either the unsigned or signed transaction.
+As illustrated above, the data that gets signed includes the txid and vout from the previous transaction. That information is included in the `“createrawtransaction” <../reference/rpc/createrawtransaction.html>`__ raw transaction. But the data that gets signed also includes the pubkey script from the previous transaction, even though it doesn’t appear in either the unsigned or signed transaction.
 
-In the other raw transaction subsections above, the previous output was part of the UTXO set known to the wallet, so the wallet was able to use the txid and `output index </en/developer-guide#term-output-index>`__ number to find the previous pubkey script and insert it automatically.
+In the other raw transaction subsections above, the previous output was part of the UTXO set known to the wallet, so the wallet was able to use the txid and :ref:`output index <term-output-index>` number to find the previous pubkey script and insert it automatically.
 
 In this case, you’re spending an output which is unknown to the wallet, so it can’t automatically insert the previous pubkey script.
 
@@ -905,7 +905,7 @@ Recall from the Guide that the hashed public keys used in addresses obfuscate th
 
       > NEW_ADDRESS3_PUBLIC_KEY=029e03a901b85534ff1e92c43c74431f7ce720[...]
 
-Use the `“validateaddress” RPC </en/developer-reference#validateaddress>`__ to display the full (unhashed) public key for one of the addresses. This is the information which will actually be included in the multisig redeem script. This is also the information you would give another person or device as part of creating a multisig output or P2SH multisig redeem script.
+Use the `“validateaddress” RPC <../reference/rpc/validateaddress.html>`__ to display the full (unhashed) public key for one of the addresses. This is the information which will actually be included in the multisig redeem script. This is also the information you would give another person or device as part of creating a multisig output or P2SH multisig redeem script.
 
 We save the address returned to a shell variable.
 
@@ -941,13 +941,13 @@ We save the address returned to a shell variable.
       > P2SH_ADDRESS=2N7NaqSKYQUeM8VNgBy8D9xQQbiA8yiJayk
       > P2SH_REDEEM_SCRIPT=522103310188e911026cf18c3ce274e0ebb5f95b007[...]
 
-Use the `“createmultisig” RPC </en/developer-reference#createmultisig>`__ with two arguments, the number (*n*) of signatures required and a list of addresses or public keys. Because P2PKH addresses can’t be used in the multisig redeem script created by this `RPC </en/developer-reference#remote-procedure-calls-rpcs>`__, the only addresses which can be provided are those belonging to a public key in the wallet. In this case, we provide two addresses and one public key—all of which will be converted to public keys in the redeem script.
+Use the `“createmultisig” RPC <../reference/rpc/createmultisig.html>`__ with two arguments, the number (*n*) of signatures required and a list of addresses or public keys. Because P2PKH addresses can’t be used in the multisig redeem script created by this `RPC <../reference/rpc/index.html>`__, the only addresses which can be provided are those belonging to a public key in the wallet. In this case, we provide two addresses and one public key—all of which will be converted to public keys in the redeem script.
 
 The P2SH address is returned along with the redeem script which must be provided when we spend satoshis sent to the P2SH address.
 
 |Warning icon| **Warning:** You must not lose the redeem script, especially if you don’t have a record of which public keys you used to create the P2SH multisig address. You need the redeem script to spend any bitcoins sent to the P2SH address. If you lose the redeem script, you can recreate it by running the same command above, with the public keys listed in the same order. However, if you lose both the redeem script and even one of the public keys, you will never be able to spend satoshis sent to that P2SH address.
 
-Neither the address nor the redeem script are stored in the wallet when you use `“createmultisig” </en/developer-reference#createmultisig>`__. To store them in the wallet, use the `“addmultisigaddress” RPC </en/developer-reference#addmultisigaddress>`__ instead. If you add an address to the wallet, you should also make a new backup.
+Neither the address nor the redeem script are stored in the wallet when you use `“createmultisig” <../reference/rpc/createmultisig.html>`__. To store them in the wallet, use the `“addmultisigaddress” RPC <../reference/rpc/addmultisigaddress.html>`__ instead. If you add an address to the wallet, you should also make a new backup.
 
 .. highlight:: bash
 
@@ -1038,7 +1038,7 @@ We save that txid to a shell variable as the txid of the UTXO we plan to spend n
       > UTXO_VOUT=0
       > UTXO_OUTPUT_SCRIPT=a9149af61346ce0aa2dffcf697352b4b704c84dcbaff87
 
-We use the `“getrawtransaction” RPC </en/developer-reference#getrawtransaction>`__ with the optional second argument (*true*) to get the decoded transaction we just created with `“sendtoaddress” </en/developer-reference#sendtoaddress>`__. We choose one of the outputs to be our UTXO and get its `output index </en/developer-guide#term-output-index>`__ number (vout) and pubkey script (scriptPubKey).
+We use the `“getrawtransaction” RPC <../reference/rpc/getrawtransaction.html>`__ with the optional second argument (*true*) to get the decoded transaction we just created with `“sendtoaddress” <../reference/rpc/sendtoaddress.html>`__. We choose one of the outputs to be our UTXO and get its :ref:`output index <term-output-index>` number (vout) and pubkey script (scriptPubKey).
 
 .. highlight:: bash
 
@@ -1090,7 +1090,7 @@ We generate the raw transaction the same way we did in the Simple Raw Transactio
 
 We get the private keys for two of the public keys we used to create the transaction, the same way we got private keys in the Complex Raw Transaction subsection. Recall that we created a 2-of-3 multisig pubkey script, so signatures from two private keys are needed.
 
-|Warning icon| **Reminder:** Users should never manually manage private keys on mainnet. See the warning in the `complex raw transaction section </en/developer-examples#complex-raw-transaction>`__.
+|Warning icon| **Reminder:** Users should never manually manage private keys on mainnet. See the warning in the `complex raw transaction section <../examples/transactions.html#complex-raw-transaction>`__.
 
 .. container:: multicode
 
@@ -1187,7 +1187,7 @@ We make the first signature. The input argument (JSON object) takes the addition
 
       > SIGNED_RAW_TX=010000000175e1769813db8418fea17576694af1ff31cb2b[...]
 
-The `“signrawtransaction” </en/developer-reference#signrawtransaction>`__ call used here is nearly identical to the one used above. The only difference is the private key used. Now that the two required signatures have been provided, the transaction is marked as complete.
+The `“signrawtransaction” <../reference/rpc/signrawtransaction.html>`__ call used here is nearly identical to the one used above. The only difference is the private key used. Now that the two required signatures have been provided, the transaction is marked as complete.
 
 .. highlight:: bash
 
