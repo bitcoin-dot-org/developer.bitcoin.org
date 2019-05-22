@@ -1,5 +1,20 @@
+require_relative "post_processor_rst"
+
 class Importer
   attr_accessor :base_dir, :target_base_dir
+
+  def initialize(tmp_rst_path = nil)
+    @tmp_rst_path = tmp_rst_path
+    @post_processor_rst = PostProcessorRst.new
+  end
+
+  def report_links()
+    @post_processor_rst.report_links
+  end
+
+  def report_unrecognized_links()
+    @post_processor_rst.report_unrecognized_links
+  end
 
   def read_summaries()
     tr_file = File.join(base_dir, "_translations", "en.yml")
@@ -16,11 +31,37 @@ class Importer
     }
   end
 
+  def process_references(references)
+    processed = ""
+    references.each_line do |line|
+      if line.start_with?("[bcc contribute code]")
+        line = ""
+      elsif line =~ /\[rpc (.*)\]:/
+        command = $1
+        line = "[rpc #{command}]: ../reference/rpc/#{command}.html\n"
+      elsif line =~ /\[(.*) message\]: .* "(.*)"/
+        message = $1
+        summary = $2
+        line = "[#{message} message]: ../reference/p2p_networking.html##{message} \"#{summary}\"\n"
+      end
+      processed += line
+    end
+    processed += "\n"
+  end
+
+  def read_references()
+    @references = ""
+    references = File.read(File.join(base_dir, "_includes", "references.md"))
+    @references = process_references(references)
+  end
+
+  def show_references()
+    puts @references
+  end
+
   def render_template(filename)
     source = File.read(filename)
-    # TODO: Import and convert references
-    source += "\n" + File.read("_references.md")
-    source += "\n" + File.read("_glossary_references.md")
+    source += "\n" + @references
     template = Liquid::Template.parse(source)
     template.render(nil, {registers:{
       site: {},
@@ -36,7 +77,7 @@ class Importer
 
       # Replace backticks by regular quotes because RST can't handle this kind
       # of nested markup
-      line.gsub!(/\[\`(.*?)\`\]/, '["\1"]')
+      line.gsub!(/\[\`(.*?)\`(.*?)\]/, '["\1"\2]')
 
       # Remove term attributes because we currently don't support them in der
       # converted help
@@ -66,6 +107,10 @@ class Importer
 
     rendered = post_process_markdown(rendered, remove_divs: remove_divs)
 
+    if @tmp_rst_path
+      File.write(File.join(@tmp_rst_path, target_file.sub(".rst", ".md")), rendered)
+    end
+
     # Convert Markdown to reStructuredText
     Open3.popen2("pandoc -f markdown -t rst --wrap none") do |i,o,t|
       i.print rendered
@@ -73,25 +118,11 @@ class Importer
 
       converted = o.read
 
-      preamble = ""
-
-      if title
-        # Prepend title to document so Sphinx puts it into the table of contents
-        preamble += title + "\n" + "=" * title.length + "\n\n"
+      if @tmp_rst_path
+        File.write(File.join(@tmp_rst_path, target_file), converted)
       end
 
-      if summary
-        preamble += summary + "\n\n"
-      end
-
-      converted = preamble + converted
-
-      # Remove trailing `?` from path of images
-      converted.gsub!(/\.\. figure:: (.+)\?/, '.. figure:: \1')
-      converted.gsub!(/\.\.(.*)image:: (.+)\?/, '..\1image:: \2')
-
-      converted.gsub!(/{:.no_toc}/, '')
-      converted.gsub!(/{:.ntpd}/, '')
+      converted = @post_processor_rst.run(converted, title: title, summary: summary)
 
       File.write(target_path, converted)
     end
@@ -167,10 +198,42 @@ class Importer
       end
     end
 
-    File.open(File.join(target_base_dir, "_glossary_references.md"), "w") do |file|
-      sorted_terms.each do |term, data|
-        file.puts "[/en/glossary/#{term}]: ../reference/glossary.html##{term}"
-      end
+    sorted_terms.each do |term, data|
+      @references += "[/en/glossary/#{term}]: glossary##{term}\n"
+    end
+  end
+
+  def render_terms(terms)
+    texts = {}
+    terms.keys.each do |term|
+      term =~ /<\/en\/(.*)#(.*)>/
+      section = $1
+      anchor = $2
+
+      text = "#{anchor} (#{section}) (`original target <https://bitcoin.org/en/#{section}##{anchor}>`__)"
+
+      texts[anchor] = text
+    end
+
+    out = ""
+    texts.keys.sort.each do |term|
+      out += ".. _#{term}:\n\n"
+      out += texts[term] + "\n\n"
+    end
+    out
+  end
+
+  def write_terms_page()
+    File.open(File.join(target_base_dir, "terms.rst"), "w") do |file|
+      file.puts(":orphan:\n\n")
+      file.puts("Terms\n=====\n\n")
+      file.puts(".. note:: This is a temporary page with references used as " +
+        "targets for links in the documentation. They should be replaced by " +
+        "adding proper labels inline in the respective pages. This is more " +
+        "easily be done manually so this page acts as a temporary placeholder " +
+        "for that until the automatic import and conversion to RST is completed.\n\n")
+
+      file.puts(render_terms(@post_processor_rst.tbd))
     end
   end
 end

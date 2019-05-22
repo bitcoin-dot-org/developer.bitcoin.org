@@ -19,6 +19,18 @@ OptionParser.new do |opts|
   opts.on("--file", "Process only one file") do |v|
     options[:file] = v
   end
+
+  opts.on("--report-links", "Report all links present in processed docs") do |v|
+    options[:report_links] = v
+  end
+
+  opts.on("--tmp-rst-path PATH", "Path were intermediate RST results are written before post processing") do |v|
+    options[:tmp_rst_path] = v
+  end
+
+  opts.on("--show-references", "Show references and stop") do |v|
+    options[:show_references] = v
+  end
 end.parse!
 
 if ARGV.length != 1
@@ -26,7 +38,7 @@ if ARGV.length != 1
   exit 1
 end
 
-importer = Importer.new
+importer = Importer.new(options[:tmp_rst_path])
 
 importer.base_dir = ARGV[0]
 importer.target_base_dir = File.expand_path("../../", __FILE__)
@@ -78,11 +90,21 @@ Liquid::Template.error_mode = :warn
 if options[:file]
   puts importer.render_template(ARGV[0])
 else
-  importer.read_summaries
-  # Run glossary first because it generates the links for the sections
+  importer.read_references
+  # Run glossary first because it adds the references for the glossary entries
   importer.import_glossary
+  if options[:show_references]
+    importer.show_references
+    exit 0
+  end
+  importer.read_summaries
   if !options[:skip_sections]
     importer.import_sections(sections)
     importer.import_images
+  end
+  importer.write_terms_page
+  importer.report_unrecognized_links
+  if options[:report_links]
+    importer.report_links
   end
 end

@@ -29,4 +29,4 @@ Type 2: Hierarchical Deterministic (HD) Wallets
 
    Overview Of Hierarchical Deterministic Key Derivation
 
-For an overview of HD wallets, please see the `developer guide section </en/developer-guide#wallets>`__. For details, please see `BIP32 <https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki>`__.
+For an overview of HD wallets, please see the `developer guide section <../devguide/wallets.html>`__. For details, please see `BIP32 <https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki>`__.
