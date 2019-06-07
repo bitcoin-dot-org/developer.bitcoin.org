@@ -76,6 +76,7 @@ pygments_style = None
 html_theme = 'sphinxbootstrap4theme'
 html_theme_path = [sphinxbootstrap4theme.get_path()]
 html_favicon = 'favicon.ico'
+html_title = 'Bitcoin for Developers'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
