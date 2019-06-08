@@ -73,8 +73,8 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinxbootstrap4theme'
-html_theme_path = [sphinxbootstrap4theme.get_path()]
+html_theme = '_theme' # use the theme in subdir 'theme'
+html_theme_path = ['.'] # make sphinx search for themes in current dir
 html_favicon = 'favicon.ico'
 html_title = 'Bitcoin for Developers'
 
