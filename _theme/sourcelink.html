@@ -8,8 +8,8 @@
     :license: BSD, see LICENSE for details.
 #}
 {%- if show_source and has_source and sourcename %}
-  <ul class="this-page-menu list-unstyled text-right">
+  <ul class="this-page-menu list-unstyled text-left">
     <li><a href="{{ pathto('_sources/' + sourcename, true)|e }}"
-           rel="nofollow">{{ _('Show Source') }}</a></li>
+           rel="nofollow">{{ _('Edit on GitHub') }}</a></li>
   </ul>
 {%- endif %}
