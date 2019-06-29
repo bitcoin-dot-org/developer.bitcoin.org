@@ -33,6 +33,9 @@
             {%- block sidebartoc %}
             {%- include "globaltoc.html" %}
             {%- endblock %}
+            {%- block sidebarsourcelink %}
+            {%- include "sourcelink.html" %}
+            {%- endblock %}
             {%- block sidebarrel %}
             {%- include "relations.html" %}
             {%- endblock %}
@@ -41,9 +44,6 @@
             {%- endif %}
             {%- block sidebarsearch %}
             {%- include "searchbox.html" %}
-            {%- endblock %}
-            {%- block sidebarsourcelink %}
-            {%- include "sourcelink.html" %}
             {%- endblock %}
           {%- endif %}
         </div>
