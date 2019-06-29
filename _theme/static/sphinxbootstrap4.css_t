@@ -511,6 +511,7 @@ ul.search > li {
     border-radius: 4px;
     border: solid 1px rgb(229,229,229);
     margin-bottom : 12px;
+    background-image: none !important;
 }
 
 ul.search > li > a{
