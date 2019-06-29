@@ -6,7 +6,7 @@ Find useful resources, guides and reference material for developers.
 .. note:: This is an experimental converson of the `bitcoin.org developer documentation`_ docs to RST_.
 
 .. toctree::
-  :maxdepth: 2
+  :includehidden:
 
   devguide/index
   reference/index
