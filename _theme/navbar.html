@@ -1,15 +1,15 @@
   <nav class="navbar navbar-expand-{{ theme_navbar_collapse }}  {{ theme_navbar_style }} navbar-{{ theme_navbar_color_class }} bg-{{ theme_navbar_bg_class }} flex-wrap">
+     <a class="navbar-brand py-1" href="{{ pathto(master_doc) }}">
+    {%- if logo %}
+    <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="{{ project }}"/>
+    {%- else %}
+    Bitcoin for Developers
+    {%- endif %}
+    </a>
     <button class="navbar-toggler ml-auto py-2" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
       &#9776;
     </button>
       <div class="navbar-collapse collapse" id="exCollapsingNavbar2">
-           <a class="navbar-brand py-1" href="{{ pathto(master_doc) }}">
-              {%- if logo %}
-              <img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="{{ project }}"/>
-              {%- else %}
-                  {{ project }}
-              {%- endif %}
-          </a>
           {%- if version %}
           <span class="navbar-text navbar-version pb-0 pt-1"><b>{{version}}</b></span>
           {%- endif %}
