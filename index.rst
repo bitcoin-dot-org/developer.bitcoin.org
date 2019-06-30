@@ -32,7 +32,6 @@ Support
 .. _RST: http://docutils.sourceforge.net/rst.html
 
 .. toctree::
-  :includehidden:
 
   devguide/index
   reference/index
