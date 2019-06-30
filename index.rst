@@ -30,3 +30,11 @@ Support
 
 .. _bitcoin.org developer documentation: https://bitcoin.org/en/developer-documentation
 .. _RST: http://docutils.sourceforge.net/rst.html
+
+.. toctree::
+  :includehidden:
+
+  devguide/index
+  reference/index
+  examples/index
+  glossary
