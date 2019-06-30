@@ -1,4 +1,4 @@
-Developer Documentation
+Documentation
 =======================
 
 Find useful resources, guides and reference material for developers.

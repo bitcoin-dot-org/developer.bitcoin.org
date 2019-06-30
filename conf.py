@@ -18,7 +18,7 @@ import sphinxbootstrap4theme
 
 # -- Project information -----------------------------------------------------
 
-project = u'Bitcoin for Developers'
+project = u'Bitcoin'
 copyright = u'2019 Bitcoin Developer Documentation'
 author = u'Bitcoin Developer Documentation'
 
@@ -76,7 +76,7 @@ pygments_style = None
 html_theme = '_theme' # use the theme in subdir 'theme'
 html_theme_path = ['.'] # make sphinx search for themes in current dir
 html_favicon = 'favicon.ico'
-html_title = 'Bitcoin for Developers'
+html_title = 'Bitcoin'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
