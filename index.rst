@@ -1,5 +1,5 @@
-Developing with Bitcoin
-=======================
+Welcome
+========
 
 The site aims to provide the information you need to understand
 Bitcoin and start building Bitcoin-based applications, but it is [not a
