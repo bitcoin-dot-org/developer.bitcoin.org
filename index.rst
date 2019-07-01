@@ -2,34 +2,16 @@ Welcome
 ========
 
 The site aims to provide the information you need to understand
-Bitcoin and start building Bitcoin-based applications, but it is [not a
-specification][]. To make the best use of
-this documentation, you may want to install the current version of Bitcoin
-Core, either from [source][core git] or from a [pre-compiled executable][core executable].
+Bitcoin and start building Bitcoin-based applications. To make the best use of
+this documentation, `make sure you're running a node`_.
 
-Questions about Bitcoin development are best asked in one of the
-[Bitcoin development communities][dev communities].
-Errors or suggestions related to
-documentation on Bitcoin.org can be [submitted as an issue][docs issue]
-or posted to the [bitcoin-documentation mailing list][].
+For technical support, we recommend `Bitcoin Stack Exchange`_.
+`Bitcoin development communities`_][dev communities]. For errors or suggestions
+related to this documentation, please `open an issue on GitHub`_.
 
-Getting Started
----------------
-
-Developer Tools
----------------
-
-Books
------
-
-Block Explorers
----------------
-
-Support
--------
-
-.. _bitcoin.org developer documentation: https://bitcoin.org/en/developer-documentation
-.. _RST: http://docutils.sourceforge.net/rst.html
+.. _make sure you're running a node: https://bitcoin.org/en/full-node
+.. _Bitcoin Stack Exchange: https://bitcoin.stackexchange.com/
+.. _open an issue on GitHub: https://github.com/bitcoin-documentation/bitcoin-dev-docs/issues/new
 
 .. toctree::
 
