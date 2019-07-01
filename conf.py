@@ -75,7 +75,7 @@ pygments_style = None
 #
 html_theme = '_theme' # use the theme in subdir 'theme'
 html_theme_path = ['.'] # make sphinx search for themes in current dir
-html_favicon = 'favicon.ico'
+html_favicon = 'favicon.png'
 html_title = 'Bitcoin'
 
 # Theme options are theme-specific and customize the look and feel of a theme
