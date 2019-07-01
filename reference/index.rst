@@ -4,7 +4,7 @@ Reference
 Find technical details and API documentation.
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 1
 
   intro
   block_chain

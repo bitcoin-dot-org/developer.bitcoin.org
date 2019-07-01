@@ -4,7 +4,7 @@ Examples
 Find examples of how to build programs using Bitcoin.
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 1
 
   intro
   testing

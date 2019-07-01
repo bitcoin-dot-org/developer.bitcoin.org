@@ -4,7 +4,7 @@ Developer Guides
 Find detailed information about the Bitcoin protocol and related specifications.
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 1
 
   block_chain
   transactions
