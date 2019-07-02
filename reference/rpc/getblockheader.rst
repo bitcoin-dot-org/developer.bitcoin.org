@@ -8,7 +8,7 @@ getblockheader
 
 If verbose is false, returns a string that is serialized, hex-encoded data for blockheader 'hash'.
 
-If verbose is true, returns an Object with information about blockheader <hash>.
+If verbose is true, returns an Object with information about blockheader 'hash'.
 
 Argument #1 - blockhash
 ~~~~~~~~~~~~~~~~~~~~~~~

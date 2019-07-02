@@ -8,9 +8,9 @@ getblock
 
 If verbosity is 0, returns a string that is serialized, hex-encoded data for block 'hash'.
 
-If verbosity is 1, returns an Object with information about block <hash>.
+If verbosity is 1, returns an Object with information about block 'hash'.
 
-If verbosity is 2, returns an Object with information about block <hash> and information about each transaction.
+If verbosity is 2, returns an Object with information about block 'hash' and information about each transaction.
 
 Argument #1 - blockhash
 ~~~~~~~~~~~~~~~~~~~~~~~
