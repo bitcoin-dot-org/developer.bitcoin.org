@@ -140,9 +140,17 @@ All of these problems are addressed in part or in full by the headers-first IBD 
 
 **Resources:** The table below summarizes the messages mentioned throughout this subsection. The links in the message field will take you to the reference page for that message.
 
-| **Message** \| `“getblocks” <../reference/p2p_networking.html#getblocks>`__ \| `“inv” <../reference/p2p_networking.html#inv>`__ \| `“getdata” <../reference/p2p_networking.html#getdata>`__ \| `“block” <../reference/p2p_networking.html#block>`__
-| **From→To** \| IBD→Sync \| Sync→IBD \| IBD→Sync \| Sync→IBD
-| **Payload** \| One or more header hashes \| Up to 500 block inventories (unique identifiers) \| One or more block inventories \| One serialized block
++--------------------------------------------------------------+----------+--------------------------------------------------+
+| Message                                                      | From→To  | Payload                                          |
++==============================================================+==========+==================================================+
+| `“getblocks” <../reference/p2p_networking.html#getblocks>`__ | IBD→Sync | One or more header hashes                        |
++--------------------------------------------------------------+----------+--------------------------------------------------+
+| `“inv” <../reference/p2p_networking.html#inv>`__             | Sync→IBD | Up to 500 block inventories (unique identifiers) |
++--------------------------------------------------------------+----------+--------------------------------------------------+
+| `“getdata” <../reference/p2p_networking.html#getdata>`__     | IBD→Sync | One or more block inventories                    |
++--------------------------------------------------------------+----------+--------------------------------------------------+
+| `“block” <../reference/p2p_networking.html#block>`__         | Sync→IBD | One serialized block                             |
++--------------------------------------------------------------+----------+--------------------------------------------------+
 
 Headers-First
 ~~~~~~~~~~~~~
@@ -193,9 +201,17 @@ Once the IBD node is synced to the tip of the block chain, it will accept blocks
 
 **Resources:** The table below summarizes the messages mentioned throughout this subsection. The links in the message field will take you to the reference page for that message.
 
-| **Message** \| `“getheaders” <../reference/p2p_networking.html#getheaders>`__ \| `“headers” <../reference/p2p_networking.html#headers>`__ \| `“getdata” <../reference/p2p_networking.html#getdata>`__ \| `“block” <../reference/p2p_networking.html#block>`__
-| **From→To** \| IBD→Sync \| Sync→IBD \| IBD→\ *Many* \| *Many*\ →IBD
-| **Payload** \| One or more header hashes \| Up to 2,000 block headers \| One or more block inventories derived from header hashes \| One serialized block
++----------------------------------------------------------------+--------------+----------------------------------------------------------+
+| Message                                                        | From→To      | Payload                                                  |
++================================================================+==============+==========================================================+
+| `“getheaders” <../reference/p2p_networking.html#getheaders>`__ | IBD→Sync     | One or more header hashes                                |
++----------------------------------------------------------------+--------------+----------------------------------------------------------+
+| `“headers” <../reference/p2p_networking.html#headers>`__       | Sync→IBD     | Up to 2,000 block headers                                |
++----------------------------------------------------------------+--------------+----------------------------------------------------------+
+| `“getdata” <../reference/p2p_networking.html#getdata>`__       | IBD→\ *Many* | One or more block inventories derived from header hashes |
++----------------------------------------------------------------+--------------+----------------------------------------------------------+
+| `“block” <../reference/p2p_networking.html#block>`__           | *Many*\ →IBD | One serialized block                                     |
++----------------------------------------------------------------+--------------+----------------------------------------------------------+
 
 Block Broadcasting
 ------------------
@@ -222,12 +238,23 @@ By default, Bitcoin Core broadcasts blocks using direct headers announcement to 
 
 Full nodes validate the received block and then advertise it to their peers using the :ref:`standard block relay <term-standard-block-relay>` method described above. The condensed table below highlights the operation of the messages described above (Relay, BF, HF, and SPV refer to the relay node, a blocks-first node, a headers-first node, and an SPV client; *any* refers to a node using any block retrieval method.)
 
-| **Message** \| `“inv” <../reference/p2p_networking.html#inv>`__ \| `“getdata” <../reference/p2p_networking.html#getdata>`__ \| `“getheaders” <../reference/p2p_networking.html#getheaders>`__ \| `“headers” <../reference/p2p_networking.html#headers>`__
-| **From→To** \| Relay→\ *Any* \| BF→Relay \| HF→Relay \| Relay→HF
-| **Payload** \| The inventory of the new block \| The inventory of the new block \| One or more header hashes on the HF node’s best header chain (BHC) \| Up to 2,000 headers connecting HF node’s BHC to relay node’s BHC
-| **Message** \| `“block” <../reference/p2p_networking.html#block>`__ \| `“merkleblock” <../reference/p2p_networking.html#merkleblock>`__ \| `“tx” <../reference/p2p_networking.html#tx>`__ \|
-| **From→To** \| Relay→BF/HF \| Relay→SPV \| Relay→SPV \|
-| **Payload** \| The new block in `serialized format <../reference/block_chain.html#serialized-blocks>`__ \| The new block filtered into a merkle block \| Serialized transactions from the new block that match the bloom filter \|
++------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
+| Message                                                          | From→To       | Payload                                                                                  |
++==================================================================+===============+==========================================================================================+
+| `“inv” <../reference/p2p_networking.html#inv>`__                 | Relay→\ *Any* | The inventory of the new block                                                           |
++------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
+| `“getdata” <../reference/p2p_networking.html#getdata>`__         | BF→Relay      | The inventory of the new block                                                           |
++------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
+| `“getheaders” <../reference/p2p_networking.html#getheaders>`__   | HF→Relay      | One or more header hashes on the HF node’s best header chain (BHC)                       |
++------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
+| `“headers” <../reference/p2p_networking.html#headers>`__         | Relay→HF      | Up to 2,000 headers connecting HF node’s BHC to relay node’s BHC                         |
++------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
+| `“block” <../reference/p2p_networking.html#block>`__             | Relay→BF/HF   | The new block in `serialized format <../reference/block_chain.html#serialized-blocks>`__ |
++------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
+| `“merkleblock” <../reference/p2p_networking.html#merkleblock>`__ | Relay→SPV     | The new block filtered into a merkle block                                               |
++------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
+| `“tx” <../reference/p2p_networking.html#tx>`__                   | Relay→SPV     | Serialized transactions from the new block that match the bloom filter                   |
++------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
 
 Orphan Blocks
 ~~~~~~~~~~~~~
