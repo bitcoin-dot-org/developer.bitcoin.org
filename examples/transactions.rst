@@ -35,7 +35,7 @@ Get a new Bitcoin address and save it in the shell variable ``$NEW_ADDRESS``.
 
 Send 10 bitcoins to the address using the `“sendtoaddress” RPC <../reference/rpc/sendtoaddress.html>`__. The returned hex string is the transaction identifier (txid).
 
-The `“sendtoaddress” RPC <../reference/rpc/sendtoaddress.html>`__ automatically selects an unspent transaction output (UTXO) from which to spend the satoshis. In this case, it withdrew the satoshis from our only available UTXO, the coinbase transaction for block #1 which matured with the creation of block #101. To spend a specific UTXO, you could use the `“sendfrom” RPC <../reference/rpc/sendfrom.html>`__ instead.
+The `“sendtoaddress” RPC <../reference/rpc/sendtoaddress.html>`__ automatically selects an unspent transaction output (UTXO) from which to spend the satoshis. In this case, it withdrew the satoshis from our only available UTXO, the coinbase transaction for block #1 which matured with the creation of block #101. To spend a specific UTXO, you could use the ``sendfrom`` `RPC <../reference/rpc/index.html>`__ instead.
 
 .. highlight:: bash
 
@@ -286,7 +286,7 @@ Use the `“decoderawtransaction” RPC <../reference/rpc/decoderawtransaction.h
 
       > SIGNED_RAW_TX=01000000017b1eabe0209b1fe794124575ef807057c77ada[...]
 
-Use the `“signrawtransaction” RPC <../reference/rpc/signrawtransaction.html>`__ to sign the transaction created by `“createrawtransaction” <../reference/rpc/createrawtransaction.html>`__ and save the returned “hex” raw format signed transaction to a shell variable.
+Use the ``signrawtransaction`` `RPC <../reference/rpc/index.html>`__ to sign the transaction created by `“createrawtransaction” <../reference/rpc/createrawtransaction.html>`__ and save the returned “hex” raw format signed transaction to a shell variable.
 
 Even though the transaction is now complete, the Bitcoin Core node we’re connected to doesn’t know anything about the transaction, nor does any other part of the `network <../devguide/p2p_network.html>`__. We’ve created a spend, but we haven’t actually spent anything because we could simply unset the ``$SIGNED_RAW_TX`` variable to eliminate the transaction.
 
@@ -500,7 +500,7 @@ Create the raw transaction using `“createrawtransaction” <../reference/rpc/c
 
       > PARTLY_SIGNED_RAW_TX=0100000002f327e86da3e66bd20e1129b1fb36d07[...]
 
-Signing the raw transaction with `“signrawtransaction” <../reference/rpc/signrawtransaction.html>`__ gets more complicated as we now have three arguments:
+Signing the raw transaction with ``signrawtransaction`` gets more complicated as we now have three arguments:
 
 1. The unsigned raw transaction.
 
@@ -1187,7 +1187,7 @@ We make the first signature. The input argument (JSON object) takes the addition
 
       > SIGNED_RAW_TX=010000000175e1769813db8418fea17576694af1ff31cb2b[...]
 
-The `“signrawtransaction” <../reference/rpc/signrawtransaction.html>`__ call used here is nearly identical to the one used above. The only difference is the private key used. Now that the two required signatures have been provided, the transaction is marked as complete.
+The ``signrawtransaction`` call used here is nearly identical to the one used above. The only difference is the private key used. Now that the two required signatures have been provided, the transaction is marked as complete.
 
 .. highlight:: bash
 

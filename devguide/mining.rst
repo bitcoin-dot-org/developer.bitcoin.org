@@ -54,7 +54,7 @@ In both solo and pool mining, the mining software needs to get the information n
 getwork RPC
 ~~~~~~~~~~~
 
-The simplest and earliest method was the now-deprecated Bitcoin Core `“getwork” RPC <../reference/rpc/getwork.html>`__, which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of `“getwork” <../reference/rpc/getwork.html>`__ requests a second. Solo miners may still use `“getwork” <../reference/rpc/getwork.html>`__ on v0.9.5 or below, but most pools today discourage or disallow its use.
+The simplest and earliest method was the now-deprecated Bitcoin Core ``getwork`` `RPC <../reference/rpc/index.html>`__, which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of ``getwork`` requests a second. Solo miners may still use ``getwork`` on v0.9.5 or below, but most pools today discourage or disallow its use.
 
 getblocktemplate RPC
 ~~~~~~~~~~~~~~~~~~~~
