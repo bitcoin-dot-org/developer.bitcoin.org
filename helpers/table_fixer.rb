@@ -6,7 +6,7 @@ class TableFixer
     line.each_char do |char|
       if char == start_char
         if width > 0
-          widths.append(width)
+          widths.push(width)
           width = 0
         end
       else
@@ -68,13 +68,13 @@ class TableFixer
     rst.each_line do |line|
       if table_lines.empty? && line.start_with?("+")
         column_widths = calculate_column_widths(line)
-        table_lines.append(line)
+        table_lines.push(line)
       elsif !table_lines.empty? && !line.start_with?("|", "+")
         add_table_lines(processed, table_lines, column_widths)
         table_lines = []
       elsif !table_lines.empty?
         column_widths = calculate_column_widths(line, column_widths)
-        table_lines.append(line)
+        table_lines.push(line)
       end
 
       if table_lines.empty?
