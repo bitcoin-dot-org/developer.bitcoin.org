@@ -33,6 +33,10 @@ a {
     margin-right: auto;
 }
 
+#acknowledgments .toctree-wrapper {
+    display: none;
+}
+
 {% if theme_navbar_style != "full" %}
 *[id]:before {
   display: block;
