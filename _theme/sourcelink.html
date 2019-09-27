@@ -9,7 +9,7 @@
 #}
 {%- if show_source and has_source and sourcename %}
   <div id="sourcelink">
-    <a href="https://github.com/bitcoin-documentation/bitcoin-dev-docs/blob/master/{{ pathto(sourcename) }}"
+    <a href="https://github.com/bitcoin-documentation/bitcoin-dev-docs/blob/master/{{ pathto(sourcename, true)|e }}"
     rel="nofollow">{{ _('Edit this page') }}</a>
   </div>
 {%- endif %}
