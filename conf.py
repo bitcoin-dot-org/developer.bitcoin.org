@@ -48,6 +48,7 @@ templates_path = ['_templates']
 #
 # source_suffix = ['.rst', '.md']
 source_suffix = '.rst'
+html_sourcelink_suffix = ''
 
 # The master toctree document.
 master_doc = 'index'
