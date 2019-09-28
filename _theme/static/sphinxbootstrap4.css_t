@@ -203,7 +203,6 @@ Sidebar styles
 div.sphinxsidebar {
     margin-left: 0px;
     padding: 0px;
-    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     -webkit-text-overflow: ellipsis; /* Safari */
@@ -235,7 +234,6 @@ div.sphinxsidebarwrapper > div.sidebartoctree ul {
 }
 
 div.sphinxsidebar > div.sphinxsidebarwrapper a.reference {
-    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: block;
