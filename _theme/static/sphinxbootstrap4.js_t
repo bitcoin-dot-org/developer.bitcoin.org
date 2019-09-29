@@ -1,52 +1,3 @@
-function stickySidebar() {
-    {% if theme_navbar_style == "fixed-top" %}
-    var topPadding = $('.navbar').outerHeight(true);
-    {% else %}
-    var topPadding = 0;
-    {% endif %}
-    var $sidebar = $('.sphinxsidebar');
-    var $sidebarwrapper = $('.sphinxsidebarwrapper');
-    var $footer = $('footer');
-    var $window = $(window);
-
-    var sidebarTop = $sidebar.offset().top;
-    var footerTop = $footer.offset().top
-
-    function adjust() {
-        var sidebarWidth = $sidebar.width();
-        var sidebarWrapperHeight = $sidebarwrapper.height();
-        var scrollTop = $window.scrollTop();
-
-        if (scrollTop + topPadding <= sidebarTop) {
-          $sidebarwrapper.css({'top': 0, 'position': 'relative' });
-        } else {
-          $sidebarwrapper.css({'top': topPadding, 'position': 'fixed', 'width': sidebarWidth });
-        }
-
-        $sidebarwrapper.css({ 'max-height': footerTop - scrollTop - topPadding, 'overflow': 'auto' });
-    };
-
-    var scrollTimer;
-    $window.scroll(function() {
-        if (scrollTimer) { clearTimeout(scrollTimer); }
-
-        scrollTimer = setTimeout(function() {
-            adjust();
-        }, 1);
-    });
-
-    var resizeTimer;
-    $window.on('resize', function() {
-        if (resizeTimer) { clearTimeout(resizeTimer); }
-
-        resizeTimer = setTimeout(function() {
-            adjust();
-        }, 1);
-    });
-
-    adjust();
-}
-
 function sidebarTreeView() {
     var $toctree = $('.sidebartoctree > ul');
 
@@ -113,7 +64,6 @@ $(function() {
     $("a.download").prepend('<div class="icon"><div class="download"></div></div>');
 
     {% if theme_sidebar_fixed %}
-    stickySidebar();
     {% endif %}
 
 });
