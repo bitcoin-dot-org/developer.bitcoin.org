@@ -1,3 +1,17 @@
+// Get the 'Back to top' button:
+bttb = document.getElementById("btt");
+
+// When the user scrolls down 24px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 24 || document.documentElement.scrollTop > 24) {
+    bttb.style.display = "block";
+  } else {
+    bttb.style.display = "none";
+  }
+}
+
 function sidebarTreeView() {
     var $toctree = $('.sidebartoctree > ul');
 
