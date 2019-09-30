@@ -307,7 +307,7 @@ Footer styles
 }
 
 #btt {
-  display: none !important;
+  display: none;
 }
 
 /*
