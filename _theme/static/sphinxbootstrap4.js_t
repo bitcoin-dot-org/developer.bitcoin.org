@@ -6,9 +6,9 @@ window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
   if (document.body.scrollTop > 24 || document.documentElement.scrollTop > 24) {
-    bttb.style.display = "block";
+    document.getElementById('btt').style.display='block';
   } else {
-    bttb.style.display = "none";
+    document.getElementById('btt').style.display='none';
   }
 }
 
