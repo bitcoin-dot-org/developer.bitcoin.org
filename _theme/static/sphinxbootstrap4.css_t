@@ -306,6 +306,10 @@ Footer styles
     margin-top: 8px;
 }
 
+#btt {
+  display: none;
+}
+
 /*
 Admonition Styles
 */

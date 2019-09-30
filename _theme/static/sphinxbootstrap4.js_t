@@ -1,3 +1,14 @@
+// When the user scrolls down 36px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 36 || document.documentElement.scrollTop > 36) {
+    document.getElementById('btt').style.display='block';
+  } else {
+    document.getElementById('btt').style.display='none';
+  }
+}
+
 function sidebarTreeView() {
     var $toctree = $('.sidebartoctree > ul');
 
