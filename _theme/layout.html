@@ -7,16 +7,28 @@
     {{ super() }}
 {% endblock %}
 
-{% set css_files = css_files + [
-    '_static/bootstrap-4.3.1-dist/css/bootstrap.min.css',
-    '_static/sphinxbootstrap4.css'
-] %}
+{# Ideally we want the default css first, then bootstrap followed by any custom css
+   This way the custom css can override any bootstrap formatting if needed #}
 
-{% set script_files = script_files + [
-    '_static/bootstrap-4.3.1-dist/js/bootstrap.min.js',
-    '_static/sphinxbootstrap4.js'
-  ]
-%}
+{% set css_files = [
+    '_static/sphinxbootstrap4.css'
+] + css_files %}
+
+{% if theme_bootswatch != 'None' %}
+    {% set css_files = [
+        '_static/bootswatch-4.3.1-dist/' + theme_bootswatch + '/bootstrap.min.css'
+    ] + css_files %}
+{% else %}
+    {% set css_files = [
+        '_static/bootstrap-4.3.1-dist/css/bootstrap.min.css'
+    ] + css_files %}
+{% endif %}
+
+{%- block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ pathto('_static/bootstrap-4.3.1-dist/js/bootstrap.min.js', 1) }}"></script>
+    <script type="text/javascript" src="{{ pathto('_static/sphinxbootstrap4.js', 1) }}"></script>
+{%- endblock %}
 
 {%- macro sphinxsidebar() %}
       {%- if render_sidebar %}
@@ -33,9 +45,6 @@
             {%- block sidebartoc %}
             {%- include "globaltoc.html" %}
             {%- endblock %}
-            {%- block sidebarsourcelink %}
-            {%- include "sourcelink.html" %}
-            {%- endblock %}
             {%- block sidebarrel %}
             {%- include "relations.html" %}
             {%- endblock %}
@@ -44,6 +53,9 @@
             {%- endif %}
             {%- block sidebarsearch %}
             {%- include "searchbox.html" %}
+            {%- endblock %}
+            {%- block sidebarsourcelink %}
+            {%- include "sourcelink.html" %}
             {%- endblock %}
           {%- endif %}
         </div>
