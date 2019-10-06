@@ -316,19 +316,15 @@ Root seeds in the HD protocol are 128, 256, or 512 bits of random data which mus
 
 The number of words generated correlates to the amount of entropy used:
 
-+--------------+-------+
-| Entropy Bits | Words |
-+==============+=======+
-| 128          | 12    |
-+--------------+-------+
-| 160          | 15    |
-+--------------+-------+
-| 192          | 18    |
-+--------------+-------+
-| 224          | 21    |
-+--------------+-------+
-| 256          | 24    |
-+--------------+-------+
+============ =====
+Entropy Bits Words
+============ =====
+128          12
+160          15
+192          18
+224          21
+256          24
+============ =====
 
 The passphrase can be of any length. It is simply appended to the mnemonic pseudo-sentence, and then both the mnemonic and password are hashed 2,048 times using HMAC-SHA512, resulting in a seemingly-random 512-bit seed. Because any input to the hash function creates a seemingly-random 512-bit seed, there is no fundamental way to prove the user entered the correct password, possibly allowing the user to protect a seed even when under duress.
 

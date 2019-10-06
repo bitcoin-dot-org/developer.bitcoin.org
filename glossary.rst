@@ -40,7 +40,7 @@ Glossary
     **Not to be confused with:** Block subsidy, Transaction fees
 
   Maximum Block Size
-    The maximum size in bytes that the consensus rules allow a block to be. The current block size limit is 1000000 bytes.
+    The maximum size of a block according to the consensus rules. The current block size limit is 4 million weight units (1 million vbytes).
 
     **Not to be confused with:** Block, Blockchain, Blockchain size
 

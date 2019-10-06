@@ -31,8 +31,11 @@ Start ``bitcoind`` in regtest mode to create a private block chain.
    ## Bitcoin Core 0.10.1 and earlier
    bitcoin-cli -regtest setgenerate true 101
 
-   ## Bitcoin Core master (as of commit 48265f3)
+   ## Bitcoin Core 17.1 and earlier
    bitcoin-cli -regtest generate 101
+
+   ## Bitcoin Core 18.0 and later
+   bitcoin-cli -regtest generatetoaddress 101 $(bitcoin-cli -regtest getnewaddress)
 
 Generate 101 blocks using a special `RPC <../reference/rpc/index.html>`__ which is only available in regtest mode. This takes less than a second on a generic PC. Because this is a new block chain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. However, a block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to get access to the coinbase transaction from block #1.
 
