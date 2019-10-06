@@ -196,10 +196,6 @@ Sidebar styles
     margin: 40px 20px 10px 20px;
 }
 
-#sourcelink {
-    margin: 40px 20px 10px 20px;
-}
-
 div.sphinxsidebar {
     margin-left: 0px;
     padding: 0px;
