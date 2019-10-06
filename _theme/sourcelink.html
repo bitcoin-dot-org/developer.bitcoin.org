@@ -35,7 +35,10 @@
 {% endif %}
 
 {%- if show_source and has_source and sourcename %}
-  <div id="sourcelink">
-    <a href="https://github.com/bitcoin-documentation/bitcoin-dev-docs/blob/master/{{ conf_py_path }}{{ pagename }}{{ suffix }}">Edit this page on GitHub</a>
+  <div>
+    <h4>Contribute</h4>
+    <p class="topless">
+      <a href="https://github.com/bitcoin-documentation/bitcoin-dev-docs/blob/master/{{ conf_py_path }}{{ pagename }}{{ suffix }}">Edit Page</a>
+    </p>
   </div>
 {%- endif %}

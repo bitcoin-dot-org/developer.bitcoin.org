@@ -193,11 +193,7 @@ Sidebar styles
 */
 
 #searchbox {
-    margin: 40px 20px 10px 20px;
-}
-
-#sourcelink {
-    margin: 40px 20px 10px 20px;
+    margin: 20px 20px 10px 20px;
 }
 
 div.sphinxsidebar {
