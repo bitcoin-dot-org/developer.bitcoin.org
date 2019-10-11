@@ -70,21 +70,16 @@ To specify an amount directly for copying and pasting, you must provide the addr
 
 Indicating the denomination is critical. As of this writing, popular Bitcoin wallet software defaults to denominating amounts in either bitcoins (BTC) , millibitcoins (mBTC) or microbitcoins (uBTC, “bits”). Choosing between each unit is widely supported, but other software also lets its users select denomination amounts from some preselected (e.g. Table below) or all `standard 8 decimal places <https://en.bitcoin.it/wiki/Units>`__:
 
-+------------+-----------------------------+
-| Bitcoins   | Unit (Abbreviation)         |
-+============+=============================+
-| 1.0        | bitcoin (BTC)               |
-+------------+-----------------------------+
-| 0.01       | bitcent (cBTC)              |
-+------------+-----------------------------+
-| 0.001      | millibitcoin (mBTC)         |
-+------------+-----------------------------+
-| 0.000001   | microbitcoin (uBTC, “bits”) |
-+------------+-----------------------------+
-| 0.0000001  | finney                      |
-+------------+-----------------------------+
-| 0.00000001 | satoshi                     |
-+------------+-----------------------------+
+========== ===========================
+Bitcoins   Unit (Abbreviation)
+========== ===========================
+1.0        bitcoin (BTC)
+0.01       bitcent (cBTC)
+0.001      millibitcoin (mBTC)
+0.000001   microbitcoin (uBTC, “bits”)
+0.0000001  finney
+0.00000001 satoshi
+========== ===========================
 
 bitcoin: URI
 ~~~~~~~~~~~~
@@ -321,29 +316,20 @@ First In, First Out (FIFO)
 
 The oldest outputs are the most reliable, as the longer it’s been since they were received, the more blocks would need to be modified to double spend them. However, after just a few blocks, a point of rapidly diminishing returns is reached. The `original Bitcoin paper <https://bitcoin.org/en/bitcoin-paper>`__ predicts the chance of an attacker being able to modify old blocks, assuming the attacker has 30% of the total `network <../devguide/p2p_network.html>`__ hashing power:
 
-+--------+-----------------------------------+
-| Blocks | Chance of successful modification |
-+========+===================================+
-| 5      | 17.73523%                         |
-+--------+-----------------------------------+
-| 10     | 4.16605%                          |
-+--------+-----------------------------------+
-| 15     | 1.01008%                          |
-+--------+-----------------------------------+
-| 20     | 0.24804%                          |
-+--------+-----------------------------------+
-| 25     | 0.06132%                          |
-+--------+-----------------------------------+
-| 30     | 0.01522%                          |
-+--------+-----------------------------------+
-| 35     | 0.00379%                          |
-+--------+-----------------------------------+
-| 40     | 0.00095%                          |
-+--------+-----------------------------------+
-| 45     | 0.00024%                          |
-+--------+-----------------------------------+
-| 50     | 0.00006%                          |
-+--------+-----------------------------------+
+====== =================================
+Blocks Chance of successful modification
+====== =================================
+5      17.73523%
+10     4.16605%
+15     1.01008%
+20     0.24804%
+25     0.06132%
+30     0.01522%
+35     0.00379%
+40     0.00095%
+45     0.00024%
+50     0.00006%
+====== =================================
 
 FIFO does have a small advantage when it comes to transaction fees, as older outputs may be eligible for inclusion in the 50,000 bytes set aside for no-fee-required high-priority transactions by miners running the default Bitcoin Core codebase. However, with transaction fees being so low, this is not a significant advantage.
 

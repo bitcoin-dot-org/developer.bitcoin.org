@@ -107,21 +107,16 @@ Although the target threshold should be an unsigned integer, the original nBits 
 
 Some examples taken from the Bitcoin Core test cases:
 
-+------------+-------------+--------------------------------+
-| nBits      | Target      | Notes                          |
-+============+=============+================================+
-| 0x01003456 |  0x00       |                                |
-+------------+-------------+--------------------------------+
-| 0x01123456 |  0x12       |                                |
-+------------+-------------+--------------------------------+
-| 0x02008000 |  0x80       |                                |
-+------------+-------------+--------------------------------+
-| 0x05009234 |  0x92340000 |                                |
-+------------+-------------+--------------------------------+
-| 0x04923456 | -0x12345600 | High bit set (0x80 in 0x92).   |
-+------------+-------------+--------------------------------+
-| 0x04123456 |  0x12345600 | Inverse of above; no high bit. |
-+------------+-------------+--------------------------------+
+========== =========== ==============================
+nBits      Target      Notes
+========== =========== ==============================
+0x01003456  0x00      
+0x01123456  0x12      
+0x02008000  0x80      
+0x05009234  0x92340000
+0x04923456 -0x12345600 High bit set (0x80 in 0x92).
+0x04123456  0x12345600 Inverse of above; no high bit.
+========== =========== ==============================
 
 Difficulty 1, the minimum allowed difficulty, is represented on mainnet and the current testnet by the nBits value 0x1d00ffff. Regtest mode uses a different difficulty 1 value—0x207fffff, the highest possible value below uint32_max which can be encoded; this allows near-instant building of blocks in regtest mode.
 
