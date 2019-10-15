@@ -24,7 +24,7 @@ The RST is generated from the original Markdown sources from bitcoin.org using a
 
 with the path to a local checkout of [bitcoin-dot-org/bitcoin.org](https://github.com/bitcoin-dot-org/bitcoin.org) as argument. This will regenerate the RST files based on the content from the bitcoin.org repository.
 
-This is a temporary mechanism to port the documentation to RST. Once the import is in a good shape and the original information is captured correctly in the converted files, the RST files will become the original source, and the import is not needed anymore. There is a [milestone](https://github.com/cornelius/bitcoin-dev-docs/milestone/1) to track the necessary work to be done before detaching from the Markdown sources.
+This is a temporary mechanism to port the documentation to RST. Once the import is in a good shape and the original information is captured correctly in the converted files, the RST files will become the original source, and the import is not needed anymore. There is a [milestone](https://github.com/bitcoin-documentation/website/milestone/1) to track the necessary work to be done before detaching from the Markdown sources.
 
 ## Generation of RPC docs
 
