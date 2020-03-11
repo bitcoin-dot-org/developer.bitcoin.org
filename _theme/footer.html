@@ -1,4 +1,9 @@
-<footer class="footer d-flex justify-content-between flex-wrap">
+<footer class="footer">
+  <div class="footer-with-logo">
+    <a href="https://bitcoin.org/">
+      <div class="footer-logo"></div>
+    </a>
+  </div>
     <div class="copyright">
     {%- if show_copyright %}
       {%- if hasdoc('copyright') %}
@@ -8,13 +13,9 @@
       {%- endif %}
     {%- endif %}
     {%- if last_updated %}
-      <div>{% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}</div>
+      <div>{% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %} Released under the MIT License.</div>
     {%- endif %}
-      <div>Released under the MIT License.</div>
-      <div><a href="mailto:contact@bitcoindocumentation.org">Feedback</a> / <a
-              href="mailto:contact@bitcoindocumentation.org">Questions</a></div>
-    </div>
-    <div>
-        <a href="#" class="btn btn-primary btn-sm" role="botton" id="btt">Back to top</a>
+      <div><a href="mailto:contact@bitcoindocumentation.org">Feedback</a> / 
+        <a href="mailto:contact@bitcoindocumentation.org">Questions</a></div>
     </div>
 </footer>
