@@ -12,7 +12,11 @@ body div.body {
     max-width: none;
     min-width: auto;
 }
-
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
 /*
 a {
     color: rgb(85, 89, 92);
@@ -91,13 +95,15 @@ div.document .blockquote {
 Navbar Class styles
 */
 .navbar {
-    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.4);
-	-moz-box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.4);
-    -webkit-box-shadow: 10px 0px 20px 0px rgba(0,0,0,0.4);
-    -o-box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.4);
-    -ms-box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.4);
+    background: #fff;
+    border: 1px solid #D1D1D1;
 }
-
+.navbar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
 .navbar-version {
     padding-top: 10px;
     margin-right: 30px;
@@ -113,6 +119,17 @@ Navbar Class styles
 }
 .navbar.navbar-dark span.navbar-version{ /* hide version in dark navbar */
     color: #343a40;
+    border: none;
+    background: #f8f9fa;
+}
+form.navbar-search {
+    max-width: 256px;
+    width: 100%;
+}
+form.navbar-search .navbar-search-input {
+    width: 100%;
+    padding-left: 37px;
+    background: #fff url('./search.svg') 11px 50% no-repeat;
 }
 .dropdown-toggle{
     cursor: pointer;
@@ -287,15 +304,75 @@ div.sphinxsidebar #searchbox form input[type="text"]{
 Footer styles
 */
 
-.footer {
+footer.footer {
+    position-relative;
     border-top: 1px solid rgb(236, 238, 239);
 	color: rgb(85, 89, 92);
 	padding: 10px 18px;
-	margin-top: 20px;
+    margin-top: 20px;
+    background: #090C14;
+    padding: 0;
+}
+
+.footer-with-logo {
+    height: 200px;
+    width: 100%;
+    content: '';
+    background: url('./footer.svg') no-repeat;
+    background-color: #13161F;
+}
+
+.footer-logo {
+    content: '';
+    width: 112px;
+    height: 25px;
+    background: url('./Logo.svg') no-repeat;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.logo {
+    content: '';
+    width: 112px;
+    height: 25px;
+    background: url('./Logo.svg') no-repeat;
+    margin-right: 15px;
+}
+.logo-light {
+    content: '';
+    width: 112px;
+    height: 25px;
+    background: url('./Logo-light.svg') no-repeat;
+    margin-right: 15px;
+}
+
+.header-logo {
+    display: flex;
+}
+
+.logo-text {
+    font-size: 15px;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #FF7E00;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.black {
+    color: #000;
 }
 
 .copyright {
-    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 25px 15px;
 }
 
 .footer .btn{ /* set margin because of flex-wrap */
@@ -434,6 +511,21 @@ Breadcrumb styles
 
 .related .btn-group{ /* set padding-top because of flex-wrap */
     padding-top: .75rem;
+}
+
+.btn-group .btn {
+    background: #F7931A;
+    barder: F7931A;
+    border-color: #F7931A;
+}
+.btn-group .btn:hover {
+    background: #F7931A;
+    barder: F7931A;
+    border-color: #F7931A;
+}
+
+.black {
+    color: #000
 }
 
 /*

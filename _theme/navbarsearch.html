@@ -1,7 +1,8 @@
 {%- if pagename != "search" %}
-<form class="form-inline" action="{{ pathto('search') }}" method="get">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
+<form class="form-inline navbar-search" action="{{ pathto('search') }}" method="get">
+  <input type="text" name="q" class="navbar-search-input form-control" placeholder="Search" />
   <input type="hidden" name="check_keywords" value="yes" />
   <input type="hidden" name="area" value="default" />
 </form>
 {%- endif %}
+
