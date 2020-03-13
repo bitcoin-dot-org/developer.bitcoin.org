@@ -1,21 +1,175 @@
 <footer class="footer">
   <div class="footer-with-logo">
-    <a href="https://bitcoin.org/">
-      <div class="footer-logo"></div>
-    </a>
-  </div>
-    <div class="copyright">
-    {%- if show_copyright %}
-      {%- if hasdoc('copyright') %}
-        <div>{% trans path=pathto('copyright'), copyright=copyright|e %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}</div>
-      {%- else %}
-        <div>{% trans copyright=copyright|e %}&copy; Copyright {{ copyright }}.{% endtrans %}</div>
-      {%- endif %}
-    {%- endif %}
-    {%- if last_updated %}
-      <div>{% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %} Released under the MIT License.</div>
-    {%- endif %}
-      <div><a href="mailto:contact@bitcoindocumentation.org">Feedback</a> / 
-        <a href="mailto:contact@bitcoindocumentation.org">Questions</a></div>
+    <div class="container">
+      <a href="https://bitcoin.org/">
+        <div class="footer-logo"></div>
+      </a>
+
+      <div class="footer-row ">
+        <div class="donate">
+          <div class="donate-row">
+            <div>
+              <span class="footer-title">Support Bitcoin.org:</span>
+              <button onclick="openDonationModal()" class="donate-btn">Donate</button>
+              <p class="donate-text">
+                <a class="donate-link" href="bitcoin:3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa" target="_blank">3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa</a>
+              </p>
+            </div>
+            <div class="donate-qrcode ">
+              <img src="./_static/qr.png" alt="QR-code">
+            </div>
+          </div>
+        </div>
+        
+        <div class="footermenu">
+          <div class="footermenu-item footermenu-introduction">
+            <p class="footer-title">Introduction:</p>
+            <ul class="footermenu-list">
+              <li>
+                <a href="https://bitcoin.org/en/bitcoin-for-individuals">Individuals</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/bitcoin-for-businesses">Businesses</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/bitcoin-for-developers">Developers</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/getting-started">Getting started</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/how-it-works">How it works</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/you-need-to-know">You need to know</a>
+              </li>
+                <a href="https://bitcoin.org/en/bitcoin-paper">White paper</a>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="footermenu-item footermenu-resources">
+            <p class="footer-title">Resources:</p>
+            <ul class="footermenu-list">
+              <li>
+                <a href="https://bitcoin.org/en/resources">Resources</a>
+              <li>
+                <a href="https://bitcoin.org/en/exchanges">Exchanges</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/community">Community</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/vocabulary">Vocabulary</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/events">Events</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/bitcoin-core/">Bitcoin Core</a>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="footermenu-item footermenu-participate">
+            <p class="footer-title">Participate:</p>
+            <ul class="footermenu-list">
+              <li>
+                <a href="https://bitcoin.org/en/support-bitcoin">Support Bitcoin</a>
+              
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/buy">Buy Bitcoin</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/full-node">Running a full node</a>
+              </li>
+              <li>
+                <a href="https://bitcoin.org/en/development">Development</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footermenu-item footermenu-other">
+            <p class="footer-title">Other:</p>
+            <a href="https://bitcoin.org/en/scams">Avoid Scams</a>
+            <a href="https://bitcoin.org/en/legal">Legal</a>
+            <a href="https://bitcoin.org/en/privacy">Privacy Policy</a>
+            <a href="https://bitcoin.org/en/press">Press</a>
+            <a href="https://bitcoin.org/en/about-us">About bitcoin.org</a>
+            <a href="https://bitcoin.org/en/blog">Blog</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="copyright">
+  {%- if show_copyright %}
+    {%- if hasdoc('copyright') %}
+      <div>{% trans path=pathto('copyright'), copyright=copyright|e %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}</div>
+    {%- else %}
+      <div>{% trans copyright=copyright|e %}&copy; Copyright {{ copyright }}.{% endtrans %}</div>
+    {%- endif %}
+  {%- endif %}
+  {%- if last_updated %}
+    <div>{% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %} Released under the MIT License.</div>
+  {%- endif %}
+    <div><a href="mailto:contact@bitcoindocumentation.org">Feedback</a> / 
+      <a href="mailto:contact@bitcoindocumentation.org">Questions</a></div>
+  </div>
 </footer>
+
+<div id="donation-modal" style="display: none" class="donation-modal open">
+  <div>
+    <div>
+      <div class="modal-close-btn" onclick="closeDonationModal()">×</div>
+      <p class="modal-header-text">Donate to Bitcoin.org</p>
+    </div>
+    <p class="modal-subheader">Use this QR code or address below</p>
+    <div style="text-align: center;">
+      <div id="donation-qr-code" data-address="3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa"></div>
+    </div>
+    <div>
+      <a
+        class="donation-btc-address"
+        href="bitcoin:3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa"
+        target="_blank"
+      >
+        3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa
+      </a>
+    </div>
+    <div style="overflow-y:hidden;text-align: center;">
+      <div class="donation-buttons">
+        <button type="button" class="donation-amount-btn" data-amount-usd="5">
+          $5.00
+          <div class="donation-amount-usd-in-btc">(... BTC)</div>
+        </button>
+        <button type="button" class="donation-amount-btn" data-amount-usd="25">
+          $25.00
+          <div class="donation-amount-usd-in-btc">(... BTC)</div>
+        </button>
+        <button type="button" class="donation-amount-btn" data-amount-usd="50">
+          $50.00
+          <div class="donation-amount-usd-in-btc">(... BTC)</div>
+        </button>
+      </div>
+
+      <div class="donation-inputs">
+        <input
+          type="text"
+          placeholder="Or custom amount? (BTC)"
+          id="donation-input-amount-btc" class="donation-amount-input">
+        <input
+          type="text"
+          placeholder="Or custom amount? (USD)"
+          id="donation-input-amount-usd" class="donation-amount-input">
+      </div>
+
+      <div>
+        <textarea
+          class="donation-amount-input"
+          id="donation-input-message"
+          placeholder="Optional description (for your wallet)"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
