@@ -313,6 +313,13 @@ footer.footer {
     padding: 0;
 }
 
+.footer-container {
+    max-width: 1230px;
+    width: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
 .footer-with-logo {
     width: 100%;
     padding: 60px 0 55px;
@@ -395,7 +402,6 @@ footer.footer {
     display: flex;
     justify-content: flex-end;
     max-width: 665px;
-    width: 100%;
 }
 .footermenu-item {
     margin-right: 60px;
@@ -422,6 +428,7 @@ footer.footer {
     font-size: 106.25%;
     line-height: 34px;
     color: rgb(157, 157, 157);
+    white-space: nowrap;
 }
 
 .donation-modal {
@@ -842,6 +849,11 @@ blockquote {
     }
     .donation-amount-input {
         width: 100%;
+    }
+}
+@media handheld, only screen and ( max-width: 67.5em ), only screen and ( max-device-width: 67.5em ) {
+    .footermenu-item {
+        margin-right: 35px;
     }
 }
 @media handheld, only screen and ( max-width: 60em ), only screen and ( max-device-width: 60em ) {
