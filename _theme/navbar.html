@@ -4,7 +4,7 @@
 			<img class="logo" src="{{ pathto('_static/' + logo, 1) }}" alt="{{ project }}" />
 			{%- else %}
 			<div class="header-logo">
-				<div class="logo-light"></div>
+				<div class="logo"></div>
 				<p class="logo-text">for Developers</p>
 			</div>
 			{%- endif %}
@@ -36,7 +36,7 @@
 				</li>
 				{%- endfor %}
 			</ul>
-			<div class="dropdown-divider d-block d-sm-none mb-4"></div>
+			<div class="dropdown-divider d-block d-md-none my-3"></div>
 			{% include "navbarsearch.html" %}
 		</div>
 	

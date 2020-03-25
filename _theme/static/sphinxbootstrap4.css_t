@@ -95,8 +95,7 @@ div.document .blockquote {
 Navbar Class styles
 */
 .navbar {
-    background: #fff;
-    border: 1px solid #D1D1D1;
+    background: #12161F;
 }
 .navbar.fixed-top {
     z-index: 100;
@@ -133,8 +132,12 @@ form.navbar-search .navbar-search-input {
 .dropdown-toggle{
     cursor: pointer;
 }
-.navbar-dark .navbar-toggler{
-    border-color: transparent;
+.navbar-dark button.navbar-toggler{
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.navbar-collapse .dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /*
@@ -429,6 +432,14 @@ footer.footer {
     line-height: 34px;
     color: rgb(157, 157, 157);
     white-space: nowrap;
+}
+.footer-bottom-link {
+    font-size: 17px;
+    line-height: 26px;
+    color: #3490E6;
+}
+.footer-bottom-link + .footer-bottom-link {
+    margin-left: 35px;
 }
 
 .donation-modal {
