@@ -327,7 +327,7 @@ footer.footer {
     width: 100%;
     padding: 60px 0 55px;
     content: '';
-    background: url('./footer.svg') no-repeat;
+    background: url('./footer.svg') top no-repeat;
     background-color: #13161F;
 }
 
