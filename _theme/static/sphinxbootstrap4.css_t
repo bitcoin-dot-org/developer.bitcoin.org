@@ -138,8 +138,7 @@ form.navbar-search .navbar-search-input {
     cursor: pointer;
 }
 .navbar-dark button.navbar-toggler{
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(0,0,0,.5);
 }
 .navbar-collapse .dropdown-divider {
     border-color: rgba(255, 255, 255, 0.5);

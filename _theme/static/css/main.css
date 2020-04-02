@@ -24,7 +24,7 @@
 .hero-nav {
   margin: 60px 0 0;
 }
-.hero-nav ul.current {
+.hero-nav ul {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
