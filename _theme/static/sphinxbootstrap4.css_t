@@ -99,7 +99,8 @@ div.document .blockquote {
 Navbar Class styles
 */
 .navbar {
-    background: #12161F;
+    background: #fff;
+    border-bottom: 1px solid #ced4da;
 }
 .navbar.fixed-top {
     z-index: 100;
