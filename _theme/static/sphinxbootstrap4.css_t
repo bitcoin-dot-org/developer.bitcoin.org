@@ -716,32 +716,8 @@ Breadcrumb styles
 
 .related {
     {% if theme_navbar_style != "full" %}
-    margin-top: 54px;
+        margin-top: 54px;
     {% endif %}
-    padding: 0 1rem .75rem 1rem;
-    margin-bottom: 1rem;
-    font-size: 100%!important;
-}
-
-.breadcrumb {
-    padding: calc(.75rem + 6px) 0px 0px 0px;
-    margin: 0px;
-    background-color: inherit;
-}
-
-.related .btn-group{ /* set padding-top because of flex-wrap */
-    padding-top: .75rem;
-}
-
-.btn-group .btn {
-    background: #F7931A;
-    barder: F7931A;
-    border-color: #F7931A;
-}
-.btn-group .btn:hover {
-    background: #F7931A;
-    barder: F7931A;
-    border-color: #F7931A;
 }
 
 .black {

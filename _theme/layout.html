@@ -78,14 +78,21 @@
 {% include "navbar.html" %}
 {% endmacro %}
 
+{% macro hero() %}
+{% include "hero.html" %}
+{% endmacro %}
+
 {% macro breadcrumb() %}
-{% include "breadcrumb.html" %}
+  {% include "breadcrumb.html" %}
 {% endmacro %}
 
 {%- block relbar1 %}{% endblock %}
 {%- block relbar2 %}{% endblock %}
 
-{%- block header %}{{ navBar() }}{%- endblock %}
+{%- block header %}
+  {{ navBar() }}
+  {{ hero() }}
+{%- endblock %}
 
 
 {%- block footer %}

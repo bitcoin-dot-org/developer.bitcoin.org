@@ -1,0 +1,122 @@
+.content-container {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+/* Hero */
+.hero {
+  margin-top: 54px;
+  padding: 64px 0 60px;
+  background: #13161F;
+}
+.hero-small-title {
+  font-size: 26px;
+  line-height: 65px;
+  color: #FF7E00;
+}
+.main-title {
+  max-width: 754px;
+  font-size: 50px;
+  line-height: 65px;
+  color: #FFFFFF;
+}
+.hero-list {
+  display: flex;
+  justify-content: space-between;
+  margin: 60px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.hero-item {
+  width: 20%;
+}
+.hero-item + .hero-item {
+  margin-left: 3%;
+}
+.hero-link {
+  position: relative;
+  display: block;
+  padding: 100px 20px 38px;
+  background: #090C14;
+  border-radius: 1px;
+  font-size: 22px;
+  line-height: 42px;
+  text-align: center;
+  color: #FFFFFF;
+}
+.hero-link span {
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  color: #9D9D9D;
+}
+.hero-link:hover {
+  text-decoration: none;
+}
+.hero-link::before {
+  content: '';
+  position: absolute;
+  top: 47px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.hero-item:nth-child(1) .hero-link::before {
+  width: 43px;
+  height: 34px;
+  background: url('../img/notebook.svg') center no-repeat;
+  background-size: contain;
+}
+.hero-item:nth-child(2) .hero-link::before {
+  width: 46px;
+  height: 40px;
+  background: url('../img/search.svg') center no-repeat;
+  background-size: contain;
+}
+.hero-item:nth-child(3) .hero-link::before {
+  width: 36px;
+  height: 42px;
+  background: url('../img/docs.svg') center no-repeat;
+  background-size: contain;
+}
+.hero-item:nth-child(4) .hero-link::before {
+  width: 36px;
+  height: 43px;
+  background: url('../img/dictionary.svg') center no-repeat;
+  background-size: contain;
+}
+
+/* Breadcrumbs */
+.breadcrumbs-section {
+  padding: 18px 0;
+  background: #000;
+}
+.breadcrumb {
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+.breadcrumb-item {
+  font-size: 16px;
+  line-height: 30px;
+}
+.breadcrumb-item a {
+  color: #3490E6;
+  text-decoration: underline;
+}
+.breadcrumb-item.active {
+  color: #fff;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  content: '>';
+  color: #727272;
+}
+.btn-group .btn {
+  background: #F7931A;
+  border-color: #F7931A;
+}
+.btn-group .btn:hover {
+  background: #F7931A;
+  border-color: #F7931A;
+}

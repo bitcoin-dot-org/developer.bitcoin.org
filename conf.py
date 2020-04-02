@@ -97,6 +97,9 @@ html_theme_options = {
 html_js_files = [
     'js/jquery.qrcode.js',
 ]
+html_css_files = [
+    'css/main.css',
+]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
