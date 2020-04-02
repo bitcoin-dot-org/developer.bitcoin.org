@@ -2,31 +2,8 @@
   <div class="content-container">
     <p class="hero-small-title">Welcome</p>
     <h1 class="main-title">Information you need to understand Bitcoin and start building Bitcoin-based applications.</h1>
-    <ul class="hero-list">
-      <li class="hero-item">
-        <a href="#" class="hero-link">
-          Developer Guides
-          <span>Learn more</span>
-        </a>
-      </li>
-      <li class="hero-item">
-        <a href="#" class="hero-link">
-          Reference
-          <span>Learn more</span>
-        </a>
-      </li>
-      <li class="hero-item">
-        <a href="#" class="hero-link">
-          Examples
-          <span>Learn more</span>
-        </a>
-      </li>
-      <li class="hero-item">
-        <a href="#" class="hero-link">
-          Glossary
-          <span>Learn more</span>
-        </a>
-      </li>
-    </ul>
+    <div class="hero-nav">
+      {{ toctree(maxdepth=1, collapse=False, includehidden=False) }}
+    </div>
   </div>
 </div>

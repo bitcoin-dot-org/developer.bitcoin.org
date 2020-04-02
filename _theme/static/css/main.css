@@ -21,23 +21,28 @@
   line-height: 65px;
   color: #FFFFFF;
 }
-.hero-list {
+.hero-nav {
+  margin: 60px 0 0;
+}
+.hero-nav ul.current {
   display: flex;
   justify-content: space-between;
-  margin: 60px 0 0;
+  flex-wrap: wrap;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
-.hero-item {
-  width: 20%;
+.hero-nav .toctree-l1 {
+  width: 22.9%;
 }
-.hero-item + .hero-item {
-  margin-left: 3%;
+.hero-nav .toctree-l1 + .toctree-l1 {
+  margin-left: 2.7%;
 }
-.hero-link {
+.hero-nav .reference {
   position: relative;
   display: block;
-  padding: 100px 20px 38px;
+  height: 100%;
+  padding: 100px 20px 57px;
   background: #090C14;
   border-radius: 1px;
   font-size: 22px;
@@ -45,41 +50,45 @@
   text-align: center;
   color: #FFFFFF;
 }
-.hero-link span {
-  display: block;
+.hero-nav .reference::after {
+  content: 'Learn more';
+  position: absolute;
+  bottom: 38px;
+  left: 50%;
+  transform: translate(-50%, 0%);
   font-size: 16px;
   line-height: 24px;
   color: #9D9D9D;
 }
-.hero-link:hover {
+.hero-nav .reference:hover {
   text-decoration: none;
 }
-.hero-link::before {
+.reference::before {
   content: '';
   position: absolute;
   top: 47px;
   left: 50%;
   transform: translateX(-50%);
 }
-.hero-item:nth-child(1) .hero-link::before {
+.hero-nav .toctree-l1:nth-child(1) .reference::before {
   width: 43px;
   height: 34px;
   background: url('../img/notebook.svg') center no-repeat;
   background-size: contain;
 }
-.hero-item:nth-child(2) .hero-link::before {
+.hero-nav .toctree-l1:nth-child(2) .reference::before {
   width: 46px;
   height: 40px;
   background: url('../img/search.svg') center no-repeat;
   background-size: contain;
 }
-.hero-item:nth-child(3) .hero-link::before {
+.hero-nav .toctree-l1:nth-child(3) .reference::before {
   width: 36px;
   height: 42px;
   background: url('../img/docs.svg') center no-repeat;
   background-size: contain;
 }
-.hero-item:nth-child(4) .hero-link::before {
+.hero-nav .toctree-l1:nth-child(4) .reference::before {
   width: 36px;
   height: 43px;
   background: url('../img/dictionary.svg') center no-repeat;
@@ -119,4 +128,25 @@
 .btn-group .btn:hover {
   background: #F7931A;
   border-color: #F7931A;
+}
+
+@media handheld, only screen and ( max-width: 990px ), only screen and ( max-device-width: 990px ) {
+  .hero-nav .toctree-l1 {
+    width: 48.3%;
+    margin-bottom: 30px;
+  }
+  .hero-nav .toctree-l1 + .toctree-l1 {
+    margin-left: 3.3%;
+  }
+  .hero-nav .toctree-l1:nth-child(odd) {
+    margin-left: 0;
+  }
+}
+@media handheld, only screen and ( max-width: 500px ), only screen and ( max-device-width: 500px ) {
+  .hero-nav .toctree-l1 {
+    width: 100%;
+  }
+  .hero-nav .toctree-l1 + .toctree-l1 {
+    margin-left: 0;
+  }
 }
