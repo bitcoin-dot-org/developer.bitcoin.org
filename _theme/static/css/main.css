@@ -1,5 +1,6 @@
 .content-container {
   max-width: 1170px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 30px;
 }
@@ -143,6 +144,9 @@
   }
 }
 @media handheld, only screen and ( max-width: 500px ), only screen and ( max-device-width: 500px ) {
+  .content-container {
+    padding: 0 15px;
+  }
   .hero-nav .toctree-l1 {
     width: 100%;
   }

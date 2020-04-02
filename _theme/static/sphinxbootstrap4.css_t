@@ -39,6 +39,7 @@ a {
     width: {{ theme_main_width }};
     margin-left: auto;
     margin-right: auto;
+    padding: 64px 0 76px;
 }
 
 #acknowledgments .toctree-wrapper {
@@ -102,8 +103,10 @@ Navbar Class styles
     background: #fff;
     border-bottom: 1px solid #ced4da;
 }
-.navbar.fixed-top {
+nav.navbar.fixed-top {
     z-index: 100;
+    padding-left: 0;
+    padding-right: 0;
 }
 .navbar-row {
     display: flex;
@@ -218,6 +221,11 @@ Sidebar styles
 #searchbox {
     margin: 20px 20px 10px 20px;
 }
+.main a {
+    text-decoration: underline;
+    color: #3490E6;
+    opacity: 0.8;
+}
 
 div.sphinxsidebar {
     margin-left: 0px;
@@ -243,13 +251,35 @@ div.sphinxsidebar > div.sphinxsidebarwrapper h4 {
     padding: 12px 0px 3px 10px;
     border-bottom: 1px solid rgb(236, 238, 239);
 }
-
-div.sphinxsidebar > div.sphinxsidebarwrapper p.topless {
-    padding: 1em 0px .5em 1.5em;
+div.sphinxsidebar > div.sphinxsidebarwrapper h4 {
+    margin: 0 0 11px;
+    padding: 0 0 8px;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 36px;
+    color: #13161F;
 }
 
-div.sphinxsidebarwrapper > div.sidebartoctree ul {
-    padding: .1em 0 0 1em;
+div.sphinxsidebar > div.sphinxsidebarwrapper p.topless {
+    padding: 0 0px .5em 1.5em;
+}
+.sidebartoctree .toctree-l1 > .reference {
+    font-size: 18px;
+    line-height: 24px;
+    color: #13161F;
+    opacity: 0.8;
+    text-decoration: none;
+}
+div.sphinxsidebarwrapper > div.sidebartoctree > ul li.toctree-l1 a.arrow {
+    width: 10px;
+    height: 6px;
+    border: none;
+    margin: 11px 0 0;
+    background: url('./img/angle.svg') center no-repeat;
+    background-size: contain;
+}
+div.sphinxsidebarwrapper > div.sidebartoctree > ul li.toctree-l1 a.arrow.collapsed {
+    transform: rotate(180deg);
 }
 
 div.sphinxsidebar > div.sphinxsidebarwrapper a.reference {
@@ -260,9 +290,18 @@ div.sphinxsidebar > div.sphinxsidebarwrapper a.reference {
 }
 
 div.sphinxsidebar > div.sphinxsidebarwrapper a.reference.current {
-    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FF7E00;
+    text-decoration: none;
     cursor: default;
-    background-color: #0275d8;
+}
+sphinxsidebar > div.sphinxsidebarwrapper .toctree-l2 a.reference {
+    font-size: 18px;
+    line-height: 24px;
+    text-decoration: underline;
+    color: #3490E6;
+    opacity: 0.8;
 }
 
 /* sidebar tree minus icon  */
@@ -287,13 +326,19 @@ div.sphinxsidebarwrapper > div.sidebartoctree > ul a.arrow.collapsed {
     z-index: 10;
     right: .3em;
 }
+.sphinxsidebarwrapper .toctree-l1 > ul {
+    padding: 18px 0 17px 20px;
+    margin: 0;
+}
 
 ul.nav ul{ /* sidebaartreeview no list styles */
     list-style: none!important;
 }
-
+.sidebartoctree > nav {
+    padding-bottom: 18px;
+}
 .nav-pills .nav-item+.nav-item {
-    margin-top: .2rem;
+    margin-top: 6px;
 }
 
 /* sidebar search form styles */
