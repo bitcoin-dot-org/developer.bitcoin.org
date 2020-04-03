@@ -1,3 +1,7 @@
+body {
+  margin-top: 54px;
+}
+
 .content-container {
   max-width: 1170px;
   width: 100%;
@@ -7,7 +11,6 @@
 
 /* Hero */
 .hero {
-  margin-top: 54px;
   padding: 64px 0 60px;
   background: #13161F;
 }

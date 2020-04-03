@@ -42,6 +42,7 @@
 {%- endblock %}
 
 {%- macro sphinxsidebar() %}
+  {% if pagename != 'index' %}
       {%- if render_sidebar %}
       <div class="sphinxsidebar d-none d-md-block">
         <div class="sphinxsidebarwrapper">
@@ -72,6 +73,7 @@
         </div>
       </div>
       {%- endif %}
+      {% endif %}
 {%- endmacro %}
 
 {% macro navBar() %}
@@ -91,7 +93,9 @@
 
 {%- block header %}
   {{ navBar() }}
-  {{ hero() }}
+  {% if pagename == 'index' %}
+    {{ hero() }}
+  {% endif %}
 {%- endblock %}
 
 
