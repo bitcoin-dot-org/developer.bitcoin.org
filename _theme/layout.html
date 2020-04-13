@@ -42,6 +42,7 @@
 {%- endblock %}
 
 {%- macro sphinxsidebar() %}
+  {% if pagename != 'index' %}
       {%- if render_sidebar %}
       <div class="sphinxsidebar d-none d-md-block">
         <div class="sphinxsidebarwrapper">
@@ -72,20 +73,30 @@
         </div>
       </div>
       {%- endif %}
+      {% endif %}
 {%- endmacro %}
 
 {% macro navBar() %}
 {% include "navbar.html" %}
 {% endmacro %}
 
+{% macro hero() %}
+{% include "hero.html" %}
+{% endmacro %}
+
 {% macro breadcrumb() %}
-{% include "breadcrumb.html" %}
+  {% include "breadcrumb.html" %}
 {% endmacro %}
 
 {%- block relbar1 %}{% endblock %}
 {%- block relbar2 %}{% endblock %}
 
-{%- block header %}{{ navBar() }}{%- endblock %}
+{%- block header %}
+  {{ navBar() }}
+  {% if pagename == 'index' %}
+    {{ hero() }}
+  {% endif %}
+{%- endblock %}
 
 
 {%- block footer %}
@@ -95,26 +106,28 @@
 {%- block content %}
   {%- block breadcrumb1 %}{{breadcrumb()}}{% endblock %}
   <div class="main container-fluid">
-    <div class="row">
-      {%- block sidebar1 %} {% if theme_show_sidebar|tobool and not theme_sidebar_right|tobool %}{{ sphinxsidebar() }}{% endif %} {% endblock %}
-
-      <div class="document">
-      {%- block document %}
-      <div class="documentwrapper">
-      {%- if render_sidebar %}
-        <div class="bodywrapper">
-      {%- endif %}
-          <div class="body">
-            {% block body %} {% endblock %}
+    <div class="content-container">
+      <div class="row">
+        {%- block sidebar1 %} {% if theme_show_sidebar|tobool and not theme_sidebar_right|tobool %}{{ sphinxsidebar() }}{% endif %} {% endblock %}
+  
+        <div class="document">
+        {%- block document %}
+        <div class="documentwrapper">
+        {%- if render_sidebar %}
+          <div class="bodywrapper">
+        {%- endif %}
+            <div class="body">
+              {% block body %} {% endblock %}
+            </div>
+        {%- if render_sidebar %}
           </div>
-      {%- if render_sidebar %}
+        {%- endif %}
         </div>
-      {%- endif %}
+    {%- endblock %}
       </div>
-  {%- endblock %}
-    </div>
-    {%- block sidebar2 %}{% if theme_show_sidebar|tobool and theme_sidebar_right|tobool %}{{ sphinxsidebar() }}{% endif %}{% endblock %}
-      <div class="clearer"></div>
+      {%- block sidebar2 %}{% if theme_show_sidebar|tobool and theme_sidebar_right|tobool %}{{ sphinxsidebar() }}{% endif %}{% endblock %}
+        <div class="clearer"></div>
+        </div>
       </div>
     </div>
 {%- endblock %}

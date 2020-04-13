@@ -40,7 +40,6 @@ $(function() {
     $(".document").addClass("col-md-12")
         .children(".documentwrapper").addClass("container");
     {% endif %}
-    $(".related").addClass("col-md-12");
     $(".footer").addClass("col-md-12");
 
     {% if theme_navbar_show_pages %}
