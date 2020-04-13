@@ -1,4 +1,4 @@
-Welcome
+Getting Started
 ========
 
 The site aims to provide the information you need to understand
