@@ -397,11 +397,10 @@ footer.footer {
 }
 .logo-light {
     content: '';
-    width: 112px;
-    height: 25px;
+    width: 270px;
+    height: 33px;
     background: url('./Logo-light.svg') no-repeat;
     background-size: contain;
-    margin-right: 15px;
 }
 .footer-row {
     display: flex;
@@ -947,7 +946,7 @@ blockquote {
         font-size: 12px;
     }
     .logo-light {
-        width: 95px
+        width: 222px
     }
     .footer-logo {
         margin-bottom: 30px;
