@@ -946,7 +946,9 @@ blockquote {
         font-size: 12px;
     }
     .logo-light {
-        width: 270px
+        width: 270px;
+        max-width: 220px;
+        height: 27px;
     }
     .footer-logo {
         margin-bottom: 30px;
