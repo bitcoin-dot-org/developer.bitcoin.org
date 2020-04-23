@@ -218,9 +218,6 @@ Navbar Dropdown styles
 Sidebar styles
 */
 
-#searchbox {
-    margin: 20px 20px 10px 20px;
-}
 .main a {
     text-decoration: underline;
     color: #3490E6;
