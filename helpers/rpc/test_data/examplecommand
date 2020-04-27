@@ -1,0 +1,45 @@
+examplecommand "arg" "object" ( "optional-arg" )
+
+Returns something.
+
+Arguments:
+1. "arg"     (string, required) An argument.
+2. "otherarg"     (string, required) Line one
+                                     line two
+3. "object"  (array, required) Some data
+  [     (array of json objects)
+    {
+      "key": "value", (type) desc
+    }
+  ,...
+  ]
+4. "optional-arg" (string, optional) An optional argument.
+5. options                 (json, optional)
+  {
+     "rescan": <false>, (xx) yy
+  }
+6. "inputs"                (array) A json array
+     [
+       {
+         "txid":"id",    (s) id
+                             [vout_index,...]
+       }
+       ,...
+     ]
+7. "outputs"               (object) a json object
+    {
+      "address": x.xxx,    (ns) a
+      "data": "hex"      (s) data
+      ,...
+    }
+
+Note: Some important
+information
+
+Result:
+"hex"      (string) the result, hex encoded
+
+Examples:
+> bitcoin-cli examplecommand foo
+> curl --user myusername --data-binary someargs
+
