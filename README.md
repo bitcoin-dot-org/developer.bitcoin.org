@@ -10,11 +10,9 @@ request](https://github.com/bitcoin-dot-org/developer.bitcoin.org/compare).
 
 This repo hosts the sources for the Bitcoin developer documentation.
 
-It is an experimental port of the documentation hosted at
-[bitcoin.org](https://bitcoin.org/en/developer-documentation)
-([sources](https://github.com/bitcoin-dot-org/bitcoin.org)), converted from
-Markdown to [reStructuredText (RST)](http://docutils.sourceforge.net/rst.html)
-and rendered with [Sphinx](http://www.sphinx-doc.org).
+It is converted from Markdown to [reStructuredText
+(RST)](http://docutils.sourceforge.net/rst.html) and rendered with
+[Sphinx](http://www.sphinx-doc.org).
 
 ### Render the documentation locally
 
