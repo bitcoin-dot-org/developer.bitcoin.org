@@ -32,11 +32,11 @@ locally to view the rendered documentation.
 ### Generation of RPC docs
 
 The documentation of the RPC commands is automatically generated from the help
-of a bitcoin client with another [helper
-tool](https://github.com/cornelius/rpc-docs-helper). This is the content in the
-[reference/rpc](reference/rpc) directory. Changes in these files need to be done
-through the helper tool or at least backported to the helper tool after doing
-them in this repo.
+of a bitcoin client with a [helper
+tool](https://github.com/bitcoin-dot-org/developer.bitcoin.org/tree/master/helpers/rpc).
+This is the content in the [reference/rpc](reference/rpc) directory. Changes in
+these files need to be done through the helper tool or at least backported to
+the helper tool after doing them in this repo.
 
 ## Code of Conduct
 
