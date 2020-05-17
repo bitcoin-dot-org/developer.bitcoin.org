@@ -8,11 +8,13 @@ request](https://github.com/bitcoin-dot-org/developer.bitcoin.org/compare).
 
 ## How to contribute
 
-This repo hosts the sources for the Bitcoin developer documentation.
+This repo hosts the sources for the Bitcoin developer documentation. One of the
+easiest ways to get started contributing is by rereading the site and looking for
+inconsistencies in terminology, style, etc., and also in any illustrations.
 
-It is converted from Markdown to [reStructuredText
-(RST)](http://docutils.sourceforge.net/rst.html) and rendered with
-[Sphinx](http://www.sphinx-doc.org).
+Much of the content displayed on the is converted from Markdown to
+[reStructuredText (RST)](http://docutils.sourceforge.net/rst.html) and rendered
+with [Sphinx](http://www.sphinx-doc.org).
 
 ### Render the documentation locally
 
@@ -21,7 +23,7 @@ required theme modules, e.g. by running
 
     pip install -r requirements.txt
 
-from the root of this repo. Then you can execute Sphinx by calling
+This should be done from the root of this repo. Then you can execute Sphinx by calling
 
     make html
 
