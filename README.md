@@ -12,6 +12,9 @@ This repo hosts the sources for the Bitcoin developer documentation. One of the
 easiest ways to get started contributing is by rereading the site and looking for
 inconsistencies in terminology, style, etc., and also in any illustrations.
 
+Prior to contributing, please review the [style
+guide](https://github.com/bitcoin-dot-org/developer.bitcoin.org/tree/master/docs/style-guide.md).
+
 Much of the content displayed on the is converted from Markdown to
 [reStructuredText (RST)](http://docutils.sourceforge.net/rst.html) and rendered
 with [Sphinx](http://www.sphinx-doc.org).
