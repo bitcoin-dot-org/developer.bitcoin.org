@@ -19,7 +19,7 @@ import sphinxbootstrap4theme
 # -- Project information -----------------------------------------------------
 
 project = u'Bitcoin'
-copyright = u'Bitcoin Project 2009-2019'
+copyright = u'Bitcoin Project 2009-2020'
 author = u'Bitcoin Developer Documentation'
 
 # The short X.Y version
