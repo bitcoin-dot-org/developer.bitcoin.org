@@ -60,7 +60,7 @@ payment management, public asset tracking, low-trust escrow services,
 micropayment channels and more.
 
 Acknowledgments
----------------
+========
 
 This documentation would not be possible without the many contributions to the
 Bitcoin project over the years from core developers and other people. A very
