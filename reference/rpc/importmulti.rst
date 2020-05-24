@@ -21,14 +21,6 @@ Argument #1 - requests
 **Type:** json array, required
 
 Data to be imported
-       "range": n or [n,n],                                       (numeric or array) If a ranged descriptor is used, this specifies the end or the range (in the form [begin,end]) to import
-       "internal": bool,                                          (boolean, optional, default=false) Stating whether matching outputs should be treated as not incoming payments (also known as change)
-       "watchonly": bool,                                         (boolean, optional, default=false) Stating whether matching outputs should be considered watchonly.
-       "label": "str",                                            (string, optional, default='') Label to assign to the address, only allowed with internal=false
-       "keypool": bool,                                           (boolean, optional, default=false) Stating whether imported public keys should be added to the keypool for when users request new addresses. Only allowed when wallet private keys are disabled
-       },
-       ...
-       ]
 
 ::
 
@@ -52,6 +44,13 @@ Data to be imported
            "key",                                                   (string)
            ...
          ],
+         "range": n or [n,n],                                       (numeric or array) If a ranged descriptor is used, this specifies the end or the range (in the form [begin,end]) to import
+         "internal": bool,                                          (boolean, optional, default=false) Stating whether matching outputs should be treated as not incoming payments (also known as change)
+         "watchonly": bool,                                         (boolean, optional, default=false) Stating whether matching outputs should be considered watchonly.
+         "label": "str",                                            (string, optional, default='') Label to assign to the address, only allowed with internal=false
+         "keypool": bool,                                           (boolean, optional, default=false) Stating whether imported public keys should be added to the keypool for when users request new addresses. Only allowed when wallet private keys are disabled
+       }
+     ]
 
 Argument #2 - options
 ~~~~~~~~~~~~~~~~~~~~~
