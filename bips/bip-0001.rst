@@ -1,7 +1,7 @@
 BIP Purpose and Guidelines
 ==========================
 
-<pre>
+pre::
   BIP: 1
   Title: BIP Purpose and Guidelines
   Author: Amir Taaki <genjix@riseup.net>
@@ -11,9 +11,9 @@ BIP Purpose and Guidelines
   Type: Process
   Created: 2011-08-19
   Superseded-By: 2
-</pre>
 
-==What is a BIP?==
+What is a BIP?
+----------------
 
 BIP stands for Bitcoin Improvement Proposal. A BIP is a design document providing information to the Bitcoin community, or describing a new feature for Bitcoin or its processes or environment. The BIP should provide a concise technical specification of the feature and a rationale for the feature.
 
@@ -21,7 +21,8 @@ We intend BIPs to be the primary mechanisms for proposing new features, for coll
 
 Because the BIPs are maintained as text files in a versioned repository, their revision history is the historical record of the feature proposal.
 
-==BIP Types==
+BIP Types
+---------
 
 There are three kinds of BIP:
 
@@ -29,7 +30,8 @@ There are three kinds of BIP:
 * An Informational BIP describes a Bitcoin design issue, or provides general guidelines or information to the Bitcoin community, but does not propose a new feature. Informational BIPs do not necessarily represent a Bitcoin community consensus or recommendation, so users and implementors are free to ignore Informational BIPs or follow their advice.
 * A Process BIP describes a process surrounding Bitcoin, or proposes a change to (or an event in) a process. Process BIPs are like Standards Track BIPs but apply to areas other than the Bitcoin protocol itself. They may propose an implementation, but not to Bitcoin's codebase; they often require community consensus; unlike Informational BIPs, they are more than recommendations, and users are typically not free to ignore them. Examples include procedures, guidelines, changes to the decision-making process, and changes to the tools or environment used in Bitcoin development. Any meta-BIP is also considered a Process BIP.
 
-==BIP Work Flow==
+BIP Work Flow
+-------------
 
 The BIP process begins with a new idea for Bitcoin. Each potential BIP must have a champion -- someone who writes the BIP using the style and format described below, shepherds the discussions in the appropriate forums, and attempts to build community consensus around the idea. The BIP champion (a.k.a. Author) should first attempt to ascertain whether the idea is BIP-able. Posting to the [https://lists.linuxfoundation.org/mailman/listinfo/bitcoin-dev bitcoin-dev@lists.linuxfoundation.org] mailing list (and maybe the [https://bitcointalk.org/index.php?board=6.0 Development & Technical Discussion] forum) is the best way to go about this.
 
@@ -65,7 +67,8 @@ The possible paths of the status of BIPs are as follows:
 
 Some Informational and Process BIPs may also have a status of "Active" if they are never meant to be completed. E.g. BIP 1 (this BIP).
 
-==What belongs in a successful BIP?==
+What belongs in a successful BIP?
+---------------------------------
 
 Each BIP should have the following parts:
 
