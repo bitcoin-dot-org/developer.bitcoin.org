@@ -1,4 +1,4 @@
-Bitcoin Improvement Proposals (BIPs)
+BIPs
 ================
 
 FIXME - Add description
