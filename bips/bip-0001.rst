@@ -1,3 +1,6 @@
+BIP Purpose and Guidelines
+==========================
+
 <pre>
   BIP: 1
   Title: BIP Purpose and Guidelines

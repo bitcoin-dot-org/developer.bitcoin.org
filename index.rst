@@ -30,4 +30,3 @@ developer documentation that led to this site.
   reference/index
   examples/index
   bips/index
-  glossary
