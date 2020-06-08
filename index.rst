@@ -29,4 +29,5 @@ developer documentation that led to this site.
   devguide/index
   reference/index
   examples/index
+  bips/index
   glossary
