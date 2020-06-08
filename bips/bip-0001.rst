@@ -1,7 +1,7 @@
 BIP Purpose and Guidelines
 ==========================
 
-pre::
+.. code-block::
   BIP: 1
   Title: BIP Purpose and Guidelines
   Author: Amir Taaki <genjix@riseup.net>
