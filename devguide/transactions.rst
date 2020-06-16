@@ -305,7 +305,7 @@ Locktime itself is an unsigned 4-byte integer which can be parsed two ways:
 Transaction Fees And Change
 ---------------------------
 
-Transactions pay fees based on the total byte size of the signed transaction. Fees per byte are calculated based on current demand for space in mined blocks with fees rising as demand increases. The transaction fee is given to the Bitcoin miner, as explained in the `block chain section <../devguide/blockchain.html>`__, and so it is ultimately up to each miner to choose the minimum transaction fee they will accept.
+Transactions pay fees based on the total byte size of the signed transaction. Fees per byte are calculated based on current demand for space in mined blocks with fees rising as demand increases. The transaction fee is given to the Bitcoin miner, as explained in the `block chain section <../devguide/block_chain.html>`__, and so it is ultimately up to each miner to choose the minimum transaction fee they will accept.
 
 There is also a concept of so-called “:term:`high-priority transactions <high-priority transaction>`” which spend satoshis that have not moved for a long time.
 
