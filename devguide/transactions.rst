@@ -315,7 +315,7 @@ As of Bitcoin Core 0.9, a :term:`minimum fee <minimum relay fee>` (currently 1,0
 
 Since each transaction spends Unspent Transaction Outputs (UTXOs) and because a UTXO can only be spent once, the full value of the included UTXOs must be spent or given to a miner as a transaction fee. Few people will have UTXOs that exactly match the amount they want to pay, so most transactions include a change output.
 
-:term:`Change outputs <change address>` are regular outputs which spend the surplus satoshis from the UTXOs back to the spender. They can reuse the same P2PKH pubkey hash or P2SH script hash as was used in the UTXO, but for the reasons described in the `next subsection <../transactions.html#avoiding-key-reuse>`__, it is highly recommended that change outputs be sent to a new P2PKH or P2SH address.
+:term:`Change outputs <change address>` are regular outputs which spend the surplus satoshis from the UTXOs back to the spender. They can reuse the same P2PKH pubkey hash or P2SH script hash as was used in the UTXO, but for the reasons described in the `next subsection <../devguide/transactions.html#avoiding-key-reuse>`__, it is highly recommended that change outputs be sent to a new P2PKH or P2SH address.
 
 Avoiding Key Reuse
 ------------------
