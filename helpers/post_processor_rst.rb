@@ -180,7 +180,7 @@ class PostProcessorRst
     elsif target =~ /\/en\/developer-reference/
       replace_reference_link(text, target)
     elsif target == "#avoiding-key-reuse"
-      "`#{text} <../transactions.html#avoiding-key-reuse>`__"
+      "`#{text} <../devguide/transactions.html#avoiding-key-reuse>`__"
     elsif target =~ /\/en\/release\/(.*)/
       "`#{text} <https://bitcoin.org/en/release/#{$1}>`__"
     elsif target =~ /\/en\/download/
