@@ -9,9 +9,10 @@ gettxoutproof
 Returns a hex-encoded proof that "txid" was included in a block.
 
 NOTE: By default this function only works sometimes. This is when there is an
-unspent output in the utxo for this transaction. To make it always work,
-you need to maintain a transaction index, using the -txindex command line option or
-specify the block in which the transaction is included manually (by blockhash).
+unspent output in the utxo for this transaction and the corresponding block was not 
+pruned. To make it always work, you need to maintain a transaction index, using the 
+-txindex command line option or specify the block in which the transaction is 
+included manually (by blockhash). 
 
 Argument #1 - txids
 ~~~~~~~~~~~~~~~~~~~
