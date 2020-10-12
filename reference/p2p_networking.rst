@@ -598,7 +598,7 @@ Note that almost none of the control messages are authenticated in any way, mean
 Addr
 ^^^^
 
-The ``addr`` (IP address) message relays connection information for peers on the `network <../devguide/p2p_network.html>`__. Each peer which wants to accept incoming connections creates an `“addr” message <../reference/p2p_networking.html#addr>`__ providing its connection information and then sends that message to its peers unsolicited. Some of its peers send that information to their peers (also unsolicited), some of which further distribute it, allowing decentralized peer discovery for any program already on the `network <../devguide/p2p_network.html>`__.
+The ``addr`` (IP address) message relays connection information for peers on the `network <../devguide/p2p_network.html>`__. Each peer which wants to accept incoming connections creates an `“addr” <../reference/p2p_networking.html#addr>`__ or `“addrv2” <../reference/p2p_networking.html#addrv2>`__ message providing its connection information and then sends that message to its peers unsolicited. Some of its peers send that information to their peers (also unsolicited), some of which further distribute it, allowing decentralized peer discovery for any program already on the `network <../devguide/p2p_network.html>`__.
 
 An `“addr” message <../reference/p2p_networking.html#addr>`__ may also be sent in response to a `“getaddr” message <../reference/p2p_networking.html#getaddr>`__.
 
@@ -635,6 +635,54 @@ The following annotated hexdump shows part of an `“addr” message <../referen
    d91f4854 ........................... [Epoch time][unix epoch time]: 1414012889
    0100000000000000 ................... Service bits: 01 ([network][network] node)
    00000000000000000000ffffc0000233 ... IP Address: ::ffff:192.0.2.51
+   208d ............................... Port: 8333
+
+   [...] .............................. (999 more addresses omitted)
+
+Addrv2
+^^^^^^
+
+The ``addrv2`` (address version two) message relays connection information for peers on the `network <../devguide/p2p_network.html>`__ in a similar way to the `“addr“ message <../reference/p2p_networking.html#addr>`__ except that it uses a different encoding which supports addresses longer than 16 bytes.
+
++----------+------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+
+| Bytes    | Name             | Data Type                                             | Description                                                                                                                |
++==========+==================+=======================================================+============================================================================================================================+
+| *Varies* | address count    | compactSize uint                                      | The number of address entries up to a maximum of 1,000.                                                                    |
++----------+------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+
+| *Varies* | addresses        | `network <../devguide/p2p_network.html>`__ address    | Address entries. See the table below for the format of a Bitcoin `network <../devguide/p2p_network.html>`__ addrv2 address.|
++----------+------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+
+
+Each encapsulated address uses the following structure (``addrv2`` encoding):
+
++----------+----------------+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+| Bytes    | Name           | Data Type        | Description                                                                                                                                       |
++==========+================+==================+===================================================================================================================================================+
+| 4        | time           | uint32           | Same as in the `“addr” message <../reference/p2p_networking.html#addr>`__.                                                                        |
++----------+----------------+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+| *Varies* | services       | compactSize uint | Same as in the `“addr” message <../reference/p2p_networking.html#addr>`__, but encoded as compactSize.                                            |
++----------+----------------+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+| 1        | network id     | uint8_t          | The id of the network to which the address belongs to, as defined in `BIP155 <https://github.com/bitcoin/bips/blob/master/bip-0155.mediawiki>`__. |
++----------+----------------+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+| *Varies* | address length | compactSize uint | The size of the address in the following field (in bytes).                                                                                        |
++----------+----------------+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+| *Varies* | address        | byte[]           | The network address. The interpretation depends on the network id.                                                                                |
++----------+----------------+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2        | port           | uint16_t         | Same as in the `“addr” message <../reference/p2p_networking.html#addr>`__.                                                                        |
++----------+----------------+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------+
+
+The following annotated hexdump shows part of an `“addrv2” message <../reference/p2p_networking.html#addrv2>`__ (the message header has been omitted).
+
+.. highlight:: text
+
+::
+
+   fde803 ............................. Address count: 1000
+
+   d91f4854 ........................... [Epoch time][unix epoch time]: 1414012889
+   fd4804 ............................. Service bits: compactSize(NODE_WITNESS | NODE_COMPACT_FILTERS | NODE_NETWORK_LIMITED)
+   01 ................................. BIP155 network id: IPv4
+   04 ................................. Address length: compactSize(4)
+   c0000233 ........................... Address: 192.0.2.51
    208d ............................... Port: 8333
 
    [...] .............................. (999 more addresses omitted)
@@ -879,7 +927,7 @@ In addition, because the filter size stays the same even though additional eleme
 GetAddr
 ^^^^^^^
 
-The `“getaddr” message <../reference/p2p_networking.html#getaddr>`__ requests an `“addr” message <../reference/p2p_networking.html#addr>`__ from the receiving node, preferably one with lots of IP addresses of other receiving nodes. The transmitting node can use those IP addresses to quickly update its database of available nodes rather than waiting for unsolicited `“addr” messages <../reference/p2p_networking.html#addr>`__ to arrive over time.
+The `“getaddr” message <../reference/p2p_networking.html#getaddr>`__ requests an `“addr” <../reference/p2p_networking.html#addr>`__ or `“addrv2” <../reference/p2p_networking.html#addrv2>`__ message from the receiving node, preferably one with lots of addresses of other receiving nodes. The transmitting node can use those addresses to quickly update its database of available nodes rather than waiting for unsolicited `“addr” <../reference/p2p_networking.html#addr>`__ or `“addrv2” <../reference/p2p_networking.html#addrv2>`__ messages to arrive over time.
 
 There is no payload in a `“getaddr” message <../reference/p2p_networking.html#getaddr>`__. See the `message header section <../reference/p2p_networking.html#message-headers>`__ for an example of a message without a payload.
 
@@ -989,6 +1037,13 @@ SendHeaders
 The `“sendheaders” message <../reference/p2p_networking.html#sendheaders>`__ tells the receiving peer to send new block announcements using a `“headers” message <../reference/p2p_networking.html#headers>`__ rather than an `“inv” message <../reference/p2p_networking.html#inv>`__.
 
 There is no payload in a `“sendheaders” message <../reference/p2p_networking.html#sendheaders>`__. See the `message header section <../reference/p2p_networking.html#message-headers>`__ for an example of a message without a payload.
+
+SendAddrv2
+^^^^^^^^^^^
+
+The `“sendaddrv2” message <../reference/p2p_networking.html#sendaddrv2>`__ tells the receiving peer that the sender can understand `“addrv2” messages <../reference/p2p_networking.html#addrv2>`__ and prefers to receive them instead of `“addr” messages <../reference/p2p_networking.html#addr>`__.
+
+There is no payload in a `“sendaddrv2” message <../reference/p2p_networking.html#sendaddrv2>`__. See the `message header section <../reference/p2p_networking.html#message-headers>`__ for an example of a message without a payload.
 
 VerAck
 ^^^^^^
