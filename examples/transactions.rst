@@ -61,25 +61,21 @@ Use the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ to display
 
       [
           {
-              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d\
-                        80200f05753de0edf0",
+              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
               "vout" : 0,
               "address" : "muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt",
-              "scriptPubKey" : "76a9149ba386253ea698158b6d34802bb9b550\
-                                f5ce36dd88ac",
+              "scriptPubKey" : "76a9149ba386253ea698158b6d34802bb9b550f5ce36dd88ac",
               "amount" : 40.00000000,
               "confirmations" : 0,
               "spendable" : true,
               "solvable" : true
           },
           {
-              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d\
-                        80200f05753de0edf0",
+              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
               "vout" : 1,
               "address" : "mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou",
               "account" : "",
-              "scriptPubKey" : "76a914a57414e5ffae9ef5074bacbe10a320bb\
-                                2614e1f388ac",
+              "scriptPubKey" : "76a914a57414e5ffae9ef5074bacbe10a320bb2614e1f388ac",
               "amount" : 10.00000000,
               "confirmations" : 0,
               "spendable" : true,
@@ -120,37 +116,31 @@ This subsection covers one of the simplest possible raw transactions.
 
       [
           {
-              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d\
-                        80200f05753de0edf0",
+              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
               "vout" : 0,
               "address" : "muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt",
-              "scriptPubKey" : "76a9149ba386253ea698158b6d34802bb9b550\
-                                f5ce36dd88ac",
+              "scriptPubKey" : "76a9149ba386253ea698158b6d34802bb9b550f5ce36dd88ac",
               "amount" : 40.00000000,
               "confirmations" : 1,
               "spendable" : true,
               "solvable" : true
           },
           {
-              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d\
-                        80200f05753de0edf0",
+              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
               "vout" : 1,
               "address" : "mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou",
               "account" : "",
-              "scriptPubKey" : "76a914a57414e5ffae9ef5074bacbe10a320bb\
-                                2614e1f388ac",
+              "scriptPubKey" : "76a914a57414e5ffae9ef5074bacbe10a320bb2614e1f388ac",
               "amount" : 10.00000000,
               "confirmations" : 1,
               "spendable" : true,
               "solvable" : true
           },
           {
-              "txid" : "3f4fa19803dec4d6a84fae3821da7ac7577080ef754512\
-                        94e71f9b20e0ab1e7b",
+              "txid" : "3f4fa19803dec4d6a84fae3821da7ac7577080ef75451294e71f9b20e0ab1e7b",
               "vout" : 0,
               "address" : "mwJTL1dZG8BAP6X7Be3CNNcuVKi7Qqt7Gk",
-              "scriptPubKey" : "210260a275cccf0f4b106220725be516adba27\
-                                52db1bec8c5b7174c89c4c07891f88ac",
+              "scriptPubKey" : "210260a275cccf0f4b106220725be516adba2752db1bec8c5b7174c89c4c07891f88ac",
               "amount" : 50.00000000,
               "confirmations" : 101,
               "spendable" : true,
@@ -217,17 +207,15 @@ Using two arguments to the `“createrawtransaction” RPC <../reference/rpc/cre
    ::
 
       {
-          "txid" : "c80b343d2ce2b5d829c2de9854c7c8d423c0e33bda264c4013\
-                    8d834aab4c0638",
+          "txid" : "c80b343d2ce2b5d829c2de9854c7c8d423c0e33bda264c40138d834aab4c0638",
           "hash" : "c80b343d2ce2b5d829c2de9854c7c8d423c0e33bda264c40138d834aab4c0638",
           "size" : 85,
-          "vsize" : 85,       
+          "vsize" : 85,
           "version" : 1,
           "locktime" : 0,
           "vin" : [
               {
-                  "txid" : "3f4fa19803dec4d6a84fae3821da7ac7577080ef75\
-                            451294e71f9b20e0ab1e7b",
+                  "txid" : "3f4fa19803dec4d6a84fae3821da7ac7577080ef75451294e71f9b20e0ab1e7b",
                   "vout" : 0,
                   "scriptSig" : {
                       "asm" : "",
@@ -241,10 +229,8 @@ Using two arguments to the `“createrawtransaction” RPC <../reference/rpc/cre
                   "value" : 49.99990000,
                   "n" : 0,
                   "scriptPubKey" : {
-                      "asm" : "OP_DUP OP_HASH160 cbc20a7664f2f69e5355a\
-                               a427045bc15e7c6c772 OP_EQUALVERIFY OP_CHECKSIG",
-                      "hex" : "76a914cbc20a7664f2f69e5355aa427045bc15e\
-                               7c6c77288ac",
+                      "asm" : "OP_DUP OP_HASH160 cbc20a7664f2f69e5355aa427045bc15e7c6c772 OP_EQUALVERIFY OP_CHECKSIG",
+                      "hex" : "76a914cbc20a7664f2f69e5355aa427045bc15e7c6c77288ac",
                       "reqSigs" : 1,
                       "type" : "pubkeyhash",
                       "addresses" : [
@@ -270,13 +256,7 @@ Use the `“decoderawtransaction” RPC <../reference/rpc/decoderawtransaction.h
    ::
 
       {
-          "hex" : "01000000017b1eabe0209b1fe794124575ef807057c77ada213\
-                   8ae4fa8d6c4de0398a14f3f00000000494830450221008949f0\
-                   cb400094ad2b5eb399d59d01c14d73d8fe6e96df1a7150deb38\
-                   8ab8935022079656090d7f6bac4c9a94e0aad311a4268e082a7\
-                   25f8aeae0573fb12ff866a5f01ffffffff01f0ca052a0100000\
-                   01976a914cbc20a7664f2f69e5355aa427045bc15e7c6c77288\
-                   ac00000000",
+          "hex" : "01000000017b1eabe0209b1fe794124575ef807057c77ada[...]",
           "complete" : true
       }
 
@@ -328,50 +308,42 @@ In this example, we’ll create a transaction with two inputs and two outputs. W
 
       [
           {
-              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d\
-                        80200f05753de0edf0",
+              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
               "vout" : 0,
               "address" : "muhtvdmsnbQEPFuEmxcChX58fGvXaaUoVt",
-              "scriptPubKey" : "76a9149ba386253ea698158b6d34802bb9b550\
-                                f5ce36dd88ac",
+              "scriptPubKey" : "76a9149ba386253ea698158b6d34802bb9b550f5ce36dd88ac",
               "amount" : 40.00000000,
               "confirmations" : 2,
               "spendable" : true,
               "solvable" : true
           },
           {
-              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d\
-                        80200f05753de0edf0",
+              "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
               "vout" : 1,
               "address" : "mvbnrCX3bg1cDRUu8pkecrvP6vQkSLDSou",
               "account" : "",
-              "scriptPubKey" : "76a914a57414e5ffae9ef5074bacbe10a320bb\
-                                2614e1f388ac",
+              "scriptPubKey" : "76a914a57414e5ffae9ef5074bacbe10a320bb2614e1f388ac",
               "amount" : 10.00000000,
               "confirmations" : 2,
               "spendable" : true,
               "solvable" : true
           },
           {
-              "txid" : "78203a8f6b529693759e1917a1b9f05670d036fbb12911\
-                        0ed26be6a36de827f3",
+              "txid" : "78203a8f6b529693759e1917a1b9f05670d036fbb129110ed26be6a36de827f3",
               "vout" : 0,
               "address" : "n2KprMQm4z2vmZnPMENfbp2P1LLdAEFRjS",
-              "scriptPubKey" : "210229688a74abd0d5ad3b06ddff36fa9cd8ed\
-                                d181d97b9489a6adc40431fb56e1d8ac",
+              "scriptPubKey" : "210229688a74abd0d5ad3b06ddff36fa9cd8edd181d97b9489a6adc40431fb56e1d8ac",
               "amount" : 50.00000000,
               "confirmations" : 101,
               "spendable" : true,
               "solvable" : true
           },
           {
-              "txid" : "c7736a0a0046d5a8cc61c8c3c2821d4d7517f5de2bc66a\
-                        966011aaa79965ffba",
+              "txid" : "c7736a0a0046d5a8cc61c8c3c2821d4d7517f5de2bc66a966011aaa79965ffba",
               "vout" : 0,
               "address" : "mz6KvC4aoUeo6wSxtiVQTo7FDwPnkp6URG",
               "account" : "",
-              "scriptPubKey" : "76a914cbc20a7664f2f69e5355aa427045bc15\
-                                e7c6c77288ac",
+              "scriptPubKey" : "76a914cbc20a7664f2f69e5355aa427045bc15e7c6c77288ac",
               "amount" : 49.99990000,
               "confirmations" : 1,
               "spendable" : true,
@@ -472,16 +444,7 @@ Create the raw transaction using `“createrawtransaction” <../reference/rpc/c
    ::
 
       {
-          "hex" : "0100000002f327e86da3e66bd20e1129b1fb36d07056f0b9a11\
-                   7199e759396526b8f3a20780000000049483045022100fce442\
-                   ec52aa2792efc27fd3ad0eaf7fa69f097fdcefab017ea56d179\
-                   9b10b2102207a6ae3eb61e11ffaba0453f173d1792f1b7bb8e7\
-                   422ea945101d68535c4b474801fffffffff0ede03d75050f208\
-                   01d50358829ae02c058e8677d2cc74df51f738285013c260000\
-                   000000ffffffff02f028d6dc010000001976a914ffb035781c3\
-                   c69e076d48b60c3d38592e7ce06a788ac00ca9a3b0000000019\
-                   76a914fa5139067622fd7e1e722a05c17c2bb7d5fd6df088ac0\
-                   0000000",
+          "hex" : "0100000002f327e86da3e66bd20e1129b1fb36d07[...]",
           "complete" : false
           "errors": [
           {
@@ -526,20 +489,7 @@ The result is a raw transaction with only one input signed; the fact that the tr
    ::
 
       {
-          "hex" : "0100000002f327e86da3e66bd20e1129b1fb36d07056f0b9a11\
-                   7199e759396526b8f3a20780000000049483045022100fce442\
-                   ec52aa2792efc27fd3ad0eaf7fa69f097fdcefab017ea56d179\
-                   9b10b2102207a6ae3eb61e11ffaba0453f173d1792f1b7bb8e7\
-                   422ea945101d68535c4b474801fffffffff0ede03d75050f208\
-                   01d50358829ae02c058e8677d2cc74df51f738285013c260000\
-                   00006b483045022100b77f935ff366a6f3c2fdeb83589c79026\
-                   5d43b3d2cf5e5f0047da56c36de75f40220707ceda75d8dcf2c\
-                   caebc506f7293c3dcb910554560763d7659fb202f8ec324b012\
-                   102240d7d3c7aad57b68aa0178f4c56f997d1bfab2ded3c2f94\
-                   27686017c603a6d6ffffffff02f028d6dc010000001976a914f\
-                   fb035781c3c69e076d48b60c3d38592e7ce06a788ac00ca9a3b\
-                   000000001976a914fa5139067622fd7e1e722a05c17c2bb7d5f\
-                   d6df088ac00000000",
+          "hex" : "0100000002f327e86da3e66bd20e1129b1fb36d07[...]",
           "complete" : true
       }
 
@@ -566,18 +516,7 @@ Offline signing is safe. However, in this example we will also be spending an ou
 
 ::
 
-   > OLD_SIGNED_RAW_TX=0100000002f327e86da3e66bd20e1129b1fb36d07056\
-         f0b9a117199e759396526b8f3a20780000000049483045022100fce442\
-         ec52aa2792efc27fd3ad0eaf7fa69f097fdcefab017ea56d1799b10b21\
-         02207a6ae3eb61e11ffaba0453f173d1792f1b7bb8e7422ea945101d68\
-         535c4b474801fffffffff0ede03d75050f20801d50358829ae02c058e8\
-         677d2cc74df51f738285013c26000000006b483045022100b77f935ff3\
-         66a6f3c2fdeb83589c790265d43b3d2cf5e5f0047da56c36de75f40220\
-         707ceda75d8dcf2ccaebc506f7293c3dcb910554560763d7659fb202f8\
-         ec324b012102240d7d3c7aad57b68aa0178f4c56f997d1bfab2ded3c2f\
-         9427686017c603a6d6ffffffff02f028d6dc010000001976a914ffb035\
-         781c3c69e076d48b60c3d38592e7ce06a788ac00ca9a3b000000001976\
-         a914fa5139067622fd7e1e722a05c17c2bb7d5fd6df088ac00000000
+   > OLD_SIGNED_RAW_TX=0100000002f327e86da3e66bd20e1129b1fb36d07[...]
 
 Put the previously signed (but not sent) transaction into a shell variable.
 
@@ -594,8 +533,7 @@ Put the previously signed (but not sent) transaction into a shell variable.
    ::
 
       {
-          "txid" : "682cad881df69cb9df8f0c996ce96ecad758357ded2da03bad\
-                    40cf18ffbb8e09",
+          "txid" : "682cad881df69cb9df8f0c996ce96ecad758357ded2da03bad40cf18ffbb8e09",
           "hash" : "682cad881df69cb9df8f0c996ce96ecad758357ded2da03bad40cf18ffbb8e09",
           "size" : 340,
           "vsize" : 340,
@@ -603,38 +541,20 @@ Put the previously signed (but not sent) transaction into a shell variable.
           "locktime" : 0,
           "vin" : [
               {
-                  "txid" : "78203a8f6b529693759e1917a1b9f05670d036fbb1\
-                            29110ed26be6a36de827f3",
+                  "txid" : "78203a8f6b529693759e1917a1b9f05670d036fbb129110ed26be6a36de827f3",
                   "vout" : 0,
                   "scriptSig" : {
-                      "asm" : "3045022100fce442ec52aa2792efc27fd3ad0ea\
-                               f7fa69f097fdcefab017ea56d1799b10b210220\
-                               7a6ae3eb61e11ffaba0453f173d1792f1b7bb8e\
-                               7422ea945101d68535c4b474801",
-                      "hex" : "483045022100FCE442ec52aa2792efc27fd3ad0\
-                               eaf7fa69f097fdcefab017ea56d1799b10b2102\
-                               207a6ae3eb61e11ffaba0453f173d1792f1b7bb\
-                               8e7422ea945101d68535c4b474801"
+                      "asm" : "3045022100fce442ec52aa2792efc27fd3ad0eaf7fa69f097fdcefab017ea56d1799b10b2102207a6ae3eb61e11ffaba0453f173d1792f1b7bb8e7422ea945101d68535c4b474801",
+                      "hex" : "483045022100FCE442ec52aa2792efc27fd3ad0eaf7fa69f097fdcefab017ea56d1799b10b2102207a6ae3eb61e11ffaba0453f173d1792f1b7bb8e7422ea945101d68535c4b474801"
                   },
                   "sequence" : 4294967295
               },
               {
-                  "txid" : "263c018582731ff54dc72c7d67e858c002ae298835\
-                            501d80200f05753de0edf0",
+                  "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
                   "vout" : 0,
                   "scriptSig" : {
-                      "asm" : "3045022100b77f935ff366a6f3c2fdeb83589c7\
-                               90265d43b3d2cf5e5f0047da56c36de75f40220\
-                               707ceda75d8dcf2ccaebc506f7293c3dcb91055\
-                               4560763d7659fb202f8ec324b01
-                               02240d7d3c7aad57b68aa0178f4c56f997d1bfa\
-                               b2ded3c2f9427686017c603a6d6",
-                      "hex" : "483045022100b77f935ff366a6f3c2fdeb83589\
-                               c790265d43b3d2cf5e5f0047da56c36de75f402\
-                               20707ceda75d8dcf2ccaebc506f7293c3dcb910\
-                               554560763d7659fb202f8ec324b012102240d7d\
-                               3c7aad57b68aa0178f4c56f997d1bfab2ded3c2\
-                               f9427686017c603a6d6"
+                      "asm" : "3045022100b77f935ff366a6f3c2fdeb83589c790265d43b3d2cf5e5f0047da56c36de75f40220707ceda75d8dcf2ccaebc506f7293c3dcb910554560763d7659fb202f8ec324b0102240d7d3c7aad57b68aa0178f4c56f997d1bfab2ded3c2f9427686017c603a6d6",
+                      "hex" : "483045022100b77f935ff366a6f3c2fdeb83589c790265d43b3d2cf5e5f0047da56c36de75f40220707ceda75d8dcf2ccaebc506f7293c3dcb910554560763d7659fb202f8ec324b012102240d7d3c7aad57b68aa0178f4c56f997d1bfab2ded3c2f9427686017c603a6d6"
                   },
                   "sequence" : 4294967295
               }
@@ -644,10 +564,8 @@ Put the previously signed (but not sent) transaction into a shell variable.
                   "value" : 79.99990000,
                   "n" : 0,
                   "scriptPubKey" : {
-                      "asm" : "OP_DUP OP_HASH160 ffb035781c3c69e076d48\
-                               b60c3d38592e7ce06a7 OP_EQUALVERIFY OP_CHECKSIG",
-                      "hex" : "76a914ffb035781c3c69e076d48b60c3d38592e\
-                               7ce06a788ac",
+                      "asm" : "OP_DUP OP_HASH160 ffb035781c3c69e076d48b60c3d38592e7ce06a7 OP_EQUALVERIFY OP_CHECKSIG",
+                      "hex" : "76a914ffb035781c3c69e076d48b60c3d38592e7ce06a788ac",
                       "reqSigs" : 1,
                       "type" : "pubkeyhash",
                       "addresses" : [
@@ -659,10 +577,8 @@ Put the previously signed (but not sent) transaction into a shell variable.
                   "value" : 10.00000000,
                   "n" : 1,
                   "scriptPubKey" : {
-                      "asm" : "OP_DUP OP_HASH160 fa5139067622fd7e1e722\
-                               a05c17c2bb7d5fd6df0 OP_EQUALVERIFY OP_CHECKSIG",
-                      "hex" : "76a914fa5139067622fd7e1e722a05c17c2bb7d\
-                               5fd6df088ac",
+                      "asm" : "OP_DUP OP_HASH160 fa5139067622fd7e1e722a05c17c2bb7d5fd6df0 OP_EQUALVERIFY OP_CHECKSIG",
+                      "hex" : "76a914fa5139067622fd7e1e722a05c17c2bb7d5fd6df088ac",
                       "reqSigs" : 1,
                       "type" : "pubkeyhash",
                       "addresses" : [
@@ -732,10 +648,7 @@ Create the raw transaction the same way we’ve done in the previous subsections
    ::
 
           {
-              "hex" : "0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee\
-                       96c990c8fdfb99cf61d88ad2c680100000000ffffffff01\
-                       f0a29a3b000000001976a914012e2ba6a051c033b03d712\
-                       ca2ea00a35eac1e7988ac00000000",
+              "hex" : "0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee96c990c8[...]",
               "complete" : false
           }
 
@@ -773,14 +686,7 @@ In this case, you’re spending an output which is unknown to the wallet, so it 
    ::
 
       {
-          "hex" : "0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee96c9\
-                   90c8fdfb99cf61d88ad2c68010000006b483045022100c3f92f\
-                   b74bfa687d76ebe75a654510bb291b8aab6f89ded4fe26777c2\
-                   eb233ad02207f779ce2a181cc4055cb0362aba7fd7a6f72d5db\
-                   b9bd863f4faaf47d8d6c4b500121028e4e62d25760709806131\
-                   b014e2572f7590e70be01f0ef16bfbd51ea5f389d4dffffffff\
-                   01f0a29a3b000000001976a914012e2ba6a051c033b03d712ca\
-                   2ea00a35eac1e7988ac00000000",
+          "hex" : "0100000001098ebbff18cf40ad3ba02ded7d3558d7ca6ee96c990c8[...]",
           "complete" : true
       }
 
@@ -893,8 +799,7 @@ Recall from the Guide that the hashed public keys used in addresses obfuscate th
           "ismine" : true,
           "iswatchonly" : false,
           "isscript" : false,
-          "pubkey" : "029e03a901b85534ff1e92c43c74431f7ce72046060fcf7a\
-                      95c37e148f78c77255",
+          "pubkey" : "029e03a901b85534ff1e92c43c74431f7ce72046060fcf7a95c37e148f78c77255",
           "iscompressed" : true,
           "account" : ""
       }
@@ -928,10 +833,7 @@ We save the address returned to a shell variable.
 
       {
           "address" : "2N7NaqSKYQUeM8VNgBy8D9xQQbiA8yiJayk",
-          "redeemScript" : "522103310188e911026cf18c3ce274e0ebb5f95b00\
-          7f230d8cb7d09879d96dbeab1aff210243930746e6ed6552e03359db521b\
-          088134652905bd2d1541fa9124303a41e95621029e03a901b85534ff1e92\
-          c43c74431f7ce72046060fcf7a95c37e148f78c7725553ae"
+          "redeemScript" : "522103310188e911026cf18c3ce274e0ebb5f95b007f230d8cb7d09879d96dbeab1aff210243930746e6ed6552e03359db521b088134652905bd2d1541fa9124303a41e95621029e03a901b85534ff1e92c43c74431f7ce72046060fcf7a95c37e148f78c7725553ae"
       }
 
    .. highlight:: bash
@@ -975,16 +877,8 @@ We save that txid to a shell variable as the txid of the UTXO we plan to spend n
    ::
 
       {
-          "hex" : "0100000001f0ede03d75050f20801d50358829ae02c058e8677\
-                   d2cc74df51f738285013c26010000006a47304402203c375959\
-                   2bf608ab79c01596c4a417f3110dd6eb776270337e575cdafc6\
-                   99af20220317ef140d596cc255a4067df8125db7f349ad94521\
-                   2e9264a87fa8d777151937012102a92913b70f9fb15a7ea5c42\
-                   df44637f0de26e2dad97d6d54957690b94cf2cd05ffffffff01\
-                   00ca9a3b0000000017a9149af61346ce0aa2dffcf697352b4b7\
-                   04c84dcbaff8700000000",
-          "txid" : "7278d7d030f042ebe633732b512bcb31fff14a697675a1fe18\
-                    84db139876e175",
+          "hex" : "0100000001f0ede03d75050f20801d50358829ae02c058e8677d2cc74df51f738285013c26010000006a47304402203c3759592bf608ab79c01596c4a417f3110dd6eb776270337e575cdafc699af20220317ef140d596cc255a4067df8125db7f349ad945212e9264a87fa8d777151937012102a92913b70f9fb15a7ea5c42df44637f0de26e2dad97d6d54957690b94cf2cd05ffffffff0100ca9a3b0000000017a9149af61346ce0aa2dffcf697352b4b704c84dcbaff8700000000",
+          "txid" : "7278d7d030f042ebe633732b512bcb31fff14a697675a1fe1884db139876e175",
           "hash" : "7278d7d030f042ebe633732b512bcb31fff14a697675a1fe1884db139876e175",
           "size" : 189,
           "vsize" : 189,
@@ -992,22 +886,11 @@ We save that txid to a shell variable as the txid of the UTXO we plan to spend n
           "locktime" : 0,
           "vin" : [
               {
-                  "txid" : "263c018582731ff54dc72c7d67e858c002ae298835\
-                            501d80200f05753de0edf0",
+                  "txid" : "263c018582731ff54dc72c7d67e858c002ae298835501d80200f05753de0edf0",
                   "vout" : 1,
                   "scriptSig" : {
-                      "asm" : "304402203c3759592bf608ab79c01596c4a417f\
-                               3110dd6eb776270337e575cdafc699af2022031\
-                               7ef140d596cc255a4067df8125db7f349ad9452\
-                               12e9264a87fa8d77715193701
-                               02a92913b70f9fb15a7ea5c42df44637f0de26e\
-                               2dad97d6d54957690b94cf2cd05",
-                      "hex" : "47304402203c3759592bf608ab79c01596c4a41\
-                               7f3110dd6eb776270337e575cdafc699af20220\
-                               317ef140d596cc255a4067df8125db7f349ad94\
-                               5212e9264a87fa8d777151937012102a92913b7\
-                               0f9fb15a7ea5c42df44637f0de26e2dad97d6d5\
-                               4957690b94cf2cd05"
+                      "asm" : "304402203c3759592bf608ab79c01596c4a417f3110dd6eb776270337e575cdafc699af20220317ef140d596cc255a4067df8125db7f349ad945212e9264a87fa8d7771519370102a92913b70f9fb15a7ea5c42df44637f0de26e2dad97d6d54957690b94cf2cd05",
+                      "hex" : "47304402203c3759592bf608ab79c01596c4a417f3110dd6eb776270337e575cdafc699af20220317ef140d596cc255a4067df8125db7f349ad945212e9264a87fa8d777151937012102a92913b70f9fb15a7ea5c42df44637f0de26e2dad97d6d54957690b94cf2cd05"
                   },
                   "sequence" : 4294967295
               }
@@ -1017,10 +900,8 @@ We save that txid to a shell variable as the txid of the UTXO we plan to spend n
                   "value" : 10.00000000,
                   "n" : 0,
                   "scriptPubKey" : {
-                      "asm" : "OP_HASH160 9af61346ce0aa2dffcf697352b4b\
-                      704c84dcbaff OP_EQUAL",
-                      "hex" : "a9149af61346ce0aa2dffcf697352b4b704c84d\
-                               cbaff87",
+                      "asm" : "OP_HASH160 9af61346ce0aa2dffcf697352b4b704c84dcbaff OP_EQUAL",
+                      "hex" : "a9149af61346ce0aa2dffcf697352b4b704c84dcbaff87",
                       "reqSigs" : 1,
                       "type" : "scripthash",
                       "addresses" : [
@@ -1117,17 +998,7 @@ We get the private keys for two of the public keys we used to create the transac
    ::
 
       {
-          "hex" : "010000000175e1769813db8418fea17576694af1ff31cb2b512\
-                   b7333e6eb42f030d0d7787200000000b5004830450221008d5e\
-                   c57d362ff6ef6602e4e756ef1bdeee12bd5c5c72697ef1455b3\
-                   79c90531002202ef3ea04dfbeda043395e5bc701e4878c15baa\
-                   b9c6ba5808eb3d04c91f641a0c014c69522103310188e911026\
-                   cf18c3ce274e0ebb5f95b007f230d8cb7d09879d96dbeab1aff\
-                   210243930746e6ed6552e03359db521b088134652905bd2d154\
-                   1fa9124303a41e95621029e03a901b85534ff1e92c43c74431f\
-                   7ce72046060fcf7a95c37e148f78c7725553aeffffffff01c0b\
-                   c973b000000001976a914b6f64f5bf3e38f25ead28817df7929\
-                   c06fe847ee88ac00000000",
+          "hex" : "010000000175e1769813db8418fea17576694af1ff31cb2b512b733[...]",
           "complete" : false
       }
 
@@ -1164,20 +1035,7 @@ We make the first signature. The input argument (JSON object) takes the addition
    ::
 
       {
-          "hex" : "010000000175e1769813db8418fea17576694af1ff31cb2b512\
-                   b7333e6eb42f030d0d7787200000000fdfd0000483045022100\
-                   8d5ec57d362ff6ef6602e4e756ef1bdeee12bd5c5c72697ef14\
-                   55b379c90531002202ef3ea04dfbeda043395e5bc701e4878c1\
-                   5baab9c6ba5808eb3d04c91f641a0c0147304402200bd8c62b9\
-                   38e02094021e481b149fd5e366a212cb823187149799a68cfa7\
-                   652002203b52120c5cf25ceab5f0a6b5cdb8eca0fd2f386316c\
-                   9721177b75ddca82a4ae8014c69522103310188e911026cf18c\
-                   3ce274e0ebb5f95b007f230d8cb7d09879d96dbeab1aff21024\
-                   3930746e6ed6552e03359db521b088134652905bd2d1541fa91\
-                   24303a41e95621029e03a901b85534ff1e92c43c74431f7ce72\
-                   046060fcf7a95c37e148f78c7725553aeffffffff01c0bc973b\
-                   000000001976a914b6f64f5bf3e38f25ead28817df7929c06fe\
-                   847ee88ac00000000",
+          "hex" : "010000000175e1769813db8418fea17576694af1ff31cb2b512b733[...]",
           "complete" : true
       }
 

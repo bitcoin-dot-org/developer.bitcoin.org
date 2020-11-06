@@ -17,9 +17,9 @@ Charlie-the-customer wants to buy a product from Bob-the-businessman, but neithe
 
 A simple contract could say that Charlie will spend satoshis to an output which can only be spent if Charlie and Bob both sign the input spending it. That means Bob won’t get paid unless Charlie gets his merchandise, but Charlie can’t get the merchandise and keep his payment.
 
-This simple contract isn’t much help if there’s a dispute, so Bob and Charlie enlist the help of Alice-the-arbitrator to create an :term:`escrow contract`. Charlie spends his satoshis to an output which can only be spent if two of the three people sign the input. Now Charlie can pay Bob if everything is ok, Bob can `refund <../devguide/payment_processing.html#issuing-refunds>`__ Charlie’s money if there’s a problem, or Alice can arbitrate and decide who should get the satoshis if there’s a dispute.
+This simple contract isn’t much help if there’s a dispute, so Bob and Charlie enlist the help of Alice-the-arbitrator to create an :term:`escrow contract <Escrow contract>`. Charlie spends his satoshis to an output which can only be spent if two of the three people sign the input. Now Charlie can pay Bob if everything is ok, Bob can `refund <../devguide/payment_processing.html#issuing-refunds>`__ Charlie’s money if there’s a problem, or Alice can arbitrate and decide who should get the satoshis if there’s a dispute.
 
-To create a multiple-signature (:term:`multisig`) output, they each give the others a public key. Then Bob creates the following :term:`P2SH multisig <p2sh multisig>` redeem script:
+To create a multiple-signature (:term:`multisig <Multisig>`) output, they each give the others a public key. Then Bob creates the following :term:`P2SH multisig <P2SH multisig>` redeem script:
 
 ::
 

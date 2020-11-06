@@ -15,7 +15,7 @@ To provide practical examples of the Bitcoin `peer-to-peer network <../devguide/
 Peer Discovery
 --------------
 
-When started for the first time, programs don’t know the IP addresses of any active full nodes. In order to discover some IP addresses, they query one or more DNS names (called :term:`DNS seeds <dns seed>`) hardcoded into Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__. The response to the lookup should include one or more `DNS A records <http://tools.ietf.org/html/rfc1035#section-3.2.2>`__ with the IP addresses of full nodes that may accept new incoming connections. For example, using the `Unix ``dig`` command <https://en.wikipedia.org/wiki/Dig_%28Unix_command%29>`__:
+When started for the first time, programs don’t know the IP addresses of any active full nodes. In order to discover some IP addresses, they query one or more DNS names (called :term:`DNS seeds <DNS seed>`) hardcoded into Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__. The response to the lookup should include one or more `DNS A records <http://tools.ietf.org/html/rfc1035#section-3.2.2>`__ with the IP addresses of full nodes that may accept new incoming connections. For example, using the `Unix ``dig`` command <https://en.wikipedia.org/wiki/Dig_%28Unix_command%29>`__:
 
 ::
 
@@ -155,7 +155,7 @@ All of these problems are addressed in part or in full by the headers-first IBD 
 Headers-First
 ~~~~~~~~~~~~~
 
-`Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__ uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best :term:`header chain`, partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
+`Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__ uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best :term:`header chain <Header chain>`, partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
 
 .. figure:: /img/dev/en-headers-first-flowchart.svg
    :alt: Overview Of Headers-First Method
@@ -230,7 +230,7 @@ When a miner discovers a new block, it broadcasts the new block to its peers usi
 
    The miner replies to each request accordingly by sending the block in a `“block” message <../reference/p2p_networking.html#block>`__, one or more headers in a `“headers” message <../reference/p2p_networking.html#headers>`__, or the merkle block and transactions relative to the SPV client’s bloom filter in a `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ followed by zero or more `“tx” messages <../reference/p2p_networking.html#tx>`__.
 
--  :term:`Direct Headers Announcement <block header>`\ **:** a relay node may skip the round trip overhead of an `“inv” message <../reference/p2p_networking.html#inv>`__ followed by ``getheaders`` by instead immediately sending a `“headers” message <../reference/p2p_networking.html#headers>`__ containing the full header of the new block. A HF peer receiving this message will partially validate the block header as it would during headers-first IBD, then request the full block contents with a `“getdata” message <../reference/p2p_networking.html#getdata>`__ if the header is valid. The relay node then responds to the ``getdata`` request with the full or filtered block data in a ``block`` or `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__, respectively. A HF node may signal that it prefers to receive ``headers`` instead of ``inv`` announcements by sending a special `“sendheaders” message <../reference/p2p_networking.html#sendheaders>`__ during the connection handshake.
+-  :term:`Direct Headers Announcement <Block header>`\ **:** a relay node may skip the round trip overhead of an `“inv” message <../reference/p2p_networking.html#inv>`__ followed by ``getheaders`` by instead immediately sending a `“headers” message <../reference/p2p_networking.html#headers>`__ containing the full header of the new block. A HF peer receiving this message will partially validate the block header as it would during headers-first IBD, then request the full block contents with a `“getdata” message <../reference/p2p_networking.html#getdata>`__ if the header is valid. The relay node then responds to the ``getdata`` request with the full or filtered block data in a ``block`` or `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__, respectively. A HF node may signal that it prefers to receive ``headers`` instead of ``inv`` announcements by sending a special `“sendheaders” message <../reference/p2p_networking.html#sendheaders>`__ during the connection handshake.
 
    This protocol for block broadcasting was proposed in BIP 130 and has been implemented in Bitcoin Core since version 0.12.
 
