@@ -339,7 +339,7 @@ So, for both privacy and security, we encourage you to build your applications t
 Transaction Malleability
 ------------------------
 
-None of Bitcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called :term:`transaction malleability <Transaction malleability>`\ {:.term}{:#term-transaction-malleability}. The signature script contains the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
+None of Bitcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called :term:`transaction malleability <Transaction malleability>`. The signature script contains the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
 
 Although the modifications are non-functional—so they do not change what inputs the transaction uses nor what outputs it pays—they do change the computed hash of the transaction. Since each transaction links to previous transactions using hashes as a transaction identifier (txid), a modified transaction will not have the txid its creator expected.
 
