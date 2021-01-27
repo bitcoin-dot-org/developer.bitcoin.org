@@ -6,7 +6,7 @@ getbestblockhash
 
 ``getbestblockhash``
 
-Returns the hash of the best (tip) block in the longest blockchain.
+Returns the hash of the best (tip) block in the most-work fully-validated chain.
 
 Result
 ~~~~~~
