@@ -362,6 +362,9 @@
       ]
     }
   },
+  "getindexinfo": {
+    "added": "0.20"
+  },
   "getinfo": {
     "removed": "0.16.0",
     "see_also": {
@@ -856,6 +859,9 @@
   },
   "submitheader": {
     "added": "0.18.0"
+  },
+  "upgradewallet": {
+    "added": "0.21"
   },
   "utxoupdatepsbt": {
     "added": "0.18.0"
