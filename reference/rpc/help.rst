@@ -24,7 +24,7 @@ Result
    * - Name
      - Type
      - Description
-   * - text
+   * - str
      - string
      - The help text
 

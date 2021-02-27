@@ -6,7 +6,9 @@ getblockcount
 
 ``getblockcount``
 
-Returns the number of blocks in the longest blockchain.
+Returns the height of the most-work fully-validated chain.
+
+The genesis block has height 0.
 
 Result
 ~~~~~~
@@ -33,5 +35,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getblockcount", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblockcount", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

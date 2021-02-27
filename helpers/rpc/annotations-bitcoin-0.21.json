@@ -186,6 +186,9 @@
     "deprecated": "0.18.0",
     "removed": "0.19"
   },
+  "generateblock": {
+    "added": "0.21"
+  },
   "generatetoaddress": {
     "added": "0.13.0",
     "see_also": {
@@ -586,6 +589,9 @@
       ]
     }
   },
+  "importdescriptors": {
+    "added": "0.21"
+  },
   "importmulti": {
     "added": "0.14.0",
     "see_also": {
@@ -742,6 +748,9 @@
         "importprunedfunds"
       ]
     }
+  },
+  "psbtbumpfee": {
+    "added": "0.21"
   },
   "removeprunedfunds": {
     "added": "0.13.0",

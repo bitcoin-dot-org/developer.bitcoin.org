@@ -38,10 +38,17 @@ Result
 
 ::
 
-  {
-    "feerate" : x.x,     (numeric, optional) estimate fee rate in BTC/kB
-    "errors": [ str... ] (json array of strings, optional) Errors encountered during processing
-    "blocks" : n         (numeric) block number where estimate was found
+  {                   (json object)
+    "feerate" : n,    (numeric, optional) estimate fee rate in BTC/kB (only present if no errors were encountered)
+    "errors" : [      (json array, optional) Errors encountered during processing (if there are any)
+      "str",          (string) error
+      ...
+    ],
+    "blocks" : n      (numeric) block number where estimate was found
+                      The request target will be clamped between 2 and the highest target
+                      fee estimation is able to return based on how long it has been running.
+                      An error is returned if not enough transactions and blocks
+                      have been observed to make an estimate for any number of blocks.
   }
 
 Examples

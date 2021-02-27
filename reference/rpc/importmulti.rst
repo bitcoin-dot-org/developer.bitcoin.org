@@ -13,7 +13,9 @@ If an address/script is imported without all of the private keys required to spe
 Conversely, if all the private keys are provided and the address/script is spendable, the watchonly option must be set to false, or a warning will be returned.
 
 Note: This call can take over an hour to complete if rescan is true, during that time, other rpc calls
-may report that the imported keys, addresses or scripts exists but related transactions are still missing.
+may report that the imported keys, addresses or scripts exist but related transactions are still missing.
+
+Note: Use "getwalletinfo" to query the scanning progress.
 
 Argument #1 - requests
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -21,6 +23,14 @@ Argument #1 - requests
 **Type:** json array, required
 
 Data to be imported
+       "range": n or [n,n],                                       (numeric or array) If a ranged descriptor is used, this specifies the end or the range (in the form [begin,end]) to import
+       "internal": bool,                                          (boolean, optional, default=false) Stating whether matching outputs should be treated as not incoming payments (also known as change)
+       "watchonly": bool,                                         (boolean, optional, default=false) Stating whether matching outputs should be considered watchonly.
+       "label": "str",                                            (string, optional, default='') Label to assign to the address, only allowed with internal=false
+       "keypool": bool,                                           (boolean, optional, default=false) Stating whether imported public keys should be added to the keypool for when users request new addresses. Only allowed when wallet private keys are disabled
+       },
+       ...
+       ]
 
 ::
 
@@ -28,7 +38,7 @@ Data to be imported
        {                                                            (json object)
          "desc": "str",                                             (string) Descriptor to import. If using descriptor, do not also provide address/scriptPubKey, scripts, or pubkeys
          "scriptPubKey": "<script>" | { "address":"<address>" },    (string / json, required) Type of scriptPubKey (string for script, json for address). Should not be provided if using a descriptor
-         "timestamp": timestamp | "now",                            (integer / string, required) Creation time of the key in seconds since epoch (Jan 1 1970 GMT),
+         "timestamp": timestamp | "now",                            (integer / string, required) Creation time of the key expressed in UNIX epoch time,
                                                                     or the string "now" to substitute the current synced blockchain time. The timestamp of the oldest
                                                                     key will determine how far back blockchain rescans need to begin for missing wallet transactions.
                                                                     "now" can be specified to bypass scanning, for keys which are known to never have been used, and
@@ -44,13 +54,6 @@ Data to be imported
            "key",                                                   (string)
            ...
          ],
-         "range": n or [n,n],                                       (numeric or array) If a ranged descriptor is used, this specifies the end or the range (in the form [begin,end]) to import
-         "internal": bool,                                          (boolean, optional, default=false) Stating whether matching outputs should be treated as not incoming payments (also known as change)
-         "watchonly": bool,                                         (boolean, optional, default=false) Stating whether matching outputs should be considered watchonly.
-         "label": "str",                                            (string, optional, default='') Label to assign to the address, only allowed with internal=false
-         "keypool": bool,                                           (boolean, optional, default=false) Stating whether imported public keys should be added to the keypool for when users request new addresses. Only allowed when wallet private keys are disabled
-       }
-     ]
 
 Argument #2 - options
 ~~~~~~~~~~~~~~~~~~~~~
@@ -68,7 +71,19 @@ Result
 
 ::
 
-  Response is an array with the same size as the input that has the execution result :
+  [                              (json array) Response is an array with the same size as the input that has the execution result
+    {                            (json object)
+      "success" : true|false,    (boolean)
+      "warnings" : [             (json array, optional)
+        "str",                   (string)
+        ...
+      ],
+      "error" : {                (json object, optional)
+        ...                      JSONRPC error
+      }
+    },
+    ...
+  ]
 
 Examples
 ~~~~~~~~

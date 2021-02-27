@@ -16,7 +16,7 @@ The arguments are evaluated in order "include", "exclude".
 
 If an item is both included and excluded, it will thus end up being excluded.
 
-The valid logging categories are: net, tor, mempool, http, bench, zmq, db, rpc, estimatefee, addrman, selectcoins, reindex, cmpctblock, rand, prune, proxy, mempoolrej, libevent, coindb, qt, leveldb
+The valid logging categories are: net, tor, mempool, http, bench, zmq, walletdb, rpc, estimatefee, addrman, selectcoins, reindex, cmpctblock, rand, prune, proxy, mempoolrej, libevent, coindb, qt, leveldb, validation
 In addition, the following are available as category names with special meanings:
 
   - "all",  "1" : represent all logging categories.
@@ -28,7 +28,7 @@ Argument #1 - include
 
 **Type:** json array, optional
 
-A json array of categories to add debug logging
+The categories to add to debug logging
 
 ::
 
@@ -42,7 +42,7 @@ Argument #2 - exclude
 
 **Type:** json array, optional
 
-A json array of categories to remove debug logging
+The categories to remove from debug logging
 
 ::
 
@@ -56,8 +56,8 @@ Result
 
 ::
 
-  {                   (json object where keys are the logging categories, and values indicates its status
-    "category": true|false,  (bool) if being debug logged or not. false:inactive, true:active
+  {                             (json object) keys are the logging categories, and values indicates its status
+    "category" : true|false,    (boolean) if being debug logged or not. false:inactive, true:active
     ...
   }
 
@@ -73,5 +73,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "logging", "params": [["all"], ["libevent"]] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "logging", "params": [["all"], ["libevent"]]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

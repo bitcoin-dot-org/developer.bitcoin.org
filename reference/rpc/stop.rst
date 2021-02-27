@@ -6,5 +6,18 @@ stop
 
 ``stop``
 
-Stop Bitcoin server.
+Request a graceful shutdown of Bitcoin Core.
+
+Result
+~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - str
+     - string
+     - A string with the content 'Bitcoin Core stopping'
 

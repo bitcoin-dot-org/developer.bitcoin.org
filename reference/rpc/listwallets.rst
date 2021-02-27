@@ -15,9 +15,9 @@ Result
 
 ::
 
-  [                         (json array of strings)
-    "walletname"            (string) the wallet name
-     ...
+  [           (json array)
+    "str",    (string) the wallet name
+    ...
   ]
 
 Examples
@@ -32,5 +32,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listwallets", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listwallets", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 
