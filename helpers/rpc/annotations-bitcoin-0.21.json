@@ -137,6 +137,9 @@
       ]
     }
   },
+  "dumptxoutset": {
+    "added": "0.20"
+  },
   "dumpwallet": {
     "see_also": {
       "commands": [
@@ -192,6 +195,9 @@
         "getblocktemplate"
       ]
     }
+  },
+  "generatetodescriptor": {
+    "added": "0.20"
   },
   "getaccount": {
     "removed": "0.18.0"
