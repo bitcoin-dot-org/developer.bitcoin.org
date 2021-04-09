@@ -16,6 +16,9 @@ Glossary
     The method used in Bitcoin for converting 160-bit hashes into P2PKH and P2SH addresses.  Also used in other parts of Bitcoin, such as encoding private keys for backup in WIP format.  Not the same as other base58 implementations.
 
     **Not to be confused with:** P2PKH address, P2SH address, IP address
+  
+  Bitcoin URI
+    A URI which allows receivers to encode payment details so spenders don't have to manually enter addresses and other details.
 
   Block
     One or more transactions prefaced by a block header and protected by proof of work. Blocks are the data stored on the block chain.
@@ -54,6 +57,9 @@ Glossary
 
     **Not to be confused with:** Bloom filter (general computer science term, of which Bitcoin's bloom filters are a specific implementation)
 
+  Certificate chain
+    A chain of certificates connecting a individual's leaf certificate to the certificate authority's root certificate.
+
   Chain code
     In HD wallets, 256 bits of entropy added to the public and private keys to help them generate secure child keys; the master chain code is usually derived from a seed along with the master private key
 
@@ -74,6 +80,9 @@ Glossary
     A special field used as the sole input for coinbase transactions. The coinbase allows claiming the block reward and provides up to 100 bytes for arbitrary data.
 
     **Not to be confused with:** Coinbase transaction, Coinbase.com
+
+  Coinbase block height
+    The current block's height encoded into the first bytes of the coinbase field.
 
   Coinbase transaction
   Generation transaction
@@ -141,6 +150,9 @@ Glossary
   Private extended key
     In the context of HD wallets, a public key or private key extended with the chain code to allow them to derive child keys.
 
+  Fiat
+    National currencies such as the dollar or euro.
+
   Fork
     When two or more blocks have the same block height, forking the block chain.  Typically occurs when two or more miners find blocks at nearly the same time.  Can also happen as part of an attack.
 
@@ -195,6 +207,9 @@ Glossary
   TxIn
     An input in a transaction which contains three fields: an outpoint, a signature script, and a sequence number.  The outpoint references a previous output and the signature script allows spending it.
 
+  Intermediate certificate
+    A intermediate certificate authority certificate which helps connect a leaf (receiver) certificate to a root certificate authority.
+
   Internal byte order
     The standard order in which hash digests are displayed as strings---the same format used in serialized blocks and transactions.
 
@@ -205,6 +220,18 @@ Glossary
 
     **Not to be confused with:** Inv message (one of the P2P messages that transmits inventories)
 
+  Key index
+    An index number used in the HD wallet formula to generate child keys from a parent key.
+
+  Key pair
+    A private key and its derived public key.
+
+  Label
+    The label parameter of a bitcoin: URI which provides the spender with the receiver's name (unauthenticated).
+
+  Leaf certificate
+    The end-node in a certificate chain; in the payment protocol, it is the certificate belonging to the receiver of satoshis.
+    
   Locktime
   nLockTime
     Part of a transaction which indicates the earliest time or earliest block when that transaction may be added to the block chain.
@@ -230,6 +257,12 @@ Glossary
   Master private key
     In HD wallets, the master chain code and master private key are the two pieces of data derived from the root seed.
 
+  Merge
+    Spending, in the same transaction, multiple outputs which can be traced back to different previous spenders, leaking information about how many satoshis you control.
+
+  Merge avoidance
+    A strategy for selecting which outputs to spend that avoids merging outputs with different histories that could leak private information.
+
   Merkle block
     A partial merkle tree connecting transactions matching a bloom filter to the merkle root of a block.
 
@@ -244,6 +277,14 @@ Glossary
     A tree constructed by hashing paired data (the leaves), then pairing and hashing the results until a single hash remains, the merkle root.  In Bitcoin, the leaves are almost always transactions from a single block.
 
     **Not to be confused with:** Partial merkle branch (a branch connecting one or more leaves to the root), Merkle block (a partial merkle branch connecting one or more transactions from a single block to the block merkle root)
+
+  Micropayment channel
+    A two-party multisignature bitcoin address that is funded by one or both participants. A refund transaction is exchanged, but not immediately broadcasted, which can be replaced as needed to represent fund transfer without paying transaction fees. For more information, refer to the `lightning network's summary <https://lightning.network/lightning-network-summary.pdf>`_
+
+    **Not to be confused with:** Micropayment (a single transaction within a micropayment channel)
+
+  Message
+    A parameter of bitcoin: URIs which allows the receiver to optionally specify a message to the spender.
 
   Message header
     The four header fields prefixed to all messages on the Bitcoin P2P network.
@@ -492,15 +533,6 @@ Glossary
 
   Watch-only address
     An address or pubkey script stored in the wallet without the corresponding private key, allowing the wallet to watch for outputs but not spend them.
-  
-  Bitcoin URI
-    A URI which allows receivers to encode payment details so spenders don't have to manually enter addresses and other details.
-
-  Certificate chain
-    A chain of certificates connecting a individual's leaf certificate to the certificate authority's root certificate.
-
-  Coinbase block height
-    The current block's height encoded into the first bytes of the coinbase field.
 
   Fiat
     National currencies such as the dollar or euro.
