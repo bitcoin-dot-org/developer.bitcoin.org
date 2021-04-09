@@ -529,58 +529,55 @@ Glossary
   Message
     A parameter of bitcoin: URIs which allows the receiver to optionally specify a message to the spender.
 
-  Micropayment channel
-    term-micropayment-channel (contracts-guide) (`original target <https://bitcoin.org/en/contracts-guide#term-micropayment-channel>`__)
-
-  .. _term-msg_block:
+  Msg_block
     The block header hash data type identifier of an inventory on the P2P network.
 
-  .. _term-msg_cmpct_block:
+  Msg_cmpct_block
     An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a compact block.
 
-  .. _term-msg_filtered_witness_block:
-    An alternative to the block header hash data type identifier of an inventory on the P2P network that is reserved for future use and unused.
+  Msg_filtered_block
+    An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a merkle block.
 
-  .. _term-msg_tx:
+  Msg_tx
     The TXID data type identifier of an inventory on the P2P network.
 
-  .. _term-msg_witness_block:
+  Msg_witness_block
     An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a block with witness serialization for SegWit.
 
-  .. _term-msg_witness_tx:
+  Msg_witness_tx
     An alternative of the transaction data type identifier of an inventory on the P2P network used to request a transaction with witness serialization for SegWit.
 
-  OP CHECKMULTISIG
+  OP_CHECKMULTISIG
     Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n).
 
-  .. _term-op-checksig:
+  OP_CHECKSIG
     Opcode which returns true if a signature signs the correct parts of a transaction and matches a provided public key.
 
-  .. _term-op-dup:
+  OP_DUP
     Operation which duplicates the entry below it on the stack.
 
-  .. _term-op-equal:
+  OP_EQUAL
     Operation which returns true if the two entries below it on the stack are equivalent.
 
-  .. _term-op-equalverify:
+  OP_EQUALVERIFY
     Operation which terminates the script in failure unless the two entries below it on the stack are equivalent.
 
-  .. _term-op-hash160:
+  OP_HASH160
     Operation which converts the entry below it on the stack into a RIPEMD(SHA256()) hashed version of itself.
 
-  .. _term-op-return:
+  OP_RETURN
     Operation which terminates the script in failure.
 
-  .. _term-op-verify:
+  OP_VERIFY
     Operation which terminates the script if the entry below it on the stack is non-true (zero).
 
   Output index
     The sequentially-numbered index of outputs in a single transaction starting from 0.
 
-  .. _term-paymentdetails:
+  PaymentDetails
     The PaymentDetails of the payment protocol which allows the receiver to specify the payment details to the spender.
 
-  .. _term-paymentrequest:
+  PaymentRequests
     The PaymentRequest of the payment protocol which contains and allows signing of the PaymentDetails.
 
   PKI
@@ -589,31 +586,31 @@ Glossary
   Point function
     The ECDSA function used to create a public key from a private key.
 
-  PP amount
+  pp amount
     Part of the Output part of the PaymentDetails part of a payment protocol where receivers can specify the amount of satoshis they want paid to a particular pubkey script.
 
-  PP expires
+  pp expires
     The expires field of a PaymentDetails where the receiver tells the spender when the PaymentDetails expires.
 
-  PP memo
+  pp memo
     The memo fields of PaymentDetails, Payment, and PaymentACK which allow spenders and receivers to send each other memos.
 
-  PP merchant data
+  pp merchant data
     The merchant_data part of PaymentDetails and Payment which allows the receiver to send arbitrary data to the spender in PaymentDetails and receive it back in Payments.
 
-  PP pki data
+  pp PKI data
     The pki_data field of a PaymentRequest which provides details such as certificates necessary to validate the request.
 
-  PP pki type
+  pp pki type
     The PKI field of a PaymentRequest which tells spenders how to validate this request as being from a specific recipient.
 
-  PP script
+  pp script
     The script field of a PaymentDetails where the receiver tells the spender what pubkey scripts to pay.
 
   Previous block header hash
     A field in the block header which contains the SHA256(SHA256()) hash of the previous block's header.
 
-  R parameter
+  r
     The payment request parameter in a bitcoin: URI.
 
   Receipt
@@ -625,25 +622,17 @@ Glossary
   SSL signature
     Signatures created and recognized by major SSL implementations such as OpenSSL.
 
-  Stanndard block relay
+  Standard block relay
     The regular block relay method: announcing a block with an inv message and waiting for a response.
 
   Transaction version number
     A version number prefixed to transactions to allow upgrading.
 
-  Unique Address
+  Unique addresses
     Address which are only used once to protect privacy and increase security.
 
   Unsolicited block push
     When a miner sends a block message without sending an inv message first.
 
-  URI qr code
+  URI QR Code
     A QR code containing a bitcoin: URI.
-
-  V2 block 
-    The current version of Bitcoin blocks.
-
-  x509certificates
-
-  term-x509certificates (developer-examples) (`original target <https://bitcoin.org/en/developer-examples#term-x509certificates>`__)
-
