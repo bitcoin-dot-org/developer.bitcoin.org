@@ -185,3 +185,13 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
+
+# These ReST entries are included in every doc and are used to build
+# aliases to commonly-referenced items. For example, the use of 
+# :ref:`p2p-network-header` would produce the link text "P2P Network"
+# despite general use in documentation being "network". These aliases
+# improve readability and prevent unexpected content changes.
+#rst_prolog = ''
+rst_epilog = """
+.. |network| replace:: :ref:`network<p2p-network-header>`
+"""

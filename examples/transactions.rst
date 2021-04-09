@@ -288,7 +288,7 @@ Use the `“decoderawtransaction” RPC <../reference/rpc/decoderawtransaction.h
 
 Use the ``signrawtransaction`` `RPC <../reference/rpc/index.html>`__ to sign the transaction created by `“createrawtransaction” <../reference/rpc/createrawtransaction.html>`__ and save the returned “hex” raw format signed transaction to a shell variable.
 
-Even though the transaction is now complete, the Bitcoin Core node we’re connected to doesn’t know anything about the transaction, nor does any other part of the `network <../devguide/p2p_network.html>`__. We’ve created a spend, but we haven’t actually spent anything because we could simply unset the ``$SIGNED_RAW_TX`` variable to eliminate the transaction.
+Even though the transaction is now complete, the Bitcoin Core node we’re connected to doesn’t know anything about the transaction, nor does any other part of the |network|. We’ve created a spend, but we haven’t actually spent anything because we could simply unset the ``$SIGNED_RAW_TX`` variable to eliminate the transaction.
 
 .. highlight:: bash
 

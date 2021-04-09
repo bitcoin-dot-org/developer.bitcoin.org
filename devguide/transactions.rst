@@ -43,7 +43,7 @@ Bob provides the pubkey hash to Alice. Pubkey hashes are almost always sent enco
 
 Once Alice has the address and decodes it back into a standard hash, she can create the first transaction. She creates a standard P2PKH transaction output containing instructions which allow anyone to spend that output if they can prove they control the private key corresponding to Bob’s hashed public key. These instructions are called the :term:`pubkey script` or scriptPubKey.
 
-Alice broadcasts the transaction and it is added to the block chain. The `network <../devguide/p2p_network.html>`__ categorizes it as an Unspent Transaction Output (UTXO), and Bob’s wallet software displays it as a spendable balance.
+Alice broadcasts the transaction and it is added to the block chain. The |network| categorizes it as an Unspent Transaction Output (UTXO), and Bob’s wallet software displays it as a spendable balance.
 
 When, some time later, Bob decides to spend the UTXO, he must create an input which references the transaction Alice created by its hash, called a Transaction Identifier (txid), and the specific output she used by its index number (:ref:`output index <term-output-index>`). He must then create a :term:`signature script`—a collection of data parameters which satisfy the conditions Alice placed in the previous output’s pubkey script. Signature scripts are also called scriptSigs.
 
@@ -139,7 +139,7 @@ The hash of the redeem script has the same properties as a pubkey hash—so it c
 Standard Transactions
 ---------------------
 
-After the discovery of several dangerous bugs in early versions of Bitcoin, a test was added which only accepted transactions from the `network <../devguide/p2p_network.html>`__ if their pubkey scripts and signature scripts matched a small set of believed-to-be-safe templates, and if the rest of the transaction didn’t violate another small set of rules enforcing good `network <../devguide/p2p_network.html>`__ behavior. This is the ``IsStandard()`` test, and transactions which pass it are called standard transactions.
+After the discovery of several dangerous bugs in early versions of Bitcoin, a test was added which only accepted transactions from the |network| if their pubkey scripts and signature scripts matched a small set of believed-to-be-safe templates, and if the rest of the transaction didn’t violate another small set of rules enforcing good |network| behavior. This is the ``IsStandard()`` test, and transactions which pass it are called standard transactions.
 
 Non-standard transactions—those that fail the test—may be accepted by nodes not using the default Bitcoin Core settings. If they are included in blocks, they will also avoid the IsStandard test and be processed.
 
@@ -240,9 +240,9 @@ Non-Standard Transactions
 
 If you use anything besides a standard pubkey script in an output, peers and miners using the default Bitcoin Core settings will neither accept, broadcast, nor mine your transaction. When you try to broadcast your transaction to a peer running the default settings, you will receive an error.
 
-If you create a redeem script, hash it, and use the hash in a P2SH output, the `network <../devguide/p2p_network.html>`__ sees only the hash, so it will accept the output as valid no matter what the redeem script says. This allows payment to non-standard scripts, and as of Bitcoin Core 0.11, almost all valid redeem scripts can be spent. The exception is scripts that use unassigned `NOP opcodes <https://en.bitcoin.it/wiki/Script#Reserved_words>`__; these opcodes are reserved for future soft forks and can only be relayed or mined by nodes that don’t follow the standard mempool policy.
+If you create a redeem script, hash it, and use the hash in a P2SH output, the |network| sees only the hash, so it will accept the output as valid no matter what the redeem script says. This allows payment to non-standard scripts, and as of Bitcoin Core 0.11, almost all valid redeem scripts can be spent. The exception is scripts that use unassigned `NOP opcodes <https://en.bitcoin.it/wiki/Script#Reserved_words>`__; these opcodes are reserved for future soft forks and can only be relayed or mined by nodes that don’t follow the standard mempool policy.
 
-Note: standard transactions are designed to protect and help the `network <../devguide/p2p_network.html>`__, not prevent you from making mistakes. It’s easy to create standard transactions which make the satoshis sent to them unspendable.
+Note: standard transactions are designed to protect and help the |network|, not prevent you from making mistakes. It’s easy to create standard transactions which make the satoshis sent to them unspendable.
 
 As of `Bitcoin Core 0.9.3 <https://bitcoin.org/en/release/v0.9.3>`__, standard transactions must also meet the following conditions:
 
@@ -294,7 +294,7 @@ Care must be taken near the expiry time of a time lock. The `peer-to-peer networ
 
 Previous versions of Bitcoin Core provided a feature which prevented transaction signers from using the method described above to cancel a time-locked transaction, but a necessary part of this feature was disabled to prevent denial of service attacks. A legacy of this system are four-byte :term:`sequence numbers <sequence number>` in every input. Sequence numbers were meant to allow multiple signers to agree to update a transaction; when they finished updating the transaction, they could agree to set every input’s sequence number to the four-byte unsigned maximum (0xffffffff), allowing the transaction to be added to a block even if its time lock had not expired.
 
-Even today, setting all sequence numbers to 0xffffffff (the default in Bitcoin Core) can still disable the time lock, so if you want to use locktime, at least one input must have a sequence number below the maximum. Since sequence numbers are not used by the `network <../devguide/p2p_network.html>`__ for any other purpose, setting any sequence number to zero is sufficient to enable locktime.
+Even today, setting all sequence numbers to 0xffffffff (the default in Bitcoin Core) can still disable the time lock, so if you want to use locktime, at least one input must have a sequence number below the maximum. Since sequence numbers are not used by the |network| for any other purpose, setting any sequence number to zero is sufficient to enable locktime.
 
 Locktime itself is an unsigned 4-byte integer which can be parsed two ways:
 
@@ -311,7 +311,7 @@ There is also a concept of so-called “:term:`high-priority transactions <high-
 
 In the past, these “priority” transaction were often exempt from the normal fee requirements. Before Bitcoin Core 0.12, 50 KB of each block would be reserved for these high-priority transactions, however this is now set to 0 KB by default. After the priority area, all transactions are prioritized based on their fee per byte, with higher-paying transactions being added in sequence until all of the available space is filled.
 
-As of Bitcoin Core 0.9, a :term:`minimum fee <minimum relay fee>` (currently 1,000 satoshis) has been required to broadcast a transaction across the `network <../devguide/p2p_network.html>`__. Any transaction paying only the minimum fee should be prepared to wait a long time before there’s enough spare space in a block to include it. Please see the `verifying payment section <../devguide/payment_processing.html#verifying-payment>`__ for why this could be important.
+As of Bitcoin Core 0.9, a :term:`minimum fee <minimum relay fee>` (currently 1,000 satoshis) has been required to broadcast a transaction across the |network|. Any transaction paying only the minimum fee should be prepared to wait a long time before there’s enough spare space in a block to include it. Please see the `verifying payment section <../devguide/payment_processing.html#verifying-payment>`__ for why this could be important.
 
 Since each transaction spends Unspent Transaction Outputs (UTXOs) and because a UTXO can only be spent once, the full value of the included UTXOs must be spent or given to a miner as a transaction fee. Few people will have UTXOs that exactly match the amount they want to pay, so most transactions include a change output.
 
@@ -347,8 +347,8 @@ This isn’t a problem for most Bitcoin transactions which are designed to be ad
 
 Bitcoin developers have been working to reduce transaction malleability among standard transaction types, one outcome of those efforts is `BIP 141: Segregated Witness <https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki>`__, which is supported by Bitcoin Core and was activated in August 2017. When SegWit is not being used, new transactions should not depend on previous transactions which have not been added to the block chain yet, especially if large amounts of satoshis are at stake.
 
-Transaction malleability also affects payment tracking. Bitcoin Core’s `RPC <../reference/rpc/index.html>`__ interface lets you track transactions by their txid—but if that txid changes because the transaction was modified, it may appear that the transaction has disappeared from the `network <../devguide/p2p_network.html>`__.
+Transaction malleability also affects payment tracking. Bitcoin Core’s `RPC <../reference/rpc/index.html>`__ interface lets you track transactions by their txid—but if that txid changes because the transaction was modified, it may appear that the transaction has disappeared from the |network|.
 
 Current best practices for transaction tracking dictate that a transaction should be tracked by the transaction outputs (UTXOs) it spends as inputs, as they cannot be changed without invalidating the transaction.
 
-Best practices further dictate that if a transaction does seem to disappear from the `network <../devguide/p2p_network.html>`__ and needs to be reissued, that it be reissued in a way that invalidates the lost transaction. One method which will always work is to ensure the reissued payment spends all of the same outputs that the lost transaction used as inputs.
+Best practices further dictate that if a transaction does seem to disappear from the |network| and needs to be reissued, that it be reissued in a way that invalidates the lost transaction. One method which will always work is to ensure the reissued payment spends all of the same outputs that the lost transaction used as inputs.

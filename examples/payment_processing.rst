@@ -112,7 +112,7 @@ Each wallet program may choose which certificate authorities to trust, but it’
 
    details.[network][network] = "test"  ## Default: main
 
-``network``: (optional) tell the spender’s wallet program what Bitcoin `network <../devguide/p2p_network.html>`__ you’re using; `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ defines “main” for mainnet (actual payments) and “test” for testnet (like mainnet, but fake satoshis are used). If the wallet program doesn’t run on the `network <../devguide/p2p_network.html>`__ you indicate, it will reject the :ref:`PaymentRequest <term-paymentrequest>`.
+``network``: (optional) tell the spender’s wallet program what Bitcoin |network| you’re using; `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ defines “main” for mainnet (actual payments) and “test” for testnet (like mainnet, but fake satoshis are used). If the wallet program doesn’t run on the |network| you indicate, it will reject the :ref:`PaymentRequest <term-paymentrequest>`.
 
 .. highlight:: python
 

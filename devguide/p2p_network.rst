@@ -1,3 +1,5 @@
+.. _p2p-network-header:
+
 P2P Network
 ===========
 
@@ -6,7 +8,7 @@ The Bitcoin network protocol allows full nodes (peers) to collaboratively mainta
 Introduction
 ------------
 
-Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the Bitcoin `network <../devguide/p2p_network.html>`__ protocol to connect to full nodes.
+Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the Bitcoin |network| protocol to connect to full nodes.
 
 Consensus rules do not cover networking, so Bitcoin programs may use alternative networks and protocols, such as the `high-speed block relay network <https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg03189.html>`__ used by some miners and the `dedicated transaction information servers <https://github.com/spesmilo/electrum-server>`__ used by some wallets that provide SPV-level security.
 
@@ -28,13 +30,13 @@ When started for the first time, programs don’t know the IP addresses of any a
    seed.bitcoin.sipa.be.   60  IN  A  203.0.113.183
    [...]
 
-The DNS seeds are maintained by Bitcoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the `network <../devguide/p2p_network.html>`__; others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default Bitcoin ports of 8333 for mainnet or 18333 for testnet.
+The DNS seeds are maintained by Bitcoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the |network|; others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default Bitcoin ports of 8333 for mainnet or 18333 for testnet.
 
-DNS seed results are not authenticated and a malicious seed operator or `network <../devguide/p2p_network.html>`__ `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacker can return only IP addresses of nodes controlled by the attacker, isolating a program on the attacker’s own `network <../devguide/p2p_network.html>`__ and allowing the attacker to feed it bogus transactions and blocks. For this reason, programs should not rely on DNS seeds exclusively.
+DNS seed results are not authenticated and a malicious seed operator or |network| `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacker can return only IP addresses of nodes controlled by the attacker, isolating a program on the attacker’s own |network| and allowing the attacker to feed it bogus transactions and blocks. For this reason, programs should not rely on DNS seeds exclusively.
 
-Once a program has connected to the `network <../devguide/p2p_network.html>`__, its peers can begin to send it ``addr`` (address) messages with the IP addresses and port numbers of other peers on the `network <../devguide/p2p_network.html>`__, providing a fully decentralized method of peer discovery. Bitcoin Core keeps a record of known peers in a persistent on-disk database which usually allows it to connect directly to those peers on subsequent startups without having to use DNS seeds.
+Once a program has connected to the |network|, its peers can begin to send it ``addr`` (address) messages with the IP addresses and port numbers of other peers on the |network|, providing a fully decentralized method of peer discovery. Bitcoin Core keeps a record of known peers in a persistent on-disk database which usually allows it to connect directly to those peers on subsequent startups without having to use DNS seeds.
 
-However, peers often leave the `network <../devguide/p2p_network.html>`__ or change IP addresses, so programs may need to make several different connection attempts at startup before a successful connection is made. This can add a significant delay to the amount of time it takes to connect to the `network <../devguide/p2p_network.html>`__, forcing a user to wait before sending a transaction or checking the status of payment.
+However, peers often leave the |network| or change IP addresses, so programs may need to make several different connection attempts at startup before a successful connection is made. This can add a significant delay to the amount of time it takes to connect to the |network|, forcing a user to wait before sending a transaction or checking the status of payment.
 
 To avoid this possible delay, `BitcoinJ <http://bitcoinj.github.io>`__ always uses dynamic DNS seeds to get IP addresses for nodes believed to be currently active. Bitcoin Core also tries to strike a balance between minimizing delays and avoiding unnecessary DNS seed use: if Bitcoin Core has entries in its peer database, it spends up to 11 seconds attempting to connect to at least one of them before falling back to seeds; if a connection is made within that time, it does not query any seeds.
 
@@ -88,7 +90,7 @@ Upon :ref:`receipt <term-receipt>` of the `“getblocks” message <../reference
 
    First Inv Message Sent During IBD
 
-Inventories are unique identifiers for information on the `network <../devguide/p2p_network.html>`__. Each inventory contains a type field and the unique identifier for an instance of the object. For blocks, the unique identifier is a hash of the block’s header.
+Inventories are unique identifiers for information on the |network|. Each inventory contains a type field and the unique identifier for an instance of the object. For blocks, the unique identifier is a hash of the block’s header.
 
 The block inventories appear in the `“inv” message <../reference/p2p_networking.html#inv>`__ in the same order they appear in the block chain, so this first `“inv” message <../reference/p2p_networking.html#inv>`__ contains inventories for blocks 1 through 501. (For example, the hash of block 1 is 4860…0000 as seen in the illustration above.)
 
@@ -282,7 +284,7 @@ Memory Pool
 
 Full peers may keep track of unconfirmed transactions which are eligible to be included in the next block. This is essential for miners who will actually mine some or all of those transactions, but it’s also useful for any peer who wants to keep track of unconfirmed transactions, such as peers serving unconfirmed transaction information to SPV clients.
 
-Because unconfirmed transactions have no permanent status in Bitcoin, Bitcoin Core stores them in non-persistent memory, calling them a memory pool or mempool. When a peer shuts down, its memory pool is lost except for any transactions stored by its wallet. This means that never-mined unconfirmed transactions tend to slowly disappear from the `network <../devguide/p2p_network.html>`__ as peers restart or as they purge some transactions to make room in memory for others.
+Because unconfirmed transactions have no permanent status in Bitcoin, Bitcoin Core stores them in non-persistent memory, calling them a memory pool or mempool. When a peer shuts down, its memory pool is lost except for any transactions stored by its wallet. This means that never-mined unconfirmed transactions tend to slowly disappear from the |network| as peers restart or as they purge some transactions to make room in memory for others.
 
 Transactions which are mined into blocks that later become stale blocks may be added back into the memory pool. These re-added transactions may be re-removed from the pool almost immediately if the replacement blocks include them. This is the case in Bitcoin Core, which removes stale blocks from the chain one by one, starting with the tip (highest block). As each block is removed, its transactions are added back to the memory pool. After all of the stale blocks are removed, the replacement blocks are added to the chain one by one, ending with the new tip. As each block is added, any transactions it confirms are removed from the memory pool.
 
@@ -298,4 +300,4 @@ Alerts
 
 *Removed in*\ `Bitcoin Core 0.13.0 <https://bitcoin.org/en/release/v0.13.0>`__
 
-Earlier versions of Bitcoin Core allowed developers and trusted community members to issue `Bitcoin alerts <https://bitcoin.org/en/alerts>`__ to notify users of critical `network <../devguide/p2p_network.html>`__-wide issues. This messaging system `was retired <https://bitcoin.org/en/alert/2016-11-01-alert-retirement>`__ in Bitcoin Core v0.13.0; however, internal alerts, partition detection warnings and the ``-alertnotify`` option features remain.
+Earlier versions of Bitcoin Core allowed developers and trusted community members to issue `Bitcoin alerts <https://bitcoin.org/en/alerts>`__ to notify users of critical |network|-wide issues. This messaging system `was retired <https://bitcoin.org/en/alert/2016-11-01-alert-retirement>`__ in Bitcoin Core v0.13.0; however, internal alerts, partition detection warnings and the ``-alertnotify`` option features remain.

@@ -1,3 +1,5 @@
+.. _block-chain-header:
+
 Block Chain
 ===========
 
@@ -6,7 +8,7 @@ The block chain provides Bitcoin's public ledger, an ordered and timestamped rec
 Introduction
 ------------
 
-Each full node in the Bitcoin `network <../devguide/p2p_network.html>`__ independently stores a block chain containing only blocks validated by that node. When several nodes all have the same blocks in their block chain, they are considered to be in :term:`consensus`. The validation rules these nodes follow to maintain consensus are called :term:`consensus rules`. This section describes many of the consensus rules used by Bitcoin Core.
+Each full node in the Bitcoin |network| independently stores a block chain containing only blocks validated by that node. When several nodes all have the same blocks in their block chain, they are considered to be in :term:`consensus`. The validation rules these nodes follow to maintain consensus are called :term:`consensus rules`. This section describes many of the consensus rules used by Bitcoin Core.
 
 .. figure:: /img/dev/en-blockchain-overview.svg
    :alt: Block Chain Overview
@@ -35,7 +37,7 @@ Ignoring coinbase transactions (described later), if the value of a transaction�
 Proof Of Work
 -------------
 
-The block chain is collaboratively maintained by anonymous peers on the `network <../devguide/p2p_network.html>`__, so Bitcoin requires that each block prove a significant amount of work was invested in its creation to ensure that untrustworthy peers who want to modify past blocks have to work harder than honest peers who only want to add new blocks to the block chain.
+The block chain is collaboratively maintained by anonymous peers on the |network|, so Bitcoin requires that each block prove a significant amount of work was invested in its creation to ensure that untrustworthy peers who want to modify past blocks have to work harder than honest peers who only want to add new blocks to the block chain.
 
 Chaining blocks together makes it impossible to modify transactions included in any block without modifying all subsequent blocks. As a result, the cost to modify a particular block increases with every new block added to the block chain, magnifying the effect of the proof of work.
 
@@ -45,7 +47,7 @@ To prove you did some extra work to create a block, you must create a hash of th
 
 In the example given above, you will produce a successful hash on average every other try. You can even estimate the probability that a given hash attempt will generate a number below the :term:`target <nbits>` threshold. Bitcoin assumes a linear probability that the lower it makes the target threshold, the more hash attempts (on average) will need to be tried.
 
-New blocks will only be added to the block chain if their hash is at least as challenging as a :term:`difficulty` value expected by the consensus protocol. Every 2,016 blocks, the `network <../devguide/p2p_network.html>`__ uses timestamps stored in each block header to calculate the number of seconds elapsed between generation of the first and last of those last 2,016 blocks. The ideal value is 1,209,600 seconds (two weeks).
+New blocks will only be added to the block chain if their hash is at least as challenging as a :term:`difficulty` value expected by the consensus protocol. Every 2,016 blocks, the |network| uses timestamps stored in each block header to calculate the number of seconds elapsed between generation of the first and last of those last 2,016 blocks. The ideal value is 1,209,600 seconds (two weeks).
 
 -  If it took fewer than two weeks to generate the 2,016 blocks, the expected difficulty value is increased proportionally (by as much as 300%) so that the next 2,016 blocks should take exactly two weeks to generate if hashes are checked at the same rate.
 
@@ -53,7 +55,7 @@ New blocks will only be added to the block chain if their hash is at least as ch
 
 (Note: an off-by-one error in the Bitcoin Core implementation causes the difficulty to be updated every 2,01\ *6* blocks using timestamps from only 2,01\ *5* blocks, creating a slight skew.)
 
-Because each block header must hash to a value below the target threshold, and because each block is linked to the block that preceded it, it requires (on average) as much hashing power to propagate a modified block as the entire Bitcoin `network <../devguide/p2p_network.html>`__ expended between the time the original block was created and the present time. Only if you acquired a majority of the `network’s <../devguide/p2p_network.html>`__ hashing power could you reliably execute such a :term:`51 percent attack` against transaction history (although, it should be noted, that even less than 50% of the hashing power still has a good chance of performing such attacks).
+Because each block header must hash to a value below the target threshold, and because each block is linked to the block that preceded it, it requires (on average) as much hashing power to propagate a modified block as the entire Bitcoin |network| expended between the time the original block was created and the present time. Only if you acquired a majority of the |network|’s hashing power could you reliably execute such a :term:`51 percent attack` against transaction history (although, it should be noted, that even less than 50% of the hashing power still has a good chance of performing such attacks).
 
 The block header provides several easy-to-modify fields, such as a dedicated nonce field, so obtaining new hashes doesn’t require waiting for new transactions. Also, only the 80-byte block header is hashed for proof-of-work, so including a large volume of transaction data in a block does not slow down hashing with extra I/O, and adding additional transaction data only requires the recalculation of the ancestor hashes in the merkle tree.
 
@@ -113,7 +115,7 @@ Note: If identical txids are found within the same block, there is a possibility
 Consensus Rule Changes
 ----------------------
 
-To maintain consensus, all full nodes validate blocks using the same consensus rules. However, sometimes the consensus rules are changed to introduce new features or prevent `network <../devguide/p2p_network.html>`__ abuse. When the new rules are implemented, there will likely be a period of time when non-upgraded nodes follow the old rules and upgraded nodes follow the new rules, creating two possible ways consensus can break:
+To maintain consensus, all full nodes validate blocks using the same consensus rules. However, sometimes the consensus rules are changed to introduce new features or prevent |network| abuse. When the new rules are implemented, there will likely be a period of time when non-upgraded nodes follow the old rules and upgraded nodes follow the new rules, creating two possible ways consensus can break:
 
 1. A block following the new consensus rules is accepted by upgraded nodes but rejected by non-upgraded nodes. For example, a new transaction feature is used within a block: upgraded nodes understand the feature and accept it, but non-upgraded nodes reject it because it violates the old rules.
 

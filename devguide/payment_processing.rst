@@ -192,7 +192,7 @@ That :ref:`PaymentDetails <term-paymentdetails>` message is put inside a :ref:`P
 
    Bitcoin Core Showing Validated Payment Request
 
-Charlie’s wallet receives the :ref:`PaymentRequest <term-paymentrequest>` message, checks its signature, and then displays the details from the :ref:`PaymentDetails <term-paymentdetails>` message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional Bitcoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the `network <../devguide/p2p_network.html>`__. Instead, the wallet constructs a Payment message and sends it to the URL provided in the :ref:`PaymentDetails <term-paymentdetails>` message as an HTTP POST. Among other things, the Payment message contains:
+Charlie’s wallet receives the :ref:`PaymentRequest <term-paymentrequest>` message, checks its signature, and then displays the details from the :ref:`PaymentDetails <term-paymentdetails>` message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional Bitcoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the |network|. Instead, the wallet constructs a Payment message and sends it to the URL provided in the :ref:`PaymentDetails <term-paymentdetails>` message as an HTTP POST. Among other things, the Payment message contains:
 
 -  The signed transaction in which Charlie pays Bob.
 
@@ -200,7 +200,7 @@ Charlie’s wallet receives the :ref:`PaymentRequest <term-paymentrequest>` mess
 
 -  A `refund <../devguide/payment_processing.html#issuing-refunds>`__ address (pubkey script) which Bob can pay if he needs to return some or all of Charlie’s satoshis.
 
-Bob’s server receives the Payment message, verifies the transaction pays the requested amount to the address provided, and then broadcasts the transaction to the `network <../devguide/p2p_network.html>`__. It also replies to the HTTP POSTed Payment message with a PaymentACK message, which includes an optional memo from Bob’s server thanking Charlie for his patronage and providing other information about the order, such as the expected arrival date.
+Bob’s server receives the Payment message, verifies the transaction pays the requested amount to the address provided, and then broadcasts the transaction to the |network|. It also replies to the HTTP POSTed Payment message with a PaymentACK message, which includes an optional memo from Bob’s server thanking Charlie for his patronage and providing other information about the order, such as the expected arrival date.
 
 Charlie’s wallet sees the PaymentACK and tells Charlie that the payment has been sent. The PaymentACK doesn’t mean that Bob has verified Charlie’s payment—see the Verifying Payment subsection below—but it does mean that Charlie can go do something else while the transaction gets confirmed. After Bob’s server verifies from the block chain that Charlie’s transaction has been suitably confirmed, it authorizes shipping Charlie’s order.
 
@@ -215,19 +215,19 @@ If a `refund <../devguide/payment_processing.html#issuing-refunds>`__ needs to b
 Verifying Payment
 -----------------
 
-As explained in the `Transactions <../devguide/transactions.html>`__ and `Block Chain <../devguide/block_chain.html>`__ sections, broadcasting a transaction to the `network <../devguide/p2p_network.html>`__ doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
+As explained in the `Transactions <../devguide/transactions.html>`__ and `Block Chain <../devguide/block_chain.html>`__ sections, broadcasting a transaction to the |network| doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
 
 Two or more transactions spending the same input are commonly referred to as a :term:`double spend`.
 
 Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Bitcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one :term:`confirmation <confirmation score>`. Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
 
-**0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the `network <../devguide/p2p_network.html>`__ into including their version of a transaction.
+**0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the |network| into including their version of a transaction.
 
 **1 confirmation**: The transaction is included in the latest block and double-spend risk decreases dramatically. Transactions which pay sufficient transaction fees need 10 minutes on average to receive one confirmation. However, the most recent block gets replaced fairly often by accident, so a double spend is still a real possibility.
 
 **2 confirmations**: The most recent block was chained to the block which includes the transaction. As of March 2014, two block replacements were exceedingly rare, and a two block replacement attack was impractical without expensive mining equipment.
 
-**6 confirmations**: The `network <../devguide/p2p_network.html>`__ has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total `network <../devguide/p2p_network.html>`__ hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
+**6 confirmations**: The |network| has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total |network| hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
 
 Bitcoin Core provides several `RPCs <../reference/rpc/index.html>`__ which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ provides an array of every satoshi you can spend along with its confirmation score.
 
@@ -314,7 +314,7 @@ LIFO should not be used when the primary transaction recipient’s reputation mi
 First In, First Out (FIFO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The oldest outputs are the most reliable, as the longer it’s been since they were received, the more blocks would need to be modified to double spend them. However, after just a few blocks, a point of rapidly diminishing returns is reached. The `original Bitcoin paper <https://bitcoin.org/en/bitcoin-paper>`__ predicts the chance of an attacker being able to modify old blocks, assuming the attacker has 30% of the total `network <../devguide/p2p_network.html>`__ hashing power:
+The oldest outputs are the most reliable, as the longer it’s been since they were received, the more blocks would need to be modified to double spend them. However, after just a few blocks, a point of rapidly diminishing returns is reached. The `original Bitcoin paper <https://bitcoin.org/en/bitcoin-paper>`__ predicts the chance of an attacker being able to modify old blocks, assuming the attacker has 30% of the total |network| hashing power:
 
 ====== =================================
 Blocks Chance of successful modification
