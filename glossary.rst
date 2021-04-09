@@ -12,6 +12,9 @@ Glossary
 
     **Not to be confused with:** IP address
 
+  Amount
+    An optional 'amount' parameter of the :term:`PaymentRequest` where receivers can specify the amount of satoshis they want paid to a particular pubkey script.
+
   Base58check
     The method used in Bitcoin for converting 160-bit hashes into P2PKH and P2SH addresses.  Also used in other parts of Bitcoin, such as encoding private keys for backup in WIP format.  Not the same as other base58 implementations.
 
@@ -150,6 +153,9 @@ Glossary
   Private extended key
     In the context of HD wallets, a public key or private key extended with the chain code to allow them to derive child keys.
 
+  Expires
+    An optional 'expires' parameter of the :term:`PaymentRequest` which allow for control of the period in which a payment request is valid.
+
   Fiat
     National government-issued currencies that are not backed by a physical commodity like gold or silver. Examples include the U.S. dollar, the euro, and many other major currencies.
 
@@ -231,7 +237,7 @@ Glossary
 
   Leaf certificate
     The end-node in a certificate chain; in the payment protocol, it is the certificate belonging to the receiver of satoshis.
-    
+
   Locktime
   nLockTime
     Part of a transaction which indicates the earliest time or earliest block when that transaction may be added to the block chain.
@@ -283,6 +289,9 @@ Glossary
 
     **Not to be confused with:** Micropayment (a single transaction within a micropayment channel)
 
+  Memo
+    An optional 'memo' parameter of the :term:`PaymentDetails` which provides plaintext metadata and can be used as cryptographic proof of payment.
+
   Message
     The optional 'message' parameter of 'bitcoin:' URIs which allows the receiver to specify a message to the spender.
 
@@ -303,6 +312,9 @@ Glossary
 
   Msg_witness_tx
     An alternative of the transaction data type identifier of an inventory on the P2P network used to request a transaction with witness serialization for SegWit.
+
+  Merchant data
+    An optional 'merchant_data' parameter of :term:`PaymentDetails` which provides additional metadata for payment tracking and reference purposes.
 
   Message header
     The four header fields prefixed to all messages on the Bitcoin P2P network.
@@ -358,7 +370,7 @@ Glossary
     Operation which returns true if the two entries below it on the stack are equivalent.
 
   OP_EQUALVERIFY
-    Operation which terminates the script in failure unless the two entries below it on the stack are equivalent.
+    Operation which terminates the script in failure unless the two entries below it on the stack are equivalent. This is equivalent to OP_EQUAL followed by OP_VERIFY.
 
   OP_HASH160
     Operation which converts the entry below it on the stack into a RIPEMD(SHA256()) hashed version of itself.
@@ -418,19 +430,24 @@ Glossary
     **Not to be confused with:** Public key (derived from a private key, not a parent key)
 
   PaymentDetails
-    The PaymentDetails of the payment protocol which allows the receiver to specify the payment details to the spender.
+    Part of the payment protocol which allows the receiver to specify the payment details to the spender.
 
   Payment protocol
-  Payment request
     The deprecated protocol defined in BIP70 (and other BIPs) which lets spenders get signed payment details from receivers.
 
-    **Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of Bitcoin)
+    **Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of Bitcoin).
 
-  PaymentRequests
-    The PaymentRequest of the payment protocol which contains and allows signing of the PaymentDetails.
+  PaymentRequest
+    Part of the payment protocol which contain several parameters configured by the receiver as well as a nested :term:`PaymentDetails`.
 
   PKI
     Public Key Infrastructure; usually meant to indicate the X.509 certificate system used for HTTP Secure (https).
+
+  PKI data
+    A required 'pki_data' parameter of a :term:`PaymentRequest` which provides certificate information necessary to validate the request.
+
+  PKI type
+    An optional 'pki_type' parameter of a :term:`PaymentRequest` which tells spenders how to validate this request as being from a specific recipient.
 
   Point function
     The ECDSA function used to create a public key from a private key.
@@ -442,27 +459,6 @@ Glossary
     The private portion of a keypair which can create signatures that other people can verify using the public key.
 
     **Not to be confused with:** Public key (data derived from the private key), Parent key (a key used to create child keys, not necessarily a private key)
-
-  pp amount
-    Part of the Output part of the PaymentDetails part of a payment protocol where receivers can specify the amount of satoshis they want paid to a particular pubkey script.
-
-  pp expires
-    The expires field of a PaymentDetails where the receiver tells the spender when the PaymentDetails expires.
-
-  pp memo
-    The memo fields of PaymentDetails, Payment, and PaymentACK which allow spenders and receivers to send each other memos.
-
-  pp merchant data
-    The merchant_data part of PaymentDetails and Payment which allows the receiver to send arbitrary data to the spender in PaymentDetails and receive it back in Payments.
-
-  pp PKI data
-    The pki_data field of a PaymentRequest which provides details such as certificates necessary to validate the request.
-
-  pp pki type
-    The PKI field of a PaymentRequest which tells spenders how to validate this request as being from a specific recipient.
-
-  pp script
-    The script field of a PaymentDetails where the receiver tells the spender what pubkey scripts to pay.
 
   Proof of work
   POW
@@ -511,6 +507,9 @@ Glossary
     A hash digest displayed with the byte order reversed; used in Bitcoin Core RPCs, many block explorers, and other software.
 
     **Not to be confused with:** Internal byte order (hash digests displayed in their typical order; used in serialized blocks and serialized transactions)
+
+  Script
+    The 'script' parameter of a :term:`PaymentDetails` where the receiver tells the spender what pubkey scripts to pay.
 
   Sequence number
     Part of all transactions. A number intended to allow unconfirmed time-locked transactions to be updated before being finalized; not currently used except to disable locktime in a transaction
