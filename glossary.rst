@@ -12,10 +12,16 @@ Glossary
 
     **Not to be confused with:** IP address
 
+  Amount
+    An optional 'amount' parameter of the :term:`PaymentRequest` where receivers can specify the amount of satoshis they want paid to a particular pubkey script.
+
   Base58check
     The method used in Bitcoin for converting 160-bit hashes into P2PKH and P2SH addresses.  Also used in other parts of Bitcoin, such as encoding private keys for backup in WIP format.  Not the same as other base58 implementations.
 
     **Not to be confused with:** P2PKH address, P2SH address, IP address
+
+  Bitcoin URI
+    A URI which allows receivers to encode payment details so spenders don't have to manually enter addresses and other details.
 
   Block
     One or more transactions prefaced by a block header and protected by proof of work. Blocks are the data stored on the block chain.
@@ -54,6 +60,9 @@ Glossary
 
     **Not to be confused with:** Bloom filter (general computer science term, of which Bitcoin's bloom filters are a specific implementation)
 
+  Certificate chain
+    A chain of certificates connecting a individual's leaf certificate to the certificate authority's root certificate.
+
   Chain code
     In HD wallets, 256 bits of entropy added to the public and private keys to help them generate secure child keys; the master chain code is usually derived from a seed along with the master private key
 
@@ -74,6 +83,9 @@ Glossary
     A special field used as the sole input for coinbase transactions. The coinbase allows claiming the block reward and provides up to 100 bytes for arbitrary data.
 
     **Not to be confused with:** Coinbase transaction, Coinbase.com
+
+  Coinbase block height
+    The current block's height encoded into the first bytes of the coinbase field.
 
   Coinbase transaction
   Generation transaction
@@ -141,6 +153,12 @@ Glossary
   Private extended key
     In the context of HD wallets, a public key or private key extended with the chain code to allow them to derive child keys.
 
+  Expires
+    An optional 'expires' parameter of the :term:`PaymentRequest` which allow for control of the period in which a payment request is valid.
+
+  Fiat
+    National government-issued currencies that are not backed by a physical commodity like gold or silver. Examples include the U.S. dollar, the euro, and many other major currencies.
+
   Fork
     When two or more blocks have the same block height, forking the block chain.  Typically occurs when two or more miners find blocks at nearly the same time.  Can also happen as part of an attack.
 
@@ -195,6 +213,9 @@ Glossary
   TxIn
     An input in a transaction which contains three fields: an outpoint, a signature script, and a sequence number.  The outpoint references a previous output and the signature script allows spending it.
 
+  Intermediate certificate
+    A intermediate certificate authority certificate which helps connect a leaf (receiver) certificate to a root certificate authority.
+
   Internal byte order
     The standard order in which hash digests are displayed as strings---the same format used in serialized blocks and transactions.
 
@@ -204,6 +225,18 @@ Glossary
     A data type identifier and a hash; used to identify transactions and blocks available for download through the Bitcoin P2P network.
 
     **Not to be confused with:** Inv message (one of the P2P messages that transmits inventories)
+
+  Key index
+    An index number used in the HD wallet formula to generate child keys from a parent key.
+
+  Key pair
+    A private key and its derived public key.
+
+  Label
+    The optional 'label' parameter of a 'bitcoin:' URI which provides the spender with the receiver's name (unauthenticated).
+
+  Leaf certificate
+    The end-node in a certificate chain; in the payment protocol, it is the certificate belonging to the receiver of satoshis.
 
   Locktime
   nLockTime
@@ -230,6 +263,12 @@ Glossary
   Master private key
     In HD wallets, the master chain code and master private key are the two pieces of data derived from the root seed.
 
+  Merge
+    Spending, in the same transaction, multiple outputs which can be traced back to different previous spenders, leaking information about how many satoshis you control.
+
+  Merge avoidance
+    A strategy for selecting which outputs to spend that avoids merging outputs with different histories that could leak private information.
+
   Merkle block
     A partial merkle tree connecting transactions matching a bloom filter to the merkle root of a block.
 
@@ -244,6 +283,38 @@ Glossary
     A tree constructed by hashing paired data (the leaves), then pairing and hashing the results until a single hash remains, the merkle root.  In Bitcoin, the leaves are almost always transactions from a single block.
 
     **Not to be confused with:** Partial merkle branch (a branch connecting one or more leaves to the root), Merkle block (a partial merkle branch connecting one or more transactions from a single block to the block merkle root)
+
+  Micropayment channel
+    A two-party multisignature bitcoin address that is funded by one or both participants. A refund transaction is exchanged, but not immediately broadcasted, which can be replaced as needed to represent fund transfer without paying transaction fees. For more information, refer to the `lightning network's summary <https://lightning.network/lightning-network-summary.pdf>`_
+
+    **Not to be confused with:** Micropayment (a single transaction within a micropayment channel)
+
+  Memo
+    An optional 'memo' parameter of the :term:`PaymentDetails` which provides plaintext metadata and can be used as cryptographic proof of payment.
+
+  Message
+    The optional 'message' parameter of 'bitcoin:' URIs which allows the receiver to specify a message to the spender.
+
+  Msg_block
+    The block header hash data type identifier of an inventory on the P2P network.
+
+  Msg_cmpct_block
+    An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a compact block.
+
+  Msg_filtered_block
+    An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a merkle block.
+
+  Msg_tx
+    The TXID data type identifier of an inventory on the P2P network.
+
+  Msg_witness_block
+    An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a block with witness serialization for SegWit.
+
+  Msg_witness_tx
+    An alternative of the transaction data type identifier of an inventory on the P2P network used to request a transaction with witness serialization for SegWit.
+
+  Merchant data
+    An optional 'merchant_data' parameter of :term:`PaymentDetails` which provides additional metadata for payment tracking and reference purposes.
 
   Message header
     The four header fields prefixed to all messages on the Bitcoin P2P network.
@@ -285,6 +356,33 @@ Glossary
     A transaction type relayed and mined by default in Bitcoin Core 0.9.0 and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don't have to store in their UTXO database.
 
     **Not to be confused with:** OP_RETURN (an opcode used in one of the outputs in an OP_RETURN transaction)
+
+  OP_CHECKMULTISIG
+    Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n).
+
+  OP_CHECKSIG
+    Opcode which returns true if a signature signs the correct parts of a transaction and matches a provided public key.
+
+  OP_DUP
+    Operation which duplicates the entry below it on the stack.
+
+  OP_EQUAL
+    Operation which returns true if the two entries below it on the stack are equivalent.
+
+  OP_EQUALVERIFY
+    Operation which terminates the script in failure unless the two entries below it on the stack are equivalent. This is equivalent to OP_EQUAL followed by OP_VERIFY.
+
+  OP_HASH160
+    Operation which converts the entry below it on the stack into a RIPEMD(SHA256()) hashed version of itself.
+
+  OP_RETURN
+    Operation which terminates the script in failure.
+
+  OP_VERIFY
+    Operation which terminates the script if the entry below it on the stack is non-true (zero).
+
+  Output index
+    The sequentially-numbered index of outputs in a single transaction starting from 0.
 
   Opcode
   Data-pushing opcode
@@ -331,11 +429,31 @@ Glossary
 
     **Not to be confused with:** Public key (derived from a private key, not a parent key)
 
+  PaymentDetails
+    Part of the payment protocol which allows the receiver to specify the payment details to the spender.
+
   Payment protocol
-  Payment request
     The deprecated protocol defined in BIP70 (and other BIPs) which lets spenders get signed payment details from receivers.
 
-    **Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of Bitcoin)
+    **Not to be confused with:** IP-to-IP payment protocol (an insecure, discontinued protocol included in early versions of Bitcoin).
+
+  PaymentRequest
+    Part of the payment protocol which contain several parameters configured by the receiver as well as a nested :term:`PaymentDetails`.
+
+  PKI
+    Public Key Infrastructure; usually meant to indicate the X.509 certificate system used for HTTP Secure (https).
+
+  PKI data
+    A required 'pki_data' parameter of a :term:`PaymentRequest` which provides certificate information necessary to validate the request.
+
+  PKI type
+    An optional 'pki_type' parameter of a :term:`PaymentRequest` which tells spenders how to validate this request as being from a specific recipient.
+
+  Point function
+    The ECDSA function used to create a public key from a private key.
+
+  Previous block header hash
+    A field in the block header which contains the SHA256(SHA256()) hash of the previous block's header.
 
   Private key
     The private portion of a keypair which can create signatures that other people can verify using the public key.
@@ -357,6 +475,12 @@ Glossary
 
     **Not to be confused with:** Private key (data from which the public key is derived), Parent key (a key used to create child keys, not necessarily a public key)
 
+  r
+    The payment request parameter in a 'bitcoin:' URI.
+
+  Receipt
+    A cryptographically-verifiable receipt created using parts of a payment request and a confirmed transaction.
+
   Replace by fee
   RBF
   Opt-in replace by fee
@@ -376,10 +500,16 @@ Glossary
 
     **Not to be confused with:** Testnet (a global testing environment which mostly mimics mainnet)
 
+  Root certificate
+    A certificate belonging to a certificate authority (CA).
+
   RPC byte order
     A hash digest displayed with the byte order reversed; used in Bitcoin Core RPCs, many block explorers, and other software.
 
     **Not to be confused with:** Internal byte order (hash digests displayed in their typical order; used in serialized blocks and serialized transactions)
+
+  Script
+    The 'script' parameter of a :term:`PaymentDetails` where the receiver tells the spender what pubkey scripts to pay.
 
   Sequence number
     Part of all transactions. A number intended to allow unconfirmed time-locked transactions to be updated before being finalized; not currently used except to disable locktime in a transaction
@@ -435,10 +565,16 @@ Glossary
 
     **Not to be confused with:** Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
 
+  SSL signature
+    Signatures created and recognized by major SSL implementations such as OpenSSL.
+
   Stale block
     Blocks which were successfully mined but which aren't included on the current best block chain, likely because some other block at the same height had its chain extended first.
 
     **Not to be confused with:** Orphan block (a block whose previous (parent) hash field points to an unknown block, meaning the orphan can't be validated)
+
+  Standard block relay
+    The regular block relay method: announcing a block with an inv message and waiting for a response.
 
   Standard Transaction
     A transaction that passes Bitcoin Core's IsStandard() and IsStandardTx() tests. Only standard transactions are mined or broadcast by peers running the default Bitcoin Core software.
@@ -463,6 +599,9 @@ Glossary
 
     **Not to be confused with:** Minimum relay fee (the lowest fee a transaction must pay to be accepted into the memory pool and relayed by Bitcoin Core nodes)
 
+  Transaction version number
+    A version number prefixed to transactions to allow upgrading.
+
   Txid
     An identifier used to uniquely identify a particular transaction; specifically, the sha256d hash of the transaction.
 
@@ -473,6 +612,15 @@ Glossary
     A Soft Fork activated by flag day or node enforcement instead of miner signalling.
 
     **Not to be confused with:** Miner Activated Soft Fork (a soft fork activated through miner signalling), Fork (a regular fork where all nodes follow the same consensus rules, so the fork is resolved once one chain has more proof of work than another), Hard fork (a permanent divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Soft fork (a temporary divergence in the block chain caused by non-upgraded nodes not following new consensus rules), Software fork (when one or more developers permanently develops a codebase separately from other developers), Git fork (when one or more developers temporarily develops a codebase separately from other developers
+
+  Unique addresses
+    Address which are only used once to protect privacy and increase security.
+
+  Unsolicited block push
+    When a miner sends a block message without sending an inv message first.
+
+  URI QR Code
+    A QR code containing a 'bitcoin:' URI.
 
   UTXO
     An Unspent Transaction Output (UTXO) that can be spent as an input in a new transaction.
@@ -492,4 +640,3 @@ Glossary
 
   Watch-only address
     An address or pubkey script stored in the wallet without the corresponding private key, allowing the wallet to watch for outputs but not spend them.
-
