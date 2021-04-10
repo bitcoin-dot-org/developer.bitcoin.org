@@ -26,6 +26,13 @@ Argument #2 - nodeid
 
 The node ID (see getpeerinfo for node IDs)
 
+Result
+~~~~~~
+
+::
+
+  null    (json null)
+
 Examples
 ~~~~~~~~
 
@@ -42,9 +49,9 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["192.168.0.6:8333"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "disconnectnode", "params": ["192.168.0.6:8333"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "disconnectnode", "params": ["", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "disconnectnode", "params": ["", 1]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

@@ -1,10 +1,12 @@
 # RPC helper To do
 
-* Add RST
-  * Add basic renderer
-  * Try rendered result
-  * Add unit tests
-  * Refactor (share between backends, abstract rst page)
+* Add command to add deprecation notice and deprecate getbalance, getunconfirmedbalance in 0.19
+
+* Remove markdown support
+  * Remove renderer
+  * Remove helper subcommands which rely on markdown files
+
+* Add command to add "see also" and add references, e.g. in importaddress, importmulti, importprivkey, importpubkey, importwallet, rescanblockchain, walletprocesspsbt
 
 * Fix description
   * gettxoutproof (first line cut off before "txids")

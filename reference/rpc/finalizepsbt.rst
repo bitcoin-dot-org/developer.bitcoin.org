@@ -32,11 +32,10 @@ Result
 
 ::
 
-  {
-    "psbt" : "value",          (string) The base64-encoded partially signed transaction if not extracted
-    "hex" : "value",           (string) The hex-encoded network transaction if extracted
-    "complete" : true|false,   (boolean) If the transaction has a complete set of signatures
-    ]
+  {                             (json object)
+    "psbt" : "str",             (string) The base64-encoded partially signed transaction if not extracted
+    "hex" : "hex",              (string) The hex-encoded network transaction if extracted
+    "complete" : true|false     (boolean) If the transaction has a complete set of signatures
   }
 
 Examples

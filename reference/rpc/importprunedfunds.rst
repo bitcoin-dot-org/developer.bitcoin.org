@@ -22,3 +22,10 @@ Argument #2 - txoutproof
 
 The hex output from gettxoutproof that contains the transaction
 
+Result
+~~~~~~
+
+::
+
+  null    (json null)
+
