@@ -10,20 +10,6 @@ List all manually banned IPs/Subnets.
 
 Result
 ~~~~~~
-
-::
-
-  [                            (json array)
-    {                          (json object)
-      "address" : "str",       (string)
-      "banned_until" : xxx,    (numeric)
-      "ban_created" : xxx      (numeric)
-    },
-    ...
-  ]
-
-Result
-~~~~~~
 ::
 
   [
