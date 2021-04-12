@@ -295,22 +295,25 @@ Glossary
   Message
     The optional 'message' parameter of 'bitcoin:' URIs which allows the receiver to specify a message to the spender.
 
-  Msg_block
+  MSG_BLOCK
     The block header hash data type identifier of an inventory on the P2P network.
 
-  Msg_cmpct_block
+  MSG_CMPCT_BLOCK
     An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a compact block.
 
-  Msg_filtered_block
+  MSG_FILTERED_BLOCK
     An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a merkle block.
 
-  Msg_tx
+  MSG_FILTERED_WITNESS_BLOCK
+    A message type which is reserved for future use and not used as of protocol version 70015.
+
+  MSG_TX
     The TXID data type identifier of an inventory on the P2P network.
 
-  Msg_witness_block
+  MSG_WITNESS_BLOCK
     An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a block with witness serialization for SegWit.
 
-  Msg_witness_tx
+  MSG_WITNESS_TX
     An alternative of the transaction data type identifier of an inventory on the P2P network used to request a transaction with witness serialization for SegWit.
 
   Merchant data
@@ -640,3 +643,6 @@ Glossary
 
   Watch-only address
     An address or pubkey script stored in the wallet without the corresponding private key, allowing the wallet to watch for outputs but not spend them.
+
+  X509Certificates
+    Part of the payment protocol which contain the sequential certificate information.

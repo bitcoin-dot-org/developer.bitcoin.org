@@ -28,7 +28,7 @@ An output has an implied index number based on its location in the transaction�
 
 An input uses a transaction identifier (txid) and an :term:`output index` number (often called “vout” for output vector) to identify a particular output to be spent. It also has a signature script which allows it to provide data parameters that satisfy the conditionals in the pubkey script. (The sequence number and locktime are related and will be covered together in a later subsection.)
 
-The figures below help illustrate how these features are used by showing the workflow Alice uses to send Bob a transaction and which Bob later uses to spend that transaction. Both Alice and Bob will use the most common form of the standard Pay-To-Public-Key-Hash (P2PKH) transaction type. :term:`P2PKH <P2PKH address>` lets Alice spend satoshis to a typical Bitcoin address, and then lets Bob further spend those satoshis using a simple cryptographic :ref:`key pair <term-key-pair>`.
+The figures below help illustrate how these features are used by showing the workflow Alice uses to send Bob a transaction and which Bob later uses to spend that transaction. Both Alice and Bob will use the most common form of the standard Pay-To-Public-Key-Hash (P2PKH) transaction type. :term:`P2PKH <P2PKH address>` lets Alice spend satoshis to a typical Bitcoin address, and then lets Bob further spend those satoshis using a simple cryptographic :term:`key pair`.
 
 .. figure:: /img/dev/en-creating-p2pkh-output.svg
    :alt: Creating A P2PKH Public Key Hash To Receive Payment
@@ -39,13 +39,13 @@ Bob must first generate a private/public :term:`key pair` before Alice can creat
 
 The public key (pubkey) is then cryptographically hashed. This pubkey hash can also be reliably repeated later, so it also does not need to be stored. The hash shortens and obfuscates the public key, making manual transcription easier and providing security against unanticipated problems which might allow reconstruction of private keys from public key data at some later point.
 
-Bob provides the pubkey hash to Alice. Pubkey hashes are almost always sent encoded as Bitcoin :term:`addresses <Address>`, which are base58-encoded strings containing an address version number, the hash, and an error-detection checksum to catch typos. The address can be transmitted through any medium, including one-way mediums which prevent the spender from communicating with the receiver, and it can be further encoded into another format, such as a QR code containing a :ref:`“bitcoin:” URI <term-bitcoin-uri>`.
+Bob provides the pubkey hash to Alice. Pubkey hashes are almost always sent encoded as Bitcoin :term:`addresses <Address>`, which are base58-encoded strings containing an address version number, the hash, and an error-detection checksum to catch typos. The address can be transmitted through any medium, including one-way mediums which prevent the spender from communicating with the receiver, and it can be further encoded into another format, such as a QR code containing a |bitcoin uri|.
 
 Once Alice has the address and decodes it back into a standard hash, she can create the first transaction. She creates a standard P2PKH transaction output containing instructions which allow anyone to spend that output if they can prove they control the private key corresponding to Bob’s hashed public key. These instructions are called the :term:`pubkey script` or scriptPubKey.
 
 Alice broadcasts the transaction and it is added to the block chain. The |network| categorizes it as an Unspent Transaction Output (UTXO), and Bob’s wallet software displays it as a spendable balance.
 
-When, some time later, Bob decides to spend the UTXO, he must create an input which references the transaction Alice created by its hash, called a Transaction Identifier (txid), and the specific output she used by its index number (:ref:`output index <term-output-index>`). He must then create a :term:`signature script` —a collection of data parameters which satisfy the conditions Alice placed in the previous output’s pubkey script. Signature scripts are also called scriptSigs.
+When, some time later, Bob decides to spend the UTXO, he must create an input which references the transaction Alice created by its hash, called a Transaction Identifier (txid), and the specific output she used by its index number (:term:`output index`). He must then create a :term:`signature script` —a collection of data parameters which satisfy the conditions Alice placed in the previous output’s pubkey script. Signature scripts are also called scriptSigs.
 
 Pubkey scripts and signature scripts combine |secp256k1| pubkeys and signatures with conditional logic, creating a programmable authorization mechanism.
 
@@ -269,7 +269,7 @@ The various options for what to sign are called :term:`signature hash` types. Th
 
 -  :term:`“SIGHASH_NONE” <SIGHASH_NONE>` signs all of the inputs but none of the outputs, allowing anyone to change where the satoshis are going unless other signatures using other signature hash flags protect the outputs.
 
--  :term:`“SIGHASH_SINGLE” <SIGHASH_SINGLE>` the only output signed is the one corresponding to this input (the output with the same :ref:`output index <term-output-index>` number as this input), ensuring nobody can change your part of the transaction but allowing other signers to change their part of the transaction. The corresponding output must exist or the value “1” will be signed, breaking the security scheme. This input, as well as other inputs, are included in the signature. The sequence numbers of other inputs are not included in the signature, and can be updated.
+-  :term:`“SIGHASH_SINGLE” <SIGHASH_SINGLE>` the only output signed is the one corresponding to this input (the output with the same :term:`output index` number as this input), ensuring nobody can change your part of the transaction but allowing other signers to change their part of the transaction. The corresponding output must exist or the value “1” will be signed, breaking the security scheme. This input, as well as other inputs, are included in the signature. The sequence numbers of other inputs are not included in the signature, and can be updated.
 
 The base types can be modified with the :term:`“SIGHASH_ANYONECANPAY” <SIGHASH_ANYONECANPAY>` (anyone can pay) flag, creating three new combined types:
 
@@ -326,7 +326,7 @@ If the same public key is reused often, as happens when people use Bitcoin addre
 
 It doesn’t have to be that way. If each public key is used exactly twice—once to receive a payment and once to spend that payment—the user can gain a significant amount of financial privacy.
 
-Even better, using new public keys or :ref:`unique addresses <term-unique-address>` when accepting payments or creating change outputs can be combined with other techniques discussed later, such as CoinJoin or :ref:`merge avoidance <term-merge-avoidance>`, to make it extremely difficult to use the block chain by itself to reliably track how users receive and spend their satoshis.
+Even better, using new public keys or :term:`unique addresses` when accepting payments or creating change outputs can be combined with other techniques discussed later, such as CoinJoin or :term:`merge avoidance`, to make it extremely difficult to use the block chain by itself to reliably track how users receive and spend their satoshis.
 
 Avoiding key reuse can also provide security against attacks which might allow reconstruction of private keys from public keys (hypothesized) or from signature comparisons (possible today under certain circumstances described below, with more general attacks hypothesized).
 

@@ -220,9 +220,9 @@ Block Broadcasting
 
 When a miner discovers a new block, it broadcasts the new block to its peers using one of the following methods:
 
--  :ref:`Unsolicited Block Push <term-unsolicited-block-push>`\ **:** the miner sends a `“block” message <../reference/p2p_networking.html#block>`__ to each of its full node peers with the new block. The miner can reasonably bypass the standard relay method in this way because it knows none of its peers already have the just-discovered block.
+-  :term:`Unsolicited Block Push`\ **:** the miner sends a `“block” message <../reference/p2p_networking.html#block>`__ to each of its full node peers with the new block. The miner can reasonably bypass the standard relay method in this way because it knows none of its peers already have the just-discovered block.
 
--  :ref:`Standard Block Relay <term-standard-block-relay>`\ **:** the miner, acting as a standard relay node, sends an `“inv” message <../reference/p2p_networking.html#inv>`__ to each of its peers (both full node and SPV) with an inventory referring to the new block. The most common responses are:
+-  :term:`Standard Block Relay`\ **:** the miner, acting as a standard relay node, sends an `“inv” message <../reference/p2p_networking.html#inv>`__ to each of its peers (both full node and SPV) with an inventory referring to the new block. The most common responses are:
 
    -  Each blocks-first (BF) peer that wants the block replies with a `“getdata” message <../reference/p2p_networking.html#getdata>`__ requesting the full block.
 
@@ -272,7 +272,7 @@ When a blocks-first node downloads an orphan block, it will not validate it. Ins
 
 Headers-first nodes avoid some of this complexity by always requesting block headers with the `“getheaders” message <../reference/p2p_networking.html#getheaders>`__ before requesting a block with the `“getdata” message <../reference/p2p_networking.html#getdata>`__. The broadcasting node will send a `“headers” message <../reference/p2p_networking.html#headers>`__ containing all the block headers (up to 2,000) it thinks the downloading node needs to reach the tip of the best header chain; each of those headers will point to its parent, so when the downloading node receives the `“block” message <../reference/p2p_networking.html#block>`__, the block shouldn’t be an orphan block—all of its parents should be known (even if they haven’t been validated yet). If, despite this, the block received in the `“block” message <../reference/p2p_networking.html#block>`__ is an orphan block, a headers-first node will discard it immediately.
 
-However, orphan discarding does mean that headers-first nodes will ignore orphan blocks sent by miners in an :ref:`unsolicited block push <term-unsolicited-block-push>`.
+However, orphan discarding does mean that headers-first nodes will ignore orphan blocks sent by miners in an :term:`unsolicited block push`.
 
 Transaction Broadcasting
 ------------------------

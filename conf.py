@@ -211,6 +211,10 @@ rst_epilog = """
 .. |OP_VERIFY| replace:: :term:`“OP_VERIFY” <OP_VERIFY>`
 
 .. other
+.. |Bitcoin URI| replace:: :term:`“bitcoin:” URI <bitcoin uri>`
+.. |Bitcoin URIs| replace:: :term:`“bitcoin:” URIs <bitcoin uri>`
 .. |PaymentDetails| replace:: :term:`PaymentDetails`
 .. |PaymentRequest| replace:: :term:`PaymentRequest`
+.. |PaymentRequests| replace:: :term:`PaymentRequests <PaymentRequest>`
+.. |r| replace:: :term:`“r” <r>`
 """

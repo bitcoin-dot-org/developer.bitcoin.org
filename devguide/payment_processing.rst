@@ -286,7 +286,7 @@ Merge Avoidance
 
 When a receiver receives satoshis in an output, the spender can track (in a crude way) how the receiver spends those satoshis. But the spender can’t automatically see other satoshis paid to the receiver by other spenders as long as the receiver uses :term:`unique addresses` for each transaction.
 
-However, if the receiver spends satoshis from two different spenders in the same transaction, each of those spenders can see the other spender’s payment. This is called a :ref:`merge <term-merge>`, and the more a receiver merges outputs, the easier it is for an outsider to track how many satoshis the receiver has earned, spent, and saved.
+However, if the receiver spends satoshis from two different spenders in the same transaction, each of those spenders can see the other spender’s payment. This is called a :term:`merge`, and the more a receiver merges outputs, the easier it is for an outsider to track how many satoshis the receiver has earned, spent, and saved.
 
 :term:`Merge avoidance` means trying to avoid spending unrelated outputs in the same transaction. For persons and businesses which want to keep their transaction data secret from other people, it can be an important strategy.
 
@@ -342,15 +342,8 @@ Automated recurring payments are not possible with decentralized Bitcoin wallets
 
 This means automated recurring Bitcoin payments can only be made from a centralized server which handles satoshis on behalf of its spenders. In practice, receivers who want to set prices in :term:`fiat` terms must also let the same centralized server choose the appropriate exchange rate.
 
-Non-automated rebilling can be managed by the same mechanism used before credit-card recurring payments became common: contact the spender and ask them to pay again—for example, by sending them a |PaymentRequest|  |Bitcoin URI| in an HTML email.
+Non-automated rebilling can be managed by the same mechanism used before credit-card recurring payments became common: contact the spender and ask them to pay again—for example, by sending them a |PaymentRequest| |Bitcoin URI| in an HTML email.
 
 In the future, extensions to the payment protocol and new wallet features may allow some wallet programs to manage a list of recurring transactions. The spender will still need to start the program on a regular basis and authorize payment—but it should be easier and more secure for the spender than clicking an emailed invoice, increasing the chance receivers get paid on time.
 
 .. |Warning icon| image:: /img/icons/icon_warning.svg
-
-.. |Bitcoin URI| replace:: :term:`“bitcoin:” URI <bitcoin uri>`
-
-.. |Bitcoin URIs| replace:: :term:`“bitcoin:” URIs <bitcoin uri>`
-
-.. |r| replace:: :term:`“r” <r>`
-
