@@ -6,7 +6,7 @@ Payment processing encompasses the steps spenders and receivers perform to make 
 Introduction
 ------------
 
-This section will explain how receivers and spenders can, respectively, request and make payments using Bitcoin—and how they can deal with complications such as `refunds <../devguide/payment_processing.html#issuing-refunds>`__ and `recurrent rebilling <../devguide/payment_processing.html#rebilling-recurring-payments>`__.
+This section will explain how receivers and spenders can, respectively, request and make payments using Bitcoin—and how they can deal with complications such as `refunds <../devguide/payment_processing.html#issuing-refunds>`_ and `recurrent rebilling <../devguide/payment_processing.html#rebilling-recurring-payments>`__.
 
 .. figure:: /img/dev/en-payment-processing.svg
    :alt: Bitcoin Payment Processing
@@ -34,7 +34,7 @@ Exchange rates lie outside the control of Bitcoin and related technologies, so t
 
 Because the exchange rate fluctuates over time, order totals pegged to :term:`fiat` must expire to prevent spenders from delaying payment in the hope that satoshis will drop in price. Most widely-used payment processing systems currently expire their invoices after 10 to 20 minutes.
 
-Shorter expiration periods increase the chance the invoice will expire before payment is received, possibly necessitating manual intervention to request an additional payment or to issue a `refund <../devguide/payment_processing.html#issuing-refunds>`__. Longer expiration periods increase the chance that the exchange rate will fluctuate a significant amount before payment is received.
+Shorter expiration periods increase the chance the invoice will expire before payment is received, possibly necessitating manual intervention to request an additional payment or to issue a refund_. Longer expiration periods increase the chance that the exchange rate will fluctuate a significant amount before payment is received.
 
 Requesting Payments
 -------------------
@@ -51,7 +51,7 @@ The next subsections will describe in detail the following four compatible ways 
 
 3. Most mobile wallets support scanning |Bitcoin URIs| encoded in a QR code, and almost all wallets can display them for accepting payment. While also handy for online orders, QR Codes are especially useful for in-person purchases.
 
-4. Recent wallet updates add support for the new payment protocol providing increased security, authentication of a receiver’s identity using `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificates, and other important features such as `refunds <../devguide/payment_processing.html#issuing-refunds>`__.
+4. Recent wallet updates add support for the new payment protocol providing increased security, authentication of a receiver’s identity using `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificates, and other important features such as refunds_.
 
 |Warning icon| **Warning:** Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacks from replacing your Bitcoin address with the attacker’s address.
 
@@ -198,7 +198,7 @@ Charlie’s wallet receives the |PaymentRequest|  message, checks its signature,
 
 -  An optional memo Charlie can send to Bob. (There’s no guarantee that Bob will read it.)
 
--  A `refund <../devguide/payment_processing.html#issuing-refunds>`__ address (pubkey script) which Bob can pay if he needs to return some or all of Charlie’s satoshis.
+-  A `refund <../devguide/payment_processing.html#issuing-refunds>`_ address (pubkey script) which Bob can pay if he needs to return some or all of Charlie’s satoshis.
 
 Bob’s server receives the Payment message, verifies the transaction pays the requested amount to the address provided, and then broadcasts the transaction to the |network|. It also replies to the HTTP POSTed Payment message with a PaymentACK message, which includes an optional memo from Bob’s server thanking Charlie for his patronage and providing other information about the order, such as the expected arrival date.
 
@@ -210,7 +210,7 @@ In the case of a dispute, Charlie can generate a cryptographically proven :term:
 
 -  The Bitcoin block chain can prove that the pubkey script specified by Bob was paid the specified number of satoshis.
 
-If a `refund <../devguide/payment_processing.html#issuing-refunds>`__ needs to be issued, Bob’s server can safely pay the `refund <../devguide/payment_processing.html#issuing-refunds>`__-to pubkey script provided by Charlie. See the `Refunds <../devguide/payment_processing.html#issuing-refunds>`__ section below for more details.
+If a refund_ needs to be issued, Bob’s server can safely pay the refund-to pubkey script provided by Charlie. See the `Issuing Refunds`_ section below for more details.
 
 Verifying Payment
 -----------------
@@ -250,23 +250,23 @@ Another good source of double-spend protection can be human intelligence. For ex
 Issuing Refunds
 ---------------
 
-Occasionally receivers using your applications will need to issue `refunds <../devguide/payment_processing.html#issuing-refunds>`__. The obvious way to do that, which is very unsafe, is simply to return the satoshis to the pubkey script from which they came. For example:
+Occasionally receivers using your applications will need to issue refunds_. The obvious way to do that, which is very unsafe, is simply to return the satoshis to the pubkey script from which they came. For example:
 
 -  Alice wants to buy a widget from Bob, so Bob gives Alice a price and Bitcoin address.
 
 -  Alice opens her wallet program and sends some satoshis to that address. Her wallet program automatically chooses to spend those satoshis from one of its unspent outputs, an output corresponding to the Bitcoin address mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN.
 
--  Bob discovers Alice paid too many satoshis. Being an honest fellow, Bob `refunds <../devguide/payment_processing.html#issuing-refunds>`__ the extra satoshis to the mjSk… address.
+-  Bob discovers Alice paid too many satoshis. Being an honest fellow, Bob refunds_ the extra satoshis to the mjSk… address.
 
-This seems like it should work, but Alice is using a centralized multi-user web wallet which doesn’t give :term:`unique addresses` to each user, so it has no way to know that Bob’s `refund <../devguide/payment_processing.html#issuing-refunds>`__ is meant for Alice. Now the `refund <../devguide/payment_processing.html#issuing-refunds>`__ is a unintentional donation to the company behind the centralized wallet, unless Alice opens a support ticket and proves those satoshis were meant for her.
+This seems like it should work, but Alice is using a centralized multi-user web wallet which doesn’t give :term:`unique addresses` to each user, so it has no way to know that Bob’s refund_ is meant for Alice. Now the refund_ is a unintentional donation to the company behind the centralized wallet, unless Alice opens a support ticket and proves those satoshis were meant for her.
 
-This leaves receivers only two correct ways to issue `refunds <../devguide/payment_processing.html#issuing-refunds>`__:
+This leaves receivers only two correct ways to issue refunds_:
 
--  If an address was copy-and-pasted or a basic |Bitcoin URI| was used, contact the spender directly and ask them to provide a `refund <../devguide/payment_processing.html#issuing-refunds>`__ address.
+-  If an address was copy-and-pasted or a basic |Bitcoin URI| was used, contact the spender directly and ask them to provide a refund_ address.
 
--  If the payment protocol was used, send the `refund <../devguide/payment_processing.html#issuing-refunds>`__ to the output listed in the ``refund_to`` field of the Payment message.
+-  If the payment protocol was used, send the refund_ to the output listed in the ``refund_to`` field of the Payment message.
 
-Note: it would be wise to contact the spender directly if the `refund <../devguide/payment_processing.html#issuing-refunds>`__ is being issued a long time after the original payment was made. This allows you to ensure the user still has access to the key or keys for the ``refund_to`` address.
+Note: it would be wise to contact the spender directly if the refund_ is being issued a long time after the original payment was made. This allows you to ensure the user still has access to the key or keys for the ``refund_to`` address.
 
 Disbursing Income (Limiting Forex Risk)
 ---------------------------------------

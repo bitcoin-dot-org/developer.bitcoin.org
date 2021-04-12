@@ -197,8 +197,8 @@ rst_epilog = """
 .. |network| replace:: :ref:`network<p2p-network-header>`
 
 .. frequently-used terms with links
-.. |ECDSA| replace:: `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`
-.. |secp256k1| replace:: `secp256k1 <http://www.secg.org/sec2-v2.pdf>`
+.. |ECDSA| replace:: `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__
+.. |secp256k1| replace:: `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__
 
 .. OP codes
 .. |OP_CHECKMULTISIG| replace:: :term:`“OP_CHECKMULTISIG” <OP_CHECKMULTISIG>`

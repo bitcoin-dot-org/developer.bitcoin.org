@@ -60,7 +60,7 @@ For a P2PKH-style output, Bob’s signature script will contain the following tw
 
 2. An |secp256k1| :term:`signature` made by using the |ECDSA| cryptographic formula to combine certain transaction data (described below) with Bob’s private key. This lets the pubkey script verify that Bob owns the private key which created the public key.
 
-Bob’s |secp256k1| signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the `peer-to-peer network <../devguide/p2p_network.html>`__.
+Bob’s |secp256k1| signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the `peer-to-peer network <../devguide/p2p_network.html>`_.
 
 .. figure:: /img/dev/en-signing-output-to-spend.svg
    :alt: Some Things Signed When Spending An Output
@@ -69,7 +69,7 @@ Bob’s |secp256k1| signature doesn’t just prove Bob controls his private key;
 
 As illustrated in the figure above, the data Bob signs includes the txid and :term:`output index` of the previous transaction, the previous output’s pubkey script, the pubkey script Bob creates which will let the next recipient spend this transaction’s output, and the amount of satoshis to spend to the next recipient. In essence, the entire transaction is signed except for any signature scripts, which hold the full public keys and |secp256k1| signatures.
 
-After putting his signature and public key in the signature script, Bob broadcasts the transaction to Bitcoin miners through the `peer-to-peer network <../devguide/p2p_network.html>`__. Each peer and miner independently validates the transaction before broadcasting it further or attempting to include it in a new block of transactions.
+After putting his signature and public key in the signature script, Bob broadcasts the transaction to Bitcoin miners through the `peer-to-peer network`_. Each peer and miner independently validates the transaction before broadcasting it further or attempting to include it in a new block of transactions.
 
 P2PKH Script Validation
 -----------------------
@@ -127,7 +127,7 @@ The basic P2SH workflow, illustrated below, looks almost identical to the P2PKH 
 
    Creating A P2SH Redeem Script And Hash
 
-When Bob wants to spend the output, he provides his signature along with the full (serialized) redeem script in the signature script. The `peer-to-peer network <../devguide/p2p_network.html>`__ ensures the full redeem script hashes to the same value as the script hash Alice put in her output; it then processes the redeem script exactly as it would if it were the primary pubkey script, letting Bob spend the output if the redeem script does not return false.
+When Bob wants to spend the output, he provides his signature along with the full (serialized) redeem script in the signature script. The `peer-to-peer network`_ ensures the full redeem script hashes to the same value as the script hash Alice put in her output; it then processes the redeem script exactly as it would if it were the primary pubkey script, letting Bob spend the output if the redeem script does not return false.
 
 .. figure:: /img/dev/en-unlocking-p2sh-output.svg
    :alt: Unlocking A P2SH Output For Spending
@@ -290,7 +290,7 @@ Locktime allows signers to create time-locked transactions which will only becom
 
 If any of the signers change their mind, they can create a new non-locktime transaction. The new transaction will use, as one of its inputs, one of the same outputs which was used as an input to the locktime transaction. This makes the locktime transaction invalid if the new transaction is added to the block chain before the time lock expires.
 
-Care must be taken near the expiry time of a time lock. The `peer-to-peer network <../devguide/p2p_network.html>`__ allows block time to be up to two hours ahead of real time, so a locktime transaction can be added to the block chain up to two hours before its time lock officially expires. Also, blocks are not created at guaranteed intervals, so any attempt to cancel a valuable transaction should be made a few hours before the time lock expires.
+Care must be taken near the expiry time of a time lock. The `peer-to-peer network`_ allows block time to be up to two hours ahead of real time, so a locktime transaction can be added to the block chain up to two hours before its time lock officially expires. Also, blocks are not created at guaranteed intervals, so any attempt to cancel a valuable transaction should be made a few hours before the time lock expires.
 
 Previous versions of Bitcoin Core provided a feature which prevented transaction signers from using the method described above to cancel a time-locked transaction, but a necessary part of this feature was disabled to prevent denial of service attacks. A legacy of this system are four-byte :term:`sequence numbers <Sequence number>` in every input. Sequence numbers were meant to allow multiple signers to agree to update a transaction; when they finished updating the transaction, they could agree to set every input’s sequence number to the four-byte unsigned maximum (0xffffffff), allowing the transaction to be added to a block even if its time lock had not expired.
 

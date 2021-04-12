@@ -17,7 +17,7 @@ Charlie-the-customer wants to buy a product from Bob-the-businessman, but neithe
 
 A simple contract could say that Charlie will spend satoshis to an output which can only be spent if Charlie and Bob both sign the input spending it. That means Bob won’t get paid unless Charlie gets his merchandise, but Charlie can’t get the merchandise and keep his payment.
 
-This simple contract isn’t much help if there’s a dispute, so Bob and Charlie enlist the help of Alice-the-arbitrator to create an :term:`escrow contract`. Charlie spends his satoshis to an output which can only be spent if two of the three people sign the input. Now Charlie can pay Bob if everything is ok, Bob can `refund <../devguide/payment_processing.html#issuing-refunds>`__ Charlie’s money if there’s a problem, or Alice can arbitrate and decide who should get the satoshis if there’s a dispute.
+This simple contract isn’t much help if there’s a dispute, so Bob and Charlie enlist the help of Alice-the-arbitrator to create an :term:`escrow contract`. Charlie spends his satoshis to an output which can only be spent if two of the three people sign the input. Now Charlie can pay Bob if everything is ok, Bob can `refund <../devguide/payment_processing.html#issuing-refunds>`_ Charlie’s money if there’s a problem, or Alice can arbitrate and decide who should get the satoshis if there’s a dispute.
 
 To create a multiple-signature (:term:`multisig`) output, they each give the others a public key. Then Bob creates the following :term:`P2SH multisig` redeem script:
 
@@ -31,9 +31,9 @@ To create a multiple-signature (:term:`multisig`) output, they each give the oth
 
 Bob gives the redeem script to Charlie, who checks to make sure his public key and Alice’s public key are included. Then he hashes the redeem script to create a P2SH redeem script and pays the satoshis to it. Bob sees the payment get added to the block chain and ships the merchandise.
 
-Unfortunately, the merchandise gets slightly damaged in transit. Charlie wants a full `refund <../devguide/payment_processing.html#issuing-refunds>`__, but Bob thinks a 10% `refund <../devguide/payment_processing.html#issuing-refunds>`__ is sufficient. They turn to Alice to resolve the issue. Alice asks for photo evidence from Charlie along with a copy of the redeem script Bob created and Charlie checked.
+Unfortunately, the merchandise gets slightly damaged in transit. Charlie wants a full refund_, but Bob thinks a 10% refund_ is sufficient. They turn to Alice to resolve the issue. Alice asks for photo evidence from Charlie along with a copy of the redeem script Bob created and Charlie checked.
 
-After looking at the evidence, Alice thinks a 40% `refund <../devguide/payment_processing.html#issuing-refunds>`__ is sufficient, so she creates and signs a transaction with two outputs, one that spends 60% of the satoshis to Bob’s public key and one that spends the remaining 40% to Charlie’s public key.
+After looking at the evidence, Alice thinks a 40% refund_ is sufficient, so she creates and signs a transaction with two outputs, one that spends 60% of the satoshis to Bob’s public key and one that spends the remaining 40% to Charlie’s public key.
 
 In the signature script Alice puts her signature and a copy of the unhashed serialized redeem script that Bob created. She gives a copy of the incomplete transaction to both Bob and Charlie. Either one of them can complete it by adding his signature to create the following signature script:
 
@@ -56,20 +56,20 @@ Alice also works part time moderating forum posts for Bob. Every time someone po
 
 Bob asks Alice for her public key and then creates two transactions. The first transaction pays 100 millibitcoins to a P2SH output whose 2-of-2 multisig redeem script requires signatures from both Alice and Bob. This is the bond transaction. Broadcasting this transaction would let Alice hold the millibitcoins hostage, so Bob keeps this transaction private for now and creates a second transaction.
 
-The second transaction spends all of the first transaction’s millibitcoins (minus a transaction fee) back to Bob after a 24 hour delay enforced by locktime. This is the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction. Bob can’t sign the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction by himself, so he gives it to Alice to sign, as shown in the illustration below.
+The second transaction spends all of the first transaction’s millibitcoins (minus a transaction fee) back to Bob after a 24 hour delay enforced by locktime. This is the refund_ transaction. Bob can’t sign the refund_ transaction by himself, so he gives it to Alice to sign, as shown in the illustration below.
 
 .. figure:: /img/dev/en-micropayment-channel.svg
    :alt: Micropayment Channel Example
 
    Micropayment Channel Example
 
-Alice checks that the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction’s locktime is 24 hours in the future, signs it, and gives a copy of it back to Bob. She then asks Bob for the bond transaction and checks that the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction spends the output of the bond transaction. She can now broadcast the bond transaction to the |network| to ensure Bob has to wait for the time lock to expire before further spending his millibitcoins. Bob hasn’t actually spent anything so far, except possibly a small transaction fee, and he’ll be able to broadcast the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction in 24 hours for a full `refund <../devguide/payment_processing.html#issuing-refunds>`__.
+Alice checks that the refund_ transaction’s locktime is 24 hours in the future, signs it, and gives a copy of it back to Bob. She then asks Bob for the bond transaction and checks that the refund_ transaction spends the output of the bond transaction. She can now broadcast the bond transaction to the |network| to ensure Bob has to wait for the time lock to expire before further spending his millibitcoins. Bob hasn’t actually spent anything so far, except possibly a small transaction fee, and he’ll be able to broadcast the refund_ transaction in 24 hours for a full refund_.
 
-Now, when Alice does some work worth 1 millibitcoin, she asks Bob to create and sign a new version of the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction. Version two of the transaction spends 1 millibitcoin to Alice and the other 99 back to Bob; it does not have a locktime, so Alice can sign it and spend it whenever she wants. (But she doesn’t do that immediately.)
+Now, when Alice does some work worth 1 millibitcoin, she asks Bob to create and sign a new version of the refund_ transaction. Version two of the transaction spends 1 millibitcoin to Alice and the other 99 back to Bob; it does not have a locktime, so Alice can sign it and spend it whenever she wants. (But she doesn’t do that immediately.)
 
-Alice and Bob repeat these work-and-pay steps until Alice finishes for the day, or until the time lock is about to expire. Alice signs the final version of the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction and broadcasts it, paying herself and refunding any remaining balance to Bob. The next day, when Alice starts work, they create a new :term:`micropayment channel`.
+Alice and Bob repeat these work-and-pay steps until Alice finishes for the day, or until the time lock is about to expire. Alice signs the final version of the refund_ transaction and broadcasts it, paying herself and refunding any remaining balance to Bob. The next day, when Alice starts work, they create a new :term:`micropayment channel`.
 
-If Alice fails to broadcast a version of the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction before its time lock expires, Bob can broadcast the first version and receive a full `refund <../devguide/payment_processing.html#issuing-refunds>`__. This is one reason :term:`micropayment channels <micropayment channel>` are best suited to small payments—if Alice’s Internet service goes out for a few hours near the time lock expiry, she could be cheated out of her payment.
+If Alice fails to broadcast a version of the refund_ transaction before its time lock expires, Bob can broadcast the first version and receive a full refund_. This is one reason :term:`micropayment channels <micropayment channel>` are best suited to small payments—if Alice’s Internet service goes out for a few hours near the time lock expiry, she could be cheated out of her payment.
 
 Transaction malleability, discussed above in the Transactions section, is another reason to limit the value of :term:`micropayment channels <micropayment channel>`. If someone uses transaction malleability to break the link between the two transactions, Alice could hold Bob’s 100 millibitcoins hostage even if she hadn’t done any work.
 
