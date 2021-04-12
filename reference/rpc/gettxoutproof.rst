@@ -18,7 +18,7 @@ Argument #1 - txids
 
 **Type:** json array, required
 
-A json array of txids to filter
+The txids to filter
 
 ::
 
@@ -43,7 +43,7 @@ Result
    * - Name
      - Type
      - Description
-   * - data
+   * - str
      - string
      - A string that is a serialized, hex-encoded data for the proof.
 

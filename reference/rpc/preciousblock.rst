@@ -19,6 +19,13 @@ Argument #1 - blockhash
 
 the hash of the block to mark as precious
 
+Result
+~~~~~~
+
+::
+
+  null    (json null)
+
 Examples
 ~~~~~~~~
 
@@ -31,5 +38,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "preciousblock", "params": ["blockhash"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "preciousblock", "params": ["blockhash"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

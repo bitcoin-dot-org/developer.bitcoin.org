@@ -39,7 +39,10 @@ Result
 
 ::
 
-  [ address ] (array) the derived addresses
+  [           (json array)
+    "str",    (string) the derived addresses
+    ...
+  ]
 
 Examples
 ~~~~~~~~

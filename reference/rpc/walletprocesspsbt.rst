@@ -9,6 +9,8 @@ walletprocesspsbt
 Update a PSBT with input information from our wallet and then sign inputs
 that we can sign for.
 
+Requires wallet passphrase to be set with walletpassphrase call if wallet is encrypted.
+
 Argument #1 - psbt
 ~~~~~~~~~~~~~~~~~~
 
@@ -39,19 +41,18 @@ The signature hash type to sign with if not specified by the PSBT. Must be one o
 Argument #4 - bip32derivs
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** boolean, optional, default=false
+**Type:** boolean, optional, default=true
 
-If true, includes the BIP 32 derivation paths for public keys if we know them
+Include BIP 32 derivation paths for public keys if we know them
 
 Result
 ~~~~~~
 
 ::
 
-  {
-    "psbt" : "value",          (string) The base64-encoded partially signed transaction
-    "complete" : true|false,   (boolean) If the transaction has a complete set of signatures
-    ]
+  {                             (json object)
+    "psbt" : "str",             (string) The base64-encoded partially signed transaction
+    "complete" : true|false     (boolean) If the transaction has a complete set of signatures
   }
 
 Examples

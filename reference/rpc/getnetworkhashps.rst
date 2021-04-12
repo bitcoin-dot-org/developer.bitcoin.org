@@ -35,7 +35,7 @@ Result
    * - Name
      - Type
      - Description
-   * - x
+   * - n
      - numeric
      - Hashes per second estimated
 
@@ -51,5 +51,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnetworkhashps", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnetworkhashps", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

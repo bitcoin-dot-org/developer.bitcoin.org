@@ -34,7 +34,10 @@ Result
 
 ::
 
-  [ blockhashes ]     (array) hashes of blocks generated
+  [           (json array) hashes of blocks generated
+    "hex",    (string) blockhash
+    ...
+  ]
 
 Examples
 ~~~~~~~~
@@ -46,7 +49,7 @@ Generate 11 blocks to myaddress::
 
   bitcoin-cli generatetoaddress 11 "myaddress"
 
-If you are running the bitcoin core wallet, you can get a new address to send the newly generated bitcoin to with:::
+If you are using the Bitcoin Core wallet, you can get a new address to send the newly generated bitcoin to with:::
 
   bitcoin-cli getnewaddress
 

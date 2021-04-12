@@ -15,7 +15,7 @@ Argument #1 - txs
 
 **Type:** json array, required
 
-A json array of base64 strings of partially signed transactions
+The base64 strings of partially signed transactions
 
 ::
 
@@ -23,6 +23,19 @@ A json array of base64 strings of partially signed transactions
        "psbt",    (string) A base64 string of a PSBT
        ...
      ]
+
+Result
+~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - str
+     - string
+     - The base64-encoded partially signed transaction
 
 Examples
 ~~~~~~~~
@@ -32,5 +45,5 @@ Examples
 
 ::
 
-  bitcoin-cli combinepsbt ["mybase64_1", "mybase64_2", "mybase64_3"]
+  bitcoin-cli combinepsbt '["mybase64_1", "mybase64_2", "mybase64_3"]'
 

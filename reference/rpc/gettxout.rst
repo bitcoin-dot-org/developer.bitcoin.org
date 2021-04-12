@@ -34,21 +34,21 @@ Result
 
 ::
 
-  {
-    "bestblock":  "hash",    (string) The hash of the block at the tip of the chain
-    "confirmations" : n,       (numeric) The number of confirmations
-    "value" : x.xxx,           (numeric) The transaction value in BTC
-    "scriptPubKey" : {         (json object)
-       "asm" : "code",       (string)
-       "hex" : "hex",        (string)
-       "reqSigs" : n,          (numeric) Number of required signatures
-       "type" : "pubkeyhash", (string) The type, eg pubkeyhash
-       "addresses" : [          (array of string) array of bitcoin addresses
-          "address"     (string) bitcoin address
-          ,...
-       ]
+  {                             (json object)
+    "bestblock" : "hex",        (string) The hash of the block at the tip of the chain
+    "confirmations" : n,        (numeric) The number of confirmations
+    "value" : n,                (numeric) The transaction value in BTC
+    "scriptPubKey" : {          (json object)
+      "asm" : "hex",            (string)
+      "hex" : "hex",            (string)
+      "reqSigs" : n,            (numeric) Number of required signatures
+      "type" : "hex",           (string) The type, eg pubkeyhash
+      "addresses" : [           (json array) array of bitcoin addresses
+        "str",                  (string) bitcoin address
+        ...
+      ]
     },
-    "coinbase" : true|false   (boolean) Coinbase or not
+    "coinbase" : true|false     (boolean) Coinbase or not
   }
 
 Examples
@@ -67,5 +67,5 @@ View the details::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "gettxout", "params": ["txid", 1] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettxout", "params": ["txid", 1]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

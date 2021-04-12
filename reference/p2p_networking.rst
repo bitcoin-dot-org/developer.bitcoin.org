@@ -1,7 +1,7 @@
 P2P Network
 -----------
 
-This section describes the Bitcoin P2P `network <../devguide/p2p_network.html>`__ protocol (but it is `not a specification <../reference/intro.html#not-a-specification>`__). It does not describe the discontinued direct `IP-to-IP payment protocol <https://en.bitcoin.it/wiki/IP_Transactions>`__, the :term:`deprecated BIP70 payment protocol <payment protocol>`, the `GetBlockTemplate mining protocol <../devguide/mining.html#getblocktemplate-rpc>`__, or any `network <../devguide/p2p_network.html>`__ protocol never implemented in an official version of Bitcoin Core.
+This section describes the Bitcoin P2P `network <../devguide/p2p_network.html>`__ protocol (but it is `not a specification <../reference/intro.html#not-a-specification>`__). It does not describe the discontinued direct `IP-to-IP payment protocol <https://en.bitcoin.it/wiki/IP_Transactions>`__, the :term:`deprecated BIP70 payment protocol <Payment protocol>`, the `GetBlockTemplate mining protocol <../devguide/mining.html#getblocktemplate-rpc>`__, or any `network <../devguide/p2p_network.html>`__ protocol never implemented in an official version of Bitcoin Core.
 
 All `peer-to-peer <../devguide/p2p_network.html>`__ communication occurs entirely over TCP.
 
@@ -13,7 +13,7 @@ Constants And Defaults
 The following constants and defaults are taken from Bitcoin Core’s `chainparams.cpp <https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp>`__ source code file.
 
 +--------------------------------------------+--------------+------------------------------------------+------------+
-| `Network <../devguide/p2p_network.html>`__ | Default Port | :term:`Start String <start string>`      | Max nBits  |
+| `Network <../devguide/p2p_network.html>`__ | Default Port | :term:`Start String <Start string>`      | Max nBits  |
 +============================================+==============+==========================================+============+
 | Mainnet                                    | 8333         | 0xf9beb4d9                               | 0x1d00ffff |
 +--------------------------------------------+--------------+------------------------------------------+------------+
@@ -107,7 +107,7 @@ The following `network <../devguide/p2p_network.html>`__ messages all request or
 
    Overview Of P2P Protocol Data Request And Reply Messages
 
-Many of the data messages use :term:`inventories <inventory>` as unique identifiers for transactions and blocks. Inventories have a simple 36-byte structure:
+Many of the data messages use :term:`inventories <Inventory>` as unique identifiers for transactions and blocks. Inventories have a simple 36-byte structure:
 
 +-------+-----------------+-----------+--------------------------------------------------------------------------+
 | Bytes | Name            | Data Type | Description                                                              |

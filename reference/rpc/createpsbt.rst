@@ -15,7 +15,7 @@ Argument #1 - inputs
 
 **Type:** json array, required
 
-A json array of json objects
+The json objects
 
 ::
 
@@ -33,7 +33,7 @@ Argument #2 - outputs
 
 **Type:** json array, required
 
-a json array with outputs (key-value pairs), where none of the keys are duplicated.
+The outputs (key-value pairs), where none of the keys are duplicated.
        That is, each address can only appear once and there can only be one 'data' object.
        For compatibility reasons, a dictionary, which holds the key-value pairs directly, is also
        accepted as second parameter.
@@ -64,6 +64,19 @@ Argument #4 - replaceable
 
 Marks this transaction as BIP125 replaceable.
        Allows this transaction to be replaced by a transaction with higher fees. If provided, it is an error if explicit sequence numbers are incompatible.
+
+Result
+~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - str
+     - string
+     - The resulting raw transaction (base64-encoded string)
 
 Examples
 ~~~~~~~~

@@ -31,7 +31,7 @@ Result
    * - Name
      - Type
      - Description
-   * - signature
+   * - str
      - string
      - The signature of the message encoded in base 64
 
@@ -51,5 +51,5 @@ Verify the signature::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signmessagewithprivkey", "params": ["privkey", "my message"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "signmessagewithprivkey", "params": ["privkey", "my message"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 
