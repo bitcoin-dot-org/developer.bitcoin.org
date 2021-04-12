@@ -13,7 +13,7 @@ Constants And Defaults
 The following constants and defaults are taken from Bitcoin Core’s `chainparams.cpp <https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp>`__ source code file.
 
 +--------------------------------------------+--------------+------------------------------------------+------------+
-| `Network <../devguide/p2p_network.html>`__ | Default Port | :term:`Start String <Start string>`      | Max nBits  |
+| `Network <../devguide/p2p_network.html>`__ | Default Port | :term:`Start String`                     | Max nBits  |
 +============================================+==============+==========================================+============+
 | Mainnet                                    | 8333         | 0xf9beb4d9                               | 0x1d00ffff |
 +--------------------------------------------+--------------+------------------------------------------+------------+
@@ -692,7 +692,7 @@ Alert
 
 *Added in*\ `protocol version 311 <../reference/p2p_networking.html#protocol-versions>`__\ *.* *Removed in*\ `protocol version 70013 <../reference/p2p_networking.html#protocol-versions>`__\ *and released in*\ `Bitcoin Core 0.13.0 <https://bitcoin.org/en/release/v0.13.0>`__
 
-The legacy p2p `network <../devguide/p2p_network.html>`__ alert messaging system has been retired; however, internal alerts, partition detection warnings and the ``-alertnotify`` option features remain. See `Alert System Retirement <https://bitcoin.org/en/alert/2016-11-01-alert-retirement>`__ for details.
+The legacy :ref:p2p-network-header alert messaging system has been retired; however, internal alerts, partition detection warnings and the ``-alertnotify`` option features remain. See `Alert System Retirement <https://bitcoin.org/en/alert/2016-11-01-alert-retirement>`__ for details.
 
 FeeFilter
 ^^^^^^^^^

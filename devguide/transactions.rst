@@ -15,7 +15,7 @@ To keep things simple, this section pretends coinbase transactions do not exist.
 
    The Parts Of A Transaction
 
-The figure above shows the main parts of a Bitcoin transaction. Each transaction has at least one input and one output. Each :term:`input <Input>` spends the satoshis paid to a previous output. Each :term:`output <Output>` then waits as an Unspent Transaction Output (UTXO) until a later input spends it. When your Bitcoin wallet tells you that you have a 10,000 satoshi balance, it really means that you have 10,000 satoshis waiting in one or more UTXOs.
+The figure above shows the main parts of a Bitcoin transaction. Each transaction has at least one input and one output. Each :term:`input` spends the satoshis paid to a previous output. Each :term:`output` then waits as an Unspent Transaction Output (UTXO) until a later input spends it. When your Bitcoin wallet tells you that you have a 10,000 satoshi balance, it really means that you have 10,000 satoshis waiting in one or more UTXOs.
 
 Each transaction is prefixed by a four-byte :ref:`transaction version number <term-transaction-version-number>` which tells Bitcoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.
 
@@ -35,17 +35,17 @@ The figures below help illustrate how these features are used by showing the wor
 
    Creating A P2PKH Public Key Hash To Receive Payment
 
-Bob must first generate a private/public :ref:`key pair <term-key-pair>` before Alice can create the first transaction. Bitcoin uses the Elliptic Curve Digital Signature Algorithm (`ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__) with the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ curve; `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`private keys <Private key>` are 256 bits of random data. A copy of that data is deterministically transformed into an `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`public key <Public key>`. Because the transformation can be reliably repeated later, the public key does not need to be stored.
+Bob must first generate a private/public :term:`key pair` before Alice can create the first transaction. Bitcoin uses the Elliptic Curve Digital Signature Algorithm (`ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__) with the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ curve; a `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`private key` is 256 bits of random data. A copy of that data is deterministically transformed into an `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`public key <Public key>`. Because the transformation can be reliably repeated later, the public key does not need to be stored.
 
 The public key (pubkey) is then cryptographically hashed. This pubkey hash can also be reliably repeated later, so it also does not need to be stored. The hash shortens and obfuscates the public key, making manual transcription easier and providing security against unanticipated problems which might allow reconstruction of private keys from public key data at some later point.
 
 Bob provides the pubkey hash to Alice. Pubkey hashes are almost always sent encoded as Bitcoin :term:`addresses <Address>`, which are base58-encoded strings containing an address version number, the hash, and an error-detection checksum to catch typos. The address can be transmitted through any medium, including one-way mediums which prevent the spender from communicating with the receiver, and it can be further encoded into another format, such as a QR code containing a :ref:`“bitcoin:” URI <term-bitcoin-uri>`.
 
-Once Alice has the address and decodes it back into a standard hash, she can create the first transaction. She creates a standard P2PKH transaction output containing instructions which allow anyone to spend that output if they can prove they control the private key corresponding to Bob’s hashed public key. These instructions are called the :term:`pubkey script <Pubkey script>` or scriptPubKey.
+Once Alice has the address and decodes it back into a standard hash, she can create the first transaction. She creates a standard P2PKH transaction output containing instructions which allow anyone to spend that output if they can prove they control the private key corresponding to Bob’s hashed public key. These instructions are called the :term:`pubkey script` or scriptPubKey.
 
 Alice broadcasts the transaction and it is added to the block chain. The |network| categorizes it as an Unspent Transaction Output (UTXO), and Bob’s wallet software displays it as a spendable balance.
 
-When, some time later, Bob decides to spend the UTXO, he must create an input which references the transaction Alice created by its hash, called a Transaction Identifier (txid), and the specific output she used by its index number (:ref:`output index <term-output-index>`). He must then create a :term:`signature script <Signature script>`—a collection of data parameters which satisfy the conditions Alice placed in the previous output’s pubkey script. Signature scripts are also called scriptSigs.
+When, some time later, Bob decides to spend the UTXO, he must create an input which references the transaction Alice created by its hash, called a Transaction Identifier (txid), and the specific output she used by its index number (:ref:`output index <term-output-index>`). He must then create a :term:`signature script` —a collection of data parameters which satisfy the conditions Alice placed in the previous output’s pubkey script. Signature scripts are also called scriptSigs.
 
 Pubkey scripts and signature scripts combine `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ pubkeys and signatures with conditional logic, creating a programmable authorization mechanism.
 
@@ -58,7 +58,7 @@ For a P2PKH-style output, Bob’s signature script will contain the following tw
 
 1. His full (unhashed) public key, so the pubkey script can check that it hashes to the same value as the pubkey hash provided by Alice.
 
-2. An `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`signature <Signature>` made by using the `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ cryptographic formula to combine certain transaction data (described below) with Bob’s private key. This lets the pubkey script verify that Bob owns the private key which created the public key.
+2. An `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`signature` made by using the `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ cryptographic formula to combine certain transaction data (described below) with Bob’s private key. This lets the pubkey script verify that Bob owns the private key which created the public key.
 
 Bob’s `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the `peer-to-peer network <../devguide/p2p_network.html>`__.
 
@@ -118,7 +118,7 @@ P2SH Scripts
 
 Pubkey scripts are created by spenders who have little interest what that script does. Receivers do care about the script conditions and, if they want, they can ask spenders to use a particular pubkey script. Unfortunately, custom pubkey scripts are less convenient than short Bitcoin addresses and there was no standard way to communicate them between programs prior to widespread implementation of the now deprecated `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ Payment Protocol discussed later.
 
-To solve these problems, pay-to-script-hash (:term:`P2SH <P2SH address>`) transactions were created in 2012 to let a spender create a pubkey script containing a hash of a second script, the :term:`redeem script <Redeem script>`.
+To solve these problems, pay-to-script-hash (:term:`P2SH <P2SH address>`) transactions were created in 2012 to let a spender create a pubkey script containing a hash of a second script, the :term:`redeem script`.
 
 The basic P2SH workflow, illustrated below, looks almost identical to the P2PKH workflow. Bob creates a redeem script with whatever script he wants, hashes the redeem script, and provides the redeem script hash to Alice. Alice creates a P2SH-style output containing Bob’s redeem script hash.
 
@@ -263,7 +263,7 @@ Signature Hash Types
 
 :ref:`“OP_CHECKSIG” <term-op-checksig>` extracts a non-stack argument from each signature it evaluates, allowing the signer to decide which parts of the transaction to sign. Since the signature protects those parts of the transaction from modification, this lets signers selectively choose to let other people modify their transactions.
 
-The various options for what to sign are called :term:`signature hash <Signature hash>` types. There are three base SIGHASH types currently available:
+The various options for what to sign are called :term:`signature hash` types. There are three base SIGHASH types currently available:
 
 -  :term:`“SIGHASH_ALL” <SIGHASH_ALL>`, the default, signs all the inputs and outputs, protecting everything except the signature scripts against modification.
 
@@ -284,7 +284,7 @@ Because each input is signed, a transaction with multiple inputs can have multip
 Locktime And Sequence Number
 ----------------------------
 
-One thing all signature hash types sign is the transaction’s :term:`locktime <Locktime>`. (Called nLockTime in the Bitcoin Core source code.) The locktime indicates the earliest time a transaction can be added to the block chain.
+One thing all signature hash types sign is the transaction’s :term:`locktime`. (Called nLockTime in the Bitcoin Core source code.) The locktime indicates the earliest time a transaction can be added to the block chain.
 
 Locktime allows signers to create time-locked transactions which will only become valid in the future, giving the signers a chance to change their minds.
 
@@ -311,7 +311,7 @@ There is also a concept of so-called “:term:`high-priority transactions <High-
 
 In the past, these “priority” transaction were often exempt from the normal fee requirements. Before Bitcoin Core 0.12, 50 KB of each block would be reserved for these high-priority transactions, however this is now set to 0 KB by default. After the priority area, all transactions are prioritized based on their fee per byte, with higher-paying transactions being added in sequence until all of the available space is filled.
 
-As of Bitcoin Core 0.9, a :term:`minimum fee <Minimum relay fee>` (currently 1,000 satoshis) has been required to broadcast a transaction across the |network|. Any transaction paying only the minimum fee should be prepared to wait a long time before there’s enough spare space in a block to include it. Please see the `verifying payment section <../devguide/payment_processing.html#verifying-payment>`__ for why this could be important.
+As of Bitcoin Core 0.9, a :term:`minimum relay fee` (currently 1,000 satoshis) has been required to broadcast a transaction across the |network|. Any transaction paying only the minimum fee should be prepared to wait a long time before there’s enough spare space in a block to include it. Please see the `verifying payment section <../devguide/payment_processing.html#verifying-payment>`__ for why this could be important.
 
 Since each transaction spends Unspent Transaction Outputs (UTXOs) and because a UTXO can only be spent once, the full value of the included UTXOs must be spent or given to a miner as a transaction fee. Few people will have UTXOs that exactly match the amount they want to pay, so most transactions include a change output.
 
@@ -339,7 +339,7 @@ So, for both privacy and security, we encourage you to build your applications t
 Transaction Malleability
 ------------------------
 
-None of Bitcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called :term:`transaction malleability <Transaction malleability>`. The signature script contains the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
+None of Bitcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called :term:`transaction malleability`. The signature script contains the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
 
 Although the modifications are non-functional—so they do not change what inputs the transaction uses nor what outputs it pays—they do change the computed hash of the transaction. Since each transaction links to previous transactions using hashes as a transaction identifier (txid), a modified transaction will not have the txid its creator expected.
 

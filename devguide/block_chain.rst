@@ -8,14 +8,14 @@ The block chain provides Bitcoin's public ledger, an ordered and timestamped rec
 Introduction
 ------------
 
-Each full node in the Bitcoin |network| independently stores a block chain containing only blocks validated by that node. When several nodes all have the same blocks in their block chain, they are considered to be in :term:`consensus`. The validation rules these nodes follow to maintain consensus are called :term:`consensus rules <Consensus rules>`. This section describes many of the consensus rules used by Bitcoin Core.
+Each full node in the Bitcoin |network| independently stores a block chain containing only blocks validated by that node. When several nodes all have the same blocks in their block chain, they are considered to be in :term:`consensus`. The validation rules these nodes follow to maintain consensus are called :term:`consensus rules`. This section describes many of the consensus rules used by Bitcoin Core.
 
 .. figure:: /img/dev/en-blockchain-overview.svg
    :alt: Block Chain Overview
 
    Block Chain Overview
 
-The illustration above shows a simplified version of a block chain. A :term:`block <Block>` of one or more new transactions is collected into the transaction data part of a block. Copies of each transaction are hashed, and the hashes are then paired, hashed, paired again, and hashed again until a single hash remains, the :term:`merkle root <Merkle root>` of a merkle tree.
+The illustration above shows a simplified version of a block chain. A :term:`block` of one or more new transactions is collected into the transaction data part of a block. Copies of each transaction are hashed, and the hashes are then paired, hashed, paired again, and hashed again until a single hash remains, the :term:`merkle root` of a merkle tree.
 
 The merkle root is stored in the block header. Each block also stores the hash of the previous block’s header, chaining the blocks together. This ensures a transaction cannot be modified without modifying the block that records it and all following blocks.
 
@@ -32,7 +32,7 @@ Outputs are tied to :term:`transaction identifiers (TXIDs) <Txid>`, which are th
 
 Because each output of a particular transaction can only be spent once, the outputs of all transactions included in the block chain can be categorized as either :term:`Unspent Transaction Outputs (UTXOs) <UTXO>` or spent transaction outputs. For a payment to be valid, it must only use UTXOs as inputs.
 
-Ignoring coinbase transactions (described later), if the value of a transaction’s outputs exceed its inputs, the transaction will be rejected—but if the inputs exceed the value of the outputs, any difference in value may be claimed as a :term:`transaction fee <Transaction fee>` by the Bitcoin :term:`miner <Mining>` who creates the block containing that transaction. For example, in the illustration above, each transaction spends 10,000 satoshis fewer than it receives from its combined inputs, effectively paying a 10,000 satoshi transaction fee.
+Ignoring coinbase transactions (described later), if the value of a transaction’s outputs exceed its inputs, the transaction will be rejected—but if the inputs exceed the value of the outputs, any difference in value may be claimed as a :term:`transaction fee` by the Bitcoin :term:`miner` who creates the block containing that transaction. For example, in the illustration above, each transaction spends 10,000 satoshis fewer than it receives from its combined inputs, effectively paying a 10,000 satoshi transaction fee.
 
 Proof Of Work
 -------------
@@ -41,13 +41,13 @@ The block chain is collaboratively maintained by anonymous peers on the |network
 
 Chaining blocks together makes it impossible to modify transactions included in any block without modifying all subsequent blocks. As a result, the cost to modify a particular block increases with every new block added to the block chain, magnifying the effect of the proof of work.
 
-The :term:`proof of work <Proof of work>` used in Bitcoin takes advantage of the apparently random nature of cryptographic hashes. A good cryptographic hash algorithm converts arbitrary data into a seemingly random number. If the data is modified in any way and the hash re-run, a new seemingly random number is produced, so there is no way to modify the data to make the hash number predictable.
+The :term:`proof of work` used in Bitcoin takes advantage of the apparently random nature of cryptographic hashes. A good cryptographic hash algorithm converts arbitrary data into a seemingly random number. If the data is modified in any way and the hash re-run, a new seemingly random number is produced, so there is no way to modify the data to make the hash number predictable.
 
 To prove you did some extra work to create a block, you must create a hash of the block header which does not exceed a certain value. For example, if the maximum possible hash value is 2256 − 1, you can prove that you tried up to two combinations by producing a hash value less than 2255.
 
 In the example given above, you will produce a successful hash on average every other try. You can even estimate the probability that a given hash attempt will generate a number below the :term:`target <nBits>` threshold. Bitcoin assumes a linear probability that the lower it makes the target threshold, the more hash attempts (on average) will need to be tried.
 
-New blocks will only be added to the block chain if their hash is at least as challenging as a :term:`difficulty <Difficulty>` value expected by the consensus protocol. Every 2,016 blocks, the |network| uses timestamps stored in each block header to calculate the number of seconds elapsed between generation of the first and last of those last 2,016 blocks. The ideal value is 1,209,600 seconds (two weeks).
+New blocks will only be added to the block chain if their hash is at least as challenging as a :term:`difficulty` value expected by the consensus protocol. Every 2,016 blocks, the |network| uses timestamps stored in each block header to calculate the number of seconds elapsed between generation of the first and last of those last 2,016 blocks. The ideal value is 1,209,600 seconds (two weeks).
 
 -  If it took fewer than two weeks to generate the 2,016 blocks, the expected difficulty value is increased proportionally (by as much as 300%) so that the next 2,016 blocks should take exactly two weeks to generate if hashes are checked at the same rate.
 
@@ -62,18 +62,18 @@ The block header provides several easy-to-modify fields, such as a dedicated non
 Block Height And Forking
 ------------------------
 
-Any Bitcoin miner who successfully hashes a block header to a value below the target threshold can add the entire block to the block chain (assuming the block is otherwise valid). These blocks are commonly addressed by their :term:`block height <Block height>`—the number of blocks between them and the first Bitcoin block (block 0, most commonly known as the :term:`genesis block <Genesis block>`). For example, block 2016 is where difficulty could have first been adjusted.
+Any Bitcoin miner who successfully hashes a block header to a value below the target threshold can add the entire block to the block chain (assuming the block is otherwise valid). These blocks are commonly addressed by their :term:`block height`—the number of blocks between them and the first Bitcoin block (block 0, most commonly known as the :term:`genesis block`). For example, block 2016 is where difficulty could have first been adjusted.
 
 .. figure:: /img/dev/en-blockchain-fork.svg
    :alt: Common And Uncommon Block Chain Forks
 
    Common And Uncommon Block Chain Forks
 
-Multiple blocks can all have the same block height, as is common when two or more miners each produce a block at roughly the same time. This creates an apparent :term:`fork <Fork>` in the block chain, as shown in the illustration above.
+Multiple blocks can all have the same block height, as is common when two or more miners each produce a block at roughly the same time. This creates an apparent :term:`fork` in the block chain, as shown in the illustration above.
 
 When miners produce simultaneous blocks at the end of the block chain, each node individually chooses which block to accept. In the absence of other considerations, discussed below, nodes usually use the first block they see.
 
-Eventually a miner produces another block which attaches to only one of the competing simultaneously-mined blocks. This makes that side of the fork stronger than the other side. Assuming a fork only contains valid blocks, normal peers always follow the most difficult chain to recreate and throw away :term:`stale blocks <Stale block>` belonging to shorter forks. (Stale blocks are also sometimes called orphans or orphan blocks, but those terms are also used for true orphan blocks without a known parent block.)
+Eventually a miner produces another block which attaches to only one of the competing simultaneously-mined blocks. This makes that side of the fork stronger than the other side. Assuming a fork only contains valid blocks, normal peers always follow the most difficult chain to recreate and throw away |stale blocks| belonging to shorter forks. (|stale blocks| are also sometimes called orphans or |orphan blocks|, but those terms are also used for true |orphan blocks| without a known parent block.)
 
 Long-term forks are possible if different miners work at cross-purposes, such as some miners diligently working to extend the block chain at the same time other miners are attempting a 51 percent attack to revise transaction history.
 
@@ -90,7 +90,7 @@ Blocks are not required to include any non-coinbase transactions, but miners alm
 
 All transactions, including the coinbase transaction, are encoded into blocks in binary raw transaction format.
 
-The raw transaction format is hashed to create the transaction identifier (txid). From these txids, the :term:`merkle tree <Merkle tree>` is constructed by pairing each txid with one other txid and then hashing them together. If there are an odd number of txids, the txid without a partner is hashed with a copy of itself.
+The raw transaction format is hashed to create the transaction identifier (txid). From these txids, the :term:`merkle tree` is constructed by pairing each txid with one other txid and then hashing them together. If there are an odd number of txids, the txid without a partner is hashed with a copy of itself.
 
 The resulting hashes themselves are each paired with one other hash and hashed together. Any hash without a partner is hashed with itself. The process repeats until only one hash remains, the merkle root.
 
@@ -121,14 +121,14 @@ To maintain consensus, all full nodes validate blocks using the same consensus r
 
 2. A block violating the new consensus rules is rejected by upgraded nodes but accepted by non-upgraded nodes. For example, an abusive transaction feature is used within a block: upgraded nodes reject it because it violates the new rules, but non-upgraded nodes accept it because it follows the old rules.
 
-In the first case, rejection by non-upgraded nodes, mining software which gets block chain data from those non-upgraded nodes refuses to build on the same chain as mining software getting data from upgraded nodes. This creates permanently divergent chains—one for non-upgraded nodes and one for upgraded nodes—called a :term:`hard fork <Hard fork>`.
+In the first case, rejection by non-upgraded nodes, mining software which gets block chain data from those non-upgraded nodes refuses to build on the same chain as mining software getting data from upgraded nodes. This creates permanently divergent chains—one for non-upgraded nodes and one for upgraded nodes—called a :term:`hard fork`.
 
 .. figure:: /img/dev/en-hard-fork.svg
    :alt: Hard Fork
 
    Hard Fork
 
-In the second case, rejection by upgraded nodes, it’s possible to keep the block chain from permanently diverging if upgraded nodes control a majority of the hash rate. That’s because, in this case, non-upgraded nodes will accept as valid all the same blocks as upgraded nodes, so the upgraded nodes can build a stronger chain that the non-upgraded nodes will accept as the best valid block chain. This is called a :term:`soft fork <Soft fork>`.
+In the second case, rejection by upgraded nodes, it’s possible to keep the block chain from permanently diverging if upgraded nodes control a majority of the hash rate. That’s because, in this case, non-upgraded nodes will accept as valid all the same blocks as upgraded nodes, so the upgraded nodes can build a stronger chain that the non-upgraded nodes will accept as the best valid block chain. This is called a :term:`soft fork`.
 
 .. figure:: /img/dev/en-soft-fork.svg
    :alt: Soft Fork
@@ -137,9 +137,9 @@ In the second case, rejection by upgraded nodes, it’s possible to keep the blo
 
 Although a fork is an actual divergence in block chains, changes to the consensus rules are often described by their potential to create either a hard or soft fork. For example, “increasing the block size above 1 MB requires a hard fork.” In this example, an actual block chain fork is not required—but it is a possible outcome.
 
-Consensus rule changes may be activated in various ways. During Bitcoin’s first two years, Satoshi Nakamoto performed several soft forks by just releasing the backwards-compatible change in a client that began immediately enforcing the new rule. Multiple soft forks such as `BIP30 <https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki>`__ have been activated via a flag day where the new rule began to be enforced at a preset time or block height. Such forks activated via a flag day are known as :term:`User Activated Soft Forks <UASF>` (UASF) as they are dependent on having sufficient users (nodes) to enforce the new rules after the flag day.
+Consensus rule changes may be activated in various ways. During Bitcoin’s first two years, Satoshi Nakamoto performed several soft forks by just releasing the backwards-compatible change in a client that began immediately enforcing the new rule. Multiple soft forks such as `BIP30 <https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki>`__ have been activated via a flag day where the new rule began to be enforced at a preset time or block height. Such forks activated via a flag day are known as :term:`User-Activated Soft Forks <UASF>` (UASF) as they are dependent on having sufficient users (nodes) to enforce the new rules after the flag day.
 
-Later soft forks waited for a majority of hash rate (typically 75% or 95%) to signal their readiness for enforcing the new consensus rules. Once the signalling threshold has been passed, all nodes will begin enforcing the new rules. Such forks are known as :term:`Miner Activated Soft Forks <MASF>` (MASF) as they are dependent on miners for activation.
+Later soft forks waited for a majority of hash rate (typically 75% or 95%) to signal their readiness for enforcing the new consensus rules. Once the signalling threshold has been passed, all nodes will begin enforcing the new rules. Such forks are known as :term:`Miner-Activated Soft Forks <MASF>` (MASF) as they are dependent on miners for activation.
 
 **Resources:** `BIP16 <https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki>`__, `BIP30 <https://github.com/bitcoin/bips/blob/master/bip-0030.mediawiki>`__, and `BIP34 <https://github.com/bitcoin/bips/blob/master/bip-0034.mediawiki>`__ were implemented as changes which might have lead to soft forks. `BIP50 <https://github.com/bitcoin/bips/blob/master/bip-0050.mediawiki>`__ describes both an accidental hard fork, resolved by temporary downgrading the capabilities of upgraded nodes, and an intentional hard fork when the temporary downgrade was removed. A document from Gavin Andresen outlines `how future rule changes may be implemented <https://gist.github.com/gavinandresen/2355445>`__.
 
@@ -154,6 +154,10 @@ Full nodes can also check block and transaction version numbers. If the block or
 
 In either case, block and transaction data should not be relied upon if it comes from a node that apparently isn’t using the current consensus rules.
 
-SPV clients which connect to full nodes can detect a likely hard fork by connecting to several full nodes and ensuring that they’re all on the same chain with the same block height, plus or minus several blocks to account for transmission delays and stale blocks. If there’s a divergence, the client can disconnect from nodes with weaker chains.
+SPV clients which connect to full nodes can detect a likely hard fork by connecting to several full nodes and ensuring that they’re all on the same chain with the same block height, plus or minus several blocks to account for transmission delays and |stale blocks|
+. If there’s a divergence, the client can disconnect from nodes with weaker chains.
 
 SPV clients should also monitor for block and :ref:`transaction version number <term-transaction-version-number>` increases to ensure they process received transactions and create new transactions using the current consensus rules.
+
+.. |stale blocks| replace:: :term:`stale blocks <stale block>`
+.. |orphan blocks| replace:: :term:`orphan blocks <orphan block>`

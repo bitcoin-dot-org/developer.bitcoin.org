@@ -100,7 +100,7 @@ First, get your hash. For P2PKH, you RIPEMD-160(SHA256()) hash a `ECDSA <https:/
 
 4. Append the checksum to the version and hash, and encode it as a base58 string: ``BASE58(version . hash . checksum)``
 
-Bitcoin’s base58 encoding, called :term:`Base58Check <Base58check>` may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki `Base58Check encoding <https://en.bitcoin.it/wiki/Base58Check_encoding>`__ page under the `Creative Commons Attribution 3.0 license <https://creativecommons.org/licenses/by/3.0/>`__:
+Bitcoin’s base58 encoding, called :term:`Base58Check` may not match other implementations. Tier Nolan provided the following example encoding algorithm to the Bitcoin Wiki `Base58Check encoding <https://en.bitcoin.it/wiki/Base58Check_encoding>`__ page under the `Creative Commons Attribution 3.0 license <https://creativecommons.org/licenses/by/3.0/>`__:
 
 .. highlight:: c
 

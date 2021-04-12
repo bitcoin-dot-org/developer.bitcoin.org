@@ -157,7 +157,7 @@ All of these problems are addressed in part or in full by the headers-first IBD 
 Headers-First
 ~~~~~~~~~~~~~
 
-`Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__ uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best :term:`header chain <Header chain>`, partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
+`Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__ uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best :term:`header chain`, partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
 
 .. figure:: /img/dev/en-headers-first-flowchart.svg
    :alt: Overview Of Headers-First Method

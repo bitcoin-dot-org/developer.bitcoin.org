@@ -132,7 +132,7 @@ Private keys are what are used to unlock satoshis from a particular address. In 
 Wallet Import Format (WIF)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In order to make copying of private keys less prone to error, :term:`Wallet Import Format <Wallet Import Format>` may be utilized. WIF uses base58Check encoding on a private key, greatly decreasing the chance of copying error, much like standard Bitcoin addresses.
+In order to make copying of private keys less prone to error, :term:`Wallet Import Format` may be utilized. WIF uses base58Check encoding on a private key, greatly decreasing the chance of copying error, much like standard Bitcoin addresses.
 
 1. Take a private key.
 
@@ -205,7 +205,7 @@ Hierarchical Deterministic Key Creation
    [normal|hardened|] [master|parent|child|grandchild] [extended|non-extended|] [private|public|chain] [key|code]
    -->
 
-The hierarchical deterministic key creation and transfer protocol (:term:`HD protocol <HD protocol>`) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
+The hierarchical deterministic key creation and transfer protocol (:term:`HD protocol`) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
 
 The HD protocol takes advantage of the `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public key creation function, :ref:`“point()” <term-point-function>`, which takes a large integer (the private key) and turns it into a graph point (the public key):
 
@@ -219,7 +219,7 @@ Because of the way :ref:`“point()” <Term-point-function>` works, it’s poss
 
    point( (parent_private_key + i) % p ) == parent_public_key + point(i)
 
-This means that two or more independent programs which agree on a sequence of integers can create a series of unique :term:`child key <Child key>` pairs from a single :term:`parent key <Parent key>` pair without any further communication. Moreover, the program which distributes new public keys for receiving payment can do so without any access to the private keys, allowing the public key distribution program to run on a possibly-insecure platform such as a public web server.
+This means that two or more independent programs which agree on a sequence of integers can create a series of unique :term:`child key` pairs from a single :term:`parent key` pair without any further communication. Moreover, the program which distributes new public keys for receiving payment can do so without any access to the private keys, allowing the public key distribution program to run on a possibly-insecure platform such as a public web server.
 
 Child public keys can also create their own child public keys (grandchild public keys) by repeating the child key derivation operations:
 
@@ -229,7 +229,7 @@ Child public keys can also create their own child public keys (grandchild public
 
 Whether creating child public keys or further-descended public keys, a predictable sequence of integer values would be no better than using a single public key for all transactions, as anyone who knew one child public key could find all of the other child public keys created from the same parent public key. Instead, a random seed can be used to deterministically generate the sequence of integer values so that the relationship between the child public keys is invisible to anyone without that seed.
 
-The HD protocol uses a single root seed to create a hierarchy of child, grandchild, and other descended keys with unlinkable deterministically-generated integer values. Each child key also gets a deterministically-generated seed from its parent, called a :term:`chain code <Chain code>`, so the compromising of one chain code doesn’t necessarily compromise the integer sequence for the whole hierarchy, allowing the :term:`master chain code <Master chain code>` to continue being useful even if, for example, a web-based public key distribution program gets hacked.
+The HD protocol uses a single root seed to create a hierarchy of child, grandchild, and other descended keys with unlinkable deterministically-generated integer values. Each child key also gets a deterministically-generated seed from its parent, called a :term:`chain code`, so the compromising of one chain code doesn’t necessarily compromise the integer sequence for the whole hierarchy, allowing the :term:`master chain code` to continue being useful even if, for example, a web-based public key distribution program gets hacked.
 
 .. figure:: /img/dev/en-hd-overview.svg
    :alt: Overview Of Hierarchical Deterministic Key Derivation
@@ -238,7 +238,7 @@ The HD protocol uses a single root seed to create a hierarchy of child, grandchi
 
 As illustrated above, HD key derivation takes four inputs:
 
--  The :term:`parent private key <Parent key>` and *parent public key* are regular uncompressed 256-bit `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ keys.
+-  The :term:`parent private key` and :term:`parent public key` are regular uncompressed 256-bit `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ keys.
 
 -  The :term:`parent chain code <Chain code>` is 256 bits of seemingly-random data.
 
@@ -254,14 +254,14 @@ In the normal form shown in the above illustration, the parent chain code, the p
 
 Specifying different index numbers will create different unlinkable child keys from the same parent keys. Repeating the procedure for the child keys using the child chain code will create unlinkable grandchild keys.
 
-Because creating child keys requires both a key and a chain code, the key and chain code together are called the :term:`extended key <Extended key>`. An :term:`extended private key <Extended key>` and its corresponding :term:`extended public key <Extended key>` have the same chain code. The (top-level parent) :term:`master private key <Master chain code>` and master chain code are derived from random data, as illustrated below.
+Because creating child keys requires both a key and a chain code, the key and chain code together are called the :term:`extended key`. An :term:`extended private key <Extended key>` and its corresponding :term:`extended public key <Extended key>` have the same chain code. The (top-level parent) :term:`master private key` and :term:`master chain code` are derived from random data, as illustrated below.
 
 .. figure:: /img/dev/en-hd-root-keys.svg
    :alt: Creating A Root Extended Key Pair
 
    Creating A Root Extended Key Pair
 
-A :term:`root seed <HD wallet seed>` is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.
+A :term:`root seed` is created from either 128 bits, 256 bits, or 512 bits of random data. This root seed of as little as 128 bits is the only data the user needs to backup in order to derive every key created by a particular wallet program using particular settings.
 
 |Warning icon| **Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
 
