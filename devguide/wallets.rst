@@ -113,7 +113,7 @@ Wallet programs which run in difficult-to-secure environments, such as webserver
 
 -  Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To `avoid key reuse <../devguide/transactions.html#avoiding-key-reuse>`__, webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.
 
--  Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the :ref:`key index <term-key-index>` number.
+-  Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the :term:`key index` number.
 
 Neither method adds a significant amount of overhead, especially if a database is used anyway to associate each incoming payment with a separate public key for payment tracking. See the `Payment Processing <../devguide/payment_processing.html>`__ section for details.
 
@@ -127,7 +127,7 @@ Private Key Formats
 
 Private keys are what are used to unlock satoshis from a particular address. In Bitcoin, a private key in standard format is simply a 256-bit number, between the values:
 
-0x01 and 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4140, representing nearly the entire range of 2256-1 values. The range is governed by the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ encryption standard used by Bitcoin.
+0x01 and 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4140, representing nearly the entire range of 2256-1 values. The range is governed by the |secp256k1| |ECDSA| encryption standard used by Bitcoin.
 
 Wallet Import Format (WIF)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -172,7 +172,7 @@ Many implementations disallow the character ‘1’ in the mini private key due 
 Public Key Formats
 ~~~~~~~~~~~~~~~~~~
 
-Bitcoin `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public keys represent a point on a particular Elliptic Curve (EC) defined in `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Bitcoin, y2 = x3 + 7, over a field of contiguous numbers.
+Bitcoin |ECDSA| public keys represent a point on a particular Elliptic Curve (EC) defined in |secp256k1|. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Bitcoin, y2 = x3 + 7, over a field of contiguous numbers.
 
 .. figure:: /img/dev/en-ecdsa-compressed-public-key.svg
    :alt: Point On ECDSA Curve
@@ -183,7 +183,7 @@ Bitcoin `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public keys
 
 An almost 50% reduction in public key size can be realized without changing any fundamentals by dropping the Y coordinate. This is possible because only two points along the curve share any particular X coordinate, so the 32-byte Y coordinate can be replaced with a single bit indicating whether the point is on what appears in the illustration as the “top” side or the “bottom” side.
 
-No data is lost by creating these compressed public keys—only a small amount of CPU is necessary to reconstruct the Y coordinate and access the uncompressed public key. Both uncompressed and compressed public keys are described in official `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ documentation and supported by default in the widely-used OpenSSL library.
+No data is lost by creating these compressed public keys—only a small amount of CPU is necessary to reconstruct the Y coordinate and access the uncompressed public key. Both uncompressed and compressed public keys are described in official |secp256k1| documentation and supported by default in the widely-used OpenSSL library.
 
 Because they’re easy to use, and because they reduce almost by half the block chain space used to store public keys for every spent output, compressed public keys are the default in Bitcoin Core and are the recommended default for all Bitcoin software.
 
@@ -193,7 +193,7 @@ For this reason, Bitcoin Core uses several different identifier bytes to help pr
 
 -  Private keys meant to be used with compressed public keys have 0x01 appended to them before being Base-58 encoded. (See the private key encoding section above.)
 
--  Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ documentation.
+-  Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official |secp256k1| documentation.
 
 Hierarchical Deterministic Key Creation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -207,13 +207,13 @@ Hierarchical Deterministic Key Creation
 
 The hierarchical deterministic key creation and transfer protocol (:term:`HD protocol`) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
 
-The HD protocol takes advantage of the `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public key creation function, :ref:`“point()” <term-point-function>`, which takes a large integer (the private key) and turns it into a graph point (the public key):
+The HD protocol takes advantage of the |ECDSA| public key creation function, |point()|, which takes a large integer (the private key) and turns it into a graph point (the public key):
 
 ::
 
    point(private_key) == public_key
 
-Because of the way :ref:`“point()” <Term-point-function>` works, it’s possible to create a :term:`child public key <Child key>` by combining an existing :term:`(parent) public key <Parent key>` with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the :ref:`“point()” <Term-point-function>` function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Bitcoin software (*p*):
+Because of the way |point()| works, it’s possible to create a :term:`child public key <Child key>` by combining an existing :term:`(parent) public key <Parent key>` with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the |point()| function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Bitcoin software (*p*):
 
 ::
 
@@ -238,11 +238,11 @@ The HD protocol uses a single root seed to create a hierarchy of child, grandchi
 
 As illustrated above, HD key derivation takes four inputs:
 
--  The :term:`parent private key` and :term:`parent public key` are regular uncompressed 256-bit `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ keys.
+-  The :term:`parent private key` and :term:`parent public key` are regular uncompressed 256-bit |ECDSA| keys.
 
 -  The :term:`parent chain code <Chain code>` is 256 bits of seemingly-random data.
 
--  The :ref:`index <term-key-index>` number is a 32-bit integer specified by the program.
+-  The :term:`index <key index>` number is a 32-bit integer specified by the program.
 
 In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash (`HMAC-SHA512 <https://en.wikipedia.org/wiki/HMAC>`__) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:
 
@@ -265,7 +265,7 @@ A :term:`root seed` is created from either 128 bits, 256 bits, or 512 bits of ra
 
 |Warning icon| **Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
 
-The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using :ref:`“point()” <term-point-function>`, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
+The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using |point()|, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
 
 Hardened Keys
 ^^^^^^^^^^^^^
@@ -337,9 +337,10 @@ Loose-Key wallets, also called “Just a Bunch Of Keys (JBOK)”, are a deprecat
 
 These unused private keys are stored in a virtual “key pool”, with new keys being generated whenever a previously-generated key was used, ensuring the pool maintained 100 unused keys. (If the wallet is encrypted, new keys are only generated while the wallet is unlocked.)
 
-This created considerable difficulty in backing up one’s keys, considering backups have to be run manually to save the newly-generated private keys. If a new :ref:`key pair <term-key-pair>` set is generated, used, and then lost prior to a backup, the stored satoshis are likely lost forever. Many older-style mobile wallets followed a similar format, but only generated a new private key upon user demand.
+This created considerable difficulty in backing up one’s keys, considering backups have to be run manually to save the newly-generated private keys. If a new :term:`key pair` set is generated, used, and then lost prior to a backup, the stored satoshis are likely lost forever. Many older-style mobile wallets followed a similar format, but only generated a new private key upon user demand.
 
 This wallet type is being actively phased out and discouraged from being used due to the backup hassle.
 
 .. |Warning icon| image:: /img/icons/icon_warning.svg
 
+.. |point()| replace:: :term:`“point()” <point function>`

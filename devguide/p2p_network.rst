@@ -83,7 +83,7 @@ The first time a node is started, it only has a single block in its local best b
 
 In the header hashes field of the `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, this new node sends the header hash of the only block it has, the genesis block (6fe2…0000 in internal byte order). It also sets the stop hash field to all zeroes to request a maximum-size response.
 
-Upon :ref:`receipt <term-receipt>` of the `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 500 block inventories (the maximum response to a `“getblocks” message <../reference/p2p_networking.html#getblocks>`__) starting from block 1. It sends these inventories in the `“inv” message <../reference/p2p_networking.html#inv>`__ illustrated below.
+Upon :term:`receipt` of the `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 500 block inventories (the maximum response to a `“getblocks” message <../reference/p2p_networking.html#getblocks>`__) starting from block 1. It sends these inventories in the `“inv” message <../reference/p2p_networking.html#inv>`__ illustrated below.
 
 .. figure:: /img/dev/en-ibd-inv.svg
    :alt: First Inv Message Sent During IBD
@@ -103,7 +103,7 @@ The IBD node uses the received inventories to request 128 blocks from the sync n
 
 It’s important to blocks-first nodes that the blocks be requested and sent in order because each block header references the header hash of the preceding block. That means the IBD node can’t fully validate a block until its parent block has been received. Blocks that can’t be validated because their parents haven’t been received are called orphan blocks; a subsection below describes them in more detail.
 
-Upon :ref:`receipt <term-receipt>` of the `“getdata” message <../reference/p2p_networking.html#getdata>`__, the sync node replies with each of the blocks requested. Each block is put into serialized block format and sent in a separate `“block” message <../reference/p2p_networking.html#block>`__. The first `“block” message <../reference/p2p_networking.html#block>`__ sent (for block 1) is illustrated below.
+Upon :term:`receipt` of the `“getdata” message <../reference/p2p_networking.html#getdata>`__, the sync node replies with each of the blocks requested. Each block is put into serialized block format and sent in a separate `“block” message <../reference/p2p_networking.html#block>`__. The first `“block” message <../reference/p2p_networking.html#block>`__ sent (for block 1) is illustrated below.
 
 .. figure:: /img/dev/en-ibd-block.svg
    :alt: First Block Message Sent During IBD
@@ -117,7 +117,7 @@ The IBD node downloads each block, validates it, and then requests the next bloc
 
    Second GetBlocks Message Sent During IBD
 
-Upon :ref:`receipt <term-receipt>` of the second `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, the sync node searches its local best block chain for a block that matches one of the header hashes in the message, trying each hash in the order they were received. If it finds a matching hash, it replies with 500 block inventories starting with the next block from that point. But if there is no matching hash (besides the stopping hash), it assumes the only block the two nodes have in common is block 0 and so it sends an ``inv`` starting with block 1 (the same `“inv” message <../reference/p2p_networking.html#inv>`__ seen several illustrations above).
+Upon :term:`receipt` of the second `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, the sync node searches its local best block chain for a block that matches one of the header hashes in the message, trying each hash in the order they were received. If it finds a matching hash, it replies with 500 block inventories starting with the next block from that point. But if there is no matching hash (besides the stopping hash), it assumes the only block the two nodes have in common is block 0 and so it sends an ``inv`` starting with block 1 (the same `“inv” message <../reference/p2p_networking.html#inv>`__ seen several illustrations above).
 
 This repeated search allows the sync node to send useful inventories even if the IBD node’s local block chain forked from the sync node’s local block chain. This fork detection becomes increasingly useful the closer the IBD node gets to the tip of the block chain.
 
@@ -173,7 +173,7 @@ The first time a node is started, it only has a single block in its local best b
 
 In the header hashes field of the `“getheaders” message <../reference/p2p_networking.html#getheaders>`__, the new node sends the header hash of the only block it has, the genesis block (6fe2…0000 in internal byte order). It also sets the stop hash field to all zeroes to request a maximum-size response.
 
-Upon :ref:`receipt <term-receipt>` of the `“getheaders” message <../reference/p2p_networking.html#getheaders>`__, the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 2,000 header (the maximum response) starting from block 1. It sends these header hashes in the `“headers” message <../reference/p2p_networking.html#headers>`__ illustrated below.
+Upon :term:`receipt` of the `“getheaders” message <../reference/p2p_networking.html#getheaders>`__, the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 2,000 header (the maximum response) starting from block 1. It sends these header hashes in the `“headers” message <../reference/p2p_networking.html#headers>`__ illustrated below.
 
 .. figure:: /img/dev/en-ibd-headers.svg
    :alt: First headers message
@@ -236,9 +236,9 @@ When a miner discovers a new block, it broadcasts the new block to its peers usi
 
    This protocol for block broadcasting was proposed in BIP 130 and has been implemented in Bitcoin Core since version 0.12.
 
-By default, Bitcoin Core broadcasts blocks using direct headers announcement to any peers that have signalled with `“sendheaders” <../reference/p2p_networking.html#sendheaders>`__ and uses :ref:`standard block relay <term-standard-block-relay>` for all peers that have not. Bitcoin Core will accept blocks sent using any of the methods described above.
+By default, Bitcoin Core broadcasts blocks using direct headers announcement to any peers that have signalled with `“sendheaders” <../reference/p2p_networking.html#sendheaders>`__ and uses :term:`standard block relay` for all peers that have not. Bitcoin Core will accept blocks sent using any of the methods described above.
 
-Full nodes validate the received block and then advertise it to their peers using the :ref:`standard block relay <term-standard-block-relay>` method described above. The condensed table below highlights the operation of the messages described above (Relay, BF, HF, and SPV refer to the relay node, a blocks-first node, a headers-first node, and an SPV client; *any* refers to a node using any block retrieval method.)
+Full nodes validate the received block and then advertise it to their peers using the :term:`standard block relay` method described above. The condensed table below highlights the operation of the messages described above (Relay, BF, HF, and SPV refer to the relay node, a blocks-first node, a headers-first node, and an SPV client; *any* refers to a node using any block retrieval method.)
 
 +------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
 | Message                                                          | From→To       | Payload                                                                                  |
@@ -261,7 +261,7 @@ Full nodes validate the received block and then advertise it to their peers usin
 Orphan Blocks
 ~~~~~~~~~~~~~
 
-Blocks-first nodes may download orphan blocks—blocks whose :ref:`previous block header hash <term-previous-block-header-hash>` field refers to a block header this node hasn’t seen yet. In other words, orphan blocks have no known parent (unlike stale blocks, which have known parents but which aren’t part of the best block chain).
+Blocks-first nodes may download orphan blocks—blocks whose :term:`previous block header hash` field refers to a block header this node hasn’t seen yet. In other words, orphan blocks have no known parent (unlike stale blocks, which have known parents but which aren’t part of the best block chain).
 
 .. figure:: /img/dev/en-orphan-stale-definition.svg
    :alt: Difference Between Orphan And Stale Blocks

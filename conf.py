@@ -193,5 +193,24 @@ epub_exclude_files = ['search.html']
 # improve readability and prevent unexpected content changes.
 #rst_prolog = ''
 rst_epilog = """
+.. reference aliases
 .. |network| replace:: :ref:`network<p2p-network-header>`
+
+.. frequently-used terms with links
+.. |ECDSA| replace:: `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`
+.. |secp256k1| replace:: `secp256k1 <http://www.secg.org/sec2-v2.pdf>`
+
+.. OP codes
+.. |OP_CHECKMULTISIG| replace:: :term:`“OP_CHECKMULTISIG” <OP_CHECKMULTISIG>`
+.. |OP_CHECKSIG| replace:: :term:`“OP_CHECKSIG” <OP_CHECKSIG>`
+.. |OP_DUP| replace:: :term:`“OP_DUP” <OP_DUP>`
+.. |OP_EQUAL| replace:: :term:`OP_EQUAL <OP_EQUAL>`
+.. |OP_EQUALVERIFY| replace:: :term:`“OP_EQUALVERIFY” <OP_EQUALVERIFY>`
+.. |OP_HASH160| replace:: :term:`“OP_HASH160” <OP_HASH160>`
+.. |OP_RETURN| replace:: :term:`“OP_RETURN” <OP_RETURN>`
+.. |OP_VERIFY| replace:: :term:`“OP_VERIFY” <OP_VERIFY>`
+
+.. other
+.. |PaymentDetails| replace:: :term:`PaymentDetails`
+.. |PaymentRequest| replace:: :term:`PaymentRequest`
 """

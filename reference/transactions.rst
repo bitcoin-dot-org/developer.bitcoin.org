@@ -12,33 +12,33 @@ The opcodes used in the pubkey scripts of standard transactions are:
 
 -  ``OP_TRUE``/``OP_1`` (0x51) and ``OP_2`` through ``OP_16`` (0x52–0x60), which push the values 1 through 16 to the stack.
 
--  :ref:`“OP_CHECKSIG” <term-op-checksig>` consumes a signature and a full public key, and pushes true onto the stack if the transaction data specified by the SIGHASH flag was converted into the signature using the same `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ private key that generated the public key. Otherwise, it pushes false onto the stack.
+-  |OP_CHECKSIG| consumes a signature and a full public key, and pushes true onto the stack if the transaction data specified by the SIGHASH flag was converted into the signature using the same |ECDSA| private key that generated the public key. Otherwise, it pushes false onto the stack.
 
--  :ref:`“OP_DUP” <term-op-dup>` pushes a copy of the topmost stack item on to the stack.
+-  |OP_DUP| pushes a copy of the topmost stack item on to the stack.
 
--  :ref:`“OP_HASH160” <term-op-hash160>` consumes the topmost item on the stack, computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.
+-  |OP_HASH160| consumes the topmost item on the stack, computes the RIPEMD160(SHA256()) hash of that item, and pushes that hash onto the stack.
 
--  :ref:`“OP_EQUAL” <term-op-equal>` consumes the top two items on the stack, compares them, and pushes true onto the stack if they are the same, false if not.
+-  |OP_EQUAL| consumes the top two items on the stack, compares them, and pushes true onto the stack if they are the same, false if not.
 
--  :ref:`“OP_VERIFY” <term-op-verify>` consumes the topmost item on the stack. If that item is zero (false) it terminates the script in failure.
+-  |OP_VERIFY| consumes the topmost item on the stack. If that item is zero (false) it terminates the script in failure.
 
--  :ref:`“OP_EQUALVERIFY” <term-op-equalverify>` runs :ref:`“OP_EQUAL” <term-op-equal>` and then :ref:`“OP_VERIFY” <term-op-verify>` in sequence.
+-  |OP_EQUALVERIFY| runs |OP_EQUAL| and then |OP_VERIFY| in sequence.
 
--  :ref:`“OP_CHECKMULTISIG” <term-op-checkmultisig>` consumes the value (n) at the top of the stack, consumes that many of the next stack levels (public keys), consumes the value (m) now at the top of the stack, and consumes that many of the next values (signatures) plus one extra value.
+-  |OP_CHECKMULTISIG| consumes the value (n) at the top of the stack, consumes that many of the next stack levels (public keys), consumes the value (m) now at the top of the stack, and consumes that many of the next values (signatures) plus one extra value.
 
-   The “one extra value” it consumes is the result of an off-by-one error in the Bitcoin Core implementation. This value is not used, so signature scripts prefix the list of `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signatures with a single OP_0 (0x00).
+   The “one extra value” it consumes is the result of an off-by-one error in the Bitcoin Core implementation. This value is not used, so signature scripts prefix the list of |secp256k1| signatures with a single OP_0 (0x00).
 
-   :ref:`“OP_CHECKMULTISIG” <term-op-checkmultisig>` compares the first signature against each public key until it finds an `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ match. Starting with the subsequent public key, it compares the second signature against each remaining public key until it finds an `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ match. The process is repeated until all signatures have been checked or not enough public keys remain to produce a successful result.
+   |OP_CHECKMULTISIG| compares the first signature against each public key until it finds an |ECDSA| match. Starting with the subsequent public key, it compares the second signature against each remaining public key until it finds an |ECDSA| match. The process is repeated until all signatures have been checked or not enough public keys remain to produce a successful result.
 
-   Because public keys are not checked again if they fail any signature comparison, signatures must be placed in the signature script using the same order as their corresponding public keys were placed in the pubkey script or redeem script. See the :ref:`“OP_CHECKMULTISIG” <term-op-checkmultisig>` warning below for more details.
+   Because public keys are not checked again if they fail any signature comparison, signatures must be placed in the signature script using the same order as their corresponding public keys were placed in the pubkey script or redeem script. See the |OP_CHECKMULTISIG| warning below for more details.
 
--  :ref:`“OP_RETURN” <term-op-return>` terminates the script in failure when executed.
+-  |OP_RETURN| terminates the script in failure when executed.
 
 A complete list of opcodes can be found on the Bitcoin Wiki `Script Page <https://en.bitcoin.it/wiki/Script>`__, with an authoritative list in the ``opcodetype`` enum of the Bitcoin Core `script header file <https://github.com/bitcoin/bitcoin/blob/master/src/script/script.h>`__
 
 |Warning icon| **Signature script modification warning:** Signature scripts are not signed, so anyone can modify them. This means signature scripts should only contain data and data-pushing opcodes which can’t be modified without causing the pubkey script to fail. Placing non-data-pushing opcodes in the signature script currently makes a transaction non-standard, and future consensus rules may forbid such transactions altogether. (Non-data-pushing opcodes are already forbidden in signature scripts when spending a P2SH pubkey script.)
 
-|Warning icon| :ref:`“OP_CHECKMULTISIG” <term-op-checkmultisig>`\ **warning:** The multisig verification process described above requires that signatures in the signature script be provided in the same order as their corresponding public keys in the pubkey script or redeem script. For example, the following combined signature and pubkey script will produce the stack and comparisons shown:
+|Warning icon| |OP_CHECKMULTISIG|\ **warning:** The multisig verification process described above requires that signatures in the signature script be provided in the same order as their corresponding public keys in the pubkey script or redeem script. For example, the following combined signature and pubkey script will produce the stack and comparisons shown:
 
 .. highlight:: text
 
@@ -82,13 +82,13 @@ Address Conversion
 
 The hashes used in P2PKH and P2SH outputs are commonly encoded as Bitcoin addresses. This is the procedure to encode those hashes and decode the addresses.
 
-First, get your hash. For P2PKH, you RIPEMD-160(SHA256()) hash a `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public key derived from your 256-bit `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ private key (random data). For P2SH, you RIPEMD-160(SHA256()) hash a redeem script serialized in the format used in raw transactions (described in a `following sub-section <../reference/transactions.html#raw-transaction-format>`__). Taking the resulting hash:
+First, get your hash. For P2PKH, you RIPEMD-160(SHA256()) hash a |ECDSA| public key derived from your 256-bit |ECDSA| private key (random data). For P2SH, you RIPEMD-160(SHA256()) hash a redeem script serialized in the format used in raw transactions (described in a `following sub-section <../reference/transactions.html#raw-transaction-format>`__). Taking the resulting hash:
 
 1. Add an address version byte in front of the hash. The version bytes commonly used by Bitcoin are:
 
-   -  0x00 for P2PKH addresses on the main Bitcoin `network <../devguide/p2p_network.html>`__ (mainnet)
+   -  0x00 for P2PKH addresses on the main Bitcoin |network| (mainnet)
 
-   -  0x6f for P2PKH addresses on the Bitcoin testing `network <../devguide/p2p_network.html>`__ (testnet)
+   -  0x6f for P2PKH addresses on the Bitcoin testing |network| (testnet)
 
    -  0x05 for P2SH addresses on mainnet
 
@@ -281,7 +281,7 @@ The first transaction in a block, called the coinbase transaction, must have exa
 
 Most (but not all) blocks prior to block height 227,836 used block version 1 which did not require the height parameter to be prefixed to the coinbase script. The block height parameter is now required.
 
-Although the coinbase script is arbitrary data, if it includes the bytes used by any signature-checking operations such as :ref:`“OP_CHECKSIG” <term-op-checksig>`, those signature checks will be counted as signature operations (sigops) towards the block’s sigop limit. To avoid this, you can prefix all data with the appropriate push operation.
+Although the coinbase script is arbitrary data, if it includes the bytes used by any signature-checking operations such as |OP_CHECKSIG|, those signature checks will be counted as signature operations (sigops) towards the block’s sigop limit. To avoid this, you can prefix all data with the appropriate push operation.
 
 An itemized coinbase transaction:
 

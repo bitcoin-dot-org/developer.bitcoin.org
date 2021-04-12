@@ -17,7 +17,7 @@ To keep things simple, this section pretends coinbase transactions do not exist.
 
 The figure above shows the main parts of a Bitcoin transaction. Each transaction has at least one input and one output. Each :term:`input` spends the satoshis paid to a previous output. Each :term:`output` then waits as an Unspent Transaction Output (UTXO) until a later input spends it. When your Bitcoin wallet tells you that you have a 10,000 satoshi balance, it really means that you have 10,000 satoshis waiting in one or more UTXOs.
 
-Each transaction is prefixed by a four-byte :ref:`transaction version number <term-transaction-version-number>` which tells Bitcoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.
+Each transaction is prefixed by a four-byte :term:`transaction version number` which tells Bitcoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.
 
 .. figure:: /img/dev/en-tx-overview-spending.svg
    :alt: Spending An Output
@@ -26,7 +26,7 @@ Each transaction is prefixed by a four-byte :ref:`transaction version number <te
 
 An output has an implied index number based on its location in the transaction—the index of the first output is zero. The output also has an amount in satoshis which it pays to a conditional pubkey script. Anyone who can satisfy the conditions of that pubkey script can spend up to the amount of satoshis paid to it.
 
-An input uses a transaction identifier (txid) and an :ref:`output index <term-output-index>` number (often called “vout” for output vector) to identify a particular output to be spent. It also has a signature script which allows it to provide data parameters that satisfy the conditionals in the pubkey script. (The sequence number and locktime are related and will be covered together in a later subsection.)
+An input uses a transaction identifier (txid) and an :term:`output index` number (often called “vout” for output vector) to identify a particular output to be spent. It also has a signature script which allows it to provide data parameters that satisfy the conditionals in the pubkey script. (The sequence number and locktime are related and will be covered together in a later subsection.)
 
 The figures below help illustrate how these features are used by showing the workflow Alice uses to send Bob a transaction and which Bob later uses to spend that transaction. Both Alice and Bob will use the most common form of the standard Pay-To-Public-Key-Hash (P2PKH) transaction type. :term:`P2PKH <P2PKH address>` lets Alice spend satoshis to a typical Bitcoin address, and then lets Bob further spend those satoshis using a simple cryptographic :ref:`key pair <term-key-pair>`.
 
@@ -35,7 +35,7 @@ The figures below help illustrate how these features are used by showing the wor
 
    Creating A P2PKH Public Key Hash To Receive Payment
 
-Bob must first generate a private/public :term:`key pair` before Alice can create the first transaction. Bitcoin uses the Elliptic Curve Digital Signature Algorithm (`ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__) with the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ curve; a `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`private key` is 256 bits of random data. A copy of that data is deterministically transformed into an `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`public key <Public key>`. Because the transformation can be reliably repeated later, the public key does not need to be stored.
+Bob must first generate a private/public :term:`key pair` before Alice can create the first transaction. Bitcoin uses the Elliptic Curve Digital Signature Algorithm (|ECDSA|) with the |secp256k1| curve; a |secp256k1| :term:`private key` is 256 bits of random data. A copy of that data is deterministically transformed into an |secp256k1| :term:`public key <Public key>`. Because the transformation can be reliably repeated later, the public key does not need to be stored.
 
 The public key (pubkey) is then cryptographically hashed. This pubkey hash can also be reliably repeated later, so it also does not need to be stored. The hash shortens and obfuscates the public key, making manual transcription easier and providing security against unanticipated problems which might allow reconstruction of private keys from public key data at some later point.
 
@@ -47,7 +47,7 @@ Alice broadcasts the transaction and it is added to the block chain. The |networ
 
 When, some time later, Bob decides to spend the UTXO, he must create an input which references the transaction Alice created by its hash, called a Transaction Identifier (txid), and the specific output she used by its index number (:ref:`output index <term-output-index>`). He must then create a :term:`signature script` —a collection of data parameters which satisfy the conditions Alice placed in the previous output’s pubkey script. Signature scripts are also called scriptSigs.
 
-Pubkey scripts and signature scripts combine `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ pubkeys and signatures with conditional logic, creating a programmable authorization mechanism.
+Pubkey scripts and signature scripts combine |secp256k1| pubkeys and signatures with conditional logic, creating a programmable authorization mechanism.
 
 .. figure:: /img/dev/en-unlocking-p2pkh-output.svg
    :alt: Unlocking A P2PKH Output For Spending
@@ -58,16 +58,16 @@ For a P2PKH-style output, Bob’s signature script will contain the following tw
 
 1. His full (unhashed) public key, so the pubkey script can check that it hashes to the same value as the pubkey hash provided by Alice.
 
-2. An `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ :term:`signature` made by using the `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ cryptographic formula to combine certain transaction data (described below) with Bob’s private key. This lets the pubkey script verify that Bob owns the private key which created the public key.
+2. An |secp256k1| :term:`signature` made by using the |ECDSA| cryptographic formula to combine certain transaction data (described below) with Bob’s private key. This lets the pubkey script verify that Bob owns the private key which created the public key.
 
-Bob’s `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the `peer-to-peer network <../devguide/p2p_network.html>`__.
+Bob’s |secp256k1| signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the `peer-to-peer network <../devguide/p2p_network.html>`__.
 
 .. figure:: /img/dev/en-signing-output-to-spend.svg
    :alt: Some Things Signed When Spending An Output
 
    Some Things Signed When Spending An Output
 
-As illustrated in the figure above, the data Bob signs includes the txid and :ref:`output index <term-output-index>` of the previous transaction, the previous output’s pubkey script, the pubkey script Bob creates which will let the next recipient spend this transaction’s output, and the amount of satoshis to spend to the next recipient. In essence, the entire transaction is signed except for any signature scripts, which hold the full public keys and `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signatures.
+As illustrated in the figure above, the data Bob signs includes the txid and :term:`output index` of the previous transaction, the previous output’s pubkey script, the pubkey script Bob creates which will let the next recipient spend this transaction’s output, and the amount of satoshis to spend to the next recipient. In essence, the entire transaction is signed except for any signature scripts, which hold the full public keys and |secp256k1| signatures.
 
 After putting his signature and public key in the signature script, Bob broadcasts the transaction to Bitcoin miners through the `peer-to-peer network <../devguide/p2p_network.html>`__. Each peer and miner independently validates the transaction before broadcasting it further or attempting to include it in a new block of transactions.
 
@@ -80,7 +80,7 @@ The validation procedure requires evaluation of the signature script and pubkey 
 
    OP_DUP OP_HASH160 <PubkeyHash> OP_EQUALVERIFY OP_CHECKSIG
 
-The spender’s signature script is evaluated and prefixed to the beginning of the script. In a P2PKH transaction, the signature script contains an `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature (sig) and full public key (pubkey), creating the following concatenation:
+The spender’s signature script is evaluated and prefixed to the beginning of the script. In a P2PKH transaction, the signature script contains an |secp256k1| signature (sig) and full public key (pubkey), creating the following concatenation:
 
 ::
 
@@ -97,19 +97,19 @@ To test whether the transaction is valid, signature script and pubkey script ope
 
 -  The signature (from Bob’s signature script) is added (pushed) to an empty stack. Because it’s just data, nothing is done except adding it to the stack. The public key (also from the signature script) is pushed on top of the signature.
 
--  From Alice’s pubkey script, the :ref:`“OP_DUP” <term-op-dup>` operation is executed. :ref:`“OP_DUP” <term-op-dup>` pushes onto the stack a copy of the data currently at the top of it—in this case creating a copy of the public key Bob provided.
+-  From Alice’s pubkey script, the |OP_DUP| operation is executed. |OP_DUP| pushes onto the stack a copy of the data currently at the top of it—in this case creating a copy of the public key Bob provided.
 
--  The operation executed next, :ref:`“OP_HASH160” <term-op-hash160>`, pushes onto the stack a hash of the data currently on top of it—in this case, Bob’s public key. This creates a hash of Bob’s public key.
+-  The operation executed next, |OP_HASH160|, pushes onto the stack a hash of the data currently on top of it—in this case, Bob’s public key. This creates a hash of Bob’s public key.
 
 -  Alice’s pubkey script then pushes the pubkey hash that Bob gave her for the first transaction. At this point, there should be two copies of Bob’s pubkey hash at the top of the stack.
 
--  Now it gets interesting: Alice’s pubkey script executes :ref:`“OP_EQUALVERIFY” <term-op-equalverify>`. :ref:`“OP_EQUALVERIFY” <term-op-equalverify>` is equivalent to executing :ref:`“OP_EQUAL” <term-op-equal>` followed by :ref:`“OP_VERIFY” <term-op-verify>` (not shown).
+-  Now it gets interesting: Alice’s pubkey script executes |OP_EQUALVERIFY|. |OP_EQUALVERIFY| is equivalent to executing |OP_EQUAL| followed by |OP_VERIFY| (not shown).
 
-   :ref:`“OP_EQUAL” <term-op-equal>` (not shown) checks the two values at the top of the stack; in this case, it checks whether the pubkey hash generated from the full public key Bob provided equals the pubkey hash Alice provided when she created transaction #1. :ref:`“OP_EQUAL” <term-op-equal>` pops (removes from the top of the stack) the two values it compared, and replaces them with the result of that comparison: zero (*false*) or one (*true*).
+   |OP_EQUAL| (not shown) checks the two values at the top of the stack; in this case, it checks whether the pubkey hash generated from the full public key Bob provided equals the pubkey hash Alice provided when she created transaction #1. |OP_EQUAL| pops (removes from the top of the stack) the two values it compared, and replaces them with the result of that comparison: zero (*false*) or one (*true*).
 
-   :ref:`“OP_VERIFY” <term-op-verify>` (not shown) checks the value at the top of the stack. If the value is *false* it immediately terminates evaluation and the transaction validation fails. Otherwise it pops the *true* value off the stack.
+   |OP_VERIFY| (not shown) checks the value at the top of the stack. If the value is *false* it immediately terminates evaluation and the transaction validation fails. Otherwise it pops the *true* value off the stack.
 
--  Finally, Alice’s pubkey script executes :ref:`“OP_CHECKSIG” <term-op-checksig>`, which checks the signature Bob provided against the now-authenticated public key he also provided. If the signature matches the public key and was generated using all of the data required to be signed, :ref:`“OP_CHECKSIG” <term-op-checksig>` pushes the value *true* onto the top of the stack.
+-  Finally, Alice’s pubkey script executes |OP_CHECKSIG|, which checks the signature Bob provided against the now-authenticated public key he also provided. If the signature matches the public key and was generated using all of the data required to be signed, |OP_CHECKSIG| pushes the value *true* onto the top of the stack.
 
 If *false* is not at the top of the stack after the pubkey script has been evaluated, the transaction is valid (provided there are no other problems with it).
 
@@ -186,9 +186,9 @@ Although P2SH multisig is now generally used for multisig transactions, this bas
 
 In multisig pubkey scripts, called m-of-n, *m* is the *minimum* number of signatures which must match a public key; *n* is the *number* of public keys being provided. Both *m* and *n* should be opcodes ``OP_1`` through ``OP_16``, corresponding to the number desired.
 
-Because of an off-by-one error in the original Bitcoin implementation which must be preserved for compatibility, :ref:`“OP_CHECKMULTISIG” <term-op-checkmultisig>` consumes one more value from the stack than indicated by *m*, so the list of `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signatures in the signature script must be prefaced with an extra value (``OP_0``) which will be consumed but not used.
+Because of an off-by-one error in the original Bitcoin implementation which must be preserved for compatibility, |OP_CHECKMULTISIG| consumes one more value from the stack than indicated by *m*, so the list of |secp256k1| signatures in the signature script must be prefaced with an extra value (``OP_0``) which will be consumed but not used.
 
-The signature script must provide signatures in the same order as the corresponding public keys appear in the pubkey script or redeem script. See the description in :ref:`“OP_CHECKMULTISIG” <term-op-checkmultisig>` for details.
+The signature script must provide signatures in the same order as the corresponding public keys appear in the pubkey script or redeem script. See the description in |OP_CHECKMULTISIG| for details.
 
 ::
 
@@ -261,7 +261,7 @@ As of `Bitcoin Core 0.9.3 <https://bitcoin.org/en/release/v0.9.3>`__, standard t
 Signature Hash Types
 --------------------
 
-:ref:`“OP_CHECKSIG” <term-op-checksig>` extracts a non-stack argument from each signature it evaluates, allowing the signer to decide which parts of the transaction to sign. Since the signature protects those parts of the transaction from modification, this lets signers selectively choose to let other people modify their transactions.
+|OP_CHECKSIG| extracts a non-stack argument from each signature it evaluates, allowing the signer to decide which parts of the transaction to sign. Since the signature protects those parts of the transaction from modification, this lets signers selectively choose to let other people modify their transactions.
 
 The various options for what to sign are called :term:`signature hash` types. There are three base SIGHASH types currently available:
 
@@ -330,7 +330,7 @@ Even better, using new public keys or :ref:`unique addresses <term-unique-addres
 
 Avoiding key reuse can also provide security against attacks which might allow reconstruction of private keys from public keys (hypothesized) or from signature comparisons (possible today under certain circumstances described below, with more general attacks hypothesized).
 
-1. Unique (non-reused) P2PKH and P2SH addresses protect against the first type of attack by keeping `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public keys hidden (hashed) until the first time satoshis sent to those addresses are spent, so attacks are effectively useless unless they can reconstruct private keys in less than the hour or two it takes for a transaction to be well protected by the block chain.
+1. Unique (non-reused) P2PKH and P2SH addresses protect against the first type of attack by keeping |ECDSA| public keys hidden (hashed) until the first time satoshis sent to those addresses are spent, so attacks are effectively useless unless they can reconstruct private keys in less than the hour or two it takes for a transaction to be well protected by the block chain.
 
 2. Unique (non-reused) private keys protect against the second type of attack by only generating one signature per private key, so attackers never get a subsequent signature to use in comparison-based attacks. Existing comparison-based attacks are only practical today when insufficient entropy is used in signing or when the entropy used is exposed by some means, such as a `side-channel attack <https://en.wikipedia.org/wiki/Side_channel_attack>`__.
 
@@ -339,7 +339,7 @@ So, for both privacy and security, we encourage you to build your applications t
 Transaction Malleability
 ------------------------
 
-None of Bitcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called :term:`transaction malleability`. The signature script contains the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
+None of Bitcoin’s signature hash types protect the signature script, leaving the door open for a limited denial of service attack called :term:`transaction malleability`. The signature script contains the |secp256k1| signature, which can’t sign itself, allowing attackers to make non-functional modifications to a transaction without rendering it invalid. For example, an attacker can add some data to the signature script which will be dropped before the previous pubkey script is processed.
 
 Although the modifications are non-functional—so they do not change what inputs the transaction uses nor what outputs it pays—they do change the computed hash of the transaction. Since each transaction links to previous transactions using hashes as a transaction identifier (txid), a modified transaction will not have the txid its creator expected.
 

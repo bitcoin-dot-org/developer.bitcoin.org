@@ -1,7 +1,7 @@
 P2P Network
 -----------
 
-This section describes the Bitcoin P2P `network <../devguide/p2p_network.html>`__ protocol (but it is `not a specification <../reference/intro.html#not-a-specification>`__). It does not describe the discontinued direct `IP-to-IP payment protocol <https://en.bitcoin.it/wiki/IP_Transactions>`__, the :term:`deprecated BIP70 payment protocol <Payment protocol>`, the `GetBlockTemplate mining protocol <../devguide/mining.html#getblocktemplate-rpc>`__, or any `network <../devguide/p2p_network.html>`__ protocol never implemented in an official version of Bitcoin Core.
+This section describes the Bitcoin P2P |network| protocol (but it is `not a specification <../reference/intro.html#not-a-specification>`__). It does not describe the discontinued direct `IP-to-IP payment protocol <https://en.bitcoin.it/wiki/IP_Transactions>`__, the :term:`deprecated BIP70 payment protocol <Payment protocol>`, the `GetBlockTemplate mining protocol <../devguide/mining.html#getblocktemplate-rpc>`__, or any |network| protocol never implemented in an official version of Bitcoin Core.
 
 All `peer-to-peer <../devguide/p2p_network.html>`__ communication occurs entirely over TCP.
 
@@ -24,14 +24,14 @@ The following constants and defaults are taken from Bitcoin Core’s `chainparam
 
 Note: the testnet start string and nBits above are for testnet3; the original testnet used a different string and higher (less difficult) nBits.
 
-Command line parameters can change what port a node listens on (see ``-help``). Start strings are hardcoded constants that appear at the start of all messages sent on the Bitcoin `network <../devguide/p2p_network.html>`__; they may also appear in data files such as Bitcoin Core’s block database. The nBits displayed above are in big-endian order; they’re sent over the `network <../devguide/p2p_network.html>`__ in little-endian order.
+Command line parameters can change what port a node listens on (see ``-help``). Start strings are hardcoded constants that appear at the start of all messages sent on the Bitcoin |network|; they may also appear in data files such as Bitcoin Core’s block database. The nBits displayed above are in big-endian order; they’re sent over the |network| in little-endian order.
 
 Bitcoin Core’s `chainparams.cpp <https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp>`__ also includes other constants useful to programs, such as the hash of the genesis blocks for the different networks.
 
 Protocol Versions
 ~~~~~~~~~~~~~~~~~
 
-The table below lists some notable versions of the P2P `network <../devguide/p2p_network.html>`__ protocol, with the most recent versions listed first. (If you know of a protocol version that implemented a major change but which is not listed here, please `open an issue <https://github.com/bitcoin-dot-org/bitcoin.org/issues>`__.)
+The table below lists some notable versions of the P2P |network| protocol, with the most recent versions listed first. (If you know of a protocol version that implemented a major change but which is not listed here, please `open an issue <https://github.com/bitcoin-dot-org/bitcoin.org/issues>`__.)
 
 As of Bitcoin Core 0.18.0, the most recent protocol version is 70015.
 
@@ -72,12 +72,12 @@ As of Bitcoin Core 0.18.0, the most recent protocol version is 70015.
 Message Headers
 ~~~~~~~~~~~~~~~
 
-All messages in the `network <../devguide/p2p_network.html>`__ protocol use the same container format, which provides a required multi-field message header and an optional payload. The message header format is:
+All messages in the |network| protocol use the same container format, which provides a required multi-field message header and an optional payload. The message header format is:
 
 +-------+--------------+-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Bytes | Name         | Data Type | Description                                                                                                                                                                                                                                                                                                                                      |
 +=======+==============+===========+==================================================================================================================================================================================================================================================================================================================================================+
-| 4     | start string | char[4]   | Magic bytes indicating the originating `network <../devguide/p2p_network.html>`__; used to seek to next message when stream state is unknown.                                                                                                                                                                                                    |
+| 4     | start string | char[4]   | Magic bytes indicating the originating |network|; used to seek to next message when stream state is unknown.                                                                                                                                                                                                                                     |
 +-------+--------------+-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 12    | command name | char[12]  | ASCII string which identifies what message type is contained in the payload. Followed by nulls (0x00) to pad out byte count; for example: ``version\0\0\0\0\0``.                                                                                                                                                                                 |
 +-------+--------------+-----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -100,7 +100,7 @@ The following example is an annotated hex dump of a mainnet message header from 
 Data Messages
 ~~~~~~~~~~~~~
 
-The following `network <../devguide/p2p_network.html>`__ messages all request or provide data related to transactions and blocks.
+The following |network| messages all request or provide data related to transactions and blocks.
 
 .. figure:: /img/dev/en-p2p-data-messages.svg
    :alt: Overview Of P2P Protocol Data Request And Reply Messages
@@ -283,9 +283,9 @@ MemPool
 
 The `“mempool” message <../reference/p2p_networking.html#mempool>`__ requests the TXIDs of transactions that the receiving node has verified as valid but which have not yet appeared in a block. That is, transactions which are in the receiving node’s memory pool. The response to the `“mempool” message <../reference/p2p_networking.html#mempool>`__ is one or more `“inv” messages <../reference/p2p_networking.html#inv>`__ containing the TXIDs in the usual inventory format.
 
-Sending the `“mempool” message <../reference/p2p_networking.html#mempool>`__ is mostly useful when a program first connects to the `network <../devguide/p2p_network.html>`__. Full nodes can use it to quickly gather most or all of the unconfirmed transactions available on the `network <../devguide/p2p_network.html>`__; this is especially useful for miners trying to gather transactions for their transaction fees. SPV clients can set a filter before sending a ``mempool`` to only receive transactions that match that filter; this allows a recently-started client to get most or all unconfirmed transactions related to its wallet.
+Sending the `“mempool” message <../reference/p2p_networking.html#mempool>`__ is mostly useful when a program first connects to the |network|. Full nodes can use it to quickly gather most or all of the unconfirmed transactions available on the |network|; this is especially useful for miners trying to gather transactions for their transaction fees. SPV clients can set a filter before sending a ``mempool`` to only receive transactions that match that filter; this allows a recently-started client to get most or all unconfirmed transactions related to its wallet.
 
-The ``inv`` response to the `“mempool” message <../reference/p2p_networking.html#mempool>`__ is, at best, one node’s view of the `network <../devguide/p2p_network.html>`__—not a complete list of unconfirmed transactions on the `network <../devguide/p2p_network.html>`__. Here are some additional reasons the list might not be complete:
+The ``inv`` response to the `“mempool” message <../reference/p2p_networking.html#mempool>`__ is, at best, one node’s view of the |network|—not a complete list of unconfirmed transactions on the |network|. Here are some additional reasons the list might not be complete:
 
 -  Before `Bitcoin Core 0.9.0 <https://bitcoin.org/en/release/v0.9.0>`__, the response to the `“mempool” message <../reference/p2p_networking.html#mempool>`__ was only one `“inv” message <../reference/p2p_networking.html#inv>`__. An `“inv” message <../reference/p2p_networking.html#inv>`__ is limited to 50,000 inventories, so a node with a memory pool larger than 50,000 entries would not send everything. Later versions of Bitcoin Core send as many `“inv” messages <../reference/p2p_networking.html#inv>`__ as needed to reference its complete memory pool.
 
@@ -348,7 +348,7 @@ The annotated hexdump below shows a `“merkleblock” message <../reference/p2p
    01 ................................. Flag bytes: 1
    1d ................................. Flags: 1 0 1 1 1 0 0 0
 
-Note: when fully decoded, the above `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ provided the TXID for a single transaction that matched the filter. In the `network <../devguide/p2p_network.html>`__ traffic dump this output was taken from, the full transaction belonging to that TXID was sent immediately after the `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ as a `“tx” message <../reference/p2p_networking.html#tx>`__.
+Note: when fully decoded, the above `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ provided the TXID for a single transaction that matched the filter. In the |network| traffic dump this output was taken from, the full transaction belonging to that TXID was sent immediately after the `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ as a `“tx” message <../reference/p2p_networking.html#tx>`__.
 
 Parsing A MerkleBlock Message
 '''''''''''''''''''''''''''''
@@ -586,7 +586,7 @@ For an example hexdump of the raw transaction format, see the `raw transaction s
 Control Messages
 ~~~~~~~~~~~~~~~~
 
-The following `network <../devguide/p2p_network.html>`__ messages all help control the connection between two peers or allow them to advise each other about the rest of the `network <../devguide/p2p_network.html>`__.
+The following |network| messages all help control the connection between two peers or allow them to advise each other about the rest of the |network|.
 
 .. figure:: /img/dev/en-p2p-control-messages.svg
    :alt: Overview Of P2P Protocol Control And Advisory Messages
@@ -598,7 +598,7 @@ Note that almost none of the control messages are authenticated in any way, mean
 Addr
 ^^^^
 
-The ``addr`` (IP address) message relays connection information for peers on the `network <../devguide/p2p_network.html>`__. Each peer which wants to accept incoming connections creates an `“addr” <../reference/p2p_networking.html#addr>`__ or `“addrv2” <../reference/p2p_networking.html#addrv2>`__ message providing its connection information and then sends that message to its peers unsolicited. Some of its peers send that information to their peers (also unsolicited), some of which further distribute it, allowing decentralized peer discovery for any program already on the `network <../devguide/p2p_network.html>`__.
+The ``addr`` (IP address) message relays connection information for peers on the |network|. Each peer which wants to accept incoming connections creates an `“addr” <../reference/p2p_networking.html#addr>`__ or `“addrv2” <../reference/p2p_networking.html#addrv2>`__ message providing its connection information and then sends that message to its peers unsolicited. Some of its peers send that information to their peers (also unsolicited), some of which further distribute it, allowing decentralized peer discovery for any program already on the |network|.
 
 An `“addr” message <../reference/p2p_networking.html#addr>`__ may also be sent in response to a `“getaddr” message <../reference/p2p_networking.html#getaddr>`__.
 
@@ -607,10 +607,10 @@ An `“addr” message <../reference/p2p_networking.html#addr>`__ may also be se
 +==========+==================+=======================================================+============================================================================================================================+
 | *Varies* | IP address count | compactSize uint                                      | The number of IP address entries up to a maximum of 1,000.                                                                 |
 +----------+------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+
-| *Varies* | IP addresses     | `network <../devguide/p2p_network.html>`__ IP address | IP address entries. See the table below for the format of a Bitcoin `network <../devguide/p2p_network.html>`__ IP address. |
+| *Varies* | IP addresses     | |network| IP address | IP address entries. See the table below for the format of a Bitcoin |network| IP address.                                                                   |
 +----------+------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+
 
-Each encapsulated `network <../devguide/p2p_network.html>`__ IP address currently uses the following structure:
+Each encapsulated |network| IP address currently uses the following structure:
 
 +-------+------------+-----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Bytes | Name       | Data Type | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
@@ -621,7 +621,7 @@ Each encapsulated `network <../devguide/p2p_network.html>`__ IP address currentl
 +-------+------------+-----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 16    | IP address | char[16]  | IPv6 address in **big endian byte order**. IPv4 addresses can be provided as `IPv4-mapped IPv6 addresses <http://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses>`__                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 +-------+------------+-----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2     | port       | uint16_t  | Port number in **big endian byte order**. Note that Bitcoin Core will only connect to nodes with non-standard port numbers as a last resort for finding peers. This is to prevent anyone from trying to use the `network <../devguide/p2p_network.html>`__ to disrupt non-Bitcoin services that run on other ports.                                                                                                                                                                                                                                                                                                    |
+| 2     | port       | uint16_t  | Port number in **big endian byte order**. Note that Bitcoin Core will only connect to nodes with non-standard port numbers as a last resort for finding peers. This is to prevent anyone from trying to use the |network| to disrupt non-Bitcoin services that run on other ports.                                                                                                                                                                                                                                                                                                                                     |
 +-------+------------+-----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 The following annotated hexdump shows part of an `“addr” message <../reference/p2p_networking.html#addr>`__. (The message header has been omitted and the actual IP address has been replaced with a `RFC5737 <http://tools.ietf.org/html/rfc5737>`__ reserved IP address.)
@@ -642,14 +642,14 @@ The following annotated hexdump shows part of an `“addr” message <../referen
 Addrv2
 ^^^^^^
 
-The ``addrv2`` (address version two) message relays connection information for peers on the `network <../devguide/p2p_network.html>`__ in a similar way to the `“addr“ message <../reference/p2p_networking.html#addr>`__ except that it uses a different encoding which supports addresses longer than 16 bytes.
+The ``addrv2`` (address version two) message relays connection information for peers on the |network| in a similar way to the `“addr“ message <../reference/p2p_networking.html#addr>`__ except that it uses a different encoding which supports addresses longer than 16 bytes.
 
 +----------+------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+
 | Bytes    | Name             | Data Type                                             | Description                                                                                                                |
 +==========+==================+=======================================================+============================================================================================================================+
 | *Varies* | address count    | compactSize uint                                      | The number of address entries up to a maximum of 1,000.                                                                    |
 +----------+------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+
-| *Varies* | addresses        | `network <../devguide/p2p_network.html>`__ address    | Address entries. See the table below for the format of a Bitcoin `network <../devguide/p2p_network.html>`__ addrv2 address.|
+| *Varies* | addresses        | |network| address                                     | Address entries. See the table below for the format of a Bitcoin |network| addrv2 address.                                 |
 +----------+------------------+-------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------+
 
 Each encapsulated address uses the following structure (``addrv2`` encoding):
