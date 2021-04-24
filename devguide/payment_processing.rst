@@ -1,3 +1,5 @@
+.. _dev-payment-processing-header:
+
 Payment Processing
 ==================
 
@@ -6,7 +8,7 @@ Payment processing encompasses the steps spenders and receivers perform to make 
 Introduction
 ------------
 
-This section will explain how receivers and spenders can, respectively, request and make payments using Bitcoin—and how they can deal with complications such as `refunds <../devguide/payment_processing.html#issuing-refunds>`__ and `recurrent rebilling <../devguide/payment_processing.html#rebilling-recurring-payments>`__.
+This section will explain how receivers and spenders can, respectively, request and make payments using Bitcoin—and how they can deal with complications such as `refunds <../devguide/payment_processing.html#issuing-refunds>`_ and `recurrent rebilling <../devguide/payment_processing.html#rebilling-recurring-payments>`__.
 
 .. figure:: /img/dev/en-payment-processing.svg
    :alt: Bitcoin Payment Processing
@@ -20,7 +22,7 @@ It is worth mentioning that each of these steps can be outsourced by using third
 Pricing Orders
 --------------
 
-Because of exchange rate variability between satoshis and national currencies (:ref:`fiat <term-fiat>`), many Bitcoin orders are priced in :ref:`fiat <term-fiat>` but paid in satoshis, necessitating a price conversion.
+Because of exchange rate variability between satoshis and national currencies (:term:`fiat`), many Bitcoin orders are priced in :term:`fiat` but paid in satoshis, necessitating a price conversion.
 
 Exchange rate data is widely available through HTTP-based APIs provided by currency exchanges. Several organizations also aggregate data from multiple exchanges to create index prices, which are also available using HTTP-based APIs.
 
@@ -30,11 +32,11 @@ To minimize problems, your applications may want to collect data from at least t
 
 You may also want to program your applications to enter a safe mode if exchange rates are rapidly increasing or decreasing, indicating a possible problem in the Bitcoin market which could make it difficult to spend any satoshis received today.
 
-Exchange rates lie outside the control of Bitcoin and related technologies, so there are no new or planned technologies which will make it significantly easier for your program to correctly convert order totals from :ref:`fiat <term-fiat>` into satoshis.
+Exchange rates lie outside the control of Bitcoin and related technologies, so there are no new or planned technologies which will make it significantly easier for your program to correctly convert order totals from :term:`fiat` into satoshis.
 
-Because the exchange rate fluctuates over time, order totals pegged to :ref:`fiat <term-fiat>` must expire to prevent spenders from delaying payment in the hope that satoshis will drop in price. Most widely-used payment processing systems currently expire their invoices after 10 to 20 minutes.
+Because the exchange rate fluctuates over time, order totals pegged to :term:`fiat` must expire to prevent spenders from delaying payment in the hope that satoshis will drop in price. Most widely-used payment processing systems currently expire their invoices after 10 to 20 minutes.
 
-Shorter expiration periods increase the chance the invoice will expire before payment is received, possibly necessitating manual intervention to request an additional payment or to issue a `refund <../devguide/payment_processing.html#issuing-refunds>`__. Longer expiration periods increase the chance that the exchange rate will fluctuate a significant amount before payment is received.
+Shorter expiration periods increase the chance the invoice will expire before payment is received, possibly necessitating manual intervention to request an additional payment or to issue a refund_. Longer expiration periods increase the chance that the exchange rate will fluctuate a significant amount before payment is received.
 
 Requesting Payments
 -------------------
@@ -47,11 +49,11 @@ The next subsections will describe in detail the following four compatible ways 
 
 1. All wallet software lets its users paste in or manually enter an address and amount into a payment screen. This is, of course, inconvenient—but it makes an effective fallback option.
 
-2. Almost all desktop wallets can associate with :ref:`“bitcoin:” URIs <term-bitcoin-uri>`, so spenders can click a link to pre-fill the payment screen. This also works with many mobile wallets, but it generally does not work with web-based wallets unless the spender installs a browser extension or manually configures a URI handler.
+2. Almost all desktop wallets can associate with |Bitcoin URIs|, so spenders can click a link to pre-fill the payment screen. This also works with many mobile wallets, but it generally does not work with web-based wallets unless the spender installs a browser extension or manually configures a URI handler.
 
-3. Most mobile wallets support scanning :ref:`“bitcoin:” URIs <term-bitcoin-uri>` encoded in a QR code, and almost all wallets can display them for accepting payment. While also handy for online orders, QR Codes are especially useful for in-person purchases.
+3. Most mobile wallets support scanning |Bitcoin URIs| encoded in a QR code, and almost all wallets can display them for accepting payment. While also handy for online orders, QR Codes are especially useful for in-person purchases.
 
-4. Recent wallet updates add support for the new payment protocol providing increased security, authentication of a receiver’s identity using `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificates, and other important features such as `refunds <../devguide/payment_processing.html#issuing-refunds>`__.
+4. Recent wallet updates add support for the new payment protocol providing increased security, authentication of a receiver’s identity using `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificates, and other important features such as refunds_.
 
 |Warning icon| **Warning:** Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacks from replacing your Bitcoin address with the attacker’s address.
 
@@ -84,7 +86,7 @@ Bitcoins   Unit (Abbreviation)
 bitcoin: URI
 ~~~~~~~~~~~~
 
-The :ref:`“bitcoin:” URI <term-bitcoin-uri>` scheme defined in `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__ eliminates denomination confusion and saves the spender from copying and pasting two separate values. It also lets the payment request provide some additional information to the spender. An example:
+The |Bitcoin URI| scheme defined in `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__ eliminates denomination confusion and saves the spender from copying and pasting two separate values. It also lets the payment request provide some additional information to the spender. An example:
 
 ::
 
@@ -92,7 +94,7 @@ The :ref:`“bitcoin:” URI <term-bitcoin-uri>` scheme defined in `BIP21 <https
 
 Only the address is required, and if it is the only thing specified, wallets will pre-fill a payment request with it and let the spender enter an amount. The amount specified is always in decimal bitcoins (BTC).
 
-Two other parameters are widely supported. The :ref:`“label” <term-label>` parameter is generally used to provide wallet software with the recipient’s name. The :ref:`“message” <term-message>` parameter is generally used to describe the payment request to the spender. Both the label and the message are commonly stored by the spender’s wallet software—but they are never added to the actual transaction, so other Bitcoin users cannot see them. Both the label and the message must be `URI encoded <https://tools.ietf.org/html/rfc3986>`__.
+Two other parameters are widely supported. The :term:`“label” <label>` parameter is generally used to provide wallet software with the recipient’s name. The :term:`“message” <message>` parameter is generally used to describe the payment request to the spender. Both the label and the message are commonly stored by the spender’s wallet software—but they are never added to the actual transaction, so other Bitcoin users cannot see them. Both the label and the message must be `URI encoded <https://tools.ietf.org/html/rfc3986>`__.
 
 All four parameters used together, with appropriate URI encoding, can be seen in the line-wrapped example below.
 
@@ -103,30 +105,30 @@ All four parameters used together, with appropriate URI encoding, can be seen in
    &label=Example+Merchant\
    &message=Order+of+flowers+%26+chocolates
 
-The URI scheme can be extended, as will be seen in the payment protocol section below, with both new optional and required parameters. As of this writing, the only widely-used parameter besides the four described above is the payment protocol’s :ref:`“r” <term-r-parameter>` parameter.
+The URI scheme can be extended, as will be seen in the payment protocol section below, with both new optional and required parameters. As of this writing, the only widely-used parameter besides the four described above is the payment protocol’s |r| parameter.
 
 Programs accepting URIs in any form must ask the user for permission before paying unless the user has explicitly disabled prompting (as might be the case for micropayments).
 
 QR Codes
 ~~~~~~~~
 
-QR codes are a popular way to exchange :ref:`“bitcoin:” URIs <term-bitcoin-uri>` in person, in images, or in videos. Most mobile Bitcoin wallet apps, and some desktop wallets, support scanning QR codes to pre-fill their payment screens.
+QR codes are a popular way to exchange |Bitcoin URIs| in person, in images, or in videos. Most mobile Bitcoin wallet apps, and some desktop wallets, support scanning QR codes to pre-fill their payment screens.
 
-The figure below shows the same :ref:`“bitcoin:” URI <term-bitcoin-uri>` code encoded as four different :ref:`Bitcoin QR codes <term-uri-qr-code>` at four different error correction levels. The QR code can include the :ref:`“label” <term-label>` and :ref:`“message” <term-message>` parameters—and any other optional parameters—but they were omitted here to keep the QR code small and easy to scan with unsteady or low-resolution mobile cameras.
+The figure below shows the same |Bitcoin URI| code encoded as four different :term:`Bitcoin QR codes <uri qr code>` at four different error correction levels. The QR code can include the :term:`“label” <label>` and :term:`“message” <message>` parameters—and any other optional parameters—but they were omitted here to keep the QR code small and easy to scan with unsteady or low-resolution mobile cameras.
 
 .. figure:: /img/dev/en-qr-code.svg
    :alt: Bitcoin QR Codes
 
    Bitcoin QR Codes
 
-The error correction is combined with a checksum to ensure the :ref:`Bitcoin QR code <term-uri-qr-code>` cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
+The error correction is combined with a checksum to ensure the :term:`Bitcoin QR code <uri qr code>` cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
 
 Payment Protocol
 ~~~~~~~~~~~~~~~~
 
 |Warning icon| **Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Bitcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Bitcoin Core version 0.18 when using `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ URI’s. Merchants should transition away from `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ to more secure options such as `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__. Merchants should never require `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ payments and should provide `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__ fallbacks.
 
-Bitcoin Core 0.9 supports the new :term:`payment protocol <Payment protocol>`. The payment protocol adds many important features to payment requests:
+Bitcoin Core 0.9 supports the new :term:`payment protocol`. The payment protocol adds many important features to payment requests:
 
 -  Supports `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificates and SSL encryption to verify receivers’ identity and help prevent `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacks.
 
@@ -136,7 +138,7 @@ Bitcoin Core 0.9 supports the new :term:`payment protocol <Payment protocol>`. T
 
 Instead of being asked to pay a meaningless address, such as “mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN”, spenders are asked to pay the Common Name (CN) description from the receiver’s `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificate, such as “www.bitcoin.org”.
 
-To request payment using the payment protocol, you use an extended (but backwards-compatible) :ref:`“bitcoin:” URI <term-bitcoin-uri>`. For example:
+To request payment using the payment protocol, you use an extended (but backwards-compatible) |Bitcoin URI|. For example:
 
 ::
 
@@ -146,9 +148,9 @@ To request payment using the payment protocol, you use an extended (but backward
    &message=Order+of+flowers+%26+chocolates\
    &r=https://example.com/pay/mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN
 
-None of the parameters provided above, except :ref:`“r” <term-r-parameter>`, are required for the payment protocol—but your applications may include them for backwards compatibility with wallet programs which don’t yet handle the payment protocol.
+None of the parameters provided above, except |r|, are required for the payment protocol—but your applications may include them for backwards compatibility with wallet programs which don’t yet handle the payment protocol.
 
-The :ref:`“r” <term-r-parameter>` parameter tells payment-protocol-aware wallet programs to ignore the other parameters and fetch a :ref:`PaymentRequest <term-paymentrequest>` from the URL provided. The browser, QR code reader, or other program processing the URI opens the spender’s Bitcoin wallet program on the URI.
+The |r| parameter tells payment-protocol-aware wallet programs to ignore the other parameters and fetch a |PaymentRequest|  from the URL provided. The browser, QR code reader, or other program processing the URI opens the spender’s Bitcoin wallet program on the URI.
 
 .. figure:: /img/dev/en-payment-protocol.svg
    :alt: BIP70 Payment Protocol
@@ -163,71 +165,71 @@ Bob’s server automatically adds the following information to its invoice datab
 
 -  The details of Charlie’s order, including items ordered and shipping address.
 
--  An order total in satoshis, perhaps created by converting prices in :ref:`fiat <term-fiat>` to prices in satoshis.
+-  An order total in satoshis, perhaps created by converting prices in :term:`fiat` to prices in satoshis.
 
 -  An expiration time when that total will no longer be acceptable.
 
--  A pubkey script to which Charlie should send payment. Typically this will be a P2PKH or P2SH pubkey script containing a unique (never before used) `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ public key.
+-  A pubkey script to which Charlie should send payment. Typically this will be a P2PKH or P2SH pubkey script containing a unique (never before used) |secp256k1| public key.
 
-After adding all that information to the database, Bob’s server displays a :ref:`“bitcoin:” URI <term-bitcoin-uri>` for Charlie to click to pay.
+After adding all that information to the database, Bob’s server displays a |Bitcoin URI| for Charlie to click to pay.
 
-Charlie clicks on the :ref:`“bitcoin:” URI <term-bitcoin-uri>` in his browser. His browser’s URI handler sends the URI to his wallet program. The wallet is aware of the Payment Protocol, so it parses the :ref:`“r” <term-r-parameter>` parameter and sends an HTTP GET to that URL looking for a :ref:`PaymentRequest <term-paymentrequest>` message.
+Charlie clicks on the |Bitcoin URI| in his browser. His browser’s URI handler sends the URI to his wallet program. The wallet is aware of the Payment Protocol, so it parses the |r| parameter and sends an HTTP GET to that URL looking for a |PaymentRequest|  message.
 
-The :ref:`PaymentRequest <term-paymentrequest>` message returned may include private information, such as Charlie’s mailing address, but the wallet must be able to access it without using prior authentication, such as HTTP cookies, so a publicly accessible HTTPS URL with a guess-resistant part is typically used. The unique public key created for the payment request can be used to create a unique identifier. This is why, in the example URI above, the :ref:`PaymentRequest <term-paymentrequest>` URL contains the P2PKH address: ``https://example.com/pay/mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN``
+The |PaymentRequest|  message returned may include private information, such as Charlie’s mailing address, but the wallet must be able to access it without using prior authentication, such as HTTP cookies, so a publicly accessible HTTPS URL with a guess-resistant part is typically used. The unique public key created for the payment request can be used to create a unique identifier. This is why, in the example URI above, the |PaymentRequest|  URL contains the P2PKH address: ``https://example.com/pay/mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN``
 
-After receiving the HTTP GET to the URL above, the :ref:`PaymentRequest <term-paymentrequest>`-generating CGI program on Bob’s webserver takes the unique identifier from the URL and looks up the corresponding details in the database. It then creates a :ref:`PaymentDetails <term-paymentdetails>` message with the following information:
+After receiving the HTTP GET to the URL above, the |PaymentRequest| -generating CGI program on Bob’s webserver takes the unique identifier from the URL and looks up the corresponding details in the database. It then creates a |PaymentDetails|  message with the following information:
 
 -  The amount of the order in satoshis and the pubkey script to be paid.
 
 -  A memo containing the list of items ordered, so Charlie knows what he’s paying for. It may also include Charlie’s mailing address so he can double-check it.
 
--  The time the :ref:`PaymentDetails <term-paymentdetails>` message was created plus the time it expires.
+-  The time the |PaymentDetails|  message was created plus the time it expires.
 
 -  A URL to which Charlie’s wallet should send its completed transaction.
 
-That :ref:`PaymentDetails <term-paymentdetails>` message is put inside a :ref:`PaymentRequest <term-paymentrequest>` message. The payment request lets Bob’s server sign the entire Request with the server’s `X.509 <https://en.wikipedia.org/wiki/X.509>`__ SSL certificate. (The Payment Protocol has been designed to allow other signing methods in the future.) Bob’s server sends the payment request to Charlie’s wallet in the reply to the HTTP GET.
+That |PaymentDetails|  message is put inside a |PaymentRequest|  message. The payment request lets Bob’s server sign the entire Request with the server’s `X.509 <https://en.wikipedia.org/wiki/X.509>`__ SSL certificate. (The Payment Protocol has been designed to allow other signing methods in the future.) Bob’s server sends the payment request to Charlie’s wallet in the reply to the HTTP GET.
 
 .. figure:: /img/dev/en-btcc-payment-request.png
    :alt: Bitcoin Core Showing Validated Payment Request
 
    Bitcoin Core Showing Validated Payment Request
 
-Charlie’s wallet receives the :ref:`PaymentRequest <term-paymentrequest>` message, checks its signature, and then displays the details from the :ref:`PaymentDetails <term-paymentdetails>` message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional Bitcoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the `network <../devguide/p2p_network.html>`__. Instead, the wallet constructs a Payment message and sends it to the URL provided in the :ref:`PaymentDetails <term-paymentdetails>` message as an HTTP POST. Among other things, the Payment message contains:
+Charlie’s wallet receives the |PaymentRequest|  message, checks its signature, and then displays the details from the |PaymentDetails|  message to Charlie. Charlie agrees to pay, so the wallet constructs a payment to the pubkey script Bob’s server provided. Unlike a traditional Bitcoin payment, Charlie’s wallet doesn’t necessarily automatically broadcast this payment to the |network|. Instead, the wallet constructs a Payment message and sends it to the URL provided in the |PaymentDetails|  message as an HTTP POST. Among other things, the Payment message contains:
 
 -  The signed transaction in which Charlie pays Bob.
 
 -  An optional memo Charlie can send to Bob. (There’s no guarantee that Bob will read it.)
 
--  A `refund <../devguide/payment_processing.html#issuing-refunds>`__ address (pubkey script) which Bob can pay if he needs to return some or all of Charlie’s satoshis.
+-  A `refund <../devguide/payment_processing.html#issuing-refunds>`_ address (pubkey script) which Bob can pay if he needs to return some or all of Charlie’s satoshis.
 
-Bob’s server receives the Payment message, verifies the transaction pays the requested amount to the address provided, and then broadcasts the transaction to the `network <../devguide/p2p_network.html>`__. It also replies to the HTTP POSTed Payment message with a PaymentACK message, which includes an optional memo from Bob’s server thanking Charlie for his patronage and providing other information about the order, such as the expected arrival date.
+Bob’s server receives the Payment message, verifies the transaction pays the requested amount to the address provided, and then broadcasts the transaction to the |network|. It also replies to the HTTP POSTed Payment message with a PaymentACK message, which includes an optional memo from Bob’s server thanking Charlie for his patronage and providing other information about the order, such as the expected arrival date.
 
 Charlie’s wallet sees the PaymentACK and tells Charlie that the payment has been sent. The PaymentACK doesn’t mean that Bob has verified Charlie’s payment—see the Verifying Payment subsection below—but it does mean that Charlie can go do something else while the transaction gets confirmed. After Bob’s server verifies from the block chain that Charlie’s transaction has been suitably confirmed, it authorizes shipping Charlie’s order.
 
-In the case of a dispute, Charlie can generate a cryptographically proven :ref:`receipt <term-receipt>` out of the various signed or otherwise-proven information.
+In the case of a dispute, Charlie can generate a cryptographically proven :term:`receipt` out of the various signed or otherwise-proven information.
 
--  The :ref:`PaymentDetails <term-paymentdetails>` message signed by Bob’s webserver proves Charlie received an invoice to pay a specified pubkey script for a specified number of satoshis for goods specified in the memo field.
+-  The |PaymentDetails|  message signed by Bob’s webserver proves Charlie received an invoice to pay a specified pubkey script for a specified number of satoshis for goods specified in the memo field.
 
 -  The Bitcoin block chain can prove that the pubkey script specified by Bob was paid the specified number of satoshis.
 
-If a `refund <../devguide/payment_processing.html#issuing-refunds>`__ needs to be issued, Bob’s server can safely pay the `refund <../devguide/payment_processing.html#issuing-refunds>`__-to pubkey script provided by Charlie. See the `Refunds <../devguide/payment_processing.html#issuing-refunds>`__ section below for more details.
+If a refund_ needs to be issued, Bob’s server can safely pay the refund-to pubkey script provided by Charlie. See the `Issuing Refunds`_ section below for more details.
 
 Verifying Payment
 -----------------
 
-As explained in the `Transactions <../devguide/transactions.html>`__ and `Block Chain <../devguide/block_chain.html>`__ sections, broadcasting a transaction to the `network <../devguide/p2p_network.html>`__ doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
+As explained in the `Transactions <../devguide/transactions.html>`__ and `Block Chain <../devguide/block_chain.html>`__ sections, broadcasting a transaction to the |network| doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
 
-Two or more transactions spending the same input are commonly referred to as a :term:`double spend <Double spend>`.
+Two or more transactions spending the same input are commonly referred to as a :term:`double spend`.
 
 Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Bitcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one :term:`confirmation <Confirmation score>`. Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
 
-**0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the `network <../devguide/p2p_network.html>`__ into including their version of a transaction.
+**0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the |network| into including their version of a transaction.
 
 **1 confirmation**: The transaction is included in the latest block and double-spend risk decreases dramatically. Transactions which pay sufficient transaction fees need 10 minutes on average to receive one confirmation. However, the most recent block gets replaced fairly often by accident, so a double spend is still a real possibility.
 
 **2 confirmations**: The most recent block was chained to the block which includes the transaction. As of March 2014, two block replacements were exceedingly rare, and a two block replacement attack was impractical without expensive mining equipment.
 
-**6 confirmations**: The `network <../devguide/p2p_network.html>`__ has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total `network <../devguide/p2p_network.html>`__ hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
+**6 confirmations**: The |network| has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total |network| hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
 
 Bitcoin Core provides several `RPCs <../reference/rpc/index.html>`__ which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ provides an array of every satoshi you can spend along with its confirmation score.
 
@@ -250,23 +252,23 @@ Another good source of double-spend protection can be human intelligence. For ex
 Issuing Refunds
 ---------------
 
-Occasionally receivers using your applications will need to issue `refunds <../devguide/payment_processing.html#issuing-refunds>`__. The obvious way to do that, which is very unsafe, is simply to return the satoshis to the pubkey script from which they came. For example:
+Occasionally receivers using your applications will need to issue refunds_. The obvious way to do that, which is very unsafe, is simply to return the satoshis to the pubkey script from which they came. For example:
 
 -  Alice wants to buy a widget from Bob, so Bob gives Alice a price and Bitcoin address.
 
 -  Alice opens her wallet program and sends some satoshis to that address. Her wallet program automatically chooses to spend those satoshis from one of its unspent outputs, an output corresponding to the Bitcoin address mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN.
 
--  Bob discovers Alice paid too many satoshis. Being an honest fellow, Bob `refunds <../devguide/payment_processing.html#issuing-refunds>`__ the extra satoshis to the mjSk… address.
+-  Bob discovers Alice paid too many satoshis. Being an honest fellow, Bob refunds_ the extra satoshis to the mjSk… address.
 
-This seems like it should work, but Alice is using a centralized multi-user web wallet which doesn’t give :ref:`unique addresses <term-unique-address>` to each user, so it has no way to know that Bob’s `refund <../devguide/payment_processing.html#issuing-refunds>`__ is meant for Alice. Now the `refund <../devguide/payment_processing.html#issuing-refunds>`__ is a unintentional donation to the company behind the centralized wallet, unless Alice opens a support ticket and proves those satoshis were meant for her.
+This seems like it should work, but Alice is using a centralized multi-user web wallet which doesn’t give :term:`unique addresses` to each user, so it has no way to know that Bob’s refund_ is meant for Alice. Now the refund_ is a unintentional donation to the company behind the centralized wallet, unless Alice opens a support ticket and proves those satoshis were meant for her.
 
-This leaves receivers only two correct ways to issue `refunds <../devguide/payment_processing.html#issuing-refunds>`__:
+This leaves receivers only two correct ways to issue refunds_:
 
--  If an address was copy-and-pasted or a basic :ref:`“bitcoin:” URI <term-bitcoin-uri>` was used, contact the spender directly and ask them to provide a `refund <../devguide/payment_processing.html#issuing-refunds>`__ address.
+-  If an address was copy-and-pasted or a basic |Bitcoin URI| was used, contact the spender directly and ask them to provide a refund_ address.
 
--  If the payment protocol was used, send the `refund <../devguide/payment_processing.html#issuing-refunds>`__ to the output listed in the ``refund_to`` field of the Payment message.
+-  If the payment protocol was used, send the refund_ to the output listed in the ``refund_to`` field of the Payment message.
 
-Note: it would be wise to contact the spender directly if the `refund <../devguide/payment_processing.html#issuing-refunds>`__ is being issued a long time after the original payment was made. This allows you to ensure the user still has access to the key or keys for the ``refund_to`` address.
+Note: it would be wise to contact the spender directly if the refund_ is being issued a long time after the original payment was made. This allows you to ensure the user still has access to the key or keys for the ``refund_to`` address.
 
 Disbursing Income (Limiting Forex Risk)
 ---------------------------------------
@@ -275,7 +277,7 @@ Many receivers worry that their satoshis will be less valuable in the future tha
 
 If your application provides this business logic, it will need to choose which outputs to spend first. There are a few different algorithms which can lead to different results.
 
--  A :ref:`merge avoidance <term-merge-avoidance>` algorithm makes it harder for outsiders looking at block chain data to figure out how many satoshis the receiver has earned, spent, and saved.
+-  A :term:`merge avoidance` algorithm makes it harder for outsiders looking at block chain data to figure out how many satoshis the receiver has earned, spent, and saved.
 
 -  A last-in-first-out (LIFO) algorithm spends newly acquired satoshis while there’s still double spend risk, possibly pushing that risk on to others. This can be good for the receiver’s balance sheet but possibly bad for their reputation.
 
@@ -284,15 +286,15 @@ If your application provides this business logic, it will need to choose which o
 Merge Avoidance
 ~~~~~~~~~~~~~~~
 
-When a receiver receives satoshis in an output, the spender can track (in a crude way) how the receiver spends those satoshis. But the spender can’t automatically see other satoshis paid to the receiver by other spenders as long as the receiver uses :ref:`unique addresses <term-unique-address>` for each transaction.
+When a receiver receives satoshis in an output, the spender can track (in a crude way) how the receiver spends those satoshis. But the spender can’t automatically see other satoshis paid to the receiver by other spenders as long as the receiver uses :term:`unique addresses` for each transaction.
 
-However, if the receiver spends satoshis from two different spenders in the same transaction, each of those spenders can see the other spender’s payment. This is called a :ref:`merge <term-merge>`, and the more a receiver merges outputs, the easier it is for an outsider to track how many satoshis the receiver has earned, spent, and saved.
+However, if the receiver spends satoshis from two different spenders in the same transaction, each of those spenders can see the other spender’s payment. This is called a :term:`merge`, and the more a receiver merges outputs, the easier it is for an outsider to track how many satoshis the receiver has earned, spent, and saved.
 
-:ref:`Merge avoidance <term-merge-avoidance>` means trying to avoid spending unrelated outputs in the same transaction. For persons and businesses which want to keep their transaction data secret from other people, it can be an important strategy.
+:term:`Merge avoidance` means trying to avoid spending unrelated outputs in the same transaction. For persons and businesses which want to keep their transaction data secret from other people, it can be an important strategy.
 
-A crude :ref:`merge avoidance <term-merge-avoidance>` strategy is to try to always pay with the smallest output you have which is larger than the amount being requested. For example, if you have four outputs holding, respectively, 100, 200, 500, and 900 satoshis, you would pay a bill for 300 satoshis with the 500-satoshi output. This way, as long as you have outputs larger than your bills, you avoid merging.
+A crude :term:`merge avoidance` strategy is to try to always pay with the smallest output you have which is larger than the amount being requested. For example, if you have four outputs holding, respectively, 100, 200, 500, and 900 satoshis, you would pay a bill for 300 satoshis with the 500-satoshi output. This way, as long as you have outputs larger than your bills, you avoid merging.
 
-More advanced :ref:`merge avoidance <term-merge-avoidance>` strategies largely depend on enhancements to the payment protocol which will allow payers to avoid merging by intelligently distributing their payments among multiple outputs provided by the receiver.
+More advanced :term:`merge avoidance` strategies largely depend on enhancements to the payment protocol which will allow payers to avoid merging by intelligently distributing their payments among multiple outputs provided by the receiver.
 
 Last In, First Out (LIFO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -314,7 +316,7 @@ LIFO should not be used when the primary transaction recipient’s reputation mi
 First In, First Out (FIFO)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The oldest outputs are the most reliable, as the longer it’s been since they were received, the more blocks would need to be modified to double spend them. However, after just a few blocks, a point of rapidly diminishing returns is reached. The `original Bitcoin paper <https://bitcoin.org/en/bitcoin-paper>`__ predicts the chance of an attacker being able to modify old blocks, assuming the attacker has 30% of the total `network <../devguide/p2p_network.html>`__ hashing power:
+The oldest outputs are the most reliable, as the longer it’s been since they were received, the more blocks would need to be modified to double spend them. However, after just a few blocks, a point of rapidly diminishing returns is reached. The `original Bitcoin paper <https://bitcoin.org/en/bitcoin-paper>`__ predicts the chance of an attacker being able to modify old blocks, assuming the attacker has 30% of the total |network| hashing power:
 
 ====== =================================
 Blocks Chance of successful modification
@@ -340,11 +342,10 @@ Rebilling Recurring Payments
 
 Automated recurring payments are not possible with decentralized Bitcoin wallets. Even if a wallet supported automatically sending non-reversible payments on a regular schedule, the user would still need to start the program at the appointed time, or leave it running all the time unprotected by encryption.
 
-This means automated recurring Bitcoin payments can only be made from a centralized server which handles satoshis on behalf of its spenders. In practice, receivers who want to set prices in :ref:`fiat <term-fiat>` terms must also let the same centralized server choose the appropriate exchange rate.
+This means automated recurring Bitcoin payments can only be made from a centralized server which handles satoshis on behalf of its spenders. In practice, receivers who want to set prices in :term:`fiat` terms must also let the same centralized server choose the appropriate exchange rate.
 
-Non-automated rebilling can be managed by the same mechanism used before credit-card recurring payments became common: contact the spender and ask them to pay again—for example, by sending them a :ref:`PaymentRequest <term-paymentrequest>` :ref:`“bitcoin:” URI <term-bitcoin-uri>` in an HTML email.
+Non-automated rebilling can be managed by the same mechanism used before credit-card recurring payments became common: contact the spender and ask them to pay again—for example, by sending them a |PaymentRequest| |Bitcoin URI| in an HTML email.
 
 In the future, extensions to the payment protocol and new wallet features may allow some wallet programs to manage a list of recurring transactions. The spender will still need to start the program on a regular basis and authorize payment—but it should be easier and more secure for the spender than clicking an emailed invoice, increasing the chance receivers get paid on time.
 
 .. |Warning icon| image:: /img/icons/icon_warning.svg
-

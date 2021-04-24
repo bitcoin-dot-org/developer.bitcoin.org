@@ -1,3 +1,5 @@
+.. _examples-index-header:
+
 Examples
 ========
 

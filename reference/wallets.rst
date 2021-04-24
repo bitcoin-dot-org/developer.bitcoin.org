@@ -1,3 +1,5 @@
+.. _reference-wallets-header:
+
 Wallets
 -------
 

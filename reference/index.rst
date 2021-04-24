@@ -1,3 +1,5 @@
+.. _reference-index-header:
+
 Reference
 =========
 

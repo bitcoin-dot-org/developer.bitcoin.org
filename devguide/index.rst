@@ -1,3 +1,5 @@
+.. _dev-index-header:
+
 Developer Guides
 ================
 

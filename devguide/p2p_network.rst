@@ -1,3 +1,5 @@
+.. _dev-p2p-network-header:
+
 P2P Network
 ===========
 
@@ -6,7 +8,7 @@ The Bitcoin network protocol allows full nodes (peers) to collaboratively mainta
 Introduction
 ------------
 
-Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the Bitcoin `network <../devguide/p2p_network.html>`__ protocol to connect to full nodes.
+Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the Bitcoin |network| protocol to connect to full nodes.
 
 Consensus rules do not cover networking, so Bitcoin programs may use alternative networks and protocols, such as the `high-speed block relay network <https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg03189.html>`__ used by some miners and the `dedicated transaction information servers <https://github.com/spesmilo/electrum-server>`__ used by some wallets that provide SPV-level security.
 
@@ -28,13 +30,13 @@ When started for the first time, programs don’t know the IP addresses of any a
    seed.bitcoin.sipa.be.   60  IN  A  203.0.113.183
    [...]
 
-The DNS seeds are maintained by Bitcoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the `network <../devguide/p2p_network.html>`__; others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default Bitcoin ports of 8333 for mainnet or 18333 for testnet.
+The DNS seeds are maintained by Bitcoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the |network|; others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default Bitcoin ports of 8333 for mainnet or 18333 for testnet.
 
-DNS seed results are not authenticated and a malicious seed operator or `network <../devguide/p2p_network.html>`__ `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacker can return only IP addresses of nodes controlled by the attacker, isolating a program on the attacker’s own `network <../devguide/p2p_network.html>`__ and allowing the attacker to feed it bogus transactions and blocks. For this reason, programs should not rely on DNS seeds exclusively.
+DNS seed results are not authenticated and a malicious seed operator or |network| `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacker can return only IP addresses of nodes controlled by the attacker, isolating a program on the attacker’s own |network| and allowing the attacker to feed it bogus transactions and blocks. For this reason, programs should not rely on DNS seeds exclusively.
 
-Once a program has connected to the `network <../devguide/p2p_network.html>`__, its peers can begin to send it ``addr`` (address) messages with the IP addresses and port numbers of other peers on the `network <../devguide/p2p_network.html>`__, providing a fully decentralized method of peer discovery. Bitcoin Core keeps a record of known peers in a persistent on-disk database which usually allows it to connect directly to those peers on subsequent startups without having to use DNS seeds.
+Once a program has connected to the |network|, its peers can begin to send it ``addr`` (address) messages with the IP addresses and port numbers of other peers on the |network|, providing a fully decentralized method of peer discovery. Bitcoin Core keeps a record of known peers in a persistent on-disk database which usually allows it to connect directly to those peers on subsequent startups without having to use DNS seeds.
 
-However, peers often leave the `network <../devguide/p2p_network.html>`__ or change IP addresses, so programs may need to make several different connection attempts at startup before a successful connection is made. This can add a significant delay to the amount of time it takes to connect to the `network <../devguide/p2p_network.html>`__, forcing a user to wait before sending a transaction or checking the status of payment.
+However, peers often leave the |network| or change IP addresses, so programs may need to make several different connection attempts at startup before a successful connection is made. This can add a significant delay to the amount of time it takes to connect to the |network|, forcing a user to wait before sending a transaction or checking the status of payment.
 
 To avoid this possible delay, `BitcoinJ <http://bitcoinj.github.io>`__ always uses dynamic DNS seeds to get IP addresses for nodes believed to be currently active. Bitcoin Core also tries to strike a balance between minimizing delays and avoiding unnecessary DNS seed use: if Bitcoin Core has entries in its peer database, it spends up to 11 seconds attempting to connect to at least one of them before falling back to seeds; if a connection is made within that time, it does not query any seeds.
 
@@ -81,14 +83,14 @@ The first time a node is started, it only has a single block in its local best b
 
 In the header hashes field of the `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, this new node sends the header hash of the only block it has, the genesis block (6fe2…0000 in internal byte order). It also sets the stop hash field to all zeroes to request a maximum-size response.
 
-Upon :ref:`receipt <term-receipt>` of the `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 500 block inventories (the maximum response to a `“getblocks” message <../reference/p2p_networking.html#getblocks>`__) starting from block 1. It sends these inventories in the `“inv” message <../reference/p2p_networking.html#inv>`__ illustrated below.
+Upon :term:`receipt` of the `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 500 block inventories (the maximum response to a `“getblocks” message <../reference/p2p_networking.html#getblocks>`__) starting from block 1. It sends these inventories in the `“inv” message <../reference/p2p_networking.html#inv>`__ illustrated below.
 
 .. figure:: /img/dev/en-ibd-inv.svg
    :alt: First Inv Message Sent During IBD
 
    First Inv Message Sent During IBD
 
-Inventories are unique identifiers for information on the `network <../devguide/p2p_network.html>`__. Each inventory contains a type field and the unique identifier for an instance of the object. For blocks, the unique identifier is a hash of the block’s header.
+Inventories are unique identifiers for information on the |network|. Each inventory contains a type field and the unique identifier for an instance of the object. For blocks, the unique identifier is a hash of the block’s header.
 
 The block inventories appear in the `“inv” message <../reference/p2p_networking.html#inv>`__ in the same order they appear in the block chain, so this first `“inv” message <../reference/p2p_networking.html#inv>`__ contains inventories for blocks 1 through 501. (For example, the hash of block 1 is 4860…0000 as seen in the illustration above.)
 
@@ -101,7 +103,7 @@ The IBD node uses the received inventories to request 128 blocks from the sync n
 
 It’s important to blocks-first nodes that the blocks be requested and sent in order because each block header references the header hash of the preceding block. That means the IBD node can’t fully validate a block until its parent block has been received. Blocks that can’t be validated because their parents haven’t been received are called orphan blocks; a subsection below describes them in more detail.
 
-Upon :ref:`receipt <term-receipt>` of the `“getdata” message <../reference/p2p_networking.html#getdata>`__, the sync node replies with each of the blocks requested. Each block is put into serialized block format and sent in a separate `“block” message <../reference/p2p_networking.html#block>`__. The first `“block” message <../reference/p2p_networking.html#block>`__ sent (for block 1) is illustrated below.
+Upon :term:`receipt` of the `“getdata” message <../reference/p2p_networking.html#getdata>`__, the sync node replies with each of the blocks requested. Each block is put into serialized block format and sent in a separate `“block” message <../reference/p2p_networking.html#block>`__. The first `“block” message <../reference/p2p_networking.html#block>`__ sent (for block 1) is illustrated below.
 
 .. figure:: /img/dev/en-ibd-block.svg
    :alt: First Block Message Sent During IBD
@@ -115,7 +117,7 @@ The IBD node downloads each block, validates it, and then requests the next bloc
 
    Second GetBlocks Message Sent During IBD
 
-Upon :ref:`receipt <term-receipt>` of the second `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, the sync node searches its local best block chain for a block that matches one of the header hashes in the message, trying each hash in the order they were received. If it finds a matching hash, it replies with 500 block inventories starting with the next block from that point. But if there is no matching hash (besides the stopping hash), it assumes the only block the two nodes have in common is block 0 and so it sends an ``inv`` starting with block 1 (the same `“inv” message <../reference/p2p_networking.html#inv>`__ seen several illustrations above).
+Upon :term:`receipt` of the second `“getblocks” message <../reference/p2p_networking.html#getblocks>`__, the sync node searches its local best block chain for a block that matches one of the header hashes in the message, trying each hash in the order they were received. If it finds a matching hash, it replies with 500 block inventories starting with the next block from that point. But if there is no matching hash (besides the stopping hash), it assumes the only block the two nodes have in common is block 0 and so it sends an ``inv`` starting with block 1 (the same `“inv” message <../reference/p2p_networking.html#inv>`__ seen several illustrations above).
 
 This repeated search allows the sync node to send useful inventories even if the IBD node’s local block chain forked from the sync node’s local block chain. This fork detection becomes increasingly useful the closer the IBD node gets to the tip of the block chain.
 
@@ -155,7 +157,7 @@ All of these problems are addressed in part or in full by the headers-first IBD 
 Headers-First
 ~~~~~~~~~~~~~
 
-`Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__ uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best :term:`header chain <Header chain>`, partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
+`Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__ uses an initial block download (IBD) method called *headers-first*. The goal is to download the headers for the best :term:`header chain`, partially validate them as best as possible, and then download the corresponding blocks in parallel. This solves several problems with the older blocks-first IBD method.
 
 .. figure:: /img/dev/en-headers-first-flowchart.svg
    :alt: Overview Of Headers-First Method
@@ -171,7 +173,7 @@ The first time a node is started, it only has a single block in its local best b
 
 In the header hashes field of the `“getheaders” message <../reference/p2p_networking.html#getheaders>`__, the new node sends the header hash of the only block it has, the genesis block (6fe2…0000 in internal byte order). It also sets the stop hash field to all zeroes to request a maximum-size response.
 
-Upon :ref:`receipt <term-receipt>` of the `“getheaders” message <../reference/p2p_networking.html#getheaders>`__, the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 2,000 header (the maximum response) starting from block 1. It sends these header hashes in the `“headers” message <../reference/p2p_networking.html#headers>`__ illustrated below.
+Upon :term:`receipt` of the `“getheaders” message <../reference/p2p_networking.html#getheaders>`__, the sync node takes the first (and only) header hash and searches its local best block chain for a block with that header hash. It finds that block 0 matches, so it replies with 2,000 header (the maximum response) starting from block 1. It sends these header hashes in the `“headers” message <../reference/p2p_networking.html#headers>`__ illustrated below.
 
 .. figure:: /img/dev/en-ibd-headers.svg
    :alt: First headers message
@@ -218,9 +220,9 @@ Block Broadcasting
 
 When a miner discovers a new block, it broadcasts the new block to its peers using one of the following methods:
 
--  :ref:`Unsolicited Block Push <term-unsolicited-block-push>`\ **:** the miner sends a `“block” message <../reference/p2p_networking.html#block>`__ to each of its full node peers with the new block. The miner can reasonably bypass the standard relay method in this way because it knows none of its peers already have the just-discovered block.
+-  :term:`Unsolicited Block Push`\ **:** the miner sends a `“block” message <../reference/p2p_networking.html#block>`__ to each of its full node peers with the new block. The miner can reasonably bypass the standard relay method in this way because it knows none of its peers already have the just-discovered block.
 
--  :ref:`Standard Block Relay <term-standard-block-relay>`\ **:** the miner, acting as a standard relay node, sends an `“inv” message <../reference/p2p_networking.html#inv>`__ to each of its peers (both full node and SPV) with an inventory referring to the new block. The most common responses are:
+-  :term:`Standard Block Relay`\ **:** the miner, acting as a standard relay node, sends an `“inv” message <../reference/p2p_networking.html#inv>`__ to each of its peers (both full node and SPV) with an inventory referring to the new block. The most common responses are:
 
    -  Each blocks-first (BF) peer that wants the block replies with a `“getdata” message <../reference/p2p_networking.html#getdata>`__ requesting the full block.
 
@@ -234,9 +236,9 @@ When a miner discovers a new block, it broadcasts the new block to its peers usi
 
    This protocol for block broadcasting was proposed in BIP 130 and has been implemented in Bitcoin Core since version 0.12.
 
-By default, Bitcoin Core broadcasts blocks using direct headers announcement to any peers that have signalled with `“sendheaders” <../reference/p2p_networking.html#sendheaders>`__ and uses :ref:`standard block relay <term-standard-block-relay>` for all peers that have not. Bitcoin Core will accept blocks sent using any of the methods described above.
+By default, Bitcoin Core broadcasts blocks using direct headers announcement to any peers that have signalled with `“sendheaders” <../reference/p2p_networking.html#sendheaders>`__ and uses :term:`standard block relay` for all peers that have not. Bitcoin Core will accept blocks sent using any of the methods described above.
 
-Full nodes validate the received block and then advertise it to their peers using the :ref:`standard block relay <term-standard-block-relay>` method described above. The condensed table below highlights the operation of the messages described above (Relay, BF, HF, and SPV refer to the relay node, a blocks-first node, a headers-first node, and an SPV client; *any* refers to a node using any block retrieval method.)
+Full nodes validate the received block and then advertise it to their peers using the :term:`standard block relay` method described above. The condensed table below highlights the operation of the messages described above (Relay, BF, HF, and SPV refer to the relay node, a blocks-first node, a headers-first node, and an SPV client; *any* refers to a node using any block retrieval method.)
 
 +------------------------------------------------------------------+---------------+------------------------------------------------------------------------------------------+
 | Message                                                          | From→To       | Payload                                                                                  |
@@ -259,7 +261,7 @@ Full nodes validate the received block and then advertise it to their peers usin
 Orphan Blocks
 ~~~~~~~~~~~~~
 
-Blocks-first nodes may download orphan blocks—blocks whose :ref:`previous block header hash <term-previous-block-header-hash>` field refers to a block header this node hasn’t seen yet. In other words, orphan blocks have no known parent (unlike stale blocks, which have known parents but which aren’t part of the best block chain).
+Blocks-first nodes may download orphan blocks—blocks whose :term:`previous block header hash` field refers to a block header this node hasn’t seen yet. In other words, orphan blocks have no known parent (unlike stale blocks, which have known parents but which aren’t part of the best block chain).
 
 .. figure:: /img/dev/en-orphan-stale-definition.svg
    :alt: Difference Between Orphan And Stale Blocks
@@ -270,7 +272,7 @@ When a blocks-first node downloads an orphan block, it will not validate it. Ins
 
 Headers-first nodes avoid some of this complexity by always requesting block headers with the `“getheaders” message <../reference/p2p_networking.html#getheaders>`__ before requesting a block with the `“getdata” message <../reference/p2p_networking.html#getdata>`__. The broadcasting node will send a `“headers” message <../reference/p2p_networking.html#headers>`__ containing all the block headers (up to 2,000) it thinks the downloading node needs to reach the tip of the best header chain; each of those headers will point to its parent, so when the downloading node receives the `“block” message <../reference/p2p_networking.html#block>`__, the block shouldn’t be an orphan block—all of its parents should be known (even if they haven’t been validated yet). If, despite this, the block received in the `“block” message <../reference/p2p_networking.html#block>`__ is an orphan block, a headers-first node will discard it immediately.
 
-However, orphan discarding does mean that headers-first nodes will ignore orphan blocks sent by miners in an :ref:`unsolicited block push <term-unsolicited-block-push>`.
+However, orphan discarding does mean that headers-first nodes will ignore orphan blocks sent by miners in an :term:`unsolicited block push`.
 
 Transaction Broadcasting
 ------------------------
@@ -282,7 +284,7 @@ Memory Pool
 
 Full peers may keep track of unconfirmed transactions which are eligible to be included in the next block. This is essential for miners who will actually mine some or all of those transactions, but it’s also useful for any peer who wants to keep track of unconfirmed transactions, such as peers serving unconfirmed transaction information to SPV clients.
 
-Because unconfirmed transactions have no permanent status in Bitcoin, Bitcoin Core stores them in non-persistent memory, calling them a memory pool or mempool. When a peer shuts down, its memory pool is lost except for any transactions stored by its wallet. This means that never-mined unconfirmed transactions tend to slowly disappear from the `network <../devguide/p2p_network.html>`__ as peers restart or as they purge some transactions to make room in memory for others.
+Because unconfirmed transactions have no permanent status in Bitcoin, Bitcoin Core stores them in non-persistent memory, calling them a memory pool or mempool. When a peer shuts down, its memory pool is lost except for any transactions stored by its wallet. This means that never-mined unconfirmed transactions tend to slowly disappear from the |network| as peers restart or as they purge some transactions to make room in memory for others.
 
 Transactions which are mined into blocks that later become stale blocks may be added back into the memory pool. These re-added transactions may be re-removed from the pool almost immediately if the replacement blocks include them. This is the case in Bitcoin Core, which removes stale blocks from the chain one by one, starting with the tip (highest block). As each block is removed, its transactions are added back to the memory pool. After all of the stale blocks are removed, the replacement blocks are added to the chain one by one, ending with the new tip. As each block is added, any transactions it confirms are removed from the memory pool.
 
@@ -298,4 +300,4 @@ Alerts
 
 *Removed in*\ `Bitcoin Core 0.13.0 <https://bitcoin.org/en/release/v0.13.0>`__
 
-Earlier versions of Bitcoin Core allowed developers and trusted community members to issue `Bitcoin alerts <https://bitcoin.org/en/alerts>`__ to notify users of critical `network <../devguide/p2p_network.html>`__-wide issues. This messaging system `was retired <https://bitcoin.org/en/alert/2016-11-01-alert-retirement>`__ in Bitcoin Core v0.13.0; however, internal alerts, partition detection warnings and the ``-alertnotify`` option features remain.
+Earlier versions of Bitcoin Core allowed developers and trusted community members to issue `Bitcoin alerts <https://bitcoin.org/en/alerts>`__ to notify users of critical |network|-wide issues. This messaging system `was retired <https://bitcoin.org/en/alert/2016-11-01-alert-retirement>`__ in Bitcoin Core v0.13.0; however, internal alerts, partition detection warnings and the ``-alertnotify`` option features remain.

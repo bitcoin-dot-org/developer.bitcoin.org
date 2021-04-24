@@ -1,3 +1,5 @@
+.. _examples-p2p-networking-header:
+
 P2P Network
 -----------
 
@@ -203,7 +205,7 @@ Testing the filter against an arbitrary element, we get the failure output below
 Retrieving A MerkleBlock
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-For the `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ documentation on the reference page, an actual merkle block was retrieved from the `network <../devguide/p2p_network.html>`__ and manually processed. This section walks through each step of the process, demonstrating basic `network <../devguide/p2p_network.html>`__ communication and merkle block processing.
+For the `“merkleblock” message <../reference/p2p_networking.html#merkleblock>`__ documentation on the reference page, an actual merkle block was retrieved from the |network| and manually processed. This section walks through each step of the process, demonstrating basic |network| communication and merkle block processing.
 
 .. highlight:: python
 
@@ -238,7 +240,7 @@ For the `“merkleblock” message <../reference/p2p_networking.html#merkleblock
        )
        sys.stdout.flush()
 
-To connect to the P2P `network <../devguide/p2p_network.html>`__, the trivial Python function above was developed to compute message headers and send payloads decoded from hex.
+To connect to the P2P |network|, the trivial Python function above was developed to compute message headers and send payloads decoded from hex.
 
 .. highlight:: python
 
@@ -261,7 +263,7 @@ To connect to the P2P `network <../devguide/p2p_network.html>`__, the trivial Py
        + "00" # .............................. Relay transactions: false
    )
 
-Peers on the `network <../devguide/p2p_network.html>`__ will not accept any requests until you send them a `“version” message <../reference/p2p_networking.html#version>`__. The receiving node will reply with their `“version” message <../reference/p2p_networking.html#version>`__ and a `“verack” message <../reference/p2p_networking.html#verack>`__.
+Peers on the |network| will not accept any requests until you send them a `“version” message <../reference/p2p_networking.html#version>`__. The receiving node will reply with their `“version” message <../reference/p2p_networking.html#version>`__ and a `“verack” message <../reference/p2p_networking.html#verack>`__.
 
 .. highlight:: python
 
@@ -313,7 +315,7 @@ Part of the response is shown in the section below.
 Parsing A MerkleBlock
 ~~~~~~~~~~~~~~~~~~~~~
 
-In the section above, we retrieved a merkle block from the `network <../devguide/p2p_network.html>`__; now we will parse it. Most of the block header has been omitted. For a more complete hexdump, see the example in the ```merkleblock`` message section <../reference/p2p_networking.html#merkleblock>`__.
+In the section above, we retrieved a merkle block from the |network|; now we will parse it. Most of the block header has been omitted. For a more complete hexdump, see the example in the ```merkleblock`` message section <../reference/p2p_networking.html#merkleblock>`__.
 
 .. highlight:: text
 

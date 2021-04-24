@@ -1,3 +1,5 @@
+.. _examples-intro-header:
+
 Introduction
 ============
 
@@ -31,7 +33,7 @@ You should also make the ``bitcoin.conf`` file only readable to its owner. On Li
 
    chmod 0600 bitcoin.conf
 
-For development, it’s safer and cheaper to use Bitcoin’s test `network <../devguide/p2p_network.html>`__ (testnet) or regression test mode (regtest) described below.
+For development, it’s safer and cheaper to use Bitcoin’s test |network| (testnet) or regression test mode (regtest) described below.
 
 Questions about Bitcoin use are best sent to the `BitcoinTalk forum <https://bitcointalk.org/index.php?board=4.0>`__ and `IRC channels <https://en.bitcoin.it/wiki/IRC_channels>`__. Errors or suggestions related to documentation on Bitcoin.org can be `submitted as an issue <https://github.com/bitcoin-dot-org/bitcoin.org/issues>`__ or posted to the `bitcoin-documentation mailing list <https://groups.google.com/forum/#!forum/bitcoin-documentation>`__.
 
