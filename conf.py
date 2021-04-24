@@ -192,7 +192,7 @@ epub_exclude_files = ['search.html']
 # despite general use in documentation being "network". These aliases
 # improve readability and prevent unexpected content changes.
 #rst_prolog = ''
-rst_epilog = """
+rst_epilog = '''
 .. reference aliases
 .. |network| replace:: :ref:`network<dev-p2p-network-header>`
 .. |peer-to-peer network| replace:: :ref:`peer-to-peer network<dev-p2p-network-header>`
@@ -202,20 +202,20 @@ rst_epilog = """
 .. |secp256k1| replace:: `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__
 
 .. OP codes
-.. |OP_CHECKMULTISIG| replace:: :term:`“OP_CHECKMULTISIG” <OP_CHECKMULTISIG>`
-.. |OP_CHECKSIG| replace:: :term:`“OP_CHECKSIG” <OP_CHECKSIG>`
-.. |OP_DUP| replace:: :term:`“OP_DUP” <OP_DUP>`
-.. |OP_EQUAL| replace:: :term:`OP_EQUAL <OP_EQUAL>`
-.. |OP_EQUALVERIFY| replace:: :term:`“OP_EQUALVERIFY” <OP_EQUALVERIFY>`
-.. |OP_HASH160| replace:: :term:`“OP_HASH160” <OP_HASH160>`
-.. |OP_RETURN| replace:: :term:`“OP_RETURN” <OP_RETURN>`
-.. |OP_VERIFY| replace:: :term:`“OP_VERIFY” <OP_VERIFY>`
+.. |OP_CHECKMULTISIG| replace:: :term:`"OP_CHECKMULTISIG" <OP_CHECKMULTISIG>`
+.. |OP_CHECKSIG| replace:: :term:`"OP_CHECKSIG" <OP_CHECKSIG>`
+.. |OP_DUP| replace:: :term:`"OP_DUP" <OP_DUP>`
+.. |OP_EQUAL| replace:: :term:`"OP_EQUAL" <OP_EQUAL>`
+.. |OP_EQUALVERIFY| replace:: :term:`"OP_EQUALVERIFY" <OP_EQUALVERIFY>`
+.. |OP_HASH160| replace:: :term:`"OP_HASH160" <OP_HASH160>`
+.. |OP_RETURN| replace:: :term:`"OP_RETURN" <OP_RETURN>`
+.. |OP_VERIFY| replace:: :term:`"OP_VERIFY" <OP_VERIFY>`
 
 .. other
-.. |Bitcoin URI| replace:: :term:`“bitcoin:” URI <bitcoin uri>`
-.. |Bitcoin URIs| replace:: :term:`“bitcoin:” URIs <bitcoin uri>`
+.. |Bitcoin URI| replace:: :term:`"bitcoin:" URI <bitcoin uri>`
+.. |Bitcoin URIs| replace:: :term:`"bitcoin:" URIs <bitcoin uri>`
 .. |PaymentDetails| replace:: :term:`PaymentDetails`
 .. |PaymentRequest| replace:: :term:`PaymentRequest`
 .. |PaymentRequests| replace:: :term:`PaymentRequests <PaymentRequest>`
-.. |r| replace:: :term:`“r” <r>`
-"""
+.. |r| replace:: :term:`"r" <r>`
+'''
