@@ -1,3 +1,5 @@
+.. _examples-testing-header:
+
 Testing Applications
 --------------------
 

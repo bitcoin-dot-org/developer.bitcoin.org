@@ -1,3 +1,5 @@
+.. _examples-intro-header:
+
 Introduction
 ============
 

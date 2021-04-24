@@ -1,4 +1,4 @@
-.. _block-chain-header:
+.. _dev-block-chain-header:
 
 Block Chain
 ===========

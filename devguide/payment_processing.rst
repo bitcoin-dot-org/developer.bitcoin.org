@@ -1,3 +1,5 @@
+.. _dev-payment-processing-header:
+
 Payment Processing
 ==================
 

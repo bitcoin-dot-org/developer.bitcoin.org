@@ -1,3 +1,5 @@
+.. _dev-operating-modes-header:
+
 Operating Modes
 ===============
 

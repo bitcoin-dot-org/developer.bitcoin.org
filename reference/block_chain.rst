@@ -1,3 +1,5 @@
+.. _reference-block-chain-header:
+
 Block Chain
 -----------
 

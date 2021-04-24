@@ -1,4 +1,4 @@
-.. _p2p-network-header:
+.. _dev-p2p-network-header:
 
 P2P Network
 ===========

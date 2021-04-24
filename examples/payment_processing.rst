@@ -1,3 +1,5 @@
+.. _examples-payment-processing-header:
+
 Payment Processing
 ------------------
 

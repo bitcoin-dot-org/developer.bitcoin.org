@@ -1,3 +1,5 @@
+.. _reference-p2p-networking-header:
+
 P2P Network
 -----------
 

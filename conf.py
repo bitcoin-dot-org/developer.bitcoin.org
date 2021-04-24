@@ -194,7 +194,8 @@ epub_exclude_files = ['search.html']
 #rst_prolog = ''
 rst_epilog = """
 .. reference aliases
-.. |network| replace:: :ref:`network<p2p-network-header>`
+.. |network| replace:: :ref:`network<dev-p2p-network-header>`
+.. |peer-to-peer network| replace:: :ref:`peer-to-peer network<dev-p2p-network-header>`
 
 .. frequently-used terms with links
 .. |ECDSA| replace:: `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__
