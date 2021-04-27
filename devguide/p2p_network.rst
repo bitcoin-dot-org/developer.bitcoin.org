@@ -126,15 +126,13 @@ Blocks-First Advantages & Disadvantages
 
 
 
-The primary advantage of blocks-first IBD is its simplicity. The primary disadvantage is that the IBD node relies on a single sync node for all of its downloading. This has several implications:
+The primary advantage of blocks-first IBD is its simplicity. The primary disadvantage is that the IBD node relies on trusting that the blocks will be sent in the correct order. This has several implications:
 
--  **Speed Limits:** All requests are made to the sync node, so if the sync node has limited upload bandwidth, the IBD node will have slow download speeds. Note: if the sync node goes offline, Bitcoin Core will continue downloading from another node—but it will still only download from a single sync node at a time.
+-  **High Memory Use:** Whether maliciously or by accident, the sync node can send blocks out of order, creating orphan blocks which can’t be validated until their parents have been received and validated. Orphan blocks are stored in memory while they await validation, which may lead to high memory use.
 
 -  **Download Restarts:** The sync node can send a non-best (but otherwise valid) block chain to the IBD node. The IBD node won’t be able to identify it as non-best until the initial block download nears completion, forcing the IBD node to restart its block chain download over again from a different node. Bitcoin Core ships with several block chain checkpoints at various block heights selected by developers to help an IBD node detect that it is being fed an alternative block chain history—allowing the IBD node to restart its download earlier in the process.
 
 -  **Disk Fill Attacks:** Closely related to the download restarts, if the sync node sends a non-best (but otherwise valid) block chain, the chain will be stored on disk, wasting space and possibly filling up the disk drive with useless data.
-
--  **High Memory Use:** Whether maliciously or by accident, the sync node can send blocks out of order, creating orphan blocks which can’t be validated until their parents have been received and validated. Orphan blocks are stored in memory while they await validation, which may lead to high memory use.
 
 All of these problems are addressed in part or in full by the headers-first IBD method used in `Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__.
 
