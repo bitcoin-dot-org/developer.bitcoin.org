@@ -154,4 +154,4 @@ In either case, block and transaction data should not be relied upon if it comes
 
 SPV clients which connect to full nodes can detect a likely hard fork by connecting to several full nodes and ensuring that they’re all on the same chain with the same block height, plus or minus several blocks to account for transmission delays and stale blocks. If there’s a divergence, the client can disconnect from nodes with weaker chains.
 
-SPV clients should also monitor for block and :ref:`transaction version number <term-transaction-version-number>` increases to ensure they process received transactions and create new transactions using the current consensus rules.
+SPV clients should also monitor for block and :term:`transaction version number <Transaction version number>` increases to ensure they process received transactions and create new transactions using the current consensus rules.

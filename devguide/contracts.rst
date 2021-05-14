@@ -41,7 +41,7 @@ In the signature script Alice puts her signature and a copy of the unhashed seri
 
    OP_0 [A's signature] [B's or C's signature] [serialized redeem script]
 
-(Opcodes to push the signatures and redeem script onto the stack are not shown. ``OP_0`` is a workaround for an off-by-one error in the original implementation which must be preserved for compatibility. Note that the signature script must provide signatures in the same order as the corresponding public keys appear in the redeem script. See the description in :ref:`“OP_CHECKMULTISIG” <term-op-checkmultisig>` for details.)
+(Opcodes to push the signatures and redeem script onto the stack are not shown. ``OP_0`` is a workaround for an off-by-one error in the original implementation which must be preserved for compatibility. Note that the signature script must provide signatures in the same order as the corresponding public keys appear in the redeem script. See the description in :term:`“OP_CHECKMULTISIG” <OP CHECKMULTISIG>` for details.)
 
 When the transaction is broadcast to the `network <../devguide/p2p_network.html>`__, each peer checks the signature script against the P2SH output Charlie previously paid, ensuring that the redeem script matches the redeem script hash previously provided. Then the redeem script is evaluated, with the two signatures being used as input data. Assuming the redeem script validates, the two transaction outputs show up in Bob’s and Charlie’s wallets as spendable balances.
 
@@ -52,7 +52,7 @@ However, if Alice created and signed a transaction neither of them would agree t
 Micropayment Channel
 --------------------
 
-Alice also works part time moderating forum posts for Bob. Every time someone posts to Bob’s busy forum, Alice skims the post to make sure it isn’t offensive or spam. Alas, Bob often forgets to pay her, so Alice demands to be paid immediately after each post she approves or rejects. Bob says he can’t do that because hundreds of small payments will cost him thousands of satoshis in transaction fees, so Alice suggests they use a :ref:`micropayment channel <term-micropayment-channel>`.
+Alice also works part time moderating forum posts for Bob. Every time someone posts to Bob’s busy forum, Alice skims the post to make sure it isn’t offensive or spam. Alas, Bob often forgets to pay her, so Alice demands to be paid immediately after each post she approves or rejects. Bob says he can’t do that because hundreds of small payments will cost him thousands of satoshis in transaction fees, so Alice suggests they use a micropayment channel.
 
 Bob asks Alice for her public key and then creates two transactions. The first transaction pays 100 millibitcoins to a P2SH output whose 2-of-2 multisig redeem script requires signatures from both Alice and Bob. This is the bond transaction. Broadcasting this transaction would let Alice hold the millibitcoins hostage, so Bob keeps this transaction private for now and creates a second transaction.
 
@@ -67,11 +67,11 @@ Alice checks that the `refund <../devguide/payment_processing.html#issuing-refun
 
 Now, when Alice does some work worth 1 millibitcoin, she asks Bob to create and sign a new version of the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction. Version two of the transaction spends 1 millibitcoin to Alice and the other 99 back to Bob; it does not have a locktime, so Alice can sign it and spend it whenever she wants. (But she doesn’t do that immediately.)
 
-Alice and Bob repeat these work-and-pay steps until Alice finishes for the day, or until the time lock is about to expire. Alice signs the final version of the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction and broadcasts it, paying herself and refunding any remaining balance to Bob. The next day, when Alice starts work, they create a new :ref:`micropayment channel <term-micropayment-channel>`.
+Alice and Bob repeat these work-and-pay steps until Alice finishes for the day, or until the time lock is about to expire. Alice signs the final version of the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction and broadcasts it, paying herself and refunding any remaining balance to Bob. The next day, when Alice starts work, they create a new micropayment channel.
 
-If Alice fails to broadcast a version of the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction before its time lock expires, Bob can broadcast the first version and receive a full `refund <../devguide/payment_processing.html#issuing-refunds>`__. This is one reason :ref:`micropayment channels <term-micropayment-channel>` are best suited to small payments—if Alice’s Internet service goes out for a few hours near the time lock expiry, she could be cheated out of her payment.
+If Alice fails to broadcast a version of the `refund <../devguide/payment_processing.html#issuing-refunds>`__ transaction before its time lock expires, Bob can broadcast the first version and receive a full `refund <../devguide/payment_processing.html#issuing-refunds>`__. This is one reason micropayment channels are best suited to small payments—if Alice’s Internet service goes out for a few hours near the time lock expiry, she could be cheated out of her payment.
 
-Transaction malleability, discussed above in the Transactions section, is another reason to limit the value of :ref:`micropayment channels <term-micropayment-channel>`. If someone uses transaction malleability to break the link between the two transactions, Alice could hold Bob’s 100 millibitcoins hostage even if she hadn’t done any work.
+Transaction malleability, discussed above in the Transactions section, is another reason to limit the value of micropayment channels. If someone uses transaction malleability to break the link between the two transactions, Alice could hold Bob’s 100 millibitcoins hostage even if she hadn’t done any work.
 
 For larger payments, Bitcoin transaction fees are very low as a percentage of the total transaction value, so it makes more sense to protect payments with immediately-broadcast separate transactions.
 

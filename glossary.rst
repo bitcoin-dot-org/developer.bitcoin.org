@@ -424,6 +424,9 @@ Glossary
 
     **Not to be confused with:** ECDSA signature (a signature, which can be used as part of a pubkey script in addition to other data)
 
+  Signature script modification warning
+    Signature scripts are not signed, so anyone can modify them. This means signature scripts should only contain data and data-pushing opcodes which can’t be modified without causing the pubkey script to fail. Placing non-data-pushing opcodes in the signature script currently makes a transaction non-standard, and future consensus rules may forbid such transactions altogether. (Non-data-pushing opcodes are already forbidden in signature scripts when spending a P2SH pubkey script.)
+
   SPV
   Simplified Payment Verification
   Lightweight client
@@ -529,58 +532,56 @@ Glossary
   Message
     A parameter of bitcoin: URIs which allows the receiver to optionally specify a message to the spender.
 
-  Micropayment channel
-    term-micropayment-channel (contracts-guide) (`original target <https://bitcoin.org/en/contracts-guide#term-micropayment-channel>`__)
-
-  .. _term-msg_block:
+  MSG_FILTERED_BLOCK
+  MSG_BLOCK
     The block header hash data type identifier of an inventory on the P2P network.
 
-  .. _term-msg_cmpct_block:
+  MSG_CMPCT_BLOCK
     An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a compact block.
 
-  .. _term-msg_filtered_witness_block:
+  MSG_FILTERED_WITNESS_BLOCK
     An alternative to the block header hash data type identifier of an inventory on the P2P network that is reserved for future use and unused.
 
-  .. _term-msg_tx:
+  MSG_TX
     The TXID data type identifier of an inventory on the P2P network.
 
-  .. _term-msg_witness_block:
+  MSG_WITNESS_BLOCK
     An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a block with witness serialization for SegWit.
 
-  .. _term-msg_witness_tx:
+  MSG_WITNESS_TX
     An alternative of the transaction data type identifier of an inventory on the P2P network used to request a transaction with witness serialization for SegWit.
 
   OP CHECKMULTISIG
     Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n).
 
-  .. _term-op-checksig:
+  OP CHECKSIG
     Opcode which returns true if a signature signs the correct parts of a transaction and matches a provided public key.
 
-  .. _term-op-dup:
+  OP DUP
     Operation which duplicates the entry below it on the stack.
 
-  .. _term-op-equal:
+  OP EQUAL
     Operation which returns true if the two entries below it on the stack are equivalent.
 
-  .. _term-op-equalverify:
+  OP EQUALVERIFY
     Operation which terminates the script in failure unless the two entries below it on the stack are equivalent.
 
-  .. _term-op-hash160:
+  OP HASH160
     Operation which converts the entry below it on the stack into a RIPEMD(SHA256()) hashed version of itself.
 
-  .. _term-op-return:
+  OP RETURN
     Operation which terminates the script in failure.
 
-  .. _term-op-verify:
+  OP VERIFY
     Operation which terminates the script if the entry below it on the stack is non-true (zero).
 
   Output index
     The sequentially-numbered index of outputs in a single transaction starting from 0.
 
-  .. _term-paymentdetails:
+  PaymentDetails
     The PaymentDetails of the payment protocol which allows the receiver to specify the payment details to the spender.
 
-  .. _term-paymentrequest:
+  PaymentRequest
     The PaymentRequest of the payment protocol which contains and allows signing of the PaymentDetails.
 
   PKI
@@ -625,7 +626,7 @@ Glossary
   SSL signature
     Signatures created and recognized by major SSL implementations such as OpenSSL.
 
-  Stanndard block relay
+  Standard block relay
     The regular block relay method: announcing a block with an inv message and waiting for a response.
 
   Transaction version number
@@ -642,8 +643,4 @@ Glossary
 
   V2 block 
     The current version of Bitcoin blocks.
-
-  x509certificates
-
-  term-x509certificates (developer-examples) (`original target <https://bitcoin.org/en/developer-examples#term-x509certificates>`__)
 

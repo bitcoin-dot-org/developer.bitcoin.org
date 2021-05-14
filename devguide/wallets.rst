@@ -113,7 +113,7 @@ Wallet programs which run in difficult-to-secure environments, such as webserver
 
 -  Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To `avoid key reuse <../devguide/transactions.html#avoiding-key-reuse>`__, webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.
 
--  Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the :ref:`key index <term-key-index>` number.
+-  Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the :term:`key index <Key index>` number.
 
 Neither method adds a significant amount of overhead, especially if a database is used anyway to associate each incoming payment with a separate public key for payment tracking. See the `Payment Processing <../devguide/payment_processing.html>`__ section for details.
 
@@ -207,13 +207,13 @@ Hierarchical Deterministic Key Creation
 
 The hierarchical deterministic key creation and transfer protocol (:term:`HD protocol <HD protocol>`) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
 
-The HD protocol takes advantage of the `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public key creation function, :ref:`“point()” <term-point-function>`, which takes a large integer (the private key) and turns it into a graph point (the public key):
+The HD protocol takes advantage of the `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public key creation function, :term:`“point()” <Point function>`, which takes a large integer (the private key) and turns it into a graph point (the public key):
 
 ::
 
    point(private_key) == public_key
 
-Because of the way :ref:`“point()” <Term-point-function>` works, it’s possible to create a :term:`child public key <Child key>` by combining an existing :term:`(parent) public key <Parent key>` with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the :ref:`“point()” <Term-point-function>` function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Bitcoin software (*p*):
+Because of the way :term:`“point()” <Point function>` works, it’s possible to create a :term:`child public key <Child key>` by combining an existing :term:`(parent) public key <Parent key>` with another public key created from any integer (*i*) value. This child public key is the same public key which would be created by the :term:`“point()” <Point function>` function if you added the *i* value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Bitcoin software (*p*):
 
 ::
 
@@ -242,7 +242,7 @@ As illustrated above, HD key derivation takes four inputs:
 
 -  The :term:`parent chain code <Chain code>` is 256 bits of seemingly-random data.
 
--  The :ref:`index <term-key-index>` number is a 32-bit integer specified by the program.
+-  The :term:`index <Key index>` number is a 32-bit integer specified by the program.
 
 In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash (`HMAC-SHA512 <https://en.wikipedia.org/wiki/HMAC>`__) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:
 
@@ -265,7 +265,7 @@ A :term:`root seed <HD wallet seed>` is created from either 128 bits, 256 bits, 
 
 |Warning icon| **Warning:** As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
 
-The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using :ref:`“point()” <term-point-function>`, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
+The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using :term:`“point()” <Point function>`, which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
 
 Hardened Keys
 ^^^^^^^^^^^^^
@@ -337,7 +337,7 @@ Loose-Key wallets, also called “Just a Bunch Of Keys (JBOK)”, are a deprecat
 
 These unused private keys are stored in a virtual “key pool”, with new keys being generated whenever a previously-generated key was used, ensuring the pool maintained 100 unused keys. (If the wallet is encrypted, new keys are only generated while the wallet is unlocked.)
 
-This created considerable difficulty in backing up one’s keys, considering backups have to be run manually to save the newly-generated private keys. If a new :ref:`key pair <term-key-pair>` set is generated, used, and then lost prior to a backup, the stored satoshis are likely lost forever. Many older-style mobile wallets followed a similar format, but only generated a new private key upon user demand.
+This created considerable difficulty in backing up one’s keys, considering backups have to be run manually to save the newly-generated private keys. If a new :term:`key pair <Key pair>` set is generated, used, and then lost prior to a backup, the stored satoshis are likely lost forever. Many older-style mobile wallets followed a similar format, but only generated a new private key upon user demand.
 
 This wallet type is being actively phased out and discouraged from being used due to the backup hassle.
 
