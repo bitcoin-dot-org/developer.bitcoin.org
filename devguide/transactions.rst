@@ -218,7 +218,7 @@ Pubkey outputs are a simplified form of the P2PKH pubkey script, but they aren�
 Null Data
 ~~~~~~~~~
 
-:term:`Null data <Null data transaction>` transaction type relayed and mined by default in `Bitcoin Core 0.9.0 <https://bitcoin.org/en/release/v0.9.0>`__ and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don’t have to store in their UTXO database. It is preferable to use null data transactions over transactions that bloat the UTXO database because they cannot be automatically pruned; however, it is usually even more preferable to store data outside transactions if possible.
+:term:`Null data <Null data transaction>` transaction type relayed and mined by default in `Bitcoin Core 0.9.0 <https://bitcoin.org/en/release/v0.9.0>`__ and later that adds arbitrary data to a probably unspendable pubkey script that full nodes don’t have to store in their UTXO database. It is preferable to use null data transactions over transactions that bloat the UTXO database because they cannot be automatically pruned; however, it is usually even more preferable to store data outside transactions if possible.
 
 Consensus rules allow null data outputs up to the maximum allowed pubkey script size of 10,000 bytes provided they follow all other consensus rules, such as not having any data pushes larger than 520 bytes.
 
