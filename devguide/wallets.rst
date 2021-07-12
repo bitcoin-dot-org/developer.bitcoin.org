@@ -127,7 +127,7 @@ Private Key Formats
 
 Private keys are what are used to unlock satoshis from a particular address. In Bitcoin, a private key in standard format is simply a 256-bit number, between the values:
 
-0x01 and 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4140, representing nearly the entire range of 2256-1 values. The range is governed by the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ encryption standard used by Bitcoin.
+0x01 and 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4140, representing nearly the entire range of 2\ :sup:`256`-1 values. The range is governed by the `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__ `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ encryption standard used by Bitcoin.
 
 Wallet Import Format (WIF)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -172,7 +172,7 @@ Many implementations disallow the character ‘1’ in the mini private key due 
 Public Key Formats
 ~~~~~~~~~~~~~~~~~~
 
-Bitcoin `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public keys represent a point on a particular Elliptic Curve (EC) defined in `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Bitcoin, y2 = x3 + 7, over a field of contiguous numbers.
+Bitcoin `ECDSA <https://en.wikipedia.org/wiki/Elliptic_Curve_DSA>`__ public keys represent a point on a particular Elliptic Curve (EC) defined in `secp256k1 <http://www.secg.org/sec2-v2.pdf>`__. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Bitcoin, y\ :sup:`2` = x\ :sup:`3` + 7, over a field of contiguous numbers.
 
 .. figure:: /img/dev/en-ecdsa-compressed-public-key.svg
    :alt: Point On ECDSA Curve
@@ -294,7 +294,7 @@ The hardened formula, illustrated above, combines together the index number, the
 
 Because of that, a :term:`hardened extended private key <Hardened extended key>` is much less useful than a normal extended private key—however, hardened extended private keys create a firewall through which multi-level key derivation compromises cannot happen. Because hardened child extended public keys cannot generate grandchild chain codes on their own, the compromise of a parent extended public key cannot be combined with the compromise of a grandchild private key to create great-grandchild extended private keys.
 
-The HD protocol uses different index numbers to indicate whether a normal or hardened key should be generated. Index numbers from 0x00 to 0x7fffffff (0 to 231-1) will generate a normal key; index numbers from 0x80000000 to 0xffffffff will generate a hardened key. To make descriptions easy, many developers use the `prime symbol <https://en.wikipedia.org/wiki/Prime_%28symbol%29>`__ to indicate hardened keys, so the first normal key (0x00) is 0 and the first hardened key (0x80000000) is 0´.
+The HD protocol uses different index numbers to indicate whether a normal or hardened key should be generated. Index numbers from 0x00 to 0x7fffffff (0 to 2\ :sup:`31`-1) will generate a normal key; index numbers from 0x80000000 to 0xffffffff will generate a hardened key. To make descriptions easy, many developers use the `prime symbol <https://en.wikipedia.org/wiki/Prime_%28symbol%29>`__ to indicate hardened keys, so the first normal key (0x00) is 0 and the first hardened key (0x80000000) is 0´.
 
 (Bitcoin developers typically use the ASCII apostrophe rather than the unicode prime symbol, a convention we will henceforth follow.)
 
