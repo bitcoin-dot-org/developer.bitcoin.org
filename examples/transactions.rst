@@ -263,7 +263,7 @@ Use the `“decoderawtransaction” RPC <../reference/rpc/decoderawtransaction.h
 
    ::
 
-      > bitcoin-cli -regtest signrawtransaction $RAW_TX
+      > bitcoin-cli -regtest signrawtransactionwithwallet $RAW_TX
 
    .. highlight:: json
 
@@ -462,10 +462,7 @@ Create the raw transaction using `“createrawtransaction” <../reference/rpc/c
 
    ::
 
-      > bitcoin-cli -regtest signrawtransaction $RAW_TX '[]' '''
-          [
-            "'$UTXO1_PRIVATE_KEY'"
-          ]'''
+      > bitcoin-cli -regtest signrawtransactionwithkey $RAW_TX "[\"$UTXO1_PRIVATE_KEY\"]"
 
    .. highlight:: json
 
@@ -516,10 +513,7 @@ The result is a raw transaction with only one input signed; the fact that the tr
 
    ::
 
-      > bitcoin-cli -regtest signrawtransaction $PARTLY_SIGNED_RAW_TX '[]' '''
-          [
-            "'$UTXO2_PRIVATE_KEY'"
-          ]'''
+      > bitcoin-cli -regtest signrawtransactionwithkey $PARTLY_SIGNED_RAW_TX "[\"$UTXO2_PRIVATE_KEY\"]"
 
    .. highlight:: json
 
@@ -725,7 +719,7 @@ Create the raw transaction the same way we’ve done in the previous subsections
 
    ::
 
-          > bitcoin-cli -regtest signrawtransaction $RAW_TX
+          > bitcoin-cli -regtest signrawtransactionwithwallet $RAW_TX
 
    .. highlight:: json
 
@@ -758,15 +752,15 @@ In this case, you’re spending an output which is unknown to the wallet, so it 
 
    ::
 
-      > bitcoin-cli -regtest signrawtransaction $RAW_TX '''
+      > bitcoin-cli -regtest signrawtransactionwithwallet $RAW_TX '''
           [
             {
               "txid": "'$UTXO_TXID'", 
               "vout": '$UTXO_VOUT', 
               "scriptPubKey": "'$UTXO_OUTPUT_SCRIPT'",
-              "value": '$UTXO_VALUE'
+              "amount": '$UTXO_VALUE'
             }
-          ]'''
+          ]''' '''ALL'''
 
    .. highlight:: json
 
@@ -904,6 +898,12 @@ Recall from the Guide that the hashed public keys used in addresses obfuscate th
    ::
 
       > NEW_ADDRESS3_PUBLIC_KEY=029e03a901b85534ff1e92c43c74431f7ce720[...]
+      
+      > bitcoin-cli -regtest validateaddress $NEW_ADDRESS1
+      > NEW_ADDRESS1_PUBLIC_KEY=02fa7493b2503bfba8bf813864953d184cc485[...]
+      
+      > bitcoin-cli -regtest validateaddress $NEW_ADDRESS2
+      > NEW_ADDRESS2_PUBLIC_KEY=036fcf1cd68dc02ca909fd4ddf6983856be764[...]
 
 Use the `“validateaddress” RPC <../reference/rpc/validateaddress.html>`__ to display the full (unhashed) public key for one of the addresses. This is the information which will actually be included in the multisig redeem script. This is also the information you would give another person or device as part of creating a multisig output or P2SH multisig redeem script.
 
@@ -917,8 +917,8 @@ We save the address returned to a shell variable.
 
       > bitcoin-cli -regtest createmultisig 2 '''
           [
-            "'$NEW_ADDRESS1'",
-            "'$NEW_ADDRESS2'", 
+            "'$NEW_ADDRESS1_PUBLIC_KEY'",
+            "'$NEW_ADDRESS2_PUBLIC_KEY'", 
             "'$NEW_ADDRESS3_PUBLIC_KEY'"
           ]'''
 
@@ -1037,6 +1037,7 @@ We save that txid to a shell variable as the txid of the UTXO we plan to spend n
 
       > UTXO_VOUT=0
       > UTXO_OUTPUT_SCRIPT=a9149af61346ce0aa2dffcf697352b4b704c84dcbaff87
+      > UTXO_VALUE=10
 
 We use the `“getrawtransaction” RPC <../reference/rpc/getrawtransaction.html>`__ with the optional second argument (*true*) to get the decoded transaction we just created with `“sendtoaddress” <../reference/rpc/sendtoaddress.html>`__. We choose one of the outputs to be our UTXO and get its :ref:`output index <term-output-index>` number (vout) and pubkey script (scriptPubKey).
 
@@ -1098,19 +1099,16 @@ We get the private keys for two of the public keys we used to create the transac
 
    ::
 
-      > bitcoin-cli -regtest signrawtransaction $RAW_TX '''
+      > bitcoin-cli -regtest signrawtransactionwithkey $RAW_TX "[\"$NEW_ADDRESS1_PRIVATE_KEY\"]" '''
           [
             {
-              "txid": "'$UTXO_TXID'", 
-              "vout": '$UTXO_VOUT', 
-              "scriptPubKey": "'$UTXO_OUTPUT_SCRIPT'", 
-              "redeemScript": "'$P2SH_REDEEM_SCRIPT'"
+              "txid": "'$UTXO_TXID'",
+              "vout": '$UTXO_VOUT',
+              "scriptPubKey": "'$UTXO_OUTPUT_SCRIPT'",
+              "redeemScript": "'$P2SH_REDEEM_SCRIPT'",
+              "amount": '$UTXO_VALUE' 
             }
-          ]
-          ''' '''
-          [
-            "'$NEW_ADDRESS1_PRIVATE_KEY'"
-          ]'''
+         ]'''
 
    .. highlight:: json
 
@@ -1145,19 +1143,16 @@ We make the first signature. The input argument (JSON object) takes the addition
 
    ::
 
-      > bitcoin-cli -regtest signrawtransaction $PARTLY_SIGNED_RAW_TX '''
+      > bitcoin-cli -regtest signrawtransactionwithkey $PARTLY_SIGNED_RAW_TX "[\"$NEW_ADDRESS3_PRIVATE_KEY\"]" '''
           [
             {
               "txid": "'$UTXO_TXID'",
               "vout": '$UTXO_VOUT',
-              "scriptPubKey": "'$UTXO_OUTPUT_SCRIPT'", 
-              "redeemScript": "'$P2SH_REDEEM_SCRIPT'"
+              "scriptPubKey": "'$UTXO_OUTPUT_SCRIPT'",
+              "redeemScript": "'$P2SH_REDEEM_SCRIPT'",
+              "amount": '$UTXO_VALUE' 
             }
-          ]
-          ''' '''
-          [
-            "'$NEW_ADDRESS3_PRIVATE_KEY'"
-          ]'''
+         ]'''
 
    .. highlight:: json
 
