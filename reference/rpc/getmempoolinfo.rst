@@ -18,6 +18,7 @@ Result
     "size" : n,                (numeric) Current tx count
     "bytes" : n,               (numeric) Sum of all virtual transaction sizes as defined in BIP 141. Differs from actual serialized size because witness data is discounted
     "usage" : n,               (numeric) Total memory usage for the mempool
+    "total_fee" : n,           (numeric) Total fee for all mempool transactions
     "maxmempool" : n,          (numeric) Maximum memory usage for the mempool
     "mempoolminfee" : n,       (numeric) Minimum fee rate in BTC/kB for tx to be accepted. Is the maximum of minrelaytxfee and minimum mempool fee
     "minrelaytxfee" : n,       (numeric) Current minimum relay fee for transactions
