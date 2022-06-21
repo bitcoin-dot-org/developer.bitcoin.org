@@ -13,20 +13,27 @@ Result
 
 ::
 
-  {
-    "walletname": xxxxx,               (string) the wallet name
-    "walletversion": xxxxx,            (numeric) the wallet version
-    "balance": xxxxxxx,                (numeric) the total confirmed balance of the wallet in BTC
-    "unconfirmed_balance": xxx,        (numeric) the total unconfirmed balance of the wallet in BTC
-    "immature_balance": xxxxxx,        (numeric) the total immature balance of the wallet in BTC
-    "txcount": xxxxxxx,                (numeric) the total number of transactions in the wallet
-    "keypoololdest": xxxxxx,           (numeric) the timestamp (seconds since Unix epoch) of the oldest pre-generated key in the key pool
-    "keypoolsize": xxxx,               (numeric) how many new keys are pre-generated (only counts external keys)
-    "keypoolsize_hd_internal": xxxx,   (numeric) how many new keys are pre-generated for internal use (used for change outputs, only appears if the wallet is using this feature, otherwise external keys are used)
-    "unlocked_until": ttt,             (numeric) the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked
-    "paytxfee": x.xxxx,                (numeric) the transaction fee configuration, set in BTC/kB
-    "hdseedid": "<hash160>"            (string, optional) the Hash160 of the HD seed (only present when HD is enabled)
-    "private_keys_enabled": true|false (boolean) false if privatekeys are disabled for this wallet (enforced watch-only wallet)
+  {                                         (json object)
+    "walletname" : "str",                   (string) the wallet name
+    "walletversion" : n,                    (numeric) the wallet version
+    "format" : "str",                       (string) the database format (bdb or sqlite)
+    "balance" : n,                          (numeric) DEPRECATED. Identical to getbalances().mine.trusted
+    "unconfirmed_balance" : n,              (numeric) DEPRECATED. Identical to getbalances().mine.untrusted_pending
+    "immature_balance" : n,                 (numeric) DEPRECATED. Identical to getbalances().mine.immature
+    "txcount" : n,                          (numeric) the total number of transactions in the wallet
+    "keypoololdest" : xxx,                  (numeric) the UNIX epoch time of the oldest pre-generated key in the key pool. Legacy wallets only.
+    "keypoolsize" : n,                      (numeric) how many new keys are pre-generated (only counts external keys)
+    "keypoolsize_hd_internal" : n,          (numeric) how many new keys are pre-generated for internal use (used for change outputs, only appears if the wallet is using this feature, otherwise external keys are used)
+    "unlocked_until" : xxx,                 (numeric, optional) the UNIX epoch time until which the wallet is unlocked for transfers, or 0 if the wallet is locked (only present for passphrase-encrypted wallets)
+    "paytxfee" : n,                         (numeric) the transaction fee configuration, set in BTC/kvB
+    "hdseedid" : "hex",                     (string, optional) the Hash160 of the HD seed (only present when HD is enabled)
+    "private_keys_enabled" : true|false,    (boolean) false if privatekeys are disabled for this wallet (enforced watch-only wallet)
+    "avoid_reuse" : true|false,             (boolean) whether this wallet tracks clean/dirty coins in terms of reuse
+    "scanning" : {                          (json object) current scanning details, or false if no scan is in progress
+      "duration" : n,                       (numeric) elapsed seconds since scan start
+      "progress" : n                        (numeric) scanning progress percentage [0.0, 1.0]
+    },
+    "descriptors" : true|false              (boolean) whether this wallet uses descriptors for scriptPubKey management
   }
 
 Examples
@@ -41,5 +48,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getwalletinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getwalletinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

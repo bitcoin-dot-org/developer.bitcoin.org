@@ -14,6 +14,7 @@ Blockchain RPCs
   getblock
   getblockchaininfo
   getblockcount
+  getblockfilter
   getblockhash
   getblockheader
   getblockstats
@@ -54,8 +55,9 @@ Generating RPCs
 .. toctree::
   :maxdepth: 1
 
-  generate
+  generateblock
   generatetoaddress
+  generatetodescriptor
 
 Mining RPCs
 -----------
@@ -124,6 +126,7 @@ Util RPCs
   deriveaddresses
   estimatesmartfee
   getdescriptorinfo
+  getindexinfo
   signmessagewithprivkey
   validateaddress
   verifymessage
@@ -149,6 +152,7 @@ with wallet support, which is the default.
   getaddressesbylabel
   getaddressinfo
   getbalance
+  getbalances
   getnewaddress
   getrawchangeaddress
   getreceivedbyaddress
@@ -157,6 +161,7 @@ with wallet support, which is the default.
   getunconfirmedbalance
   getwalletinfo
   importaddress
+  importdescriptors
   importmulti
   importprivkey
   importprunedfunds
@@ -175,16 +180,20 @@ with wallet support, which is the default.
   listwallets
   loadwallet
   lockunspent
+  psbtbumpfee
   removeprunedfunds
   rescanblockchain
+  send
   sendmany
   sendtoaddress
   sethdseed
   setlabel
   settxfee
+  setwalletflag
   signmessage
   signrawtransactionwithwallet
   unloadwallet
+  upgradewallet
   walletcreatefundedpsbt
   walletlock
   walletpassphrase

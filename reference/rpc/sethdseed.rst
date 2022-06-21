@@ -11,6 +11,8 @@ HD will have a new HD seed set so that new keys added to the keypool will be der
 
 Note that you will need to MAKE A NEW BACKUP of your wallet after setting the HD wallet seed.
 
+Requires wallet passphrase to be set with walletpassphrase call if wallet is encrypted.
+
 Argument #1 - newkeypool
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -28,6 +30,13 @@ Argument #2 - seed
 
 The WIF private key to use as the new HD seed.
        The seed value can be retrieved using the dumpwallet command. It is the private key marked hdseed=1
+
+Result
+~~~~~~
+
+::
+
+  null    (json null)
 
 Examples
 ~~~~~~~~
@@ -49,5 +58,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sethdseed", "params": [true, "wifkey"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "sethdseed", "params": [true, "wifkey"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

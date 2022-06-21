@@ -13,6 +13,8 @@ Hint: use importmulti to import more than one private key.
 Note: This call can take over an hour to complete if rescan is true, during that time, other rpc calls
 may report that the imported key exists but related transactions are still missing, leading to temporarily incorrect/bogus balances and unspent outputs until rescan completes.
 
+Note: Use "getwalletinfo" to query the scanning progress.
+
 Argument #1 - privkey
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -33,6 +35,13 @@ Argument #3 - rescan
 **Type:** boolean, optional, default=true
 
 Rescan the wallet for transactions
+
+Result
+~~~~~~
+
+::
+
+  null    (json null)
 
 Examples
 ~~~~~~~~
@@ -58,5 +67,5 @@ Import using default blank label and without rescan::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "importprivkey", "params": ["mykey", "testing", false] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "importprivkey", "params": ["mykey", "testing", false]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 
