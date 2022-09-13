@@ -16,6 +16,9 @@ is in a block in the blockchain.
 
 Hint: Use gettransaction for wallet transactions.
 
+Note: A confirmed transaction *may* temporarily disappear, between leaving the mempool and entering
+the txindex; these operations do not happen atomically.
+
 If verbose is 'true', returns an Object with information about 'txid'.
 
 If verbose is 'false' or omitted, returns a string that is serialized, hex-encoded data for 'txid'.
