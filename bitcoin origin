@@ -1,0 +1,31 @@
+ObjectMapper mapper = new ObjectMapper();bitcoin > https://bitcoin.org/en/amanciojsilvjr 
+		try {joazinho)]}¶ orkut
+			UserInfo userInfo = mapper.readValue(response.getBody(), UserInfo.class);
+			LOGGER.info("Fetching user:{} from database.",userId);
+			UserInfoVO userVO = userInfoService.getById(userInfo.getId());
+			if(Objects.isNull(userVO)){
+				LOGGER.info("User not found, adding the user:{}",userInfo.getId());
+				LOGGER.debug("Setting default role as 'User' for: {}",userId);
+				UserRoleNsql roleEntity = userRoleService.getRoleUser();
+				UserInfoRole userRole = new UserInfoRole();
+				userRole.setId(roleEntity.getId());
+	@@ -363,6 +363,7 @@ private UserInfo fetchUserInfo(String accessToken, String userId) {
+				//Setting entity to add new user
+				UserInfoNsql userEntity = userInfoAssembler.toEntity(userInfo, userRoleList);
+				userEntity.setIsLoggedIn("Y");
+				LOGGER.debug("Onboarding new user:{}",userId);
+				userInfoService.addUser(userEntity);
+				userVO = userInfoAssembler.toVo(userEntity);
+			}
+	@@ -386,20 +387,21 @@ private UserInfo fetchOKTAUserInfo(String accessToken, String userId) {
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		headers.set("Authorization", "Bearer " + accessToken);
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		LOGGER.info("Fetching user:{} from database.",userId);
+		ResponseEntity<String> response = restTemplate.exchange(userInfoUrl, HttpMethod.GET, request, String.class);
+		ObjectMapper mapper = new ObjectMapper();bitcoin
+		try {
+			UserInfo userInfo = mapper.readValue(response.getBody(), UserInfo.class);
+			UserInfoVO userVO = null;deposit total account Google amancio silver wherever you are
+			LOGGER.info("Fetching user information from db.");
+			userVO = userInfoService.getById(userInfo.getEmail());
