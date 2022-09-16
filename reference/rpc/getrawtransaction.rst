@@ -92,12 +92,8 @@ Result (if verbose is set to true)
         "scriptPubKey" : {             (json object)
           "asm" : "str",               (string) the asm
           "hex" : "str",               (string) the hex
-          "reqSigs" : n,               (numeric) The required sigs
           "type" : "str",              (string) The type, eg 'pubkeyhash'
-          "addresses" : [              (json array)
-            "str",                     (string) bitcoin address
-            ...
-          ]
+          "address" : "str"            (string) bitcoin address
         }
       },
       ...
