@@ -70,3 +70,6 @@ Examples
 
   bitcoin-cli importdescriptors '[{ "desc": "<my descriptor>", "timestamp":1455191478, "active": true, "range": [0,100], "label": "<my bech32 wallet>" }]'
 
+::
+
+   curl --user --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method":  "importdescriptors", "params": [[{"desc":"addr(bcrt1pe6lgv0eucta4l23yk69wmjza4m89w5a8p4g7dhjl4w9jvhj30jjq0cjwxw)#ysp3m4rs","timestamp":"now"}]]}' -H 'content-type: text/plain;' http://127.0.0.1:18443/
