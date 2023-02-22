@@ -19,7 +19,7 @@ All three programs get settings from ``bitcoin.conf`` in the ``Bitcoin`` applica
 
 -  Linux: ``$HOME/.bitcoin/``
 
-Note: ``bitcoin.conf`` may not exist at these locations if you chose a custom location during the GUI setup it will be at this custom location. The file may also need to be created: in the custom data folder you chose, or in the locations above.
+Note: ``bitcoin.conf`` may not exist at these locations. If you chose a custom location during the GUI setup it will be at this custom location. The file may also need to be created: in the custom data folder you chose, or in the locations above.
 
 To use ``bitcoind`` and ``bitcoin-cli``, you will need to add a `RPC <../reference/rpc/index.html>`__ password to your ``bitcoin.conf`` file. Both programs will read from the same file if both run on the same system as the same user, so any long random password will work:
 
