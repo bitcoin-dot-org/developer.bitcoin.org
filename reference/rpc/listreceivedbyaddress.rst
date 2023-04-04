@@ -25,9 +25,9 @@ Whether to include addresses that haven't received any payments.
 Argument #3 - include_watchonly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** boolean, optional, default=false
+**Type:** boolean, optional, default=true for watch-only wallets, otherwise false
 
-Whether to include watch-only addresses (see 'importaddress').
+Whether to include watch-only addresses (see 'importaddress')
 
 Argument #4 - address_filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,19 +41,19 @@ Result
 
 ::
 
-  [
-    {
-      "involvesWatchonly" : true,        (bool) Only returned if imported addresses were involved in transaction
-      "address" : "receivingaddress",  (string) The receiving address
-      "amount" : x.xxx,                  (numeric) The total amount in BTC received by the address
-      "confirmations" : n,               (numeric) The number of confirmations of the most recent transaction included
-      "label" : "label",               (string) The label of the receiving address. The default label is "".
-      "txids": [
-         "txid",                         (string) The ids of transactions received with the address
-         ...
+  [                                        (json array)
+    {                                      (json object)
+      "involvesWatchonly" : true|false,    (boolean) Only returns true if imported addresses were involved in transaction
+      "address" : "str",                   (string) The receiving address
+      "amount" : n,                        (numeric) The total amount in BTC received by the address
+      "confirmations" : n,                 (numeric) The number of confirmations of the most recent transaction included
+      "label" : "str",                     (string) The label of the receiving address. The default label is ""
+      "txids" : [                          (json array)
+        "hex",                             (string) The ids of transactions received with the address
+        ...
       ]
-    }
-    ,...
+    },
+    ...
   ]
 
 Examples
@@ -72,9 +72,9 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listreceivedbyaddress", "params": [6, true, true]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbyaddress", "params": [6, true, true, "1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listreceivedbyaddress", "params": [6, true, true, "bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

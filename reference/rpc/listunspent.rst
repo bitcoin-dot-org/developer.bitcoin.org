@@ -30,7 +30,7 @@ Argument #3 - addresses
 
 **Type:** json array, optional, default=empty array
 
-A json array of bitcoin addresses to filter
+The bitcoin addresses to filter
 
 ::
 
@@ -68,25 +68,26 @@ Result
 
 ::
 
-  [                   (array of json object)
-    {
-      "txid" : "txid",          (string) the transaction id
-      "vout" : n,               (numeric) the vout value
-      "address" : "address",    (string) the bitcoin address
-      "label" : "label",        (string) The associated label, or "" for the default label
-      "scriptPubKey" : "key",   (string) the script key
-      "amount" : x.xxx,         (numeric) the transaction output amount in BTC
-      "confirmations" : n,      (numeric) The number of confirmations
-      "redeemScript" : "script" (string) The redeemScript if scriptPubKey is P2SH
-      "witnessScript" : "script" (string) witnessScript if the scriptPubKey is P2WSH or P2SH-P2WSH
-      "spendable" : xxx,        (bool) Whether we have the private keys to spend this output
-      "solvable" : xxx,         (bool) Whether we know how to spend this output, ignoring the lack of keys
-      "desc" : xxx,             (string, only when solvable) A descriptor for spending this output
-      "safe" : xxx              (bool) Whether this output is considered safe to spend. Unconfirmed transactions
-                                from outside keys and unconfirmed replacement transactions are considered unsafe
-                                and are not eligible for spending by fundrawtransaction and sendtoaddress.
-    }
-    ,...
+  [                                (json array)
+    {                              (json object)
+      "txid" : "hex",              (string) the transaction id
+      "vout" : n,                  (numeric) the vout value
+      "address" : "str",           (string) the bitcoin address
+      "label" : "str",             (string) The associated label, or "" for the default label
+      "scriptPubKey" : "str",      (string) the script key
+      "amount" : n,                (numeric) the transaction output amount in BTC
+      "confirmations" : n,         (numeric) The number of confirmations
+      "redeemScript" : "hex",      (string) The redeemScript if scriptPubKey is P2SH
+      "witnessScript" : "str",     (string) witnessScript if the scriptPubKey is P2WSH or P2SH-P2WSH
+      "spendable" : true|false,    (boolean) Whether we have the private keys to spend this output
+      "solvable" : true|false,     (boolean) Whether we know how to spend this output, ignoring the lack of keys
+      "reused" : true|false,       (boolean) (only present if avoid_reuse is set) Whether this output is reused/dirty (sent to an address that was previously spent from)
+      "desc" : "str",              (string) (only when solvable) A descriptor for spending this output
+      "safe" : true|false          (boolean) Whether this output is considered safe to spend. Unconfirmed transactions
+                                   from outside keys and unconfirmed replacement transactions are considered unsafe
+                                   and are not eligible for spending by fundrawtransaction and sendtoaddress.
+    },
+    ...
   ]
 
 Examples
@@ -101,11 +102,11 @@ Examples
 
 ::
 
-  bitcoin-cli listunspent 6 9999999 "[\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\",\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\"]"
+  bitcoin-cli listunspent 6 9999999 "[\"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl\",\"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3\"]"
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [6, 9999999 "[\"1PGFqEzfmQch1gKD3ra4k18PNj3tTUUSqg\",\"1LtvqCaApEdUGFkpKMM4MstjcaL4dKg8SP\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listunspent", "params": [6, 9999999 "[\"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl\",\"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3\"]"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 
 ::
 
@@ -113,5 +114,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [6, 9999999, [] , true, { "minimumAmount": 0.005 } ] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listunspent", "params": [6, 9999999, [] , true, { "minimumAmount": 0.005 } ]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

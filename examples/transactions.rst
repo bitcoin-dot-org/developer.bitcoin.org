@@ -93,7 +93,7 @@ Re-running the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ wit
 
 ::
 
-   > bitcoin-cli -regtest generate 1
+   > bitcoin-cli -regtest -generate 1
 
    > unset NEW_ADDRESS
 
@@ -303,7 +303,7 @@ Send the signed transaction to the connected node using the `“sendrawtransacti
 
 ::
 
-   > bitcoin-cli -regtest generate 1
+   > bitcoin-cli -regtest -generate 1
 
    > unset UTXO_TXID UTXO_VOUT NEW_ADDRESS RAW_TX SIGNED_RAW_TX
 

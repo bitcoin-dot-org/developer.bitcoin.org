@@ -20,7 +20,7 @@ Argument #1 - inputs
 
 **Type:** json array, required
 
-A json array of json objects
+The inputs
 
 ::
 
@@ -38,7 +38,7 @@ Argument #2 - outputs
 
 **Type:** json array, required
 
-a json array with outputs (key-value pairs), where none of the keys are duplicated.
+The outputs (key-value pairs), where none of the keys are duplicated.
        That is, each address can only appear once and there can only be one 'data' object.
        For compatibility reasons, a dictionary, which holds the key-value pairs directly, is also
        accepted as second parameter.
@@ -79,7 +79,7 @@ Result
    * - Name
      - Type
      - Description
-   * - transaction
+   * - hex
      - string
      - hex string of the transaction
 
@@ -99,9 +99,9 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": ["[{\"txid\":\"myid\",\"vout\":0}]", "[{\"address\":0.01}]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "createrawtransaction", "params": ["[{\"txid\":\"myid\",\"vout\":0}]", "[{\"address\":0.01}]"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": ["[{\"txid\":\"myid\",\"vout\":0}]", "[{\"data\":\"00010203\"}]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "createrawtransaction", "params": ["[{\"txid\":\"myid\",\"vout\":0}]", "[{\"data\":\"00010203\"}]"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

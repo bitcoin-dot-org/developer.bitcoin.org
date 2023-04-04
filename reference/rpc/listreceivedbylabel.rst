@@ -25,23 +25,23 @@ Whether to include labels that haven't received any payments.
 Argument #3 - include_watchonly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** boolean, optional, default=false
+**Type:** boolean, optional, default=true for watch-only wallets, otherwise false
 
-Whether to include watch-only addresses (see 'importaddress').
+Whether to include watch-only addresses (see 'importaddress')
 
 Result
 ~~~~~~
 
 ::
 
-  [
-    {
-      "involvesWatchonly" : true,   (bool) Only returned if imported addresses were involved in transaction
-      "amount" : x.xxx,             (numeric) The total amount received by addresses with this label
-      "confirmations" : n,          (numeric) The number of confirmations of the most recent transaction included
-      "label" : "label"           (string) The label of the receiving address. The default label is "".
-    }
-    ,...
+  [                                        (json array)
+    {                                      (json object)
+      "involvesWatchonly" : true|false,    (boolean) Only returns true if imported addresses were involved in transaction
+      "amount" : n,                        (numeric) The total amount received by addresses with this label
+      "confirmations" : n,                 (numeric) The number of confirmations of the most recent transaction included
+      "label" : "str"                      (string) The label of the receiving address. The default label is ""
+    },
+    ...
   ]
 
 Examples
@@ -60,5 +60,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listreceivedbylabel", "params": [6, true, true] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listreceivedbylabel", "params": [6, true, true]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

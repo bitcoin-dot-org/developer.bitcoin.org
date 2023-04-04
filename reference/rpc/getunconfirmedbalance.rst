@@ -6,5 +6,19 @@ getunconfirmedbalance
 
 ``getunconfirmedbalance``
 
-Returns the server's total unconfirmed balance
+DEPRECATED
+Identical to getbalances().mine.untrusted_pending
+
+Result
+~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - n
+     - numeric
+     - The balance
 

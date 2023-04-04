@@ -1,5 +1,5 @@
-Welcome
-========
+Getting Started
+===============
 
 The site aims to provide the information you need to understand
 Bitcoin and start building Bitcoin-based applications. To make the best use of
@@ -20,7 +20,7 @@ developer documentation that led to this site.
 
 .. _make sure you're running a node: https://bitcoin.org/en/full-node
 .. _Bitcoin Stack Exchange: https://bitcoin.stackexchange.com/
-.. _GitHub: https://github.com/bitcoin-documentation/website/issues/new
+.. _GitHub: https://github.com/bitcoin-dot-org/developer.bitcoin.org/issues/new/choose
 .. _David Harding: https://github.com/harding
 .. _Cornelius Schumacher: https://github.com/cornelius
 

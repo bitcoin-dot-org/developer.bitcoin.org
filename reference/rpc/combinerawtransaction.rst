@@ -16,12 +16,12 @@ Argument #1 - txs
 
 **Type:** json array, required
 
-A json array of hex strings of partially signed transactions
+The hex strings of partially signed transactions
 
 ::
 
      [
-       "hexstring",    (string) A transaction hash
+       "hexstring",    (string) A hex-encoded raw transaction
        ...
      ]
 
@@ -34,7 +34,7 @@ Result
    * - Name
      - Type
      - Description
-   * - hex
+   * - str
      - string
      - The hex-encoded raw transaction with signature(s)
 
@@ -46,5 +46,5 @@ Examples
 
 ::
 
-  bitcoin-cli combinerawtransaction ["myhex1", "myhex2", "myhex3"]
+  bitcoin-cli combinerawtransaction '["myhex1", "myhex2", "myhex3"]'
 

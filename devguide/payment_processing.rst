@@ -126,7 +126,7 @@ Payment Protocol
 
 |Warning icon| **Warning:** The payment protocol is considered to be deprecated and will be removed in a later version of Bitcoin Core. The protocol has multiple security design flaws and implementation flaws in some wallets. Users will begin receiving deprecation warnings in Bitcoin Core version 0.18 when using `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ URI’s. Merchants should transition away from `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ to more secure options such as `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__. Merchants should never require `BIP70 <https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki>`__ payments and should provide `BIP21 <https://github.com/bitcoin/bips/blob/master/bip-0021.mediawiki>`__ fallbacks.
 
-Bitcoin Core 0.9 supports the new :term:`payment protocol`. The payment protocol adds many important features to payment requests:
+Bitcoin Core 0.9 supports the new :term:`payment protocol <Payment protocol>`. The payment protocol adds many important features to payment requests:
 
 -  Supports `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificates and SSL encryption to verify receivers’ identity and help prevent `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacks.
 
@@ -215,11 +215,11 @@ If a `refund <../devguide/payment_processing.html#issuing-refunds>`__ needs to b
 Verifying Payment
 -----------------
 
-As explained in the `Transactions <../devguide/transactions.html>`__ and `Block Chain <../devguide/blockchain.html>`__ sections, broadcasting a transaction to the `network <../devguide/p2p_network.html>`__ doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
+As explained in the `Transactions <../devguide/transactions.html>`__ and `Block Chain <../devguide/block_chain.html>`__ sections, broadcasting a transaction to the `network <../devguide/p2p_network.html>`__ doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
 
-Two or more transactions spending the same input are commonly referred to as a :term:`double spend`.
+Two or more transactions spending the same input are commonly referred to as a :term:`double spend <Double spend>`.
 
-Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Bitcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one :term:`confirmation <confirmation score>`. Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
+Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Bitcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one :term:`confirmation <Confirmation score>`. Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
 
 **0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the `network <../devguide/p2p_network.html>`__ into including their version of a transaction.
 
@@ -243,7 +243,7 @@ An interesting source of double-spend risk analysis can be acquired by connectin
 
 For example, unconfirmed transactions can be compared among all connected peers to see if any UTXO is used in multiple unconfirmed transactions, indicating a double-spend attempt, in which case the payment can be refused until it is confirmed. Transactions can also be ranked by their transaction fee to estimate the amount of time until they’re added to a block.
 
-Another example could be to detect a fork when multiple peers report differing block header hashes at the same block height. Your program can go into a safe mode if the fork extends for more than two blocks, indicating a possible problem with the block chain. For more details, see the `Detecting Forks subsection <../devguide/blockchain.html#detecting-forks>`__.
+Another example could be to detect a fork when multiple peers report differing block header hashes at the same block height. Your program can go into a safe mode if the fork extends for more than two blocks, indicating a possible problem with the block chain. For more details, see the `Detecting Forks subsection <../devguide/block_chain.html#detecting-forks>`__.
 
 Another good source of double-spend protection can be human intelligence. For example, fraudsters may act differently from legitimate customers, letting savvy merchants manually flag them as high risk. Your program can provide a safe mode which stops automatic payment acceptance on a global or per-customer basis.
 

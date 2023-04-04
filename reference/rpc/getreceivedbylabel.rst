@@ -31,7 +31,7 @@ Result
    * - Name
      - Type
      - Description
-   * - amount
+   * - n
      - numeric
      - The total amount in BTC received for this label.
 
@@ -55,5 +55,5 @@ The amount with at least 6 confirmations::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getreceivedbylabel", "params": ["tabby", 6] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getreceivedbylabel", "params": ["tabby", 6]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

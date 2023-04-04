@@ -218,9 +218,6 @@ Navbar Dropdown styles
 Sidebar styles
 */
 
-#searchbox {
-    margin: 20px 20px 10px 20px;
-}
 .main a {
     text-decoration: underline;
     color: #3490E6;
@@ -946,7 +943,9 @@ blockquote {
         font-size: 12px;
     }
     .logo-light {
-        width: 270px
+        width: 270px;
+        max-width: 220px;
+        height: 27px;
     }
     .footer-logo {
         margin-bottom: 30px;

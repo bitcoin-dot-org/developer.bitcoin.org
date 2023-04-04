@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+# Distributed under the MIT software license, see the accompanying
+# file LICENSE or https://www.opensource.org/licenses/MIT.
+"""Usage:
+  rpc_docs_helper generate --output-dir=<path> [--rst] [COMMAND]
+  rpc_docs_helper get-help COMMAND
+  rpc_docs_helper import-see-also MARKDOWN_DIR ANNOTATIONS_FILE
+  rpc_docs_helper clean-annotations ANNOTATIONS_FILE
+  rpc_docs_helper show-removed MARKDOWN_DIR
+  rpc_docs_helper mark-removed ANNOTATIONS_FILE VERSION COMMAND
+  rpc_docs_helper mark-added ANNOTATIONS_FILE VERSION COMMAND
+  rpc_docs_helper show-missing ANNOTATIONS_FILE
+  rpc_docs_helper update-references --docs-dir=<path>
+  rpc_docs_helper -h | --help
+
+Commands:
+  generate          Generate markdown documentation from client command line
+                    help
+  get-help          Show help for given command
+  import-see-also   Import "see also" information from markdown into annotations
+  clean-annotations Remove empty objects from annotations
+  show-removed      Show commands which are in markdown directory but not in
+                    client help
+  mark-removed      Mark command as removed in annotations
+  mark-added        Mark command as added in annotations
+  show-missing      Show commands which are in help but not in annotations
+  update-references Update references in references.md and _autocrossref.yaml
+
+Arguments:
+  COMMAND           Name of the command to be rendered. If no command is given
+                    the help is rendered for all commands.
+  ANNOTATIONS_FILE  Name of annotations JSON file
+  MARKDOWN_DIR      Name of directory with markdown files
+  VERSION           Client version number
+
+  For `generate`, `get-help`, and `show-removed` you need to set
+  the environment variable BITCOIN_CLI_CMD to a command able to run the cli.
+  This should include paths and required options if necessary, e.g.
+  `/my/path/bitcoin-cli -regtest`.
+
+Options:
+  -h, --help           Show this help
+  --output-dir=<path>  Output directory where the rendered data is written
+  --docs-dir=<path>    Root directory of documentation repository
+  --rst                Generate reStructuredText instead of Markdown
+"""
+from docopt import docopt
+import sys
+
+from renderer_markdown import RendererMarkdown
+from renderer_rst import RendererRst
+from cli_bitcoin import CliBitcoin
+from cli_controller import CliController
+
+
+def main():
+    arguments = docopt(__doc__)
+    output_dir = arguments["--output-dir"]
+
+    controller = CliController()
+    if arguments["generate"]:
+        if arguments["--rst"]:
+            renderer = RendererRst(output_dir)
+        else:
+            renderer = RendererMarkdown(output_dir)
+        controller.generate(CliBitcoin(), renderer, arguments["COMMAND"])
+    elif arguments["get-help"]:
+        controller.get_help(CliBitcoin(), arguments["COMMAND"])
+    elif arguments["import-see-also"]:
+        controller.import_see_also(
+            arguments["MARKDOWN_DIR"], arguments["ANNOTATIONS_FILE"])
+    elif arguments["clean-annotations"]:
+        controller.clean_annotations(arguments["ANNOTATIONS_FILE"])
+    elif arguments["show-removed"]:
+        controller.show_removed(CliBitcoin(), arguments["MARKDOWN_DIR"])
+    elif arguments["mark-removed"]:
+        controller.mark_removed(arguments["ANNOTATIONS_FILE"],
+            arguments["VERSION"], arguments["COMMAND"])
+    elif arguments["mark-added"]:
+        controller.mark_added(arguments["ANNOTATIONS_FILE"],
+            arguments["VERSION"], arguments["COMMAND"])
+    elif arguments["show-missing"]:
+        controller.show_missing(CliBitcoin(), arguments["ANNOTATIONS_FILE"])
+    elif arguments["update-references"]:
+        controller.update_references(CliBitcoin(), arguments["--docs-dir"])
+    else:
+        sys.exit("Unknown command. Exiting.")
+
+
+if __name__ == '__main__':
+    main()
