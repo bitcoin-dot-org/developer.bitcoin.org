@@ -19,6 +19,7 @@ Result
     "headers" : n,                          (numeric) the current number of headers we have validated
     "bestblockhash" : "str",                (string) the hash of the currently best block
     "difficulty" : n,                       (numeric) the current difficulty
+    "time" n,                               (numeric) The latest block time expressed in UNIX epoch time
     "mediantime" : n,                       (numeric) median time for the current best block
     "verificationprogress" : n,             (numeric) estimate of verification progress [0..1]
     "initialblockdownload" : true|false,    (boolean) (debug information) estimate of whether this node is in Initial Block Download mode
