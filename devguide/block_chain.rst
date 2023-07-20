@@ -41,7 +41,7 @@ Chaining blocks together makes it impossible to modify transactions included in 
 
 The :term:`proof of work <Proof of work>` used in Bitcoin takes advantage of the apparently random nature of cryptographic hashes. A good cryptographic hash algorithm converts arbitrary data into a seemingly random number. If the data is modified in any way and the hash re-run, a new seemingly random number is produced, so there is no way to modify the data to make the hash number predictable.
 
-To prove you did some extra work to create a block, you must create a hash of the block header which does not exceed a certain value. For example, if the maximum possible hash value is 2256 − 1, you can prove that you tried up to two combinations by producing a hash value less than 2255.
+To prove you did some extra work to create a block, you must create a hash of the block header which does not exceed a certain value. For example, if the maximum possible hash value is 2²⁵⁶ − 1, you can prove that you tried up to two combinations by producing a hash value less than 2²⁵⁵.
 
 In the example given above, you will produce a successful hash on average every other try. You can even estimate the probability that a given hash attempt will generate a number below the :term:`target <nBits>` threshold. Bitcoin assumes a linear probability that the lower it makes the target threshold, the more hash attempts (on average) will need to be tried.
 
