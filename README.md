@@ -1,7 +1,7 @@
 # Welcome to developer.digibyte.org's codebase
 
 
-# **!! IMPORTANT: This documentation is currently a work-in-progress. Do not rely on it at this stage.**
+**!! IMPORTANT: This documentation is currently a work-in-progress. Do not rely on it at this stage.**
 
 
 Live site: [developer.digibyte.org](https://developer.digibyte.org)
