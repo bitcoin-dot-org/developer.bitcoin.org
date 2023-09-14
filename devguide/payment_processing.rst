@@ -6,21 +6,21 @@ Payment processing encompasses the steps spenders and receivers perform to make 
 Introduction
 ------------
 
-This section will explain how receivers and spenders can, respectively, request and make payments using Bitcoin—and how they can deal with complications such as `refunds <../devguide/payment_processing.html#issuing-refunds>`__ and `recurrent rebilling <../devguide/payment_processing.html#rebilling-recurring-payments>`__.
+This section will explain how receivers and spenders can, respectively, request and make payments using DigiByte—and how they can deal with complications such as `refunds <../devguide/payment_processing.html#issuing-refunds>`__ and `recurrent rebilling <../devguide/payment_processing.html#rebilling-recurring-payments>`__.
 
 .. figure:: /img/dev/en-payment-processing.svg
-   :alt: Bitcoin Payment Processing
+   :alt: DigiByte Payment Processing
 
-   Bitcoin Payment Processing
+   DigiByte Payment Processing
 
-The figure above illustrates payment processing using Bitcoin from a receiver’s perspective, starting with a new order. The following subsections will each address the three common steps and the three occasional or optional steps.
+The figure above illustrates payment processing using DigiByte from a receiver’s perspective, starting with a new order. The following subsections will each address the three common steps and the three occasional or optional steps.
 
 It is worth mentioning that each of these steps can be outsourced by using third party APIs and services.
 
 Pricing Orders
 --------------
 
-Because of exchange rate variability between satoshis and national currencies (:ref:`fiat <term-fiat>`), many Bitcoin orders are priced in :ref:`fiat <term-fiat>` but paid in satoshis, necessitating a price conversion.
+Because of exchange rate variability between satoshis and national currencies (:ref:`fiat <term-fiat>`), many DigiByte orders are priced in :ref:`fiat <term-fiat>` but paid in satoshis, necessitating a price conversion.
 
 Exchange rate data is widely available through HTTP-based APIs provided by currency exchanges. Several organizations also aggregate data from multiple exchanges to create index prices, which are also available using HTTP-based APIs.
 
@@ -28,9 +28,9 @@ Any applications which automatically calculate order totals using exchange rate 
 
 To minimize problems, your applications may want to collect data from at least two separate sources and compare them to see how much they differ. If the difference is substantial, your applications can enter a safe mode until a human is able to evaluate the situation.
 
-You may also want to program your applications to enter a safe mode if exchange rates are rapidly increasing or decreasing, indicating a possible problem in the Bitcoin market which could make it difficult to spend any satoshis received today.
+You may also want to program your applications to enter a safe mode if exchange rates are rapidly increasing or decreasing, indicating a possible problem in the DigiByte market which could make it difficult to spend any satoshis received today.
 
-Exchange rates lie outside the control of Bitcoin and related technologies, so there are no new or planned technologies which will make it significantly easier for your program to correctly convert order totals from :ref:`fiat <term-fiat>` into satoshis.
+Exchange rates lie outside the control of DigiByte and related technologies, so there are no new or planned technologies which will make it significantly easier for your program to correctly convert order totals from :ref:`fiat <term-fiat>` into satoshis.
 
 Because the exchange rate fluctuates over time, order totals pegged to :ref:`fiat <term-fiat>` must expire to prevent spenders from delaying payment in the hope that satoshis will drop in price. Most widely-used payment processing systems currently expire their invoices after 10 to 20 minutes.
 
@@ -39,7 +39,7 @@ Shorter expiration periods increase the chance the invoice will expire before pa
 Requesting Payments
 -------------------
 
-Before requesting payment, your application must create a Bitcoin address, or acquire an address from another program such as Bitcoin Core. Bitcoin addresses are described in detail in the `Transactions <../devguide/transactions.html>`__ guide. Also described in that section are two important reasons to avoid using an address more than once—but a third reason applies especially to payment requests:
+Before requesting payment, your application must create a DigiByte address, or acquire an address from another program such as DigiByte Core. DigiByte addresses are described in detail in the `Transactions <../devguide/transactions.html>`__ guide. Also described in that section are two important reasons to avoid using an address more than once—but a third reason applies especially to payment requests:
 
 Using a separate address for each incoming payment makes it trivial to determine which customers have paid their payment requests. Your applications need only track the association between a particular payment request and the address used in it, and then scan the block chain for transactions matching that address.
 
@@ -47,13 +47,13 @@ The next subsections will describe in detail the following four compatible ways 
 
 1. All wallet software lets its users paste in or manually enter an address and amount into a payment screen. This is, of course, inconvenient—but it makes an effective fallback option.
 
-2. Almost all desktop wallets can associate with :ref:`“bitcoin:” URIs <term-bitcoin-uri>`, so spenders can click a link to pre-fill the payment screen. This also works with many mobile wallets, but it generally does not work with web-based wallets unless the spender installs a browser extension or manually configures a URI handler.
+2. Almost all desktop wallets can associate with :ref:`“digibyte:” URIs <term-digibyte-uri>`, so spenders can click a link to pre-fill the payment screen. This also works with many mobile wallets, but it generally does not work with web-based wallets unless the spender installs a browser extension or manually configures a URI handler.
 
-3. Most mobile wallets support scanning :ref:`“bitcoin:” URIs <term-bitcoin-uri>` encoded in a QR code, and almost all wallets can display them for accepting payment. While also handy for online orders, QR Codes are especially useful for in-person purchases.
+3. Most mobile wallets support scanning :ref:`“digibyte:” URIs <term-digibyte-uri>` encoded in a QR code, and almost all wallets can display them for accepting payment. While also handy for online orders, QR Codes are especially useful for in-person purchases.
 
 4. Recent wallet updates add support for the new payment protocol providing increased security, authentication of a receiver’s identity using `X.509 <https://en.wikipedia.org/wiki/X.509>`__ certificates, and other important features such as `refunds <../devguide/payment_processing.html#issuing-refunds>`__.
 
-|Warning icon| **Warning:** Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacks from replacing your Bitcoin address with the attacker’s address.
+|Warning icon| **Warning:** Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacks from replacing your DigiByte address with the attacker’s address.
 
 Plain Text
 ~~~~~~~~~~
@@ -68,7 +68,7 @@ To specify an amount directly for copying and pasting, you must provide the addr
    Amount: 100 BTC
    You must pay by: 2014-04-01 at 23:00 UTC
 
-Indicating the denomination is critical. As of this writing, popular Bitcoin wallet software defaults to denominating amounts in either bitcoins (BTC) , millibitcoins (mBTC) or microbitcoins (uBTC, “bits”). Choosing between each unit is widely supported, but other software also lets its users select denomination amounts from some preselected (e.g. Table below) or all `standard 8 decimal places <https://en.bitcoin.it/wiki/Units>`__:
+Indicating the denomination is critical. As of this writing, popular DigiByte wallet software defaults to denominating amounts in either bitcoins (BTC) , millibitcoins (mBTC) or microbitcoins (uBTC, “bits”). Choosing between each unit is widely supported, but other software also lets its users select denomination amounts from some preselected (e.g. Table below) or all `standard 8 decimal places <https://en.bitcoin.it/wiki/Units>`__:
 
 ========== ===========================
 Bitcoins   Unit (Abbreviation)

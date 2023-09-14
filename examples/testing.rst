@@ -8,7 +8,7 @@ Testnet
 
 When run with no arguments, all Bitcoin Core programs default to Bitcoin’s main `network <../devguide/p2p_network.html>`__ (:term:`mainnet <Mainnet>`). However, for development, it’s safer and cheaper to use Bitcoin’s test `network <../devguide/p2p_network.html>`__ (testnet) where the satoshis spent have no real-world value. Testnet also relaxes some restrictions (such as standard transaction checks) so you can test functions which might currently be disabled by default on mainnet.
 
-To use testnet, use the argument ``-testnet`` with ``bitcoin-cli``, ``bitcoind`` or ``bitcoin-qt`` or add ``testnet=1`` to your ``bitcoin.conf`` file as `described earlier <../examples/index.html>`__. To get free satoshis for testing, use `Piotr Piasecki’s testnet faucet <https://tpfaucet.appspot.com/>`__. Testnet is a public resource provided for free by members of the community, so please don’t abuse it.
+To use testnet, use the argument ``-testnet`` with ``bitcoin-cli``, ``digibyted`` or ``bitcoin-qt`` or add ``testnet=1`` to your ``bitcoin.conf`` file as `described earlier <../examples/index.html>`__. To get free satoshis for testing, use `Piotr Piasecki’s testnet faucet <https://tpfaucet.appspot.com/>`__. Testnet is a public resource provided for free by members of the community, so please don’t abuse it.
 
 Regtest Mode
 ~~~~~~~~~~~~
@@ -24,7 +24,7 @@ Many developers consider regtest mode the preferred way to develop new applicati
    > bitcoind -regtest -daemon
    Bitcoin server starting
 
-Start ``bitcoind`` in regtest mode to create a private block chain.
+Start ``digibyted`` in regtest mode to create a private block chain.
 
 ::
 
