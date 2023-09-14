@@ -37,7 +37,7 @@ locally to view the rendered documentation.
 ### Generation of RPC docs
 
 The documentation of the RPC commands is automatically generated from the help
-of a bitcoin client with a [helper
+of a digibyte client with a [helper
 tool](https://github.com/saltedlolly/developer.digibyte.org/tree/master/helpers/rpc).
 This is the content in the [reference/rpc](reference/rpc) directory. Changes in
 these files need to be done through the helper tool or at least backported to
