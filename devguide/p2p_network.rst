@@ -1,48 +1,48 @@
 P2P Network
 ===========
 
-The Bitcoin network protocol allows full nodes (peers) to collaboratively maintain a peer-to-peer network for block and transaction exchange. 
+The DigiByte network protocol allows full nodes (peers) to collaboratively maintain a peer-to-peer network for block and transaction exchange. 
 
 Introduction
 ------------
 
-Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the Bitcoin `network <../devguide/p2p_network.html>`__ protocol to connect to full nodes.
+Full nodes download and verify every block and transaction prior to relaying them to other nodes. Archival nodes are full nodes which store the entire blockchain and can serve historical blocks to other nodes. Pruned nodes are full nodes which do not store the entire blockchain. Many SPV clients also use the DigiByte `network <../devguide/p2p_network.html>`__ protocol to connect to full nodes.
 
-Consensus rules do not cover networking, so Bitcoin programs may use alternative networks and protocols, such as the `high-speed block relay network <https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg03189.html>`__ used by some miners and the `dedicated transaction information servers <https://github.com/spesmilo/electrum-server>`__ used by some wallets that provide SPV-level security.
+Consensus rules do not cover networking, so DigiByte programs may use alternative networks and protocols, such as the `high-speed block relay network <https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg03189.html>`__ used by some miners and the `dedicated transaction information servers <https://github.com/spesmilo/electrum-server>`__ used by some wallets that provide SPV-level security.
 
-To provide practical examples of the Bitcoin `peer-to-peer network <../devguide/p2p_network.html>`__, this section uses Bitcoin Core as a representative full node and `BitcoinJ <http://bitcoinj.github.io>`__ as a representative SPV client. Both programs are flexible, so only default behavior is described. Also, for privacy, actual IP addresses in the example output below have been replaced with `RFC5737 <http://tools.ietf.org/html/rfc5737>`__ reserved IP addresses.
+To provide practical examples of the DigiByte `peer-to-peer network <../devguide/p2p_network.html>`__, this section uses DigiByte Core as a representative full node and `BitcoinJ <http://bitcoinj.github.io>`__ as a representative SPV client. Both programs are flexible, so only default behavior is described. Also, for privacy, actual IP addresses in the example output below have been replaced with `RFC5737 <http://tools.ietf.org/html/rfc5737>`__ reserved IP addresses.
 
 Peer Discovery
 --------------
 
-When started for the first time, programs don’t know the IP addresses of any active full nodes. In order to discover some IP addresses, they query one or more DNS names (called :term:`DNS seeds <DNS seed>`) hardcoded into Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__. The response to the lookup should include one or more `DNS A records <http://tools.ietf.org/html/rfc1035#section-3.2.2>`__ with the IP addresses of full nodes that may accept new incoming connections. For example, using the `Unix ``dig`` command <https://en.wikipedia.org/wiki/Dig_%28Unix_command%29>`__:
+When started for the first time, programs don’t know the IP addresses of any active full nodes. In order to discover some IP addresses, they query one or more DNS names (called :term:`DNS seeds <DNS seed>`) hardcoded into DigiByte Core and `BitcoinJ <http://bitcoinj.github.io>`__. The response to the lookup should include one or more `DNS A records <http://tools.ietf.org/html/rfc1035#section-3.2.2>`__ with the IP addresses of full nodes that may accept new incoming connections. For example, using the `Unix ``dig`` command <https://en.wikipedia.org/wiki/Dig_%28Unix_command%29>`__:
 
 ::
 
    ;; QUESTION SECTION:
-   ;seed.bitcoin.sipa.be.      IN  A
+   ;seed.digibyte.io.      IN  A
 
    ;; ANSWER SECTION:
-   seed.bitcoin.sipa.be.   60  IN  A  192.0.2.113
-   seed.bitcoin.sipa.be.   60  IN  A  198.51.100.231
-   seed.bitcoin.sipa.be.   60  IN  A  203.0.113.183
+   seed.digibyte.io.   60  IN  A  87.98.159.143
+   seed.digibyte.io.   60  IN  A  194.5.152.211
+   seed.digibyte.io.   60  IN  A  88.198.24.4
    [...]
 
-The DNS seeds are maintained by Bitcoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the `network <../devguide/p2p_network.html>`__; others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default Bitcoin ports of 8333 for mainnet or 18333 for testnet.
+The DNS seeds are maintained by DigiByte community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the `network <../devguide/p2p_network.html>`__; others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default DigiByte ports of 12024 for mainnet or 18333 for testnet.
 
 DNS seed results are not authenticated and a malicious seed operator or `network <../devguide/p2p_network.html>`__ `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacker can return only IP addresses of nodes controlled by the attacker, isolating a program on the attacker’s own `network <../devguide/p2p_network.html>`__ and allowing the attacker to feed it bogus transactions and blocks. For this reason, programs should not rely on DNS seeds exclusively.
 
-Once a program has connected to the `network <../devguide/p2p_network.html>`__, its peers can begin to send it ``addr`` (address) messages with the IP addresses and port numbers of other peers on the `network <../devguide/p2p_network.html>`__, providing a fully decentralized method of peer discovery. Bitcoin Core keeps a record of known peers in a persistent on-disk database which usually allows it to connect directly to those peers on subsequent startups without having to use DNS seeds.
+Once a program has connected to the `network <../devguide/p2p_network.html>`__, its peers can begin to send it ``addr`` (address) messages with the IP addresses and port numbers of other peers on the `network <../devguide/p2p_network.html>`__, providing a fully decentralized method of peer discovery. DigiByte Core keeps a record of known peers in a persistent on-disk database which usually allows it to connect directly to those peers on subsequent startups without having to use DNS seeds.
 
 However, peers often leave the `network <../devguide/p2p_network.html>`__ or change IP addresses, so programs may need to make several different connection attempts at startup before a successful connection is made. This can add a significant delay to the amount of time it takes to connect to the `network <../devguide/p2p_network.html>`__, forcing a user to wait before sending a transaction or checking the status of payment.
 
-To avoid this possible delay, `BitcoinJ <http://bitcoinj.github.io>`__ always uses dynamic DNS seeds to get IP addresses for nodes believed to be currently active. Bitcoin Core also tries to strike a balance between minimizing delays and avoiding unnecessary DNS seed use: if Bitcoin Core has entries in its peer database, it spends up to 11 seconds attempting to connect to at least one of them before falling back to seeds; if a connection is made within that time, it does not query any seeds.
+To avoid this possible delay, `BitcoinJ <http://bitcoinj.github.io>`__ always uses dynamic DNS seeds to get IP addresses for nodes believed to be currently active. DigiByte Core also tries to strike a balance between minimizing delays and avoiding unnecessary DNS seed use: if DigiByte Core has entries in its peer database, it spends up to 11 seconds attempting to connect to at least one of them before falling back to seeds; if a connection is made within that time, it does not query any seeds.
 
-Both Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__ also include a hardcoded list of IP addresses and port numbers to several dozen nodes which were active around the time that particular version of the software was first released. Bitcoin Core will start attempting to connect to these nodes if none of the DNS seed servers have responded to a query within 60 seconds, providing an automatic fallback option.
+Both DigiByte Core and `BitcoinJ <http://bitcoinj.github.io>`__ also include a hardcoded list of IP addresses and port numbers to several dozen nodes which were active around the time that particular version of the software was first released. DigiByte Core will start attempting to connect to these nodes if none of the DNS seed servers have responded to a query within 60 seconds, providing an automatic fallback option.
 
-As a manual fallback option, Bitcoin Core also provides several command-line connection options, including the ability to get a list of peers from a specific node by IP address, or to make a persistent connection to a specific node by IP address. See the ``-help`` text for details. `BitcoinJ <http://bitcoinj.github.io>`__ can be programmed to do the same thing.
+As a manual fallback option, DigiByte Core also provides several command-line connection options, including the ability to get a list of peers from a specific node by IP address, or to make a persistent connection to a specific node by IP address. See the ``-help`` text for details. `BitcoinJ <http://bitcoinj.github.io>`__ can be programmed to do the same thing.
 
-**Resources:** `Bitcoin Seeder <https://github.com/sipa/bitcoin-seeder>`__, the program run by several of the seeds used by Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__. The Bitcoin Core `DNS Seed Policy <https://github.com/bitcoin/bitcoin/blob/master/doc/dnsseed-policy.md>`__. The hardcoded list of IP addresses used by Bitcoin Core and `BitcoinJ <http://bitcoinj.github.io>`__ is generated using the `makeseeds script <https://github.com/bitcoin/bitcoin/tree/master/contrib/seeds>`__.
+**Resources:** `DigiByte Seeder <https://github.com/DigiByte-Core/digibyte-seeder>`__, the program run by several of the seeds used by DigiByte Core and `BitcoinJ <http://bitcoinj.github.io>`__. The Bitcoin Core `DNS Seed Policy <https://github.com/digibyte-core/digibyte/blob/master/doc/dnsseed-policy.md>`__. The hardcoded list of IP addresses used by DigiByte Core and `BitcoinJ <http://bitcoinj.github.io>`__ is generated using the `makeseeds script <https://github.com/digibyte-core/digibyte/tree/master/contrib/seeds>`__.
 
 Connecting To Peers
 -------------------
@@ -60,7 +60,7 @@ Before a full node can validate unconfirmed transactions and recently-mined bloc
 
 Although the word “initial” implies this method is only used once, it can also be used any time a large number of blocks need to be downloaded, such as when a previously-caught-up node has been offline for a long time. In this case, a node can use the IBD method to download all the blocks which were produced since the last time it was online.
 
-Bitcoin Core uses the IBD method any time the last block on its local best block chain has a block header time more than 24 hours in the past. `Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__ will also perform IBD if its local best block chain is more than 144 blocks lower than its local best header chain (that is, the local block chain is more than about 24 hours in the past).
+DigiByte Core uses the IBD method any time the last block on its local best block chain has a block header time more than 24 hours in the past. `Bitcoin Core 0.10.0 <https://bitcoin.org/en/release/v0.10.0>`__ will also perform IBD if its local best block chain is more than 144 blocks lower than its local best header chain (that is, the local block chain is more than about 24 hours in the past).
 
 Blocks-First
 ~~~~~~~~~~~~

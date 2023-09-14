@@ -15,28 +15,28 @@ Mining today takes on two forms:
 Solo Mining
 -----------
 
-As illustrated below, solo miners typically use ``bitcoind`` to get new transactions from the `network <../devguide/p2p_network.html>`__. Their mining software periodically polls ``bitcoind`` for new transactions using the `“getblocktemplate” RPC <../reference/rpc/getblocktemplate.html>`__, which provides the list of new transactions plus the public key to which the coinbase transaction should be sent.
+As illustrated below, solo miners typically use ``digibyted`` to get new transactions from the `network <../devguide/p2p_network.html>`__. Their mining software periodically polls ``digibyted`` for new transactions using the `“getblocktemplate” RPC <../reference/rpc/getblocktemplate.html>`__, which provides the list of new transactions plus the public key to which the coinbase transaction should be sent.
 
 .. figure:: /img/dev/en-solo-mining-overview.svg
-   :alt: Solo Bitcoin Mining
+   :alt: Solo DigiByte Mining
 
-   Solo Bitcoin Mining
+   Solo DigiByte Mining
 
 The mining software constructs a block using the template (described below) and creates a block header. It then sends the 80-byte block header to its mining hardware (an ASIC) along with a target threshold (difficulty setting). The mining hardware iterates through every possible value for the block header nonce and generates the corresponding hash.
 
 If none of the hashes are below the threshold, the mining hardware gets an updated block header with a new merkle root from the mining software; this new block header is created by adding extra nonce data to the coinbase field of the coinbase transaction.
 
-On the other hand, if a hash is found below the target threshold, the mining hardware returns the block header with the successful nonce to the mining software. The mining software combines the header with the block and sends the completed block to ``bitcoind`` to be broadcast to the `network <../devguide/p2p_network.html>`__ for addition to the block chain.
+On the other hand, if a hash is found below the target threshold, the mining hardware returns the block header with the successful nonce to the mining software. The mining software combines the header with the block and sends the completed block to ``digibyted`` to be broadcast to the `network <../devguide/p2p_network.html>`__ for addition to the block chain.
 
 Pool Mining
 -----------
 
-Pool miners follow a similar workflow, illustrated below, which allows mining pool operators to pay miners based on their share of the work done. The mining pool gets new transactions from the `network <../devguide/p2p_network.html>`__ using ``bitcoind``. Using one of the methods discussed later, each miner’s mining software connects to the pool and requests the information it needs to construct block headers.
+Pool miners follow a similar workflow, illustrated below, which allows mining pool operators to pay miners based on their share of the work done. The mining pool gets new transactions from the `network <../devguide/p2p_network.html>`__ using ``digibyted``. Using one of the methods discussed later, each miner’s mining software connects to the pool and requests the information it needs to construct block headers.
 
 .. figure:: /img/dev/en-pooled-mining-overview.svg
-   :alt: Pooled Bitcoin Mining
+   :alt: Pooled DigiByte Mining
 
-   Pooled Bitcoin Mining
+   Pooled DigiByte Mining
 
 In pooled mining, the mining pool sets the target threshold a few orders of magnitude higher (less difficult) than the `network <../devguide/p2p_network.html>`__ difficulty. This causes the mining hardware to return many block headers which don’t hash to a value eligible for inclusion on the block chain but which do hash below the pool’s target, proving (on average) that the miner checked a percentage of the possible hash values.
 
@@ -54,16 +54,16 @@ In both solo and pool mining, the mining software needs to get the information n
 getwork RPC
 ~~~~~~~~~~~
 
-The simplest and earliest method was the now-deprecated Bitcoin Core ``getwork`` `RPC <../reference/rpc/index.html>`__, which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of ``getwork`` requests a second. Solo miners may still use ``getwork`` on v0.9.5 or below, but most pools today discourage or disallow its use.
+The simplest and earliest method was the now-deprecated DigiByte Core ``getwork`` `RPC <../reference/rpc/index.html>`__, which constructs a header for the miner directly. Since a header only contains a single 4-byte nonce good for about 4 gigahashes, many modern miners need to make dozens or hundreds of ``getwork`` requests a second. Solo miners may still use ``getwork`` on v0.9.5 or below, but most pools today discourage or disallow its use.
 
 getblocktemplate RPC
 ~~~~~~~~~~~~~~~~~~~~
 
-An improved method is the Bitcoin Core `“getblocktemplate” RPC <../reference/rpc/getblocktemplate.html>`__. This provides the mining software with much more information:
+An improved method is the DigiByte Core `“getblocktemplate” RPC <../reference/rpc/getblocktemplate.html>`__. This provides the mining software with much more information:
 
-1. The information necessary to construct a coinbase transaction paying the pool or the solo miner’s ``bitcoind`` wallet.
+1. The information necessary to construct a coinbase transaction paying the pool or the solo miner’s ``digibyted`` wallet.
 
-2. A complete dump of the transactions ``bitcoind`` or the mining pool suggests including in the block, allowing the mining software to inspect the transactions, optionally add additional transactions, and optionally remove non-required transactions.
+2. A complete dump of the transactions ``digibyted`` or the mining pool suggests including in the block, allowing the mining software to inspect the transactions, optionally add additional transactions, and optionally remove non-required transactions.
 
 3. Other information necessary to construct a block header for the next block: the block version, previous block hash, and bits (target).
 
@@ -71,7 +71,7 @@ An improved method is the Bitcoin Core `“getblocktemplate” RPC <../reference
 
 Using the transactions received, the mining software adds a nonce to the coinbase extra nonce field and then converts all the transactions into a merkle tree to derive a merkle root it can use in a block header. Whenever the extra nonce field needs to be changed, the mining software rebuilds the necessary parts of the merkle tree and updates the time and merkle root fields in the block header.
 
-Like all ``bitcoind`` `RPCs <../reference/rpc/index.html>`__, `“getblocktemplate” <../reference/rpc/getblocktemplate.html>`__ is sent over HTTP. To ensure they get the most recent work, most miners use `HTTP longpoll <https://en.wikipedia.org/wiki/Push_technology#Long_polling>`__ to leave a `“getblocktemplate” <../reference/rpc/getblocktemplate.html>`__ request open at all times. This allows the mining pool to push a new `“getblocktemplate” <../reference/rpc/getblocktemplate.html>`__ to the miner as soon as any miner on the `peer-to-peer network <../devguide/p2p_network.html>`__ publishes a new block or the pool wants to send more transactions to the mining software.
+Like all ``digibyted`` `RPCs <../reference/rpc/index.html>`__, `“getblocktemplate” <../reference/rpc/getblocktemplate.html>`__ is sent over HTTP. To ensure they get the most recent work, most miners use `HTTP longpoll <https://en.wikipedia.org/wiki/Push_technology#Long_polling>`__ to leave a `“getblocktemplate” <../reference/rpc/getblocktemplate.html>`__ request open at all times. This allows the mining pool to push a new `“getblocktemplate” <../reference/rpc/getblocktemplate.html>`__ to the miner as soon as any miner on the `peer-to-peer network <../devguide/p2p_network.html>`__ publishes a new block or the pool wants to send more transactions to the mining software.
 
 Stratum
 -------
