@@ -18,9 +18,9 @@ import sphinxbootstrap4theme
 
 # -- Project information -----------------------------------------------------
 
-project = u'Bitcoin'
-copyright = u'Bitcoin Project 2009-2020'
-author = u'Bitcoin Developer Documentation'
+project = u'DigiByte'
+copyright = u'DigiByte Project 2009-2020'
+author = u'DigiByte developer Documentation'
 
 # The short X.Y version
 version = u''
@@ -77,7 +77,7 @@ pygments_style = None
 html_theme = '_theme' # use the theme in subdir 'theme'
 html_theme_path = ['.'] # make sphinx search for themes in current dir
 html_favicon = 'favicon.png'
-html_title = 'Bitcoin'
+html_title = 'DigiByte'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -115,7 +115,7 @@ html_css_files = [
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'bitcoindoc'
+htmlhelp_basename = 'digibytedoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -142,8 +142,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'Bitcoin.tex', u'Bitcoin Documentation',
-     u'Bitcoin.org', 'manual'),
+    (master_doc, 'DigiByte.tex', u'DigiByte Documentation',
+     u'DigiByte.org', 'manual'),
 ]
 
 
@@ -152,7 +152,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'bitcoin', u'Bitcoin Documentation',
+    (master_doc, 'digibyte', u'DigiByte Documentation',
      [author], 1)
 ]
 
@@ -163,8 +163,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'Bitcoin', u'Bitcoin Documentation',
-     author, 'Bitcoin', 'One line description of project.',
+    (master_doc, 'DigiByte', u'DigiByte Documentation',
+     author, 'DigiByte', 'One line description of project.',
      'Miscellaneous'),
 ]
 

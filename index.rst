@@ -20,7 +20,7 @@ developer documentation that led to this site.
 
 .. _make sure you're running a node: https://bitcoin.org/en/full-node
 .. _Bitcoin Stack Exchange: https://bitcoin.stackexchange.com/
-.. _GitHub: https://github.com/bitcoin-dot-org/developer.bitcoin.org/issues/new/choose
+.. _GitHub: https://github.com/saltedlolly/developer.digibyte.org/issues/new/choose
 .. _David Harding: https://github.com/harding
 .. _Cornelius Schumacher: https://github.com/cornelius
 
