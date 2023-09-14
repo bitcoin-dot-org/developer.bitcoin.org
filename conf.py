@@ -20,7 +20,7 @@ import sphinxbootstrap4theme
 
 project = u'Bitcoin'
 copyright = u'Bitcoin Project 2009-2020'
-author = u'Bitcoin Developer Documentation'
+author = u'DigiByte developer Documentation'
 
 # The short X.Y version
 version = u''

@@ -1,19 +1,19 @@
-# Welcome to developer.bitcoin.org's codebase
+# Welcome to developer.digibyte.org's codebase
 
-Live site: [developer.bitcoin.org](https://developer.bitcoin.org)
+Live site: [developer.digibyte.org](https://developer.digibyte.org)
 
 Report problems or help improve the site by opening a [new
-issue](https://github.com/bitcoin-dot-org/developer.bitcoin.org/issues) or [pull
-request](https://github.com/bitcoin-dot-org/developer.bitcoin.org/compare).
+issue](https://github.com/saltedlolly/developer.digibyte.org/issues) or [pull
+request](https://github.com/saltedlolly/developer.digibyte.org/compare).
 
 ## How to contribute
 
-This repo hosts the sources for the Bitcoin developer documentation. One of the
+This repo hosts the sources for the DigiByte developer documentation. One of the
 easiest ways to get started contributing is by rereading the site and looking for
 inconsistencies in terminology, style, etc., and also in any illustrations.
 
 Prior to contributing, please review the [style
-guide](https://github.com/bitcoin-dot-org/developer.bitcoin.org/tree/master/docs/style-guide.md).
+guide](https://github.com/saltedlolly/developer.digibyte.org/tree/master/docs/style-guide.md).
 
 Much of the content displayed on the is converted from Markdown to
 [reStructuredText (RST)](http://docutils.sourceforge.net/rst.html) and rendered
@@ -38,7 +38,7 @@ locally to view the rendered documentation.
 
 The documentation of the RPC commands is automatically generated from the help
 of a bitcoin client with a [helper
-tool](https://github.com/bitcoin-dot-org/developer.bitcoin.org/tree/master/helpers/rpc).
+tool](https://github.com/saltedlolly/developer.digibyte.org/tree/master/helpers/rpc).
 This is the content in the [reference/rpc](reference/rpc) directory. Changes in
 these files need to be done through the helper tool or at least backported to
 the helper tool after doing them in this repo.
@@ -46,5 +46,5 @@ the helper tool after doing them in this repo.
 ## Code of Conduct
 
 Participation in this project is subject to a [Code of
-Conduct](https://github.com/bitcoin-dot-org/developer.bitcoin.org/blob/master/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/saltedlolly/developer.digibyte.org/blob/master/CODE_OF_CONDUCT.md).
 
