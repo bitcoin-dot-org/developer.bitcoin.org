@@ -246,7 +246,7 @@ Note: standard transactions are designed to protect and help the `network <../de
 
 As of `Bitcoin Core 0.9.3 <https://bitcoin.org/en/release/v0.9.3>`__, standard transactions must also meet the following conditions:
 
--  The transaction must be finalized: either its locktime must be in the past (or less than or equal to the current block height), or all of its sequence numbers must be 0xffffffff.
+-  The transaction must be finalized: either its locktime must be in the past (less than the current block height, or at least 500,000,000 and less than the preceding block’s MedianTimePast), or all of its sequence numbers must be 0xffffffff.
 
 -  The transaction must be smaller than 100,000 bytes. That’s around 200 times larger than a typical single-input, single-output P2PKH transaction.
 
@@ -290,17 +290,17 @@ Locktime allows signers to create time-locked transactions which will only becom
 
 If any of the signers change their mind, they can create a new non-locktime transaction. The new transaction will use, as one of its inputs, one of the same outputs which was used as an input to the locktime transaction. This makes the locktime transaction invalid if the new transaction is added to the block chain before the time lock expires.
 
-Care must be taken near the expiry time of a time lock. The `peer-to-peer network <../devguide/p2p_network.html>`__ allows block time to be up to two hours ahead of real time, so a locktime transaction can be added to the block chain up to two hours before its time lock officially expires. Also, blocks are not created at guaranteed intervals, so any attempt to cancel a valuable transaction should be made a few hours before the time lock expires.
+Care must be taken near the expiry time of a time lock. The `peer-to-peer network <../devguide/p2p_network.html>`__ allows block time to be up to two hours ahead of real time, so a locktime transaction can be added to the block chain up to two hours before its time lock is reached in real time. Also, blocks are not created at guaranteed intervals, so any attempt to cancel a valuable transaction should be made a few hours before the time lock expires.
 
 Previous versions of Bitcoin Core provided a feature which prevented transaction signers from using the method described above to cancel a time-locked transaction, but a necessary part of this feature was disabled to prevent denial of service attacks. A legacy of this system are four-byte :term:`sequence numbers <Sequence number>` in every input. Sequence numbers were meant to allow multiple signers to agree to update a transaction; when they finished updating the transaction, they could agree to set every input’s sequence number to the four-byte unsigned maximum (0xffffffff), allowing the transaction to be added to a block even if its time lock had not expired.
 
-Even today, setting all sequence numbers to 0xffffffff (the default in Bitcoin Core) can still disable the time lock, so if you want to use locktime, at least one input must have a sequence number below the maximum. Since sequence numbers are not used by the `network <../devguide/p2p_network.html>`__ for any other purpose, setting any sequence number to zero is sufficient to enable locktime.
+Even today, setting all sequence numbers to 0xffffffff (the default in Bitcoin Core) can still disable the time lock, so if you want to use locktime, at least one input must have a sequence number below the maximum. It is therefore sufficient to set the sequence number of a single input to 0xfffffffe to enforce the locktime. The `network <../devguide/p2p_network.html>`__ also uses lower sequence number values to signal replaceability and in context of relative time locks.
 
 Locktime itself is an unsigned 4-byte integer which can be parsed two ways:
 
--  If less than 500 million, locktime is parsed as a block height. The transaction can be added to any block which has this height or higher.
+-  If less than 500 million, locktime is parsed as a block height. The locktime specifies the greatest block height that cannot include the transaction. The transaction can be added to any block which has a higher height than the locktime.
 
--  If greater than or equal to 500 million, locktime is parsed using the `Unix epoch time <https://en.wikipedia.org/wiki/Unix_time>`__ format (the number of seconds elapsed since 1970-01-01T00:00 UTC—currently over 1.395 billion). The transaction can be added to any block whose block time is greater than the locktime.
+-  If greater than or equal to 500 million, locktime is parsed using the `Unix epoch time <https://en.wikipedia.org/wiki/Unix_time>`__ format (the number of seconds elapsed since 1970-01-01T00:00 UTC—currently over 1.395 billion). The transaction can be added to a block whose preceding block’s _MedianTimePast_ is greater than the transaction’s locktime.
 
 Transaction Fees And Change
 ---------------------------
