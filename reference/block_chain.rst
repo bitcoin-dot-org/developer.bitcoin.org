@@ -135,6 +135,6 @@ Under current consensus rules, a block is not valid unless its serialized size i
 
 The first transaction in a block must be a :term:`coinbase transaction <Coinbase transaction>` which should collect and spend any transaction fees paid by transactions included in this block.
 
-All blocks with a block height less than 6,930,000 are entitled to receive a block subsidy of newly created bitcoin value, which also should be spent in the coinbase transaction. (The block subsidy started at 50 bitcoins and is being halved every 210,000 blocks—approximately once every four years. As of November 2017, it’s 12.5 bitcoins.)
+All blocks with a block height less than 6,930,000 are entitled to receive a block subsidy of newly created bitcoin value, which also should be spent in the coinbase transaction. (The block subsidy started at 50 bitcoins and is being halved every 210,000 blocks—approximately once every four years. As of April 2024, it’s 3.125 bitcoins.)
 
 Together, the transaction fees and block subsidy are called the :term:`block reward <Block reward>`. A coinbase transaction is invalid if it tries to spend more value than is available from the block reward.
