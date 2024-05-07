@@ -22,6 +22,19 @@ Argument #1 - passphrase
 
 The pass phrase to encrypt the wallet with. It must be at least 1 character, but should be long.
 
+Result
+~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - str
+     - string
+     - A string with further instructions
+
 Examples
 ~~~~~~~~
 
@@ -46,5 +59,5 @@ Now lock the wallet again by removing the passphrase::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "encryptwallet", "params": ["my pass phrase"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "encryptwallet", "params": ["my pass phrase"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

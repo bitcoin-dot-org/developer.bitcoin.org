@@ -20,29 +20,32 @@ Result
 
 ::
 
-  {
-    "inputs" : [                      (array of json objects)
-      {
-        "has_utxo" : true|false     (boolean) Whether a UTXO is provided
-        "is_final" : true|false     (boolean) Whether the input is finalized
-        "missing" : {               (json object, optional) Things that are missing that are required to complete this input
-          "pubkeys" : [             (array, optional)
-            "keyid"                 (string) Public key ID, hash160 of the public key, of a public key whose BIP 32 derivation path is missing
-          ]
-          "signatures" : [          (array, optional)
-            "keyid"                 (string) Public key ID, hash160 of the public key, of a public key whose signature is missing
-          ]
-          "redeemscript" : "hash"   (string, optional) Hash160 of the redeemScript that is missing
-          "witnessscript" : "hash"  (string, optional) SHA256 of the witnessScript that is missing
-        }
-        "next" : "role"             (string, optional) Role of the next person that this input needs to go to
-      }
-      ,...
-    ]
-    "estimated_vsize" : vsize       (numeric, optional) Estimated vsize of the final signed transaction
-    "estimated_feerate" : feerate   (numeric, optional) Estimated feerate of the final signed transaction in BTC/kB. Shown only if all UTXO slots in the PSBT have been filled.
-    "fee" : fee                     (numeric, optional) The transaction fee paid. Shown only if all UTXO slots in the PSBT have been filled.
-    "next" : "role"                 (string) Role of the next person that this psbt needs to go to
+  {                                   (json object)
+    "inputs" : [                      (json array)
+      {                               (json object)
+        "has_utxo" : true|false,      (boolean) Whether a UTXO is provided
+        "is_final" : true|false,      (boolean) Whether the input is finalized
+        "missing" : {                 (json object, optional) Things that are missing that are required to complete this input
+          "pubkeys" : [               (json array, optional)
+            "hex",                    (string) Public key ID, hash160 of the public key, of a public key whose BIP 32 derivation path is missing
+            ...
+          ],
+          "signatures" : [            (json array, optional)
+            "hex",                    (string) Public key ID, hash160 of the public key, of a public key whose signature is missing
+            ...
+          ],
+          "redeemscript" : "hex",     (string, optional) Hash160 of the redeemScript that is missing
+          "witnessscript" : "hex"     (string, optional) SHA256 of the witnessScript that is missing
+        },
+        "next" : "str"                (string, optional) Role of the next person that this input needs to go to
+      },
+      ...
+    ],
+    "estimated_vsize" : n,            (numeric, optional) Estimated vsize of the final signed transaction
+    "estimated_feerate" : n,          (numeric, optional) Estimated feerate of the final signed transaction in BTC/kB. Shown only if all UTXO slots in the PSBT have been filled
+    "fee" : n,                        (numeric, optional) The transaction fee paid. Shown only if all UTXO slots in the PSBT have been filled
+    "next" : "str",                   (string) Role of the next person that this psbt needs to go to
+    "error" : "str"                   (string, optional) Error message (if there is one)
   }
 
 Examples

@@ -14,7 +14,7 @@ from annotations import Annotations
 class RendererRst:
     def __init__(self, output_dir):
         self.output_dir = Path(output_dir)
-        self.annotations = Annotations("annotations-bitcoin-0.18.json")
+        self.annotations = Annotations("annotations-bitcoin-0.21.json")
 
     def add_version_note(self, page):
         if "added" in self.annotation:

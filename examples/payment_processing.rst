@@ -32,7 +32,7 @@ The full sequence of events is illustrated below, starting with the spender clic
 
    BIP70 Payment Protocol
 
-For the script to use the `protocol buffer <https://developers.google.com/protocol-buffers/>`__, you will need a copy of Google’s `Protocol Buffer <https://developers.google.com/protocol-buffers/>`__ compiler (``protoc``), which is available in most modern Linux package managers and `directly from Google. <https://developers.google.com/protocol-buffers/>`__ Non-Google `protocol buffer <https://developers.google.com/protocol-buffers/>`__ compilers are available for a variety of programming languages. You will also need a copy of the :ref:`PaymentRequest <term-paymentrequest>` `Protocol Buffer description <https://github.com/bitcoin/bitcoin/blob/master/src/qt/paymentrequest.proto>`__ from the Bitcoin Core source code.
+For the script to use the `protocol buffer <https://developers.google.com/protocol-buffers/>`__, you will need a copy of Google’s `Protocol Buffer <https://developers.google.com/protocol-buffers/>`__ compiler (``protoc``), which is available in most modern Linux package managers and `directly from Google. <https://developers.google.com/protocol-buffers/>`__ Non-Google `protocol buffer <https://developers.google.com/protocol-buffers/>`__ compilers are available for a variety of programming languages. You will also need a copy of the :ref:`PaymentRequest <term-paymentrequest>` `Protocol Buffer description <https://github.com/bitcoin/bitcoin/blob/0.19/src/qt/paymentrequest.proto>`__ from the Bitcoin Core source code.
 
 Initialization Code
 '''''''''''''''''''

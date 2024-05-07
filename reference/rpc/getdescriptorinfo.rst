@@ -20,11 +20,12 @@ Result
 
 ::
 
-  {
-    "descriptor" : "desc",         (string) The descriptor in canonical form, without private keys
-    "isrange" : true|false,        (boolean) Whether the descriptor is ranged
-    "issolvable" : true|false,     (boolean) Whether the descriptor is solvable
-    "hasprivatekeys" : true|false, (boolean) Whether the input descriptor contained at least one private key
+  {                                   (json object)
+    "descriptor" : "str",             (string) The descriptor in canonical form, without private keys
+    "checksum" : "str",               (string) The checksum for the input descriptor
+    "isrange" : true|false,           (boolean) Whether the descriptor is ranged
+    "issolvable" : true|false,        (boolean) Whether the descriptor is solvable
+    "hasprivatekeys" : true|false     (boolean) Whether the input descriptor contained at least one private key
   }
 
 Examples

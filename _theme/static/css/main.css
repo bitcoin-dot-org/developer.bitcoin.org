@@ -102,7 +102,7 @@ body {
 /* Breadcrumbs */
 .breadcrumbs-section {
   padding: 18px 0;
-  background: #000;
+  background: #090c14;
 }
 .breadcrumb {
   align-items: center;
@@ -118,6 +118,9 @@ body {
   color: #3490E6;
   text-decoration: underline;
 }
+.breadcrumb-item a:hover {
+  text-decoration: none;
+}
 .breadcrumb-item.active {
   color: #fff;
 }
@@ -130,8 +133,11 @@ body {
   border-color: #F7931A;
 }
 .btn-group .btn:hover {
-  background: #F7931A;
-  border-color: #F7931A;
+  background: #F9A136;
+  border-color: #F9A136;
+}
+h1:hover > a.headerlink, h2:hover > a.headerlink, h3:hover > a.headerlink, h4:hover > a.headerlink, h5:hover > a.headerlink, h6:hover > a.headerlink, dt:hover > a.headerlink, caption:hover > a.headerlink, p.caption:hover > a.headerlink, div.code-block-caption:hover > a.headerlink {
+    margin-left: 10px;
 }
 
 @media handheld, only screen and ( max-width: 990px ), only screen and ( max-device-width: 990px ) {
@@ -144,6 +150,9 @@ body {
   }
   .hero-nav .toctree-l1:nth-child(odd) {
     margin-left: 0;
+  }
+  div.document h1 {
+	margin-top: 0;
   }
 }
 @media handheld, only screen and ( max-width: 500px ), only screen and ( max-device-width: 500px ) {

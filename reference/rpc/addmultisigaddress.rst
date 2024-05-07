@@ -6,7 +6,7 @@ addmultisigaddress
 
 ``addmultisigaddress nrequired ["key",...] ( "label" "address_type" )``
 
-Add a nrequired-to-sign multisignature address to the wallet. Requires a new wallet backup.
+Add an nrequired-to-sign multisignature address to the wallet. Requires a new wallet backup.
 
 Each key is a Bitcoin address or hex-encoded public key.
 
@@ -28,7 +28,7 @@ Argument #2 - keys
 
 **Type:** json array, required
 
-A json array of bitcoin addresses or hex-encoded public keys
+The bitcoin addresses or hex-encoded public keys
 
 ::
 
@@ -56,9 +56,10 @@ Result
 
 ::
 
-  {
-    "address":"multisigaddress",    (string) The value of the new multisig address.
-    "redeemScript":"script"         (string) The string value of the hex-encoded redemption script.
+  {                            (json object)
+    "address" : "str",         (string) The value of the new multisig address
+    "redeemScript" : "hex",    (string) The string value of the hex-encoded redemption script
+    "descriptor" : "str"       (string) The descriptor for this multisig
   }
 
 Examples
@@ -69,9 +70,9 @@ Examples
 
 Add a multisig address from 2 addresses::
 
-  bitcoin-cli addmultisigaddress 2 "[\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\",\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\"]"
+  bitcoin-cli addmultisigaddress 2 "[\"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl\",\"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3\"]"
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "addmultisigaddress", "params": [2, "[\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\",\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\"]"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "addmultisigaddress", "params": [2, "[\"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl\",\"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3\"]"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

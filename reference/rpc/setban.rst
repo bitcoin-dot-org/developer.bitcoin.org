@@ -34,7 +34,14 @@ Argument #4 - absolute
 
 **Type:** boolean, optional, default=false
 
-If set, the bantime must be an absolute timestamp in seconds since epoch (Jan 1 1970 GMT)
+If set, the bantime must be an absolute timestamp expressed in UNIX epoch time
+
+Result
+~~~~~~
+
+::
+
+  null    (json null)
 
 Examples
 ~~~~~~~~
@@ -52,5 +59,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "setban", "params": ["192.168.0.6", "add", 86400] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "setban", "params": ["192.168.0.6", "add", 86400]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

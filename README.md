@@ -47,13 +47,3 @@ the helper tool after doing them in this repo.
 
 Participation in this project is subject to a [Code of
 Conduct](https://github.com/bitcoin-dot-org/developer.bitcoin.org/blob/master/CODE_OF_CONDUCT.md).
-
-## Donations
-
-This project, developer.bitcoin.org, is community supported:
-[3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa](bitcoin:3FkenCiXpSLqD8L79intRNXUgjRoH9sjXa)
-
-## Questions?
-
-Please contact Will Binns ([will@bitcoin.org](mailto:will@bitcoin.org)) if you
-need help.

@@ -492,4 +492,158 @@ Glossary
 
   Watch-only address
     An address or pubkey script stored in the wallet without the corresponding private key, allowing the wallet to watch for outputs but not spend them.
+  
+  Bitcoin URI
+    A URI which allows receivers to encode payment details so spenders don't have to manually enter addresses and other details.
+
+  Certificate chain
+    A chain of certificates connecting a individual's leaf certificate to the certificate authority's root certificate.
+
+  Coinbase block height
+    The current block's height encoded into the first bytes of the coinbase field.
+
+  Fiat
+    National currencies such as the dollar or euro.
+
+  Intermediate certificate
+    A intermediate certificate authority certificate which helps connect a leaf (receiver) certificate to a root certificate authority.
+
+  Key index
+    An index number used in the HD wallet formula to generate child keys from a parent key.
+
+  Key pair
+    A private key and its derived public key.
+
+  Label
+    The label parameter of a bitcoin: URI which provides the spender with the receiver's name (unauthenticated).
+
+  Leaf certificate
+    The end-node in a certificate chain; in the payment protocol, it is the certificate belonging to the receiver of satoshis.
+
+  Merge
+    Spending, in the same transaction, multiple outputs which can be traced back to different previous spenders, leaking information about how many satoshis you control.
+
+  Merge avoidance
+    A strategy for selecting which outputs to spend that avoids merging outputs with different histories that could leak private information.
+
+  Message
+    A parameter of bitcoin: URIs which allows the receiver to optionally specify a message to the spender.
+
+  Micropayment channel
+    term-micropayment-channel (contracts-guide) (`original target <https://bitcoin.org/en/contracts-guide#term-micropayment-channel>`__)
+
+  .. _term-msg_block:
+    The block header hash data type identifier of an inventory on the P2P network.
+
+  .. _term-msg_cmpct_block:
+    An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a compact block.
+
+  .. _term-msg_filtered_witness_block:
+    An alternative to the block header hash data type identifier of an inventory on the P2P network that is reserved for future use and unused.
+
+  .. _term-msg_tx:
+    The TXID data type identifier of an inventory on the P2P network.
+
+  .. _term-msg_witness_block:
+    An alternative to the block header hash data type identifier of an inventory on the P2P network used to request a block with witness serialization for SegWit.
+
+  .. _term-msg_witness_tx:
+    An alternative of the transaction data type identifier of an inventory on the P2P network used to request a transaction with witness serialization for SegWit.
+
+  OP CHECKMULTISIG
+    Opcode which returns true if one or more provided signatures (m) sign the correct parts of a transaction and match one or more provided public keys (n).
+
+  .. _term-op-checksig:
+    Opcode which returns true if a signature signs the correct parts of a transaction and matches a provided public key.
+
+  .. _term-op-dup:
+    Operation which duplicates the entry below it on the stack.
+
+  .. _term-op-equal:
+    Operation which returns true if the two entries below it on the stack are equivalent.
+
+  .. _term-op-equalverify:
+    Operation which terminates the script in failure unless the two entries below it on the stack are equivalent.
+
+  .. _term-op-hash160:
+    Operation which converts the entry below it on the stack into a RIPEMD(SHA256()) hashed version of itself.
+
+  .. _term-op-return:
+    Operation which terminates the script in failure.
+
+  .. _term-op-verify:
+    Operation which terminates the script if the entry below it on the stack is non-true (zero).
+
+  Output index
+    The sequentially-numbered index of outputs in a single transaction starting from 0.
+
+  .. _term-paymentdetails:
+    The PaymentDetails of the payment protocol which allows the receiver to specify the payment details to the spender.
+
+  .. _term-paymentrequest:
+    The PaymentRequest of the payment protocol which contains and allows signing of the PaymentDetails.
+
+  PKI
+    Public Key Infrastructure; usually meant to indicate the X.509 certificate system used for HTTP Secure (https).
+
+  Point function
+    The ECDSA function used to create a public key from a private key.
+
+  PP amount
+    Part of the Output part of the PaymentDetails part of a payment protocol where receivers can specify the amount of satoshis they want paid to a particular pubkey script.
+
+  PP expires
+    The expires field of a PaymentDetails where the receiver tells the spender when the PaymentDetails expires.
+
+  PP memo
+    The memo fields of PaymentDetails, Payment, and PaymentACK which allow spenders and receivers to send each other memos.
+
+  PP merchant data
+    The merchant_data part of PaymentDetails and Payment which allows the receiver to send arbitrary data to the spender in PaymentDetails and receive it back in Payments.
+
+  PP pki data
+    The pki_data field of a PaymentRequest which provides details such as certificates necessary to validate the request.
+
+  PP pki type
+    The PKI field of a PaymentRequest which tells spenders how to validate this request as being from a specific recipient.
+
+  PP script
+    The script field of a PaymentDetails where the receiver tells the spender what pubkey scripts to pay.
+
+  Previous block header hash
+    A field in the block header which contains the SHA256(SHA256()) hash of the previous block's header.
+
+  R parameter
+    The payment request parameter in a bitcoin: URI.
+
+  Receipt
+    A cryptographically-verifiable receipt created using parts of a payment request and a confirmed transaction.
+
+  Root certificate
+    A certificate belonging to a certificate authority (CA).
+
+  SSL signature
+    Signatures created and recognized by major SSL implementations such as OpenSSL.
+
+  Stanndard block relay
+    The regular block relay method: announcing a block with an inv message and waiting for a response.
+
+  Transaction version number
+    A version number prefixed to transactions to allow upgrading.
+
+  Unique Address
+    Address which are only used once to protect privacy and increase security.
+
+  Unsolicited block push
+    When a miner sends a block message without sending an inv message first.
+
+  URI qr code
+    A QR code containing a bitcoin: URI.
+
+  V2 block 
+    The current version of Bitcoin blocks.
+
+  x509certificates
+
+  term-x509certificates (developer-examples) (`original target <https://bitcoin.org/en/developer-examples#term-x509certificates>`__)
 

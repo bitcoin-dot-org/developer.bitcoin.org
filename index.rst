@@ -1,5 +1,5 @@
 Getting Started
-========
+===============
 
 The site aims to provide the information you need to understand
 Bitcoin and start building Bitcoin-based applications. To make the best use of

@@ -15,6 +15,13 @@ Argument #1 - txid
 
 The hex-encoded id of the transaction you are deleting
 
+Result
+~~~~~~
+
+::
+
+  null    (json null)
+
 Examples
 ~~~~~~~~
 
@@ -27,5 +34,5 @@ Examples
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "removeprunedfunds", "params": ["a8d0c0184dde994a09ec054286f1ce581bebf46446a512166eae7628734ea0a5"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "removeprunedfunds", "params": ["a8d0c0184dde994a09ec054286f1ce581bebf46446a512166eae7628734ea0a5"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

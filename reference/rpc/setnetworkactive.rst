@@ -15,3 +15,16 @@ Argument #1 - state
 
 true to enable networking, false to disable
 
+Result
+~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - true|false
+     - boolean
+     - The value that was passed in
+

@@ -10,20 +10,24 @@ Bumps the fee of an opt-in-RBF transaction T, replacing it with a new transactio
 
 An opt-in RBF transaction with the given txid must be in the wallet.
 
-The command will pay the additional fee by decreasing (or perhaps removing) its change output.
+The command will pay the additional fee by reducing change outputs or adding inputs when necessary.
 
-If the change output is not big enough to cover the increased fee, the command will currently fail
-instead of adding new inputs to compensate. (A future implementation could improve this.)
+It may add a new change output if one does not already exist.
+
+All inputs in the original transaction will be included in the replacement transaction.
+
 The command will fail if the wallet or mempool contains a transaction that spends one of T's outputs.
 
-By default, the new fee will be calculated automatically using estimatesmartfee.
+By default, the new fee will be calculated automatically using the estimatesmartfee RPC.
 
 The user can specify a confirmation target for estimatesmartfee.
 
-Alternatively, the user can specify totalFee, or use RPC settxfee to set a higher fee rate.
+Alternatively, the user can specify a fee rate in sat/vB for the new transaction.
 
 At a minimum, the new fee rate must be high enough to pay an additional new relay fee (incrementalfee
 returned by getnetworkinfo) to enter the node's mempool.
+
+\* WARNING: before version 0.21, fee_rate was in BTC/kvB. As of 0.21, fee_rate is in sat/vB. \*
 
 Argument #1 - txid
 ~~~~~~~~~~~~~~~~~~
@@ -40,11 +44,13 @@ Argument #2 - options
 ::
 
      {
-       "confTarget": n,           (numeric, optional, default=fallback to wallet's default) Confirmation target (in blocks)
-       "totalFee": n,             (numeric, optional, default=fallback to 'confTarget') Total fee (NOT feerate) to pay, in satoshis.
-                                  In rare cases, the actual fee paid might be slightly higher than the specified
-                                  totalFee if the tx change output has to be removed because it is too close to
-                                  the dust threshold.
+       "conf_target": n,          (numeric, optional, default=wallet -txconfirmtarget) Confirmation target in blocks
+                                  
+       "fee_rate": amount,        (numeric or string, optional, default=not set, fall back to wallet fee estimation) 
+                                  Specify a fee rate in sat/vB instead of relying on the built-in fee estimator.
+                                  Must be at least 1.000 sat/vB higher than the current transaction fee rate.
+                                  WARNING: before version 0.21, fee_rate was in BTC/kvB. As of 0.21, fee_rate is in sat/vB.
+                                  
        "replaceable": bool,       (boolean, optional, default=true) Whether the new transaction should still be
                                   marked bip-125 replaceable. If true, the sequence numbers in the transaction will
                                   be left unchanged from the original. If false, any input sequence numbers in the
@@ -52,10 +58,11 @@ Argument #2 - options
                                   so the new transaction will not be explicitly bip-125 replaceable (though it may
                                   still be replaceable in practice, for example if it has unconfirmed ancestors which
                                   are replaceable).
-       "estimate_mode": "str",    (string, optional, default=UNSET) The fee estimate mode, must be one of:
-                                  "UNSET"
-                                  "ECONOMICAL"
-                                  "CONSERVATIVE"
+                                  
+       "estimate_mode": "str",    (string, optional, default=unset) The fee estimate mode, must be one of (case insensitive):
+                                  "unset"
+                                  "economical"
+                                  "conservative"
      }
 
 Result
@@ -63,11 +70,15 @@ Result
 
 ::
 
-  {
-    "txid":    "value",   (string)  The id of the new transaction
-    "origfee":  n,         (numeric) Fee of the replaced transaction
-    "fee":      n,         (numeric) Fee of the new transaction
-    "errors":  [ str... ] (json array of strings) Errors encountered during processing (may be empty)
+  {                    (json object)
+    "psbt" : "str",    (string) The base64-encoded unsigned PSBT of the new transaction. Only returned when wallet private keys are disabled. (DEPRECATED)
+    "txid" : "hex",    (string) The id of the new transaction. Only returned when wallet private keys are enabled.
+    "origfee" : n,     (numeric) The fee of the replaced transaction.
+    "fee" : n,         (numeric) The fee of the new transaction.
+    "errors" : [       (json array) Errors encountered during processing (may be empty).
+      "str",           (string)
+      ...
+    ]
   }
 
 Examples
@@ -76,7 +87,7 @@ Examples
 
 .. highlight:: shell
 
-Bump the fee, get the new transaction's txid::
+Bump the fee, get the new transaction'stxid::
 
   bitcoin-cli bumpfee <txid>
 

@@ -4,7 +4,7 @@
 scantxoutset
 ============
 
-``scantxoutset "action" [scanobjects,...]``
+``scantxoutset "action" ( [scanobjects,...] )``
 
 EXPERIMENTAL warning: this call may be removed or changed in future releases.
 
@@ -39,9 +39,9 @@ The action to execute
 Argument #2 - scanobjects
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** json array, required
+**Type:** json array
 
-Array of scan objects
+Array of scan objects. Required for "start" action
        Every scan object is either a string descriptor or an object:
 
 ::
@@ -60,17 +60,22 @@ Result
 
 ::
 
-  {
-    "unspents": [
-      {
-      "txid" : "transactionid",     (string) The transaction id
-      "vout": n,                    (numeric) the vout value
-      "scriptPubKey" : "script",    (string) the script key
-      "desc" : "descriptor",        (string) A specialized descriptor for the matched scriptPubKey
-      "amount" : x.xxx,             (numeric) The total amount in BTC of the unspent output
-      "height" : n,                 (numeric) Height of the unspent transaction output
-     }
-     ,...],
-   "total_amount" : x.xxx,          (numeric) The total amount of all found unspent outputs in BTC
-  ]
+  {                                (json object)
+    "success" : true|false,        (boolean) Whether the scan was completed
+    "txouts" : n,                  (numeric) The number of unspent transaction outputs scanned
+    "height" : n,                  (numeric) The current block height (index)
+    "bestblock" : "hex",           (string) The hash of the block at the tip of the chain
+    "unspents" : [                 (json array)
+      {                            (json object)
+        "txid" : "hex",            (string) The transaction id
+        "vout" : n,                (numeric) The vout value
+        "scriptPubKey" : "hex",    (string) The script key
+        "desc" : "str",            (string) A specialized descriptor for the matched scriptPubKey
+        "amount" : n,              (numeric) The total amount in BTC of the unspent output
+        "height" : n               (numeric) Height of the unspent transaction output
+      },
+      ...
+    ],
+    "total_amount" : n             (numeric) The total amount of all found unspent outputs in BTC
+  }
 

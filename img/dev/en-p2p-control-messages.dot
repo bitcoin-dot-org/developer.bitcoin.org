@@ -13,10 +13,12 @@ graph [ penwidth = 1.75, fontname="Sans" ]
 version -> verack;
 ping -> pong;
 getaddr -> addr;
+getaddr -> addrv2
 
 filterload -> filteradd;
 filterload -> filterclear;
 alert;
+sendaddrv2;
 sendheaders;
 
 ERROR [ style = "invis" ];

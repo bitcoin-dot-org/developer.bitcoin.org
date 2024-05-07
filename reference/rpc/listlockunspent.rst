@@ -15,12 +15,12 @@ Result
 
 ::
 
-  [
-    {
-      "txid" : "transactionid",     (string) The transaction id locked
-      "vout" : n                      (numeric) The vout value
-    }
-    ,...
+  [                      (json array)
+    {                    (json object)
+      "txid" : "hex",    (string) The transaction id locked
+      "vout" : n         (numeric) The vout value
+    },
+    ...
   ]
 
 Examples
@@ -47,5 +47,5 @@ Unlock the transaction again::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listlockunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listlockunspent", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

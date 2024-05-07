@@ -18,15 +18,15 @@ Argument #1 - filename
 
 **Type:** string, required
 
-The filename with path (either absolute or relative to bitcoind)
+The filename with path (absolute path recommended)
 
 Result
 ~~~~~~
 
 ::
 
-  {                           (json object)
-    "filename" : {        (string) The filename with full absolute path
+  {                        (json object)
+    "filename" : "str"     (string) The filename with full absolute path
   }
 
 Examples
@@ -41,5 +41,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "dumpwallet", "params": ["test"] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "dumpwallet", "params": ["test"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 

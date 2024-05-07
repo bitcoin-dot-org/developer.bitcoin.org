@@ -28,6 +28,13 @@ Argument #2 - timeout
 
 The time to keep the decryption key in seconds; capped at 100000000 (~3 years).
 
+Result
+~~~~~~
+
+::
+
+  null    (json null)
+
 Examples
 ~~~~~~~~
 
@@ -44,5 +51,5 @@ Lock the wallet again (before 60 seconds)::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "walletpassphrase", "params": ["my pass phrase", 60] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "walletpassphrase", "params": ["my pass phrase", 60]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 
