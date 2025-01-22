@@ -12,10 +12,16 @@ Glossary
 
     **Not to be confused with:** IP address
 
+  SIC (Application-Specific Integrated Circuit)
+    Hardware specifically designed for Bitcoin mining, providing greater efficiency compared to general-purpose devices.
+
   Base58check
     The method used in Bitcoin for converting 160-bit hashes into P2PKH and P2SH addresses.  Also used in other parts of Bitcoin, such as encoding private keys for backup in WIP format.  Not the same as other base58 implementations.
 
     **Not to be confused with:** P2PKH address, P2SH address, IP address
+  
+  Bech32 Address
+    A SegWit address format specified by BIP 173, designed to improve efficiency and error detection.
 
   Block
     One or more transactions prefaced by a block header and protected by proof of work. Blocks are the data stored on the block chain.
@@ -380,6 +386,9 @@ Glossary
     A hash digest displayed with the byte order reversed; used in Bitcoin Core RPCs, many block explorers, and other software.
 
     **Not to be confused with:** Internal byte order (hash digests displayed in their typical order; used in serialized blocks and serialized transactions)
+
+  Satoshi
+    The smallest unit of Bitcoin, equal to 0.00000001 BTC, named after the creator of Bitcoin, Satoshi Nakamoto.
 
   Sequence number
     Part of all transactions. A number intended to allow unconfirmed time-locked transactions to be updated before being finalized; not currently used except to disable locktime in a transaction
