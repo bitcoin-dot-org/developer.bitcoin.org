@@ -28,7 +28,7 @@ When started for the first time, programs don’t know the IP addresses of any a
    seed.bitcoin.sipa.be.   60  IN  A  203.0.113.183
    [...]
 
-The DNS seeds are maintained by Bitcoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the `network <../devguide/p2p_network.html>`__; others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default Bitcoin ports of 8333 for mainnet or 18333 for testnet.
+The DNS seeds are maintained by Bitcoin community members: some of them provide dynamic DNS seed servers which automatically get IP addresses of active nodes by scanning the `network <../devguide/p2p_network.html>`__; others provide static DNS seeds that are updated manually and are more likely to provide IP addresses for inactive nodes. In either case, nodes are added to the DNS seed if they run on the default Bitcoin ports of 8333 for mainnet or 48333 for testnet4.
 
 DNS seed results are not authenticated and a malicious seed operator or `network <../devguide/p2p_network.html>`__ `man-in-the-middle <https://en.wikipedia.org/wiki/Man-in-the-middle_attack>`__ attacker can return only IP addresses of nodes controlled by the attacker, isolating a program on the attacker’s own `network <../devguide/p2p_network.html>`__ and allowing the attacker to feed it bogus transactions and blocks. For this reason, programs should not rely on DNS seeds exclusively.
 

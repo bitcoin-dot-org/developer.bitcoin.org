@@ -7,7 +7,7 @@ Once installed, you’ll have access to three programs: ``bitcoind``, ``bitcoin-
 
 -  ``bitcoin-qt`` provides a combination full Bitcoin peer and wallet frontend. From the Help menu, you can access a console where you can enter the `RPC <../reference/rpc/index.html>`__ commands used throughout this document.
 
--  ``bitcoind`` is more useful for programming: it provides a full peer which you can interact with through `RPCs <../reference/rpc/index.html>`__ to port 8332 (or 18332 for testnet).
+-  ``bitcoind`` is more useful for programming: it provides a full peer which you can interact with through `RPCs <../reference/rpc/index.html>`__ to port 8332 (48332 for testnet4, 18443 for regtest, 38332 for signet).
 
 -  ``bitcoin-cli`` allows you to send `RPC <../reference/rpc/index.html>`__ commands to ``bitcoind`` from the command line. For example, ``bitcoin-cli help``
 

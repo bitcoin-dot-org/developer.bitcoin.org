@@ -10,19 +10,19 @@ All `peer-to-peer <../devguide/p2p_network.html>`__ communication occurs entirel
 Constants And Defaults
 ~~~~~~~~~~~~~~~~~~~~~~
 
-The following constants and defaults are taken from Bitcoin Core’s `chainparams.cpp <https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp>`__ source code file.
+The following constants and defaults are taken from Bitcoin Core’s `chainparams.cpp <https://github.com/bitcoin/bitcoin/blob/master/src/kernel/chainparams.cpp>`__ source code file.
 
 +--------------------------------------------+--------------+------------------------------------------+------------+
 | `Network <../devguide/p2p_network.html>`__ | Default Port | :term:`Start String <Start string>`      | Max nBits  |
 +============================================+==============+==========================================+============+
 | Mainnet                                    | 8333         | 0xf9beb4d9                               | 0x1d00ffff |
 +--------------------------------------------+--------------+------------------------------------------+------------+
-| Testnet                                    | 18333        | 0x0b110907                               | 0x1d00ffff |
+| Testnet                                    | 48333        | 0x1c163f28                               | 0x1d00ffff |
 +--------------------------------------------+--------------+------------------------------------------+------------+
 | Regtest                                    | 18444        | 0xfabfb5da                               | 0x207fffff |
 +--------------------------------------------+--------------+------------------------------------------+------------+
 
-Note: the testnet start string and nBits above are for testnet3; the original testnet used a different string and higher (less difficult) nBits.
+Note: the testnet start string and nBits above are for testnet4; the original testnet used a different string and higher (less difficult) nBits.
 
 Command line parameters can change what port a node listens on (see ``-help``). Start strings are hardcoded constants that appear at the start of all messages sent on the Bitcoin `network <../devguide/p2p_network.html>`__; they may also appear in data files such as Bitcoin Core’s block database. The nBits displayed above are in big-endian order; they’re sent over the `network <../devguide/p2p_network.html>`__ in little-endian order.
 
