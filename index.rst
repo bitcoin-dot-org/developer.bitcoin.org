@@ -29,4 +29,4 @@ developer documentation that led to this site.
   devguide/index
   reference/index
   examples/index
-  glossary
+  bips/index
