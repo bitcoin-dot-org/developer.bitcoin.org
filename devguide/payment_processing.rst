@@ -221,7 +221,11 @@ Two or more transactions spending the same input are commonly referred to as a :
 
 Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Bitcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one :term:`confirmation <Confirmation score>`. Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
 
-**0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the `network <../devguide/p2p_network.html>`__ into including their version of a transaction.
+**0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners often confirm the first transaction they receive, fraudsters may be able to manipulate the `network <../devguide/p2p_network.html>`__ into including their version of a transaction.
+
+Before a transaction is confirmed, it exists only as local relay state in each peer's `memory pool <../devguide/p2p_network.html#memory-pool>`__. There is no mempool consensus: two honest nodes can disagree about which unconfirmed transactions they know about because they learned about transactions in a different order, use different relay policies, use different minimum fee rates, have evicted different low-fee transactions, or have accepted different :term:`replace by fee <Replace by fee>` replacements. A receiver who sees a transaction in its own mempool therefore only knows that some peers currently consider that transaction valid for relay; it does not know which conflicting transaction miners will include in a block.
+
+This makes an unconfirmed double spend different from a chain-committed double spend. Before confirmation, an attacker only needs to get a competing valid transaction, spending at least one of the same inputs, mined instead of the transaction seen by the receiver. After confirmation, the attacker must replace part of the block chain itself with a higher-work alternative containing the competing transaction. The latter becomes increasingly expensive as the payment gains confirmations.
 
 **1 confirmation**: The transaction is included in the latest block and double-spend risk decreases dramatically. Transactions which pay sufficient transaction fees need 10 minutes on average to receive one confirmation. However, the most recent block gets replaced fairly often by accident, so a double spend is still a real possibility.
 
@@ -243,9 +247,13 @@ An interesting source of double-spend risk analysis can be acquired by connectin
 
 For example, unconfirmed transactions can be compared among all connected peers to see if any UTXO is used in multiple unconfirmed transactions, indicating a double-spend attempt, in which case the payment can be refused until it is confirmed. Transactions can also be ranked by their transaction fee to estimate the amount of time until they’re added to a block.
 
+Fee and replacement policy should also be considered. A low-fee unconfirmed transaction may remain in some mempools for a long time, be evicted from others, or disappear from the network until it is rebroadcast. A transaction that signals :term:`replace by fee <Replace by fee>` may be deliberately replaced by the spender with a higher-fee conflict. A receiver can sometimes help confirm a low-fee incoming payment by spending one of its outputs in a high-fee child transaction, using :term:`child pays for parent <Child pays for parent>`, but that still does not make the parent transaction final until both transactions are confirmed.
+
 Another example could be to detect a fork when multiple peers report differing block header hashes at the same block height. Your program can go into a safe mode if the fork extends for more than two blocks, indicating a possible problem with the block chain. For more details, see the `Detecting Forks subsection <../devguide/block_chain.html#detecting-forks>`__.
 
 Another good source of double-spend protection can be human intelligence. For example, fraudsters may act differently from legitimate customers, letting savvy merchants manually flag them as high risk. Your program can provide a safe mode which stops automatic payment acceptance on a global or per-customer basis.
+
+Time locks and relative time locks can constrain the permitted behavior of particular transaction chains. For example, scripts and transactions using absolute or relative lock times can make a refund transaction invalid until a future block height or require a delay before a counterparty can spend. These constraints are useful in contracts and payment channels because they reduce some ways a participant can act, but they do not create instantaneous consensus for ordinary payments. They only protect the coins locked to those specific scripts, and the relevant transactions still need confirmations for block chain finality.
 
 Issuing Refunds
 ---------------
@@ -347,4 +355,3 @@ Non-automated rebilling can be managed by the same mechanism used before credit-
 In the future, extensions to the payment protocol and new wallet features may allow some wallet programs to manage a list of recurring transactions. The spender will still need to start the program on a regular basis and authorize payment—but it should be easier and more secure for the spender than clicking an emailed invoice, increasing the chance receivers get paid on time.
 
 .. |Warning icon| image:: /img/icons/icon_warning.svg
-
