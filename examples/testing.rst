@@ -50,4 +50,52 @@ Verify that we now have 50 bitcoins available to spend.
 
 You can now use Bitcoin Core `RPCs <../reference/rpc/index.html>`__ prefixed with ``bitcoin-cli -regtest``.
 
+Regtest Troubleshooting
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The following errors are common when creating the first blocks in a
+regtest chain.
+
+``Method not found (code -32601)``
+   The block-generation RPC has changed between Bitcoin Core releases.
+   Use the command that matches your Bitcoin Core version in the example
+   above.  For Bitcoin Core 18.0 and later, use
+   ``generatetoaddress`` instead of ``generate`` or ``setgenerate``.
+
+``Requested wallet does not exist or is not loaded (code -18)``
+   The ``getnewaddress`` command needs a loaded wallet.  Create or load a
+   wallet before calling it, or provide ``generatetoaddress`` with another
+   valid regtest address:
+
+   ::
+
+      bitcoin-cli -regtest createwallet "regtest-wallet"
+      bitcoin-cli -regtest generatetoaddress 101 $(bitcoin-cli -regtest getnewaddress)
+
+``Invalid address or key (code -5)``
+   The address passed to ``generatetoaddress`` is not valid for the chain
+   you are using.  Generate the address with the same regtest node, or
+   confirm that every command uses the ``-regtest`` option.
+
+``CreateNewBlock: TestBlockValidity failed: bad-fork-prior-to-checkpoint (code 67)``
+   The node is trying to create a block that is invalid for the active
+   chain.  This usually means the command is not being run against the
+   regtest chain you intended, or the local regtest chain state is stale
+   from earlier testing.  First check that both ``bitcoind`` and
+   ``bitcoin-cli`` are using regtest:
+
+   ::
+
+      bitcoin-cli -regtest getblockchaininfo
+
+   The result should include ``"chain": "regtest"``.  If you only need
+   the private test chain and do not need any old regtest wallets or block
+   data, stop Bitcoin Core, delete the ``regtest`` subdirectory in your
+   Bitcoin Core data directory, restart ``bitcoind -regtest``, and
+   regenerate the first 101 blocks.
+
+``Insufficient funds``
+   Coinbase transactions must mature before they can be spent.  Generate
+   101 blocks before spending the first block reward, as shown above.
+
 Regtest wallets and block chain state (chainstate) are saved in the ``regtest`` subdirectory of the Bitcoin Core configuration directory. You can safely delete the ``regtest`` subdirectory and restart Bitcoin Core to start a new regtest. (See the `Developer Examples Introduction <../examples/index.html>`__ for default configuration directory locations on various operating systems. Always back up mainnet wallets before performing dangerous operations such as deleting.)
