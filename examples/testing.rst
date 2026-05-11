@@ -50,4 +50,47 @@ Verify that we now have 50 bitcoins available to spend.
 
 You can now use Bitcoin Core `RPCs <../reference/rpc/index.html>`__ prefixed with ``bitcoin-cli -regtest``.
 
+Troubleshooting block generation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If block generation fails, check the exact RPC error before changing your test
+state. The numeric code in a JSON-RPC response is not always the same thing as a
+validation reject code printed inside the error message.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 35 35
+
+   * - Error
+     - Likely cause
+     - Resolution
+   * - ``Method not found`` or ``error code: -32601`` when using
+       ``setgenerate`` or ``generate``
+     - The mining RPC changed between Bitcoin Core releases. The ``generate``
+       RPC has been unavailable since Bitcoin Core 18.0.
+     - Use the command shown above for your Bitcoin Core version. For Bitcoin
+       Core 18.0 and later, use ``generatetoaddress`` with a regtest address.
+   * - ``No wallet is loaded`` or ``error code: -18`` from
+       ``getnewaddress``
+     - Recent Bitcoin Core versions do not always create or load a default
+       wallet automatically.
+     - Create or load a regtest wallet, for example
+       ``bitcoin-cli -regtest createwallet "regtest"``, then request an
+       address with ``bitcoin-cli -regtest -rpcwallet=regtest getnewaddress``.
+   * - ``Error: Invalid address`` or ``error code: -5`` from
+       ``generatetoaddress``
+     - The address is missing, mistyped, or belongs to another network.
+     - Use an address produced by the same regtest node and wallet. Mainnet,
+       testnet, and signet addresses are not valid regtest mining targets.
+   * - ``CreateNewBlock: TestBlockValidity failed:
+       bad-fork-prior-to-checkpoint (code 67)``
+     - The block template failed block validation before mining. The ``code
+       67`` text is the validation reject code included in the message, not a
+       JSON-RPC method code.
+     - Confirm that both ``bitcoind`` and ``bitcoin-cli`` are using
+       ``-regtest`` and the same data directory. If the error continues in a
+       disposable test environment, stop Bitcoin Core and start from a fresh
+       regtest chain by deleting only the ``regtest`` subdirectory or by using a
+       new ``-datadir``.
+
 Regtest wallets and block chain state (chainstate) are saved in the ``regtest`` subdirectory of the Bitcoin Core configuration directory. You can safely delete the ``regtest`` subdirectory and restart Bitcoin Core to start a new regtest. (See the `Developer Examples Introduction <../examples/index.html>`__ for default configuration directory locations on various operating systems. Always back up mainnet wallets before performing dangerous operations such as deleting.)
