@@ -39,6 +39,41 @@ Start ``bitcoind`` in regtest mode to create a private block chain.
 
 Generate 101 blocks using a special `RPC <../reference/rpc/index.html>`__ which is only available in regtest mode. This takes less than a second on a generic PC. Because this is a new block chain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. However, a block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to get access to the coinbase transaction from block #1.
 
+If block generation fails, check the RPC error code and message first. The
+following table lists common regtest setup errors and how to resolve them:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Error
+     - Likely cause
+     - Resolution
+   * - ``bad-fork-prior-to-checkpoint (code 67)``
+     - The command is running against a chain with mainnet or testnet
+       validation rules, or the data directory contains state from the wrong
+       network.
+     - Restart both ``bitcoind`` and ``bitcoin-cli`` with ``-regtest``. If this
+       is a disposable test environment, stop Bitcoin Core, delete only the
+       ``regtest`` subdirectory from the Bitcoin Core data directory, and start
+       again.
+   * - ``Method not found (code -32601)``
+     - The example command is not supported by the Bitcoin Core version you are
+       running.
+     - For Bitcoin Core 18.0 and later, use ``generatetoaddress`` with an
+       address returned by ``bitcoin-cli -regtest getnewaddress``. Older nodes
+       may require ``generate`` or ``setgenerate`` as shown above.
+   * - ``Requested wallet does not exist or is not loaded (code -18)``
+     - ``getnewaddress`` was called before creating or loading a wallet.
+     - Create or load a regtest wallet, for example
+       ``bitcoin-cli -regtest createwallet testwallet``, then rerun
+       ``getnewaddress`` and ``generatetoaddress``.
+   * - ``Loading block index (code -28)``
+     - The node is still starting.
+     - Wait until startup finishes, then retry the command.
+   * - ``Insufficient funds (code -6)``
+     - A transaction is spending coinbase outputs before they have matured.
+     - Mine 101 blocks before spending the first coinbase reward.
+
 .. highlight:: bash
 
 ::
