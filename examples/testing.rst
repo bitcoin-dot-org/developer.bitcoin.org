@@ -39,6 +39,35 @@ Start ``bitcoind`` in regtest mode to create a private block chain.
 
 Generate 101 blocks using a special `RPC <../reference/rpc/index.html>`__ which is only available in regtest mode. This takes less than a second on a generic PC. Because this is a new block chain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. However, a block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to get access to the coinbase transaction from block #1.
 
+Troubleshooting Regtest Block Generation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If a block-generation command fails, first confirm that both ``bitcoind`` and
+``bitcoin-cli`` are using regtest:
+
+::
+
+   bitcoin-cli -regtest getblockchaininfo
+
+The response should include ``"chain": "regtest"``. If it reports another
+chain, stop the node and restart it with ``-regtest`` before running the
+regtest commands again.
+
+Common errors include:
+
+* ``Method not found``: the old ``generate`` RPC is no longer available. Use
+  ``generatetoaddress`` with a regtest address returned by
+  ``bitcoin-cli -regtest getnewaddress``.
+* ``Invalid address or key``: the address is for a different network. Generate
+  a fresh address from the same regtest node and wallet that will receive the
+  block rewards.
+* ``CreateNewBlock: TestBlockValidity failed:
+  bad-fork-prior-to-checkpoint (code 67)``: the node is trying to create a
+  low-height block on a chain with mainnet or testnet checkpoints, which
+  usually means the node or CLI is not actually running in regtest. Verify the
+  chain with ``getblockchaininfo``, restart with ``-regtest``, and use the
+  regtest data directory instead of reusing mainnet or testnet chain state.
+
 .. highlight:: bash
 
 ::
