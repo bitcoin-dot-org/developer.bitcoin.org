@@ -39,6 +39,37 @@ Start ``bitcoind`` in regtest mode to create a private block chain.
 
 Generate 101 blocks using a special `RPC <../reference/rpc/index.html>`__ which is only available in regtest mode. This takes less than a second on a generic PC. Because this is a new block chain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. However, a block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to get access to the coinbase transaction from block #1.
 
+If block generation fails, check the returned error before resetting your test
+environment:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Error
+     - Likely cause
+     - Resolution
+   * - ``bad-fork-prior-to-checkpoint`` (code ``67``)
+     - The node is not actually mining on a clean regtest chain, or the regtest
+       chain state is stale.
+     - Stop Bitcoin Core, make sure both ``bitcoind`` and ``bitcoin-cli`` are
+       using ``-regtest``, and restart with a fresh regtest chain if necessary.
+       The regtest chain state is stored in the ``regtest`` subdirectory of the
+       Bitcoin Core configuration directory.
+   * - ``Method not found`` for ``generate``
+     - Recent Bitcoin Core versions no longer use the ``generate`` RPC.
+     - Use ``generatetoaddress`` with an address returned by
+       ``bitcoin-cli -regtest getnewaddress``.
+   * - ``No wallet is loaded``
+     - ``getnewaddress`` was called before a regtest wallet was created or
+       loaded.
+     - Create or load a wallet first, for example with
+       ``bitcoin-cli -regtest createwallet "regtest"``.
+   * - ``Error: Invalid address``
+     - The address passed to ``generatetoaddress`` is missing, mistyped, or for
+       a different chain.
+     - Generate a fresh regtest address and pass it to ``generatetoaddress`` in
+       the same command.
+
 .. highlight:: bash
 
 ::
