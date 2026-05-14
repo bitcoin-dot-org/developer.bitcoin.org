@@ -51,3 +51,19 @@ Verify that we now have 50 bitcoins available to spend.
 You can now use Bitcoin Core `RPCs <../reference/rpc/index.html>`__ prefixed with ``bitcoin-cli -regtest``.
 
 Regtest wallets and block chain state (chainstate) are saved in the ``regtest`` subdirectory of the Bitcoin Core configuration directory. You can safely delete the ``regtest`` subdirectory and restart Bitcoin Core to start a new regtest. (See the `Developer Examples Introduction <../examples/index.html>`__ for default configuration directory locations on various operating systems. Always back up mainnet wallets before performing dangerous operations such as deleting.)
+
+Troubleshooting Regtest Errors
+""""""""""""""""""""""""""
+
+When working in regtest mode, you may encounter RPC errors. For example:
+
+::
+
+   $ bitcoin-cli -regtest generate 11
+   error code: -25
+   error message:
+   CreateNewBlock: TestBlockValidity failed: bad-fork-prior-to-checkpoint (code 67)
+
+This error occurs when the regtest chain state becomes inconsistent. The fix is to delete the ``regtest`` subdirectory and restart ``bitcoind -regtest``.
+
+For a complete list of Bitcoin Core RPC error codes, rejection reasons, and troubleshooting guidance, see the `RPC Error Codes <../reference/rpc_error_codes.html>`__ reference page.

@@ -11,4 +11,5 @@ Find technical details and API documentation.
   transactions
   wallets
   p2p_networking
+  rpc_error_codes
   rpc/index
