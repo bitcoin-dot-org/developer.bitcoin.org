@@ -39,6 +39,40 @@ Start ``bitcoind`` in regtest mode to create a private block chain.
 
 Generate 101 blocks using a special `RPC <../reference/rpc/index.html>`__ which is only available in regtest mode. This takes less than a second on a generic PC. Because this is a new block chain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. However, a block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to get access to the coinbase transaction from block #1.
 
+Regtest block generation errors
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Regtest chains are private and disposable, so the safest fix for many
+experiments is to stop ``bitcoind`` and restart with a new regtest data
+directory.  Always make sure you are moving or deleting only the ``regtest``
+subdirectory of your Bitcoin Core configuration directory, never your mainnet
+wallet or chainstate.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 35 65
+
+   * - Error
+     - Suggested resolution
+   * - ``Method not found`` when calling ``generate``
+     - Use ``generatetoaddress`` with Bitcoin Core 18.0 and later:
+       ``bitcoin-cli -regtest generatetoaddress 101 $(bitcoin-cli -regtest getnewaddress)``.
+   * - ``getnewaddress`` reports that no wallet is loaded
+     - Load or create a regtest wallet before using command substitution, for
+       example ``bitcoin-cli -regtest createwallet ""``.  If your node was
+       built without wallet support, replace the command substitution with any
+       valid regtest address from another wallet.
+   * - ``CreateNewBlock: TestBlockValidity failed:
+       bad-fork-prior-to-checkpoint (code 67)``
+     - This is a block verification failure.  It is commonly caused by
+       reusing an old regtest chain after changing Bitcoin Core versions or
+       consensus-related settings.  Stop the node, move the ``regtest``
+       subdirectory aside, restart ``bitcoind -regtest -daemon``, and mine
+       again on the fresh private chain.
+   * - Newly mined coins do not appear spendable
+     - Coinbase rewards must mature for 100 confirmations.  Generate at least
+       101 blocks before trying to spend the first reward.
+
 .. highlight:: bash
 
 ::
