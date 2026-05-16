@@ -36,6 +36,43 @@ Start ``bitcoind`` in regtest mode to create a private block chain.
 
    ## Bitcoin Core 18.0 and later
    bitcoin-cli -regtest generatetoaddress 101 $(bitcoin-cli -regtest getnewaddress)
+If block generation fails, the error message normally indicates that the
+regtest node, wallet, or block chain state needs to be prepared before
+continuing:
+
+.. list-table:: Common regtest block generation errors
+   :widths: 30 35 35
+   :header-rows: 1
+
+   * - Error
+     - Likely cause
+     - Suggested resolution
+   * - ``Method not found`` or RPC error ``-32601``
+     - The command uses an RPC that is not available in the Bitcoin Core
+       version you are running. For example, ``generate`` was available in
+       older releases, while newer releases use ``generatetoaddress``.
+     - Use the command shown above for your Bitcoin Core version, or run
+       ``bitcoin-cli -regtest help generatetoaddress`` to confirm the
+       supported syntax.
+   * - ``Invalid address or key`` or RPC error ``-5``
+     - The address passed to ``generatetoaddress`` is missing, malformed, or
+       for a different network.
+     - Create a regtest address with ``bitcoin-cli -regtest getnewaddress``
+       and pass that address to ``generatetoaddress``.
+   * - ``Requested wallet does not exist or is not loaded`` or RPC error
+       ``-18``
+     - The node was started without an available wallet, so
+       ``getnewaddress`` cannot return an address.
+     - Create or load a wallet first, for example
+       ``bitcoin-cli -regtest createwallet testwallet``, then request a new
+       address again.
+   * - ``TestBlockValidity failed: bad-fork-prior-to-checkpoint`` or RPC
+       error ``67``
+     - The local regtest chainstate was created with incompatible consensus
+       parameters or an older Bitcoin Core release.
+     - Stop the node, remove only the ``regtest`` subdirectory from the
+       Bitcoin Core data directory, restart in regtest mode, and generate the
+       blocks again. Back up any wallets before deleting data.
 
 Generate 101 blocks using a special `RPC <../reference/rpc/index.html>`__ which is only available in regtest mode. This takes less than a second on a generic PC. Because this is a new block chain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. However, a block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to get access to the coinbase transaction from block #1.
 
