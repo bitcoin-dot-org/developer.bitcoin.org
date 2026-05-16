@@ -35,7 +35,8 @@ Start ``bitcoind`` in regtest mode to create a private block chain.
    bitcoin-cli -regtest generate 101
 
    ## Bitcoin Core 18.0 and later
-   bitcoin-cli -regtest generatetoaddress 101 $(bitcoin-cli -regtest getnewaddress)
+  bitcoin-cli -regtest generatetoaddress 101 $(bitcoin-cli -regtest getnewaddress)
+
 If block generation fails, the error message normally indicates that the
 regtest node, wallet, or block chain state needs to be prepared before
 continuing:
