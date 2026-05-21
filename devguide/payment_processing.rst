@@ -239,6 +239,53 @@ Although confirmations provide excellent double-spend protection most of the tim
 
 3. In the case of an implementation bug or prolonged attack against Bitcoin which makes the system less reliable than expected.
 
+Unconfirmed Transaction Risk Analysis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A zero-confirmation payment is an unconfirmed transaction your program has
+seen before any block has committed it.  It can reduce checkout delay for
+low-value or reversible sales, but it is not a consensus result.  A
+transaction in a node's `memory pool <../devguide/p2p_network.html#memory-pool>`__
+only shows that the node accepted the transaction under its own relay and
+mining policies.  Other nodes may have different memory pools, may not have
+seen the transaction yet, or may prefer a conflicting transaction.
+
+This distinction matters when evaluating double-spend risk.  An unconfirmed
+double-spend attempt occurs when two or more transactions spend at least one
+of the same UTXOs before either transaction is mined.  Your program might see
+the payment transaction first, a conflict first, both, or only one of them.  A
+chain-committed double spend occurs later if a block confirms a conflicting
+transaction instead of the transaction your program treated as payment.  Until
+one transaction is confirmed, there is no network-wide final ordering between
+the conflicts.
+
+Programs accepting unconfirmed payments should treat memory-pool monitoring as
+risk evidence rather than proof of payment.  Useful signals include whether
+the transaction propagated to multiple well-connected peers, whether any peer
+reports a conflicting spend, whether the transaction pays a fee rate likely to
+be mined soon, and whether the spender is trusted for the value at risk.  If a
+conflict appears, propagation is poor, or the payment value is high, the
+program should wait for one or more confirmations or require manual review.
+
+Low-fee transactions can also become stuck.  Nodes may stop relaying them,
+evict them from their memory pools, or leave them unconfirmed while miners
+select higher-fee transactions.  A spender can sometimes increase the fee with
+:term:`replace by fee <Replace by fee>`, and a receiver can sometimes create a
+child transaction that pays for its parent (:term:`CPFP`), but these techniques
+change mining incentives rather than creating instant finality.  Applications
+should keep invoices open only for an appropriate time, continue monitoring
+for conflicts, and handle expiration, refund, or support workflows for
+transactions that do not confirm.
+
+Time locks can constrain some protocols but do not make ordinary
+zero-confirmation payments final.  ``OP_CHECKLOCKTIMEVERIFY`` (CLTV) and
+``OP_CHECKSEQUENCEVERIFY`` (CSV) can require a spending path to wait until a
+height, time, or relative delay before it becomes valid.  These rules are
+useful in contracts such as payment channels and refund paths because they
+limit when particular alternatives can be confirmed.  They do not create
+instantaneous consensus about which unconfirmed transaction will be mined, so
+a receiver still needs a policy for waiting, monitoring, or limiting risk.
+
 An interesting source of double-spend risk analysis can be acquired by connecting to large numbers of Bitcoin peers to track how transactions and blocks differ from each other. Some third-party APIs can provide you with this type of service.
 
 For example, unconfirmed transactions can be compared among all connected peers to see if any UTXO is used in multiple unconfirmed transactions, indicating a double-spend attempt, in which case the payment can be refused until it is confirmed. Transactions can also be ranked by their transaction fee to estimate the amount of time until they’re added to a block.
