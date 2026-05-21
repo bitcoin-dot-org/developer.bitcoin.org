@@ -245,6 +245,52 @@ For example, unconfirmed transactions can be compared among all connected peers 
 
 Another example could be to detect a fork when multiple peers report differing block header hashes at the same block height. Your program can go into a safe mode if the fork extends for more than two blocks, indicating a possible problem with the block chain. For more details, see the `Detecting Forks subsection <../devguide/block_chain.html#detecting-forks>`__.
 
+Zero-Confirmation Risk Analysis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A zero-confirmation payment is a payment decision made before the
+transaction is included in a block. At that point, every node is still
+working from its own `memory pool <../devguide/p2p_network.html#memory-pool>`__
+view, not from a consensus record. A transaction may be visible to your
+node, absent from another node, temporarily evicted because a mempool is
+full, forgotten after a restart, or replaced according to the receiving
+node's policy. Mempool data is therefore useful evidence that a
+transaction is propagating, but it is not proof that the transaction will
+be confirmed.
+
+This separates two different kinds of double-spend risk. Before
+confirmation, two conflicting transactions can compete for relay and
+miner selection; whichever one a miner includes in a valid block becomes
+the confirmed history. After confirmation, replacing that payment
+requires replacing the block containing it and any blocks built on top of
+it. That is why the risk profile changes sharply between zero
+confirmations, one confirmation, and additional confirmations.
+
+Unconfirmed payments can also get stuck. A low fee, unconfirmed
+ancestors, conflicting replacements, or changing mempool minimum fees can
+keep a transaction from confirming for a long time or cause some peers to
+stop relaying it. Payment processors that choose to accept
+zero-confirmation payments should keep monitoring until the transaction
+confirms, expires from their acceptance policy, or is replaced by a
+conflicting transaction. They should also have a recovery path, such as
+asking the customer to resend the payment or waiting for a later
+confirmation.
+
+Time locks, such as ``OP_CHECKLOCKTIMEVERIFY`` and
+``OP_CHECKSEQUENCEVERIFY``, can reduce risk in protocols where the
+parties deliberately constrain when certain outputs may be spent, such as
+pre-signed refund transactions or payment channels. They do not make
+ordinary zero-confirmation payments final: they constrain only the
+transactions or outputs that use those script or sequence rules, and
+they still depend on a later block to create global agreement.
+
+For automatic acceptance, zero-confirmation payments are best limited to
+small, reversible, or trusted orders. Irreversible delivery, high-value
+orders, unusual customer behavior, conflicting peer reports, opt-in
+replacement signaling, or fee rates unlikely to confirm soon should all
+cause the application to wait for at least one confirmation or enter a
+manual review mode.
+
 Another good source of double-spend protection can be human intelligence. For example, fraudsters may act differently from legitimate customers, letting savvy merchants manually flag them as high risk. Your program can provide a safe mode which stops automatic payment acceptance on a global or per-customer basis.
 
 Issuing Refunds
