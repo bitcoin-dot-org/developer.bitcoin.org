@@ -229,6 +229,52 @@ Once the transaction is included in a block, double spends are impossible withou
 
 **6 confirmations**: The `network <../devguide/p2p_network.html>`__ has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total `network <../devguide/p2p_network.html>`__ hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
 
+Zero-Confirmation Risk Analysis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A zero-confirmation payment is an unconfirmed transaction your program has
+seen before any block has committed it.  It can be useful for low-value
+orders or for reducing checkout delay, but it is not a consensus result.  A
+transaction in a node's `memory pool <../devguide/p2p_network.html#memory-pool>`__ is only evidence
+that the node accepted the transaction under its own relay and mining
+policies.  Other nodes may have different memory pools, may not have seen the
+transaction yet, or may prefer a conflicting transaction.
+
+This distinction matters when evaluating double-spend risk.  A
+zero-confirmation double-spend attempt occurs when two unconfirmed
+transactions spend at least one of the same UTXOs.  Your program might see the
+payment transaction first, a conflict first, both, or only one of them.  A
+chain-committed double spend occurs later if a block confirms a conflicting
+transaction instead of the transaction your program treated as payment.  Until
+one transaction is confirmed, there is no network-wide final ordering between
+the conflicts.
+
+Programs accepting unconfirmed payments should treat memory-pool monitoring as
+risk evidence rather than proof of payment.  Useful signals include whether
+the transaction propagated to multiple well-connected peers, whether any peer
+reports a conflicting spend, whether the transaction pays a fee rate likely to
+be mined soon, and whether the spender is trusted for the value at risk.  If a
+conflict appears, if propagation is poor, or if the payment value is high, the
+program should wait for one or more confirmations or require manual review.
+
+Low-fee transactions can also become stuck.  Nodes may stop relaying them,
+evict them from their memory pools, or leave them unconfirmed while miners
+select higher-fee transactions.  A spender can sometimes increase the fee with
+replace by fee (RBF), and a receiver can sometimes create a child transaction
+that pays for its parent (CPFP), but these techniques change mining incentives
+rather than creating instant finality.  Applications should keep invoices open
+only for an appropriate time, continue monitoring for conflicts, and handle
+expiration, refund, or support workflows for transactions that do not confirm.
+
+Time locks can constrain some protocols but do not make ordinary
+zero-confirmation payments final.  ``OP_CHECKLOCKTIMEVERIFY`` (CLTV) and
+``OP_CHECKSEQUENCEVERIFY`` (CSV) can require a spending path to wait until a
+height, time, or relative delay before it becomes valid.  These rules are
+useful in contracts such as payment channels and refund paths because they
+limit when particular alternatives can be confirmed.  They do not create
+instantaneous consensus about which unconfirmed transaction will be mined, so
+a receiver still needs a policy for waiting, monitoring, or limiting risk.
+
 Bitcoin Core provides several `RPCs <../reference/rpc/index.html>`__ which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ provides an array of every satoshi you can spend along with its confirmation score.
 
 Although confirmations provide excellent double-spend protection most of the time, there are at least three cases where double-spend risk analysis can be required:
@@ -347,4 +393,3 @@ Non-automated rebilling can be managed by the same mechanism used before credit-
 In the future, extensions to the payment protocol and new wallet features may allow some wallet programs to manage a list of recurring transactions. The spender will still need to start the program on a regular basis and authorize payment—but it should be easier and more secure for the spender than clicking an emailed invoice, increasing the chance receivers get paid on time.
 
 .. |Warning icon| image:: /img/icons/icon_warning.svg
-
