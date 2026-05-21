@@ -229,6 +229,17 @@ Once the transaction is included in a block, double spends are impossible withou
 
 **6 confirmations**: The `network <../devguide/p2p_network.html>`__ has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total `network <../devguide/p2p_network.html>`__ hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
 
+Zero-Confirmation Risk Analysis
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A zero-confirmation payment is a payment whose transaction has been seen before it has been included in a block. This can be useful for low-value, time-sensitive payments, but it does not provide instant consensus. Before a transaction is mined, each node only has a local view of the transactions it has accepted into its memory pool. Nodes can have different memory pools because they learned about transactions in different orders, run different policies, evicted different transactions, or were temporarily disconnected from parts of the `peer-to-peer network <../devguide/p2p_network.html>`__.
+
+Because the memory pool is not part of Bitcoin consensus, seeing a transaction in one or many memory pools does not prove that miners will include it in a block. A spender can create a conflicting transaction that spends the same input elsewhere. Until one transaction is included in a block, the conflict is a zero-confirmation double-spend attempt. After one conflicting transaction is included in the best block chain, the other conflict becomes invalid unless an attacker can replace that block with a different valid chain.
+
+Receivers who choose to accept zero-confirmation payments should treat them as a business-risk decision instead of a protocol guarantee. Useful checks include comparing the transaction against several well-connected peers, watching for conflicting spends of the same inputs, checking whether the transaction signals :term:`replace by fee <Replace by fee>`, and refusing payments that depend on unconfirmed parents unless the whole package is understood. A transaction that pays too low a fee, depends on a low-fee parent, or falls below a node's relay policy can also become "stuck": it may remain unconfirmed for a long time, be evicted from memory pools, or require fee bumping by :term:`CPFP <CPFP>` or :term:`RBF <Replace by fee>` before it confirms.
+
+Script features can reduce some zero-confirmation risks in contract protocols, but they cannot make an unconfirmed payment final. Absolute locktime, relative locktime, ``OP_CHECKLOCKTIMEVERIFY``, and ``OP_CHECKSEQUENCEVERIFY`` can constrain when or how particular outputs may be spent. Those constraints can make some pre-signed contract paths safer, for example by delaying one party or limiting when a refund path can be used. They do not make every node agree on a global ordering of unconfirmed transactions, so they do not remove the need to wait for confirmations when loss from a double spend would be unacceptable.
+
 Bitcoin Core provides several `RPCs <../reference/rpc/index.html>`__ which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ provides an array of every satoshi you can spend along with its confirmation score.
 
 Although confirmations provide excellent double-spend protection most of the time, there are at least three cases where double-spend risk analysis can be required:
@@ -347,4 +358,3 @@ Non-automated rebilling can be managed by the same mechanism used before credit-
 In the future, extensions to the payment protocol and new wallet features may allow some wallet programs to manage a list of recurring transactions. The spender will still need to start the program on a regular basis and authorize payment—but it should be easier and more secure for the spender than clicking an emailed invoice, increasing the chance receivers get paid on time.
 
 .. |Warning icon| image:: /img/icons/icon_warning.svg
-
