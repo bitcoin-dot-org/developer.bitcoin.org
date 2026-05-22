@@ -250,15 +250,15 @@ Another good source of double-spend protection can be human intelligence. For ex
 Evaluating Unconfirmed Payments
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Applications sometimes accept zero-confirmation payments when waiting for a
+Applications sometimes accept zero confirmation payments when waiting for a
 block would make the user experience unacceptable. This is a policy decision,
 not a consensus rule. Before a transaction is mined, each node only knows the
-transactions it has accepted into its own memory pool and learned from its
-peers. Nodes can disagree about the contents of their memory pools because
+transactions it has accepted into its own memory pool or learned about from
+its peers. Nodes can disagree about the contents of their memory pools because
 they use local relay policies, connect to different peers, and may learn about
 conflicting transactions in a different order.
 
-For that reason, a zero-confirmation double spend is different from a
+For that reason, a zero confirmation double spend is different from a
 confirmed double spend. While the payment is unconfirmed, two peers may relay
 two transactions that spend the same output, and only a mined block decides
 which spend becomes part of the best block chain. After a transaction is
