@@ -50,8 +50,8 @@ Decentralized Pool Mining
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Some pool software can reduce reliance on a single pool operator by moving
-share validation and payout construction into a peer-to-peer network. `P2Pool
-<https://github.com/p2pool/p2pool>`__ was an early example of this design.
+share validation and payout construction into a peer-to-peer network.
+`P2Pool <https://github.com/p2pool/p2pool>`__ was an early example of this design.
 Instead of sending all shares to a central server, miners connect to P2Pool
 nodes that maintain a lower-difficulty chain of shares, often called a
 sharechain.
@@ -65,9 +65,9 @@ share owners directly according to the work recorded in the sharechain.
 
 This makes payout calculation auditable by participating nodes and removes the
 need for a pool operator to custody the block reward before paying miners. The
-tradeoffs are that miners need a full node and a P2Pool node, and stale shares
-can be more visible because the sharechain advances far faster than the block
-chain.
+tradeoffs are that trust-minimized participation requires a full node and a
+P2Pool node, and stale shares can be more visible because the sharechain
+advances far faster than the block chain.
 
 Block Prototypes
 ----------------
