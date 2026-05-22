@@ -46,6 +46,29 @@ The information the miner sends to the pool is called a share because it proves 
 
 The block reward and transaction fees that come from mining that block are paid to the mining pool. The mining pool pays out a portion of these proceeds to individual miners based on how many shares they generated. For example, if the mining pool’s target threshold is 100 times lower than the `network <../devguide/p2p_network.html>`__ target threshold, 100 shares will need to be generated on average to create a successful block, so the mining pool can pay 1/100th of its payout for each share received. Different mining pools use different reward distribution systems based on this basic share system.
 
+Decentralized Pool Mining
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Some pool software can reduce reliance on a single pool operator by moving
+share validation and payout construction into a peer-to-peer network. `P2Pool
+<https://github.com/p2pool/p2pool>`__ was an early example of this design.
+Instead of sending all shares to a central server, miners connect to P2Pool
+nodes that maintain a lower-difficulty chain of shares, often called a
+sharechain.
+
+Each share commits to a candidate Bitcoin block and to the previous share.
+P2Pool nodes validate shares, adjust the share target so shares are found much
+more frequently than Bitcoin blocks, and keep a recent window of shares. When
+one of those shares also satisfies the Bitcoin network target, it can be
+broadcast as a Bitcoin block. The block’s coinbase transaction pays recent
+share owners directly according to the work recorded in the sharechain.
+
+This makes payout calculation auditable by participating nodes and removes the
+need for a pool operator to custody the block reward before paying miners. The
+tradeoffs are that miners need a full node and a P2Pool node, and stale shares
+can be more visible because the sharechain advances far faster than the block
+chain.
+
 Block Prototypes
 ----------------
 
