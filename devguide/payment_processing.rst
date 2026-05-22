@@ -247,6 +247,50 @@ Another example could be to detect a fork when multiple peers report differing b
 
 Another good source of double-spend protection can be human intelligence. For example, fraudsters may act differently from legitimate customers, letting savvy merchants manually flag them as high risk. Your program can provide a safe mode which stops automatic payment acceptance on a global or per-customer basis.
 
+Evaluating Unconfirmed Payments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Applications sometimes accept zero-confirmation payments when waiting for a
+block would make the user experience unacceptable. This is a policy decision,
+not a consensus rule. Before a transaction is mined, each node only knows the
+transactions it has accepted into its own memory pool and learned from its
+peers. Nodes can disagree about the contents of their memory pools because
+they use local relay policies, connect to different peers, and may learn about
+conflicting transactions in a different order.
+
+For that reason, a zero-confirmation double spend is different from a
+confirmed double spend. While the payment is unconfirmed, two peers may relay
+two transactions that spend the same output, and only a mined block decides
+which spend becomes part of the best block chain. After a transaction is
+confirmed, replacing it requires replacing the block that confirmed it and,
+for older confirmations, its descendants.
+
+Receivers that accept unconfirmed payments should treat the payment as
+revocable until it confirms. Useful risk checks include requiring the
+transaction to be
+`standard <../devguide/transactions.html#non-standard-transactions>`__,
+checking that it pays a competitive fee, monitoring multiple peers for
+conflicting spends, and refusing payment if the transaction is replaced,
+disappears from the receiver's peers, or spends unconfirmed outputs from
+unrelated transactions. A low-fee transaction can also become stuck for a long
+time if miners choose other transactions first; applications should expire
+unpaid invoices and avoid delivering irreversible goods until their risk
+policy is satisfied.
+
+Some contracts can reduce what a counterparty is able to do before
+confirmation, but they do not create instant consensus. For example,
+``OP_CHECKLOCKTIMEVERIFY`` (CLTV) and ``OP_CHECKSEQUENCEVERIFY`` (CSV)
+can make a spending path invalid until an absolute or relative
+`locktime <../devguide/transactions.html#locktime-and-sequence-number>`__
+has expired. Used in
+`micropayment channel <../devguide/contracts.html#micropayment-channel>`__
+contracts, those constraints can limit the set of valid future spends between
+cooperating parties. They are only useful when the receiver has verified the
+exact contract being used and has a plan for monitoring and broadcasting the
+required transactions. For ordinary payments, the conservative rule remains
+simple: wait for one or more confirmations before treating the payment as
+final.
+
 Issuing Refunds
 ---------------
 
