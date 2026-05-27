@@ -46,6 +46,66 @@ The information the miner sends to the pool is called a share because it proves 
 
 The block reward and transaction fees that come from mining that block are paid to the mining pool. The mining pool pays out a portion of these proceeds to individual miners based on how many shares they generated. For example, if the mining pool’s target threshold is 100 times lower than the `network <../devguide/p2p_network.html>`__ target threshold, 100 shares will need to be generated on average to create a successful block, so the mining pool can pay 1/100th of its payout for each share received. Different mining pools use different reward distribution systems based on this basic share system.
 
+P2Pool
+------
+
+P2Pool is a decentralized mining pool design that reduces payout
+variance without requiring miners to trust a central pool operator to
+choose transactions or account for shares. To use P2Pool, miners run
+P2Pool software alongside a full node such as Bitcoin Core. The full
+node provides validated transactions and blocks; P2Pool coordinates
+lower-difficulty shares over its own peer-to-peer network.
+
+Unlike a traditional pool, P2Pool does not rely on a server-side
+database to track submitted shares. Instead it builds an alternative
+block chain called a *share chain*. New shares are added to the share
+chain much more frequently than Bitcoin blocks, and each share refers to
+previous shares so that P2Pool nodes can choose the best share chain by
+cumulative proof of work in much the same way Bitcoin nodes choose the
+best block chain.
+
+.. figure:: /img/dev/en-share-chain-block-chain.svg
+   :alt: Comparison of the Bitcoin block chain and the P2Pool share chain
+
+   Comparison of the Bitcoin block chain and the P2Pool share chain
+
+Each P2Pool share is a block candidate whose header hash is below the
+P2Pool share target but usually above Bitcoin's network target. Shares
+therefore provide frequent proof that miners contributed work even when
+they do not find a Bitcoin block. Occasionally a share is also below the
+Bitcoin network target; in that case it is a valid Bitcoin block and can
+be broadcast to the network.
+
+The share chain is what lets P2Pool avoid custodial pool accounting. A
+valid P2Pool share commits to a coinbase transaction that pays recent
+share owners directly, commonly using a pay-per-last-N-shares-style
+formula. There is no separate pool wallet that receives the full block
+reward and later redistributes it; the payout commitments are part of
+the block candidate itself.
+
+To mine on P2Pool, the miner's software gets transactions from the local
+full node, constructs block candidates, and returns the shares and
+blocks it finds to the P2Pool and Bitcoin networks.
+
+.. figure:: /img/dev/en-p2pool-decentralized-mining.svg
+   :alt: Peer-to-peer decentralized mining with P2Pool
+
+   Peer-to-peer decentralized mining with P2Pool
+
+P2Pool improves decentralization because miners can build blocks from
+their own full node's view of valid transactions instead of delegating
+all block construction policy to a pool server. This reduces the ability
+of a large pool operator to censor transactions or direct many miners
+into an attack. The tradeoff is that miners must run additional
+software, keep a full node available, and still accept the variance of
+the P2Pool network they join. Very small miners may still experience
+high share variance if total P2Pool hash rate is low.
+
+**Resources:** The Bitcoin Wiki has a `P2Pool overview
+<https://en.bitcoin.it/wiki/P2Pool>`__, and the original `P2Pool source
+repository <https://github.com/p2pool/p2pool>`__ is available on
+GitHub.
+
 Block Prototypes
 ----------------
 
