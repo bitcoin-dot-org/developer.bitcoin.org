@@ -221,13 +221,64 @@ Two or more transactions spending the same input are commonly referred to as a :
 
 Once the transaction is included in a block, double spends are impossible without modifying block chain history to replace the transaction, which is quite difficult. Using this system, the Bitcoin protocol can give each of your transactions an updating confidence score based on the number of blocks which would need to be modified to replace a transaction. For each block, the transaction gains one :term:`confirmation <Confirmation score>`. Since modifying blocks is quite difficult, higher confirmation scores indicate greater protection.
 
-**0 confirmations**: The transaction has been broadcast but is still not included in any block. Zero confirmation transactions (unconfirmed transactions) should generally not be trusted without risk analysis. Although miners usually confirm the first transaction they receive, fraudsters may be able to manipulate the `network <../devguide/p2p_network.html>`__ into including their version of a transaction.
+**0 confirmations**: The transaction has been broadcast but is still
+not included in any block. Unconfirmed transactions should generally not
+be trusted without risk analysis. A transaction seen in a node's
+`memory pool <../devguide/p2p_network.html#memory-pool>`__ is evidence
+that the node accepted it under its local relay policy; it is not a
+network-wide consensus result. Other nodes may not have seen the
+transaction, may have evicted it, or may prefer a conflicting
+transaction spending one or more of the same inputs.
 
 **1 confirmation**: The transaction is included in the latest block and double-spend risk decreases dramatically. Transactions which pay sufficient transaction fees need 10 minutes on average to receive one confirmation. However, the most recent block gets replaced fairly often by accident, so a double spend is still a real possibility.
 
 **2 confirmations**: The most recent block was chained to the block which includes the transaction. As of March 2014, two block replacements were exceedingly rare, and a two block replacement attack was impractical without expensive mining equipment.
 
 **6 confirmations**: The `network <../devguide/p2p_network.html>`__ has spent about an hour working to protect the transaction against double spends and the transaction is buried under six blocks. Even a reasonably lucky attacker would require a large percentage of the total `network <../devguide/p2p_network.html>`__ hashing power to replace six blocks. Although this number is somewhat arbitrary, software handling high-value transactions, or otherwise at risk for fraud, should wait for at least six confirmations before treating a payment as accepted.
+
+Unconfirmed Payment Risk
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Applications which accept an unconfirmed on-chain transaction are
+accepting risk before miners have committed to any ordering of that
+transaction's inputs. A double-spend attempt can be visible before
+confirmation if peers announce two conflicting transactions, but the
+absence of a visible conflict is not proof that no conflict exists. The
+spender may have sent different transactions to different peers, or a
+miner may include a transaction the receiver's node did not see first.
+
+Mempool monitoring is therefore useful only as risk evidence. An
+application can reduce risk by checking whether the transaction
+propagates to several well-connected peers, watching for conflicts,
+requiring a fee rate likely to confirm promptly, limiting unconfirmed
+acceptance to low-value payments, and escalating suspicious or
+high-value payments to manual review. If a conflict appears, if
+propagation is poor, or if the payment value exceeds the application's
+risk limit, the application should wait for one or more confirmations
+before treating the payment as final.
+
+Fee policy also matters. Low-fee transactions may stop propagating, be
+evicted from nodes' memory pools, or remain unconfirmed while miners
+select higher-fee transactions. Replace-by-fee (RBF) and
+child-pays-for-parent (CPFP) can change mining incentives, but neither
+creates instant finality. Applications should define expiration,
+support, refund, or rebroadcast workflows for payments that remain
+unconfirmed longer than expected.
+
+Time locks can constrain some protocols but do not make ordinary
+unconfirmed payments final. ``OP_CHECKLOCKTIMEVERIFY`` (CLTV) and
+``OP_CHECKSEQUENCEVERIFY`` (CSV) can require particular spending paths
+to wait until a height, time, or relative delay before they become valid.
+These rules are useful in contracts such as payment channels and refund
+paths, but they do not create consensus about which unconfirmed
+transaction will be mined.
+
+Unconfirmed on-chain transactions should also be distinguished from
+off-chain payment protocols such as the Lightning Network. Lightning
+payments can complete quickly because the payment is resolved inside a
+protocol with pre-existing channel commitments and its own failure and
+timeout rules. That is different from treating a normal on-chain
+transaction as final before it has any block confirmations.
 
 Bitcoin Core provides several `RPCs <../reference/rpc/index.html>`__ which can provide your program with the confirmation score for transactions in your wallet or arbitrary transactions. For example, the `“listunspent” RPC <../reference/rpc/listunspent.html>`__ provides an array of every satoshi you can spend along with its confirmation score.
 
@@ -347,4 +398,3 @@ Non-automated rebilling can be managed by the same mechanism used before credit-
 In the future, extensions to the payment protocol and new wallet features may allow some wallet programs to manage a list of recurring transactions. The spender will still need to start the program on a regular basis and authorize payment—but it should be easier and more secure for the spender than clicking an emailed invoice, increasing the chance receivers get paid on time.
 
 .. |Warning icon| image:: /img/icons/icon_warning.svg
-
