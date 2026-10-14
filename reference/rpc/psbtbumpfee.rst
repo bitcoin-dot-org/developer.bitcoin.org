@@ -6,11 +6,11 @@ psbtbumpfee
 
 ``psbtbumpfee "txid" ( options )``
 
-Bumps the fee of an opt-in-RBF transaction T, replacing it with a new transaction B.
+Bumps the fee of a transaction T, replacing it with a new transaction B.
 
 Returns a PSBT instead of creating and signing a new transaction.
 
-An opt-in RBF transaction with the given txid must be in the wallet.
+A transaction with the given txid must be in the wallet.
 
 The command will pay the additional fee by reducing change outputs or adding inputs when necessary.
 
@@ -43,29 +43,46 @@ Argument #2 - options
 
 **Type:** json object, optional
 
+Options object that can be used to pass named arguments, listed below.
+       
+       Specify a fee rate in sat/vB instead of relying on the built-in fee estimator.
+       Must be at least 0.100 sat/vB higher than the current transaction fee rate.
+       WARNING: before version 0.21, fee_rate was in BTC/kvB. As of 0.21, fee_rate is in sat/vB.
+       
+       marked bip-125 replaceable. If true, the sequence numbers in the transaction will
+       be set to 0xfffffffd. If false, any input sequence numbers in the
+       transaction will be set to 0xfffffffe
+       so the new transaction will not be explicitly bip-125 replaceable (though it may
+       still be replaceable in practice, for example if it has unconfirmed ancestors which
+       are replaceable).
+       
+       unset, economical, conservative 
+       unset means no mode set (economical mode is used if the transaction is replaceable;
+       otherwise, conservative mode is used). 
+       economical estimates use a shorter time horizon, making them more
+       responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a lower fee rate estimate.
+       conservative estimates use a longer time horizon, making them
+       less responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a higher fee rate estimate.
+       
+       Each key may only appear once, i.e. there can only be one 'data' output, and no address may be duplicated.
+       At least one output of either type must be specified.
+       Cannot be provided if 'original_change_index' is specified.
+
 ::
 
-     {
-       "conf_target": n,          (numeric, optional, default=wallet -txconfirmtarget) Confirmation target in blocks
-                                  
-       "fee_rate": amount,        (numeric or string, optional, default=not set, fall back to wallet fee estimation) 
-                                  Specify a fee rate in sat/vB instead of relying on the built-in fee estimator.
-                                  Must be at least 1.000 sat/vB higher than the current transaction fee rate.
-                                  WARNING: before version 0.21, fee_rate was in BTC/kvB. As of 0.21, fee_rate is in sat/vB.
-                                  
-       "replaceable": bool,       (boolean, optional, default=true) Whether the new transaction should still be
-                                  marked bip-125 replaceable. If true, the sequence numbers in the transaction will
-                                  be left unchanged from the original. If false, any input sequence numbers in the
-                                  original transaction that were less than 0xfffffffe will be increased to 0xfffffffe
-                                  so the new transaction will not be explicitly bip-125 replaceable (though it may
-                                  still be replaceable in practice, for example if it has unconfirmed ancestors which
-                                  are replaceable).
-                                  
-       "estimate_mode": "str",    (string, optional, default=unset) The fee estimate mode, must be one of (case insensitive):
-                                  "unset"
-                                  "economical"
-                                  "conservative"
-     }
+     [
+       {                       (json object)
+         "address": amount,    (numeric or string, required) A key-value pair. The key (string) is the bitcoin address,
+                               the value (float or string) is the amount in BTC
+         ...
+       },
+       {                       (json object)
+         "data": "hex",        (string, required) A key-value pair. The key must be "data", the value is hex-encoded data that becomes a part of an OP_RETURN output
+       },
+       ...
+     ]
 
 Result
 ~~~~~~
@@ -88,7 +105,7 @@ Examples
 
 .. highlight:: shell
 
-Bump the fee, get the new transaction'spsbt::
+Bump the fee, get the new transaction's psbt::
 
   bitcoin-cli psbtbumpfee <txid>
 

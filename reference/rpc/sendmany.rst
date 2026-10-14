@@ -4,7 +4,7 @@
 sendmany
 ========
 
-``sendmany "" {"address":amount} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode" fee_rate verbose )``
+``sendmany ( "" ) {"address":amount,...} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode" fee_rate verbose )``
 
 Send multiple times. Amounts are double-precision floating point numbers.
 
@@ -13,7 +13,7 @@ Requires wallet passphrase to be set with walletpassphrase call if wallet is enc
 Argument #1 - dummy
 ~~~~~~~~~~~~~~~~~~~
 
-**Type:** string, required
+**Type:** string, optional, default="\"\""
 
 Must be set to "" for backwards compatibility.
 
@@ -28,6 +28,7 @@ The addresses and amounts
 
      {
        "address": amount,    (numeric or string, required) The bitcoin address is the key, the numeric amount (can be string) in BTC is the value
+       ...
      }
 
 Argument #3 - minconf
@@ -66,7 +67,7 @@ Argument #6 - replaceable
 
 **Type:** boolean, optional, default=wallet default
 
-Allow this transaction to be replaced by a transaction with higher fees via BIP 125
+Signal that this transaction can be replaced by a transaction (BIP 125)
 
 Argument #7 - conf_target
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,12 +79,19 @@ Confirmation target in blocks
 Argument #8 - estimate_mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** string, optional, default=unset
+**Type:** string, optional, default="unset"
 
 The fee estimate mode, must be one of (case insensitive):
-       "unset"
-       "economical"
-       "conservative"
+       unset, economical, conservative 
+       unset means no mode set (economical mode is used if the transaction is replaceable;
+       otherwise, conservative mode is used). 
+       economical estimates use a shorter time horizon, making them more
+       responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a lower fee rate estimate.
+       conservative estimates use a longer time horizon, making them
+       less responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a higher fee rate estimate.
+       
 
 Argument #9 - fee_rate
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -113,7 +121,7 @@ Result (if verbose is set to true)
   {                          (json object)
     "txid" : "hex",          (string) The transaction id for the send. Only 1 transaction is created regardless of
                              the number of addresses.
-    "fee reason" : "str"     (string) The transaction fee reason.
+    "fee_reason" : "str"     (string) The transaction fee reason.
   }
 
 Examples
@@ -136,5 +144,5 @@ Send two amounts to two different addresses, subtract fee from amount:::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "sendmany", "params": ["", {"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl":0.01,"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3":0.02}, 6, "testing"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "sendmany", "params": ["", {"bc1q09vm5lfy0j5reeulh4x5752q25uqqvz34hufdl":0.01,"bc1q02ad21edsxd23d32dfgqqsz4vv4nmtfzuklhy3":0.02}, 6, "testing"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

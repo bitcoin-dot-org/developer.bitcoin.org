@@ -15,7 +15,7 @@ Argument #1 - mode
 
 determines what kind of information is returned.
        - "stats" returns general statistics about memory usage in the daemon.
-       - "mallocinfo" returns an XML string describing low-level heap state (only available if compiled with glibc 2.10+).
+       - "mallocinfo" returns an XML string describing low-level heap state (only available if compiled with glibc).
 
 Result (mode "stats")
 ~~~~~~~~~~~~~~~~~~~~~
@@ -58,5 +58,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmemoryinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getmemoryinfo", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

@@ -16,12 +16,10 @@ The arguments are evaluated in order "include", "exclude".
 
 If an item is both included and excluded, it will thus end up being excluded.
 
-The valid logging categories are: net, tor, mempool, http, bench, zmq, walletdb, rpc, estimatefee, addrman, selectcoins, reindex, cmpctblock, rand, prune, proxy, mempoolrej, libevent, coindb, qt, leveldb, validation
+The valid logging categories are: addrman, bench, blockstorage, cmpctblock, coindb, estimatefee, http, i2p, ipc, leveldb, libevent, mempool, mempoolrej, net, proxy, prune, qt, rand, reindex, rpc, scan, selectcoins, tor, txpackages, txreconciliation, validation, walletdb, zmq
 In addition, the following are available as category names with special meanings:
 
   - "all",  "1" : represent all logging categories.
-
-  - "none", "0" : even if other logging categories are specified, ignore all of them.
 
 Argument #1 - include
 ~~~~~~~~~~~~~~~~~~~~~
@@ -73,5 +71,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "logging", "params": [["all"], ["libevent"]]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "logging", "params": [["all"], ["libevent"]]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

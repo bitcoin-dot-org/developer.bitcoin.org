@@ -29,8 +29,15 @@ Argument #3 - include_mempool
 
 Whether to include the mempool. Note that an unspent output that is spent in the mempool won't appear.
 
-Result
-~~~~~~
+Result (If the UTXO was not found)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  null    (json null)
+
+Result (Otherwise)
+~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -39,14 +46,11 @@ Result
     "confirmations" : n,        (numeric) The number of confirmations
     "value" : n,                (numeric) The transaction value in BTC
     "scriptPubKey" : {          (json object)
-      "asm" : "hex",            (string)
-      "hex" : "hex",            (string)
-      "reqSigs" : n,            (numeric) Number of required signatures
-      "type" : "hex",           (string) The type, eg pubkeyhash
-      "addresses" : [           (json array) array of bitcoin addresses
-        "str",                  (string) bitcoin address
-        ...
-      ]
+      "asm" : "str",            (string) Disassembly of the output script
+      "desc" : "str",           (string) Inferred descriptor for the output
+      "hex" : "hex",            (string) The raw output script bytes, hex-encoded
+      "type" : "str",           (string) The type, eg pubkeyhash
+      "address" : "str"         (string, optional) The Bitcoin address (only if a well-defined address exists)
     },
     "coinbase" : true|false     (boolean) Coinbase or not
   }
@@ -67,5 +71,5 @@ View the details::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettxout", "params": ["txid", 1]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "gettxout", "params": ["txid", 1]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

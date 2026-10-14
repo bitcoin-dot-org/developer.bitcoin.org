@@ -10,16 +10,21 @@ Blockchain RPCs
 .. toctree::
   :maxdepth: 1
 
+  dumptxoutset
   getbestblockhash
   getblock
   getblockchaininfo
   getblockcount
   getblockfilter
+  getblockfrompeer
   getblockhash
   getblockheader
   getblockstats
+  getchainstates
   getchaintips
   getchaintxstats
+  getdeploymentinfo
+  getdescriptoractivity
   getdifficulty
   getmempoolancestors
   getmempooldescendants
@@ -29,12 +34,19 @@ Blockchain RPCs
   gettxout
   gettxoutproof
   gettxoutsetinfo
+  gettxspendingprevout
+  importmempool
+  loadtxoutset
   preciousblock
   pruneblockchain
   savemempool
+  scanblocks
   scantxoutset
   verifychain
   verifytxoutproof
+  waitforblock
+  waitforblockheight
+  waitfornewblock
 
 Control RPCs
 ------------
@@ -68,6 +80,7 @@ Mining RPCs
   getblocktemplate
   getmininginfo
   getnetworkhashps
+  getprioritisedtransactions
   prioritisetransaction
   submitblock
   submitheader
@@ -82,6 +95,7 @@ Network RPCs
   clearbanned
   disconnectnode
   getaddednodeinfo
+  getaddrmaninfo
   getconnectioncount
   getnettotals
   getnetworkinfo
@@ -107,14 +121,24 @@ Rawtransactions RPCs
   decodepsbt
   decoderawtransaction
   decodescript
+  descriptorprocesspsbt
   finalizepsbt
   fundrawtransaction
   getrawtransaction
   joinpsbts
   sendrawtransaction
   signrawtransactionwithkey
+  submitpackage
   testmempoolaccept
   utxoupdatepsbt
+
+Signer RPCs
+-----------
+
+.. toctree::
+  :maxdepth: 1
+
+  enumeratesigners
 
 Util RPCs
 ---------
@@ -142,33 +166,27 @@ with wallet support, which is the default.
 
   abandontransaction
   abortrescan
-  addmultisigaddress
   backupwallet
   bumpfee
   createwallet
-  dumpprivkey
-  dumpwallet
+  createwalletdescriptor
   encryptwallet
   getaddressesbylabel
   getaddressinfo
   getbalance
   getbalances
+  gethdkeys
   getnewaddress
   getrawchangeaddress
   getreceivedbyaddress
   getreceivedbylabel
   gettransaction
-  getunconfirmedbalance
   getwalletinfo
-  importaddress
   importdescriptors
-  importmulti
-  importprivkey
   importprunedfunds
-  importpubkey
-  importwallet
   keypoolrefill
   listaddressgroupings
+  listdescriptors
   listlabels
   listlockunspent
   listreceivedbyaddress
@@ -180,21 +198,24 @@ with wallet support, which is the default.
   listwallets
   loadwallet
   lockunspent
+  migratewallet
   psbtbumpfee
   removeprunedfunds
   rescanblockchain
+  restorewallet
   send
+  sendall
   sendmany
   sendtoaddress
-  sethdseed
   setlabel
   settxfee
   setwalletflag
   signmessage
   signrawtransactionwithwallet
+  simulaterawtransaction
   unloadwallet
-  upgradewallet
   walletcreatefundedpsbt
+  walletdisplayaddress
   walletlock
   walletpassphrase
   walletpassphrasechange

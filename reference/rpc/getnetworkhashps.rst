@@ -17,7 +17,7 @@ Argument #1 - nblocks
 
 **Type:** numeric, optional, default=120
 
-The number of blocks, or -1 for blocks since last difficulty change.
+The number of previous blocks to calculate estimate from, or -1 for blocks since last difficulty change.
 
 Argument #2 - height
 ~~~~~~~~~~~~~~~~~~~~
@@ -51,5 +51,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnetworkhashps", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getnetworkhashps", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

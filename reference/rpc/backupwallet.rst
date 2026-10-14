@@ -6,7 +6,7 @@ backupwallet
 
 ``backupwallet "destination"``
 
-Safely copies current wallet file to destination, which can be a directory or a path with filename.
+Safely copies the current wallet file to the specified destination, which can either be a directory or a path with a filename.
 
 Argument #1 - destination
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,5 +34,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "backupwallet", "params": ["backup.dat"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "backupwallet", "params": ["backup.dat"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

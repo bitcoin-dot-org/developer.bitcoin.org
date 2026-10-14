@@ -45,5 +45,5 @@ List labels that have sending addresses::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listlabels", "params": [receive]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "listlabels", "params": [receive]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

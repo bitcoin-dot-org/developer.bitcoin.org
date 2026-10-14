@@ -4,18 +4,21 @@
 createpsbt
 ==========
 
-``createpsbt [{"txid":"hex","vout":n,"sequence":n},...] [{"address":amount},{"data":"hex"},...] ( locktime replaceable )``
+``createpsbt [{"txid":"hex","vout":n,"sequence":n},...] [{"address":amount,...},{"data":"hex"},...] ( locktime replaceable version )``
 
 Creates a transaction in the Partially Signed Transaction format.
 
 Implements the Creator role.
+
+Note that the transaction's inputs are not signed, and
+it is not stored in the wallet or transmitted to the network.
 
 Argument #1 - inputs
 ~~~~~~~~~~~~~~~~~~~~
 
 **Type:** json array, required
 
-The json objects
+The inputs
 
 ::
 
@@ -33,8 +36,9 @@ Argument #2 - outputs
 
 **Type:** json array, required
 
-The outputs (key-value pairs), where none of the keys are duplicated.
-       That is, each address can only appear once and there can only be one 'data' object.
+The outputs specified as key-value pairs.
+       Each key may only appear once, i.e. there can only be one 'data' output, and no address may be duplicated.
+       At least one output of either type must be specified.
        For compatibility reasons, a dictionary, which holds the key-value pairs directly, is also
        accepted as second parameter.
 
@@ -43,9 +47,10 @@ The outputs (key-value pairs), where none of the keys are duplicated.
      [
        {                       (json object)
          "address": amount,    (numeric or string, required) A key-value pair. The key (string) is the bitcoin address, the value (float or string) is the amount in BTC
+         ...
        },
        {                       (json object)
-         "data": "hex",        (string, required) A key-value pair. The key must be "data", the value is hex-encoded data
+         "data": "hex",        (string, required) A key-value pair. The key must be "data", the value is hex-encoded data that becomes a part of an OP_RETURN output
        },
        ...
      ]
@@ -60,10 +65,17 @@ Raw locktime. Non-0 value also locktime-activates inputs
 Argument #4 - replaceable
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** boolean, optional, default=false
+**Type:** boolean, optional, default=true
 
-Marks this transaction as BIP125 replaceable.
+Marks this transaction as BIP125-replaceable.
        Allows this transaction to be replaced by a transaction with higher fees. If provided, it is an error if explicit sequence numbers are incompatible.
+
+Argument #5 - version
+~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** numeric, optional, default=2
+
+Transaction version
 
 Result
 ~~~~~~
@@ -86,5 +98,5 @@ Examples
 
 ::
 
-  bitcoin-cli createpsbt "[{\"txid\":\"myid\",\"vout\":0}]" "[{\"data\":\"00010203\"}]"
+  bitcoin-cli createpsbt "[{\"txid\":\"myid\",\"vout\":0}]" "[{\"address\":0.01}]"
 

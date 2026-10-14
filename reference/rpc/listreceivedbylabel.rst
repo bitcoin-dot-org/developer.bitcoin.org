@@ -4,7 +4,7 @@
 listreceivedbylabel
 ===================
 
-``listreceivedbylabel ( minconf include_empty include_watchonly )``
+``listreceivedbylabel ( minconf include_empty include_watchonly include_immature_coinbase )``
 
 List received transactions by label.
 
@@ -25,21 +25,27 @@ Whether to include labels that haven't received any payments.
 Argument #3 - include_watchonly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** boolean, optional, default=true for watch-only wallets, otherwise false
+**Type:** boolean, optional, default=false
 
-Whether to include watch-only addresses (see 'importaddress')
+(DEPRECATED) No longer used
+
+Argument #4 - include_immature_coinbase
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** boolean, optional, default=false
+
+Include immature coinbase transactions.
 
 Result
 ~~~~~~
 
 ::
 
-  [                                        (json array)
-    {                                      (json object)
-      "involvesWatchonly" : true|false,    (boolean) Only returns true if imported addresses were involved in transaction
-      "amount" : n,                        (numeric) The total amount received by addresses with this label
-      "confirmations" : n,                 (numeric) The number of confirmations of the most recent transaction included
-      "label" : "str"                      (string) The label of the receiving address. The default label is ""
+  [                           (json array)
+    {                         (json object)
+      "amount" : n,           (numeric) The total amount received by addresses with this label
+      "confirmations" : n,    (numeric) The number of confirmations of the most recent transaction included
+      "label" : "str"         (string) The label of the receiving address. The default label is ""
     },
     ...
   ]
@@ -60,5 +66,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listreceivedbylabel", "params": [6, true, true]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "listreceivedbylabel", "params": [6, true, true, true]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

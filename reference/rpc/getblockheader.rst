@@ -39,12 +39,13 @@ Result (for verbose = true)
     "time" : xxx,                   (numeric) The block time expressed in UNIX epoch time
     "mediantime" : xxx,             (numeric) The median block time expressed in UNIX epoch time
     "nonce" : n,                    (numeric) The nonce
-    "bits" : "hex",                 (string) The bits
+    "bits" : "hex",                 (string) nBits: compact representation of the block difficulty target
+    "target" : "hex",               (string) The difficulty target
     "difficulty" : n,               (numeric) The difficulty
     "chainwork" : "hex",            (string) Expected number of hashes required to produce the current chain
     "nTx" : n,                      (numeric) The number of transactions in the block
-    "previousblockhash" : "hex",    (string) The hash of the previous block
-    "nextblockhash" : "hex"         (string) The hash of the next block
+    "previousblockhash" : "hex",    (string, optional) The hash of the previous block (if available)
+    "nextblockhash" : "hex"         (string, optional) The hash of the next block (if available)
   }
 
 Result (for verbose=false)
@@ -72,5 +73,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblockheader", "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getblockheader", "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

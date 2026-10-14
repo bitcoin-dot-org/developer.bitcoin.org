@@ -6,6 +6,9 @@ pruneblockchain
 
 ``pruneblockchain height``
 
+Attempts to delete block and undo data up to a specified height or timestamp, if eligible for pruning.
+
+Requires `-prune` to be enabled at startup. While pruned data may be re-fetched in some cases (e.g., via `getblockfrompeer`), local deletion is irreversible.
 
 Argument #1 - height
 ~~~~~~~~~~~~~~~~~~~~
@@ -40,5 +43,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "pruneblockchain", "params": [1000]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "pruneblockchain", "params": [1000]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

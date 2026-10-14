@@ -33,10 +33,10 @@ The previous dependent transaction outputs
        {                            (json object)
          "txid": "hex",             (string, required) The transaction id
          "vout": n,                 (numeric, required) The output number
-         "scriptPubKey": "hex",     (string, required) script key
-         "redeemScript": "hex",     (string) (required for P2SH) redeem script
-         "witnessScript": "hex",    (string) (required for P2WSH or P2SH-P2WSH) witness script
-         "amount": amount,          (numeric or string) (required for Segwit inputs) the amount spent
+         "scriptPubKey": "hex",     (string, required) The output script
+         "redeemScript": "hex",     (string, optional) (required for P2SH) redeem script
+         "witnessScript": "hex",    (string, optional) (required for P2WSH or P2SH-P2WSH) witness script
+         "amount": amount,          (numeric or string, optional) (required for Segwit inputs) the amount spent
        },
        ...
      ]
@@ -44,9 +44,10 @@ The previous dependent transaction outputs
 Argument #3 - sighashtype
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** string, optional, default=ALL
+**Type:** string, optional, default="DEFAULT for Taproot, ALL otherwise"
 
 The signature hash type. Must be one of
+       "DEFAULT"
        "ALL"
        "NONE"
        "SINGLE"
@@ -66,6 +67,10 @@ Result
       {                         (json object)
         "txid" : "hex",         (string) The hash of the referenced, previous transaction
         "vout" : n,             (numeric) The index of the output to spent and used as input
+        "witness" : [           (json array)
+          "hex",                (string)
+          ...
+        ],
         "scriptSig" : "hex",    (string) The hex-encoded signature script
         "sequence" : n,         (numeric) Script sequence number
         "error" : "str"         (string) Verification or signing error related to the input
@@ -86,5 +91,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "signrawtransactionwithwallet", "params": ["myhex"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "signrawtransactionwithwallet", "params": ["myhex"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

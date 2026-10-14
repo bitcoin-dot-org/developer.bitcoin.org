@@ -32,43 +32,41 @@ Result
 
 ::
 
-  {                           (json object)
-    "txid" : "hex",           (string) The transaction id
-    "hash" : "hex",           (string) The transaction hash (differs from txid for witness transactions)
-    "size" : n,               (numeric) The transaction size
-    "vsize" : n,              (numeric) The virtual transaction size (differs from size for witness transactions)
-    "weight" : n,             (numeric) The transaction's weight (between vsize*4 - 3 and vsize*4)
-    "version" : n,            (numeric) The version
-    "locktime" : xxx,         (numeric) The lock time
-    "vin" : [                 (json array)
-      {                       (json object)
-        "txid" : "hex",       (string) The transaction id
-        "vout" : n,           (numeric) The output number
-        "scriptSig" : {       (json object) The script
-          "asm" : "str",      (string) asm
-          "hex" : "hex"       (string) hex
+  {                             (json object)
+    "txid" : "hex",             (string) The transaction id
+    "hash" : "hex",             (string) The transaction hash (differs from txid for witness transactions)
+    "size" : n,                 (numeric) The serialized transaction size
+    "vsize" : n,                (numeric) The virtual transaction size (differs from size for witness transactions)
+    "weight" : n,               (numeric) The transaction's weight (between vsize*4-3 and vsize*4)
+    "version" : n,              (numeric) The version
+    "locktime" : xxx,           (numeric) The lock time
+    "vin" : [                   (json array)
+      {                         (json object)
+        "coinbase" : "hex",     (string, optional) The coinbase value (only if coinbase transaction)
+        "txid" : "hex",         (string, optional) The transaction id (if not coinbase transaction)
+        "vout" : n,             (numeric, optional) The output number (if not coinbase transaction)
+        "scriptSig" : {         (json object, optional) The script (if not coinbase transaction)
+          "asm" : "str",        (string) Disassembly of the signature script
+          "hex" : "hex"         (string) The raw signature script bytes, hex-encoded
         },
-        "txinwitness" : [     (json array)
-          "hex",              (string) hex-encoded witness data (if any)
+        "txinwitness" : [       (json array, optional)
+          "hex",                (string) hex-encoded witness data (if any)
           ...
         ],
-        "sequence" : n        (numeric) The script sequence number
+        "sequence" : n          (numeric) The script sequence number
       },
       ...
     ],
-    "vout" : [                (json array)
-      {                       (json object)
-        "value" : n,          (numeric) The value in BTC
-        "n" : n,              (numeric) index
-        "scriptPubKey" : {    (json object)
-          "asm" : "str",      (string) the asm
-          "hex" : "hex",      (string) the hex
-          "reqSigs" : n,      (numeric) The required sigs
-          "type" : "str",     (string) The type, eg 'pubkeyhash'
-          "addresses" : [     (json array)
-            "str",            (string) bitcoin address
-            ...
-          ]
+    "vout" : [                  (json array)
+      {                         (json object)
+        "value" : n,            (numeric) The value in BTC
+        "n" : n,                (numeric) index
+        "scriptPubKey" : {      (json object)
+          "asm" : "str",        (string) Disassembly of the output script
+          "desc" : "str",       (string) Inferred descriptor for the output
+          "hex" : "hex",        (string) The raw output script bytes, hex-encoded
+          "address" : "str",    (string, optional) The Bitcoin address (only if a well-defined address exists)
+          "type" : "str"        (string) The type (one of: nonstandard, anchor, pubkey, pubkeyhash, scripthash, multisig, nulldata, witness_v0_scripthash, witness_v0_keyhash, witness_v1_taproot, witness_unknown)
         }
       },
       ...
@@ -87,5 +85,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "decoderawtransaction", "params": ["hexstring"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "decoderawtransaction", "params": ["hexstring"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

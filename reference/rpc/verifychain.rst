@@ -39,7 +39,7 @@ Result
      - Description
    * - true|false
      - boolean
-     - Verified or not
+     - Verification finished successfully. If false, check debug.log for reason.
 
 Examples
 ~~~~~~~~
@@ -53,5 +53,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "verifychain", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "verifychain", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

@@ -8,7 +8,7 @@ finalizepsbt
 
 Finalize the inputs of a PSBT. If the transaction is fully signed, it will produce a
 network serialized transaction which can be broadcast with sendrawtransaction. Otherwise a PSBT will be
-created which has the final_scriptSig and final_scriptWitness fields filled for inputs that are complete.
+created which has the final_scriptSig and final_scriptwitness fields filled for inputs that are complete.
 
 Implements the Finalizer and Extractor roles.
 
@@ -33,8 +33,8 @@ Result
 ::
 
   {                             (json object)
-    "psbt" : "str",             (string) The base64-encoded partially signed transaction if not extracted
-    "hex" : "hex",              (string) The hex-encoded network transaction if extracted
+    "psbt" : "str",             (string, optional) The base64-encoded partially signed transaction if not extracted
+    "hex" : "hex",              (string, optional) The hex-encoded network transaction if extracted
     "complete" : true|false     (boolean) If the transaction has a complete set of signatures
   }
 

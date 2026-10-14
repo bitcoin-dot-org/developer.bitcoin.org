@@ -6,7 +6,7 @@ abortrescan
 
 ``abortrescan``
 
-Stops current wallet rescan triggered by an RPC call, e.g. by an importprivkey call.
+Stops current wallet rescan triggered by an RPC call, e.g. by a rescanblockchain call.
 
 Note: Use "getwalletinfo" to query the scanning progress.
 
@@ -31,7 +31,7 @@ Examples
 
 Import a private key::
 
-  bitcoin-cli importprivkey "mykey"
+  bitcoin-cli rescanblockchain
 
 Abort the running wallet rescan::
 
@@ -39,5 +39,5 @@ Abort the running wallet rescan::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "abortrescan", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "abortrescan", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

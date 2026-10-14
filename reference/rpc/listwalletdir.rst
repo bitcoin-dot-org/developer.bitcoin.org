@@ -16,7 +16,11 @@ Result
   {                        (json object)
     "wallets" : [          (json array)
       {                    (json object)
-        "name" : "str"     (string) The wallet name
+        "name" : "str",    (string) The wallet name
+        "warnings" : [     (json array, optional) Warning messages, if any, related to loading the wallet.
+          "str",           (string)
+          ...
+        ]
       },
       ...
     ]
@@ -34,5 +38,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listwalletdir", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "listwalletdir", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

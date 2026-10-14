@@ -10,6 +10,9 @@ Rescan the local blockchain for wallet related transactions.
 
 Note: Use "getwalletinfo" to query the scanning progress.
 
+The rescan is significantly faster if block filters are available
+(using startup option "-blockfilterindex=1").
+
 Argument #1 - start_height
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -46,5 +49,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "rescanblockchain", "params": [100000, 120000]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "rescanblockchain", "params": [100000, 120000]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

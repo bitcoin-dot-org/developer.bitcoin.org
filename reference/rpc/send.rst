@@ -4,7 +4,7 @@
 send
 ====
 
-``send [{"address":amount},{"data":"hex"},...] ( conf_target "estimate_mode" fee_rate options )``
+``send [{"address":amount,...},{"data":"hex"},...] ( conf_target "estimate_mode" fee_rate options version )``
 
 EXPERIMENTAL warning: this call may be changed in future releases.
 
@@ -15,18 +15,21 @@ Argument #1 - outputs
 
 **Type:** json array, required
 
-The outputs (key-value pairs), where none of the keys are duplicated.
-       That is, each address can only appear once and there can only be one 'data' object.
+The outputs specified as key-value pairs.
+       Each key may only appear once, i.e. there can only be one 'data' output, and no address may be duplicated.
+       At least one output of either type must be specified.
        For convenience, a dictionary, which holds the key-value pairs directly, is also accepted.
 
 ::
 
      [
-       {                                 (json object)
-         "address": amount,              (numeric or string, required) A key-value pair. The key (string) is the bitcoin address, the value (float or string) is the amount in BTC
+       {                       (json object)
+         "address": amount,    (numeric or string, required) A key-value pair. The key (string) is the bitcoin address,
+                               the value (float or string) is the amount in BTC
+         ...
        },
-       {                                 (json object)
-         "data": "hex",                  (string, required) A key-value pair. The key must be "data", the value is hex-encoded data
+       {                       (json object)
+         "data": "hex",        (string, required) A key-value pair. The key must be "data", the value is hex-encoded data that becomes a part of an OP_RETURN output
        },
        ...
      ]
@@ -41,12 +44,19 @@ Confirmation target in blocks
 Argument #3 - estimate_mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** string, optional, default=unset
+**Type:** string, optional, default="unset"
 
 The fee estimate mode, must be one of (case insensitive):
-       "unset"
-       "economical"
-       "conservative"
+       unset, economical, conservative 
+       unset means no mode set (economical mode is used if the transaction is replaceable;
+       otherwise, conservative mode is used). 
+       economical estimates use a shorter time horizon, making them more
+       responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a lower fee rate estimate.
+       conservative estimates use a longer time horizon, making them
+       less responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a higher fee rate estimate.
+       
 
 Argument #4 - fee_rate
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -60,41 +70,48 @@ Argument #5 - options
 
 **Type:** json object, optional
 
-"locktime": n,                    (numeric, optional, default=0) Raw locktime. Non-0 value also locktime-activates inputs
-       "lock_unspents": bool,            (boolean, optional, default=false) Lock selected unspent outputs
-       "psbt": bool,                     (boolean, optional, default=automatic) Always return a PSBT, implies add_to_wallet=false.
-       "subtract_fee_from_outputs": [    (json array, optional, default=empty array) Outputs to subtract the fee from, specified as integer indices.
+Options object that can be used to pass named arguments, listed below.
+
+Argument #6 - version
+~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** numeric, optional, default=2
+
+Transaction version
+       
+       Warning: the resulting transaction may become invalid if one of the unsafe inputs disappears.
+       If that happens, you will need to fund the transaction with different inputs and republish it.
        The fee will be equally deducted from the amount of each specified output.
        Those recipients will receive less bitcoins than you enter in their corresponding amount field.
        If no outputs are specified here, the sender pays the fee.
-       vout_index,                     (numeric) The zero-based output index, before a change output is added.
+       Transaction building will fail if this can not be satisfied.
+       unset, economical, conservative 
+       unset means no mode set (economical mode is used if the transaction is replaceable;
+       otherwise, conservative mode is used). 
+       economical estimates use a shorter time horizon, making them more
+       responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a lower fee rate estimate.
+       conservative estimates use a longer time horizon, making them
+       less responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a higher fee rate estimate.
+       
+       Allows this transaction to be replaced by a transaction with higher fees
+       Used for fee estimation during coin selection.
+       "scripts": [          (json array, optional, default=[]) Scripts involved in this transaction.
+       "script",           (string) A script
        ...
        ],
-       "replaceable": bool,              (boolean, optional, default=wallet default) Marks this transaction as BIP125 replaceable.
-       Allows this transaction to be replaced by a transaction with higher fees
+       "descriptors": [      (json array, optional, default=[]) Descriptors that provide solving data for this transaction.
+       "descriptor",       (string) A descriptor
+       ...
+       ],
        }
 
 ::
 
      {
-       "add_inputs": bool,               (boolean, optional, default=false) If inputs are specified, automatically include more if they are not enough.
-       "add_to_wallet": bool,            (boolean, optional, default=true) When false, returns a serialized transaction which will not be added to the wallet or broadcast
-       "change_address": "hex",          (string, optional, default=pool address) The bitcoin address to receive the change
-       "change_position": n,             (numeric, optional, default=random) The index of the change output
-       "change_type": "str",             (string, optional, default=set by -changetype) The output type to use. Only valid if change_address is not specified. Options are "legacy", "p2sh-segwit", and "bech32".
-       "conf_target": n,                 (numeric, optional, default=wallet -txconfirmtarget) Confirmation target in blocks
-       "estimate_mode": "str",           (string, optional, default=unset) The fee estimate mode, must be one of (case insensitive):
-                                         "unset"
-                                         "economical"
-                                         "conservative"
-       "fee_rate": amount,               (numeric or string, optional, default=not set, fall back to wallet fee estimation) Specify a fee rate in sat/vB.
-       "include_watching": bool,         (boolean, optional, default=true for watch-only wallets, otherwise false) Also select inputs which are watch only.
-                                         Only solvable inputs can be used. Watch-only destinations are solvable if the public key and/or output script was imported,
-                                         e.g. with 'importpubkey' or 'importmulti' with the 'pubkeys' or 'desc' field.
-       "inputs": [                       (json array, optional, default=empty array) Specify inputs instead of adding them automatically. A JSON array of JSON objects
-         "txid",                         (string, required) The transaction id
-         vout,                           (numeric, required) The output number
-         sequence,                       (numeric, required) The sequence number
+       "pubkeys": [          (json array, optional, default=[]) Public keys involved in this transaction.
+         "pubkey",           (string) A public key
          ...
        ],
 
@@ -105,9 +122,9 @@ Result
 
   {                             (json object)
     "complete" : true|false,    (boolean) If the transaction has a complete set of signatures
-    "txid" : "hex",             (string) The transaction id for the send. Only 1 transaction is created regardless of the number of addresses.
-    "hex" : "hex",              (string) If add_to_wallet is false, the hex-encoded raw transaction with signature(s)
-    "psbt" : "str"              (string) If more signatures are needed, or if add_to_wallet is false, the base64-encoded (partially) signed transaction
+    "txid" : "hex",             (string, optional) The transaction id for the send. Only 1 transaction is created regardless of the number of addresses.
+    "hex" : "hex",              (string, optional) If add_to_wallet is false, the hex-encoded raw transaction with signature(s)
+    "psbt" : "str"              (string, optional) If more signatures are needed, or if add_to_wallet is false, the base64-encoded (partially) signed transaction
   }
 
 Examples

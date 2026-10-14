@@ -24,8 +24,15 @@ Argument #2 - dummy
 
 dummy value, for compatibility with BIP22. This value is ignored.
 
-Result
-~~~~~~
+Result (If the block was accepted)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  null    (json null)
+
+Result (Otherwise)
+~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -33,9 +40,9 @@ Result
    * - Name
      - Type
      - Description
-   * - null
-     - json null
-     - Returns JSON Null when valid, a string according to BIP22 otherwise
+   * - str
+     - string
+     - According to BIP22
 
 Examples
 ~~~~~~~~
@@ -49,5 +56,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "submitblock", "params": ["mydata"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "submitblock", "params": ["mydata"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

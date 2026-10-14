@@ -21,17 +21,18 @@ Confirmation target in blocks (1 - 1008)
 Argument #2 - estimate_mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** string, optional, default=CONSERVATIVE
+**Type:** string, optional, default="economical"
 
 The fee estimate mode.
-       Whether to return a more conservative estimate which also satisfies
-       a longer history. A conservative estimate potentially returns a
-       higher feerate and is more likely to be sufficient for the desired
-       target, but is not as responsive to short term drops in the
-       prevailing fee market.  Must be one of:
-       "UNSET"
-       "ECONOMICAL"
-       "CONSERVATIVE"
+       unset, economical, conservative 
+       unset means no mode set (default mode will be used). 
+       economical estimates use a shorter time horizon, making them more
+       responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a lower fee rate estimate.
+       conservative estimates use a longer time horizon, making them
+       less responsive to short-term drops in the prevailing fee market. This mode
+       potentially returns a higher fee rate estimate.
+       
 
 Result
 ~~~~~~
@@ -39,7 +40,7 @@ Result
 ::
 
   {                   (json object)
-    "feerate" : n,    (numeric, optional) estimate fee rate in BTC/kB (only present if no errors were encountered)
+    "feerate" : n,    (numeric, optional) estimate fee rate in BTC/kvB (only present if no errors were encountered)
     "errors" : [      (json array, optional) Errors encountered during processing (if there are any)
       "str",          (string) error
       ...
@@ -60,4 +61,8 @@ Examples
 ::
 
   bitcoin-cli estimatesmartfee 6
+
+::
+
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "estimatesmartfee", "params": [6]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

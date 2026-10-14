@@ -10,14 +10,18 @@ List all manually banned IPs/Subnets.
 
 Result
 ~~~~~~
+
 ::
 
-  [
-    {
-    "address": <address>,             (string) The banned address.
-    "banned_until": <time>,           (numeric) The time (in seconds since Jan 1 1970 GMT) until the address is banned.
-    "ban_created": <time>,            (numeric) The time (in seconds since Jan 1 1970 GMT) when the ban was created.
-    }
+  [                              (json array)
+    {                            (json object)
+      "address" : "str",         (string) The IP/Subnet of the banned node
+      "ban_created" : xxx,       (numeric) The UNIX epoch time the ban was created
+      "banned_until" : xxx,      (numeric) The UNIX epoch time the ban expires
+      "ban_duration" : xxx,      (numeric) The ban duration, in seconds
+      "time_remaining" : xxx     (numeric) The time remaining until the ban expires, in seconds
+    },
+    ...
   ]
 
 Examples
@@ -32,5 +36,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listbanned", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "listbanned", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

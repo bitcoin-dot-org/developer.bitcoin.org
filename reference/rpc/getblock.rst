@@ -12,6 +12,8 @@ If verbosity is 1, returns an Object with information about block 'hash'.
 
 If verbosity is 2, returns an Object with information about block 'hash' and information about each transaction.
 
+If verbosity is 3, returns an Object with information about block 'hash' and information about each transaction, including prevout information for inputs (only for unpruned blocks in the current best chain).
+
 Argument #1 - blockhash
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -24,7 +26,7 @@ Argument #2 - verbosity
 
 **Type:** numeric, optional, default=1
 
-0 for hex-encoded data, 1 for a json object, and 2 for json object with transaction data
+0 for hex-encoded data, 1 for a JSON object, 2 for JSON object with transaction data, and 3 for JSON object with transaction data including prevout information for inputs
 
 Result (for verbosity = 0)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -61,12 +63,13 @@ Result (for verbosity = 1)
     "time" : xxx,                   (numeric) The block time expressed in UNIX epoch time
     "mediantime" : xxx,             (numeric) The median block time expressed in UNIX epoch time
     "nonce" : n,                    (numeric) The nonce
-    "bits" : "hex",                 (string) The bits
+    "bits" : "hex",                 (string) nBits: compact representation of the block difficulty target
+    "target" : "hex",               (string) The difficulty target
     "difficulty" : n,               (numeric) The difficulty
     "chainwork" : "hex",            (string) Expected number of hashes required to produce the chain up to this block (in hex)
     "nTx" : n,                      (numeric) The number of transactions in the block
-    "previousblockhash" : "hex",    (string) The hash of the previous block
-    "nextblockhash" : "hex"         (string) The hash of the next block
+    "previousblockhash" : "hex",    (string, optional) The hash of the previous block (if available)
+    "nextblockhash" : "hex"         (string, optional) The hash of the next block (if available)
   }
 
 Result (for verbosity = 2)
@@ -74,11 +77,44 @@ Result (for verbosity = 2)
 
 ::
 
-  {             (json object)
-    ...,        Same output as verbosity = 1
-    "tx" : [    (json array)
-      {         (json object)
-        ...     The transactions in the format of the getrawtransaction RPC. Different from verbosity = 1 "tx" result
+  {                   (json object)
+    ...,              Same output as verbosity = 1
+    "tx" : [          (json array)
+      {               (json object)
+        ...,          The transactions in the format of the getrawtransaction RPC. Different from verbosity = 1 "tx" result
+        "fee" : n     (numeric) The transaction fee in BTC, omitted if block undo data is not available
+      },
+      ...
+    ]
+  }
+
+Result (for verbosity = 3)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  {                                        (json object)
+    ...,                                   Same output as verbosity = 2
+    "tx" : [                               (json array)
+      {                                    (json object)
+        "vin" : [                          (json array)
+          {                                (json object)
+            ...,                           The same output as verbosity = 2
+            "prevout" : {                  (json object) (Only if undo information is available)
+              "generated" : true|false,    (boolean) Coinbase or not
+              "height" : n,                (numeric) The height of the prevout
+              "value" : n,                 (numeric) The value in BTC
+              "scriptPubKey" : {           (json object)
+                "asm" : "str",             (string) Disassembly of the output script
+                "desc" : "str",            (string) Inferred descriptor for the output
+                "hex" : "hex",             (string) The raw output script bytes, hex-encoded
+                "address" : "str",         (string, optional) The Bitcoin address (only if a well-defined address exists)
+                "type" : "str"             (string) The type (one of: nonstandard, anchor, pubkey, pubkeyhash, scripthash, multisig, nulldata, witness_v0_scripthash, witness_v0_keyhash, witness_v1_taproot, witness_unknown)
+              }
+            }
+          },
+          ...
+        ]
       },
       ...
     ]
@@ -96,5 +132,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getblock", "params": ["00000000c937983704a73af28acdec37b049d214adbda81d7e2a3dd146f6ed09"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

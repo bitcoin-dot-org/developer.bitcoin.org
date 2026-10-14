@@ -4,9 +4,9 @@
 generateblock
 =============
 
-``generateblock "output" ["rawtx/txid",...]``
+``generateblock "output" ["rawtx/txid",...] ( submit )``
 
-Mine a block with a set of ordered transactions immediately to a specified address or descriptor (before the RPC call returns)
+Mine a set of ordered transactions to a specified address or descriptor and return the block hash.
 
 Argument #1 - output
 ~~~~~~~~~~~~~~~~~~~~
@@ -31,13 +31,21 @@ An array of hex strings which are either txids or raw transactions.
        ...
      ]
 
+Argument #3 - submit
+~~~~~~~~~~~~~~~~~~~~
+
+**Type:** boolean, optional, default=true
+
+Whether to submit the block before the RPC call returns or to return it as hex.
+
 Result
 ~~~~~~
 
 ::
 
   {                    (json object)
-    "hash" : "hex"     (string) hash of generated block
+    "hash" : "hex",    (string) hash of generated block
+    "hex" : "hex"      (string, optional) hex of generated block, only present when submit=false
   }
 
 Examples

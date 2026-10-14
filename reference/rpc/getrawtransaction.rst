@@ -4,21 +4,21 @@
 getrawtransaction
 =================
 
-``getrawtransaction "txid" ( verbose "blockhash" )``
+``getrawtransaction "txid" ( verbosity "blockhash" )``
 
-Return the raw transaction data.
+By default, this call only returns a transaction if it is in the mempool. If -txindex is enabled
+and no blockhash argument is passed, it will return the transaction if it is in the mempool or any block.
 
-By default this function only works for mempool transactions. When called with a blockhash
-argument, getrawtransaction will return the transaction if the specified block is available and
-the transaction is found in that block. When called without a blockhash argument, getrawtransaction
-will return the transaction if it is in the mempool, or if -txindex is enabled and the transaction
-is in a block in the blockchain.
+If a blockhash argument is passed, it will return the transaction if
+the specified block is available and the transaction is in that block.
 
 Hint: Use gettransaction for wallet transactions.
 
-If verbose is 'true', returns an Object with information about 'txid'.
+If verbosity is 0 or omitted, returns the serialized transaction as a hex-encoded string.
 
-If verbose is 'false' or omitted, returns a string that is serialized, hex-encoded data for 'txid'.
+If verbosity is 1, returns a JSON Object with information about the transaction.
+
+If verbosity is 2, returns a JSON Object with information about the transaction, including fee and prevout information.
 
 Argument #1 - txid
 ~~~~~~~~~~~~~~~~~~
@@ -27,12 +27,12 @@ Argument #1 - txid
 
 The transaction id
 
-Argument #2 - verbose
-~~~~~~~~~~~~~~~~~~~~~
+Argument #2 - verbosity
+~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** boolean, optional, default=false
+**Type:** numeric, optional, default=0
 
-If false, return a string, otherwise return a json object
+0 for hex-encoded data, 1 for a JSON object, and 2 for JSON object with fee and prevout
 
 Argument #3 - blockhash
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,8 +41,8 @@ Argument #3 - blockhash
 
 The block in which to look for the transaction
 
-Result (if verbose is not set or set to false)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Result (if verbosity is not set or set to 0)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :header-rows: 1
@@ -52,15 +52,19 @@ Result (if verbose is not set or set to false)
      - Description
    * - str
      - string
-     - The serialized, hex-encoded data for 'txid'
+     - The serialized transaction as a hex-encoded string for 'txid'
 
-Result (if verbose is set to true)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Result (if verbosity is set to 1)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
   {                                    (json object)
-    "in_active_chain" : true|false,    (boolean) Whether specified block is in the active chain or not (only present with explicit "blockhash" argument)
+    "in_active_chain" : true|false,    (boolean, optional) Whether specified block is in the active chain or not (only present with explicit "blockhash" argument)
+    "blockhash" : "hex",               (string, optional) the block hash
+    "confirmations" : n,               (numeric, optional) The confirmations
+    "blocktime" : xxx,                 (numeric, optional) The block time expressed in UNIX epoch time
+    "time" : n,                        (numeric, optional) Same as "blocktime"
     "hex" : "hex",                     (string) The serialized, hex-encoded data for 'txid'
     "txid" : "hex",                    (string) The transaction id (same as provided)
     "hash" : "hex",                    (string) The transaction hash (differs from txid for witness transactions)
@@ -71,17 +75,18 @@ Result (if verbose is set to true)
     "locktime" : xxx,                  (numeric) The lock time
     "vin" : [                          (json array)
       {                                (json object)
-        "txid" : "hex",                (string) The transaction id
-        "vout" : n,                    (numeric) The output number
-        "scriptSig" : {                (json object) The script
-          "asm" : "str",               (string) asm
-          "hex" : "hex"                (string) hex
+        "coinbase" : "hex",            (string, optional) The coinbase value (only if coinbase transaction)
+        "txid" : "hex",                (string, optional) The transaction id (if not coinbase transaction)
+        "vout" : n,                    (numeric, optional) The output number (if not coinbase transaction)
+        "scriptSig" : {                (json object, optional) The script (if not coinbase transaction)
+          "asm" : "str",               (string) Disassembly of the signature script
+          "hex" : "hex"                (string) The raw signature script bytes, hex-encoded
         },
-        "sequence" : n,                (numeric) The script sequence number
-        "txinwitness" : [              (json array)
+        "txinwitness" : [              (json array, optional)
           "hex",                       (string) hex-encoded witness data (if any)
           ...
-        ]
+        ],
+        "sequence" : n                 (numeric) The script sequence number
       },
       ...
     ],
@@ -90,22 +95,43 @@ Result (if verbose is set to true)
         "value" : n,                   (numeric) The value in BTC
         "n" : n,                       (numeric) index
         "scriptPubKey" : {             (json object)
-          "asm" : "str",               (string) the asm
-          "hex" : "str",               (string) the hex
-          "reqSigs" : n,               (numeric) The required sigs
-          "type" : "str",              (string) The type, eg 'pubkeyhash'
-          "addresses" : [              (json array)
-            "str",                     (string) bitcoin address
-            ...
-          ]
+          "asm" : "str",               (string) Disassembly of the output script
+          "desc" : "str",              (string) Inferred descriptor for the output
+          "hex" : "hex",               (string) The raw output script bytes, hex-encoded
+          "address" : "str",           (string, optional) The Bitcoin address (only if a well-defined address exists)
+          "type" : "str"               (string) The type (one of: nonstandard, anchor, pubkey, pubkeyhash, scripthash, multisig, nulldata, witness_v0_scripthash, witness_v0_keyhash, witness_v1_taproot, witness_unknown)
         }
       },
       ...
-    ],
-    "blockhash" : "hex",               (string) the block hash
-    "confirmations" : n,               (numeric) The confirmations
-    "blocktime" : xxx,                 (numeric) The block time expressed in UNIX epoch time
-    "time" : n                         (numeric) Same as "blocktime"
+    ]
+  }
+
+Result (for verbosity = 2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  {                                    (json object)
+    ...,                               Same output as verbosity = 1
+    "fee" : n,                         (numeric, optional) transaction fee in BTC, omitted if block undo data is not available
+    "vin" : [                          (json array)
+      {                                (json object) utxo being spent
+        ...,                           Same output as verbosity = 1
+        "prevout" : {                  (json object, optional) The previous output, omitted if block undo data is not available
+          "generated" : true|false,    (boolean) Coinbase or not
+          "height" : n,                (numeric) The height of the prevout
+          "value" : n,                 (numeric) The value in BTC
+          "scriptPubKey" : {           (json object)
+            "asm" : "str",             (string) Disassembly of the output script
+            "desc" : "str",            (string) Inferred descriptor for the output
+            "hex" : "hex",             (string) The raw output script bytes, hex-encoded
+            "address" : "str",         (string, optional) The Bitcoin address (only if a well-defined address exists)
+            "type" : "str"             (string) The type (one of: nonstandard, anchor, pubkey, pubkeyhash, scripthash, multisig, nulldata, witness_v0_scripthash, witness_v0_keyhash, witness_v1_taproot, witness_unknown)
+          }
+        }
+      },
+      ...
+    ]
   }
 
 Examples
@@ -120,17 +146,21 @@ Examples
 
 ::
 
-  bitcoin-cli getrawtransaction "mytxid" true
+  bitcoin-cli getrawtransaction "mytxid" 1
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getrawtransaction", "params": ["mytxid", true]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getrawtransaction", "params": ["mytxid", 1]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 
 ::
 
-  bitcoin-cli getrawtransaction "mytxid" false "myblockhash"
+  bitcoin-cli getrawtransaction "mytxid" 0 "myblockhash"
 
 ::
 
-  bitcoin-cli getrawtransaction "mytxid" true "myblockhash"
+  bitcoin-cli getrawtransaction "mytxid" 1 "myblockhash"
+
+::
+
+  bitcoin-cli getrawtransaction "mytxid" 2 "myblockhash"
 

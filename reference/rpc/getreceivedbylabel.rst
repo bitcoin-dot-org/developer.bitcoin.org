@@ -4,7 +4,7 @@
 getreceivedbylabel
 ==================
 
-``getreceivedbylabel "label" ( minconf )``
+``getreceivedbylabel "label" ( minconf include_immature_coinbase )``
 
 Returns the total amount received by addresses with <label> in transactions with at least [minconf] confirmations.
 
@@ -21,6 +21,13 @@ Argument #2 - minconf
 **Type:** numeric, optional, default=1
 
 Only include transactions confirmed at least this many times.
+
+Argument #3 - include_immature_coinbase
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** boolean, optional, default=false
+
+Include immature coinbase transactions.
 
 Result
 ~~~~~~
@@ -53,7 +60,11 @@ The amount with at least 6 confirmations::
 
   bitcoin-cli getreceivedbylabel "tabby" 6
 
+The amount with at least 6 confirmations including immature coinbase outputs::
+
+  bitcoin-cli getreceivedbylabel "tabby" 6 true
+
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getreceivedbylabel", "params": ["tabby", 6]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getreceivedbylabel", "params": ["tabby", 6, true]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

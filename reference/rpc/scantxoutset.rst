@@ -6,17 +6,19 @@ scantxoutset
 
 ``scantxoutset "action" ( [scanobjects,...] )``
 
-EXPERIMENTAL warning: this call may be removed or changed in future releases.
-
 Scans the unspent transaction output set for entries that match certain output descriptors.
 
 Examples of output descriptors are:
 
-    addr(<address>)                      Outputs whose scriptPubKey corresponds to the specified address (does not include P2PK)
-    raw(<hex script>)                    Outputs whose scriptPubKey equals the specified hex scripts
+    addr(<address>)                      Outputs whose output script corresponds to the specified address (does not include P2PK)
+    raw(<hex script>)                    Outputs whose output script equals the specified hex-encoded bytes
     combo(<pubkey>)                      P2PK, P2PKH, P2WPKH, and P2SH-P2WPKH outputs for the given pubkey
     pkh(<pubkey>)                        P2PKH outputs for the given pubkey
     sh(multi(<n>,<pubkey>,<pubkey>,...)) P2SH-multisig outputs for the given threshold and pubkeys
+    tr(<pubkey>)                         P2TR
+    tr(<pubkey>,{pk(<pubkey>)})          P2TR with single fallback pubkey in tapscript
+    rawtr(<pubkey>)                      P2TR with the specified key as output key rather than inner
+    wsh(and_v(v:pk(<pubkey>),after(2)))  P2WSH miniscript with mandatory pubkey and a timelock
 
 In the above, <pubkey> either refers to a fixed public key in hexadecimal notation, or to an xpub/xprv optionally followed by one
 or more path elements separated by "/", and optionally ending in "/\*" (unhardened), or "/\*'" or "/\*h" (hardened) to specify all
@@ -39,7 +41,7 @@ The action to execute
 Argument #2 - scanobjects
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** json array
+**Type:** json array, optional
 
 Array of scan objects. Required for "start" action
        Every scan object is either a string descriptor or an object:
@@ -55,27 +57,89 @@ Array of scan objects. Required for "start" action
        ...
      ]
 
-Result
-~~~~~~
+Result (when action=='start'; only returns after scan completes)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-  {                                (json object)
-    "success" : true|false,        (boolean) Whether the scan was completed
-    "txouts" : n,                  (numeric) The number of unspent transaction outputs scanned
-    "height" : n,                  (numeric) The current block height (index)
-    "bestblock" : "hex",           (string) The hash of the block at the tip of the chain
-    "unspents" : [                 (json array)
-      {                            (json object)
-        "txid" : "hex",            (string) The transaction id
-        "vout" : n,                (numeric) The vout value
-        "scriptPubKey" : "hex",    (string) The script key
-        "desc" : "str",            (string) A specialized descriptor for the matched scriptPubKey
-        "amount" : n,              (numeric) The total amount in BTC of the unspent output
-        "height" : n               (numeric) Height of the unspent transaction output
+  {                                 (json object)
+    "success" : true|false,         (boolean) Whether the scan was completed
+    "txouts" : n,                   (numeric) The number of unspent transaction outputs scanned
+    "height" : n,                   (numeric) The block height at which the scan was done
+    "bestblock" : "hex",            (string) The hash of the block at the tip of the chain
+    "unspents" : [                  (json array)
+      {                             (json object)
+        "txid" : "hex",             (string) The transaction id
+        "vout" : n,                 (numeric) The vout value
+        "scriptPubKey" : "hex",     (string) The output script
+        "desc" : "str",             (string) A specialized descriptor for the matched output script
+        "amount" : n,               (numeric) The total amount in BTC of the unspent output
+        "coinbase" : true|false,    (boolean) Whether this is a coinbase output
+        "height" : n,               (numeric) Height of the unspent transaction output
+        "blockhash" : "hex",        (string) Blockhash of the unspent transaction output
+        "confirmations" : n         (numeric) Number of confirmations of the unspent transaction output when the scan was done
       },
       ...
     ],
-    "total_amount" : n             (numeric) The total amount of all found unspent outputs in BTC
+    "total_amount" : n              (numeric) The total amount of all found unspent outputs in BTC
   }
+
+Result (when action=='abort')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - true|false
+     - boolean
+     - True if scan will be aborted (not necessarily before this RPC returns), or false if there is no scan to abort
+
+Result (when action=='status' and a scan is currently in progress)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  {                    (json object)
+    "progress" : n     (numeric) Approximate percent complete
+  }
+
+Result (when action=='status' and no scan is in progress - possibly already completed)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  null    (json null)
+
+Examples
+~~~~~~~~
+
+
+.. highlight:: shell
+
+::
+
+  bitcoin-cli scantxoutset start '["raw(76a91411b366edfc0a8b66feebae5c2e25a7b6a5d1cf3188ac)#fm24fxxy"]'
+
+::
+
+  bitcoin-cli scantxoutset status
+
+::
+
+  bitcoin-cli scantxoutset abort
+
+::
+
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "scantxoutset", "params": ["start", ["raw(76a91411b366edfc0a8b66feebae5c2e25a7b6a5d1cf3188ac)#fm24fxxy"]]}' -H 'content-type: application/json' http://127.0.0.1:8332/
+
+::
+
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "scantxoutset", "params": ["status"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
+
+::
+
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "scantxoutset", "params": ["abort"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

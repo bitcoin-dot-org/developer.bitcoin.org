@@ -28,9 +28,9 @@ Only include transactions confirmed at least this many times.
 Argument #3 - include_watchonly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** boolean, optional, default=true for watch-only wallets, otherwise false
+**Type:** boolean, optional, default=false
 
-Also include balance in watch-only addresses (see 'importaddress')
+No longer used
 
 Argument #4 - avoid_reuse
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,5 +68,5 @@ The total amount in the wallet with at least 6 confirmations::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getbalance", "params": ["*", 6]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getbalance", "params": ["*", 6]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

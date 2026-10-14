@@ -7,7 +7,7 @@ getnettotals
 ``getnettotals``
 
 Returns information about network traffic, including bytes in, bytes out,
-and current time.
+and current system time.
 
 Result
 ~~~~~~
@@ -17,7 +17,7 @@ Result
   {                                              (json object)
     "totalbytesrecv" : n,                        (numeric) Total bytes received
     "totalbytessent" : n,                        (numeric) Total bytes sent
-    "timemillis" : xxx,                          (numeric) Current UNIX epoch time in milliseconds
+    "timemillis" : xxx,                          (numeric) Current system UNIX epoch time in milliseconds
     "uploadtarget" : {                           (json object)
       "timeframe" : n,                           (numeric) Length of the measuring timeframe in seconds
       "target" : n,                              (numeric) Target in bytes
@@ -40,5 +40,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnettotals", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getnettotals", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

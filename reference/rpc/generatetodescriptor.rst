@@ -6,14 +6,14 @@ generatetodescriptor
 
 ``generatetodescriptor num_blocks "descriptor" ( maxtries )``
 
-Mine blocks immediately to a specified descriptor (before the RPC call returns)
+Mine to a specified descriptor and return the block hashes.
 
 Argument #1 - num_blocks
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Type:** numeric, required
 
-How many blocks are generated immediately.
+How many blocks are generated.
 
 Argument #2 - descriptor
 ~~~~~~~~~~~~~~~~~~~~~~~~

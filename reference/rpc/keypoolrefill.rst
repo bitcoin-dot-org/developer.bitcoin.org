@@ -6,14 +6,16 @@ keypoolrefill
 
 ``keypoolrefill ( newsize )``
 
-Fills the keypool.
+Refills each descriptor keypool in the wallet up to the specified number of new keys.
+
+By default, descriptor wallets have 4 active ranged descriptors ("legacy", "p2sh-segwit", "bech32", "bech32m"), each with 1000 entries.
 
 Requires wallet passphrase to be set with walletpassphrase call if wallet is encrypted.
 
 Argument #1 - newsize
 ~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** numeric, optional, default=100
+**Type:** numeric, optional, default=1000, or as set by -keypool
 
 The new keypool size
 
@@ -36,5 +38,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "keypoolrefill", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "keypoolrefill", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

@@ -22,7 +22,7 @@ Result
 ::
 
   [           (json array)
-    "hex",    (string) The txid(s) which the proof commits to, or empty array if the proof can not be validated.
+    "hex",    (string) The txid(s) which the proof commits to, or empty array if the proof cannot be validated.
     ...
   ]
 

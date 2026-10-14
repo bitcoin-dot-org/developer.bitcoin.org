@@ -4,7 +4,7 @@
 getblocktemplate
 ================
 
-``getblocktemplate ( "template_request" )``
+``getblocktemplate {"mode":"str","capabilities":["str",...],"rules":["segwit","str",...],"longpollid":"str","data":"hex"}``
 
 If the request parameters include a 'mode' key, that is used to explicitly select between the default 'template' request or a 'proposal'.
 
@@ -20,27 +20,49 @@ For full specification, see BIPs 22, 23, 9, and 145:
 Argument #1 - template_request
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** json object, optional, default={}
+**Type:** json object, required
 
 Format of the template
-       "rules": [           (json array, required) A list of strings
-       "segwit",          (string, required) (literal) indicates client side segwit support
-       "str",             (string) other client side supported softfork deployment
+       "rules": [              (json array, required) A list of strings
+       "segwit",             (string, required) (literal) indicates client side segwit support
+       "str",                (string) other client side supported softfork deployment
        ...
        ],
+       "longpollid": "str",    (string, optional) delay processing request until the result would vary significantly from the "longpollid" of a prior template
+       "data": "hex",          (string, optional) proposed block data to check, encoded in hexadecimal; valid only for mode="proposal"
        }
 
 ::
 
      {
-       "mode": "str",       (string, optional) This must be set to "template", "proposal" (see BIP 23), or omitted
-       "capabilities": [    (json array, optional) A list of strings
-         "str",             (string) client side supported feature, 'longpoll', 'coinbasevalue', 'proposal', 'serverlist', 'workid'
+       "mode": "str",          (string, optional) This must be set to "template", "proposal" (see BIP 23), or omitted
+       "capabilities": [       (json array, optional) A list of strings
+         "str",                (string) client side supported feature, 'longpoll', 'coinbasevalue', 'proposal', 'serverlist', 'workid'
          ...
        ],
 
-Result
-~~~~~~
+Result (If the proposal was accepted with mode=='proposal')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+  null    (json null)
+
+Result (If the proposal was not accepted with mode=='proposal')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :header-rows: 1
+
+   * - Name
+     - Type
+     - Description
+   * - str
+     - string
+     - According to BIP22
+
+Result (Otherwise)
+~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -54,13 +76,17 @@ Result
       "rulename" : n,                        (numeric) identifies the bit number as indicating acceptance and readiness for the named softfork rule
       ...
     },
+    "capabilities" : [                       (json array)
+      "str",                                 (string) A supported feature, for example 'proposal'
+      ...
+    ],
     "vbrequired" : n,                        (numeric) bit mask of versionbits the server requires set in submissions
     "previousblockhash" : "str",             (string) The hash of current highest block
     "transactions" : [                       (json array) contents of non-coinbase transactions that should be included in the next block
       {                                      (json object)
         "data" : "hex",                      (string) transaction data encoded in hexadecimal (byte-for-byte)
-        "txid" : "hex",                      (string) transaction id encoded in little-endian hexadecimal
-        "hash" : "hex",                      (string) hash encoded in little-endian hexadecimal (including witness data)
+        "txid" : "hex",                      (string) transaction hash excluding witness data, shown in byte-reversed hex
+        "hash" : "hex",                      (string) transaction hash including witness data, shown in byte-reversed hex
         "depends" : [                        (json array) array of numbers
           n,                                 (numeric) transactions before this one (by 1-based index in 'transactions' list) that must be present in the final block if this one is
           ...
@@ -78,7 +104,7 @@ Result
     "coinbasevalue" : n,                     (numeric) maximum allowable input to coinbase transaction, including the generation award and transaction fees (in satoshis)
     "longpollid" : "str",                    (string) an id to include with a request to longpoll on an update to this template
     "target" : "str",                        (string) The hash target
-    "mintime" : xxx,                         (numeric) The minimum timestamp appropriate for the next block time, expressed in UNIX epoch time
+    "mintime" : xxx,                         (numeric) The minimum timestamp appropriate for the next block time, expressed in UNIX epoch time. Adjusted for the proposed BIP94 timewarp rule.
     "mutable" : [                            (json array) list of ways the block template may be changed
       "str",                                 (string) A way the block template may be changed, e.g. 'time', 'transactions', 'prevblock'
       ...
@@ -86,11 +112,12 @@ Result
     "noncerange" : "hex",                    (string) A range of valid nonces
     "sigoplimit" : n,                        (numeric) limit of sigops in blocks
     "sizelimit" : n,                         (numeric) limit of block size
-    "weightlimit" : n,                       (numeric) limit of block weight
-    "curtime" : xxx,                         (numeric) current timestamp in UNIX epoch time
+    "weightlimit" : n,                       (numeric, optional) limit of block weight
+    "curtime" : xxx,                         (numeric) current timestamp in UNIX epoch time. Adjusted for the proposed BIP94 timewarp rule.
     "bits" : "str",                          (string) compressed target of next block
     "height" : n,                            (numeric) The height of the next block
-    "default_witness_commitment" : "str"     (string, optional) a valid witness commitment for the unmodified block template
+    "signet_challenge" : "hex",              (string, optional) Only on signet
+    "default_witness_commitment" : "hex"     (string, optional) a valid witness commitment for the unmodified block template
   }
 
 Examples
@@ -105,5 +132,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblocktemplate", "params": [{"rules": ["segwit"]}]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getblocktemplate", "params": [{"rules": ["segwit"]}]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

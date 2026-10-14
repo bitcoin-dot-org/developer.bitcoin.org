@@ -4,15 +4,17 @@
 sendrawtransaction
 ==================
 
-``sendrawtransaction "hexstring" ( maxfeerate )``
+``sendrawtransaction "hexstring" ( maxfeerate maxburnamount )``
 
 Submit a raw transaction (serialized, hex-encoded) to local node and network.
 
-Note that the transaction will be sent unconditionally to all peers, so using this
+The transaction will be sent unconditionally to all peers, so using sendrawtransaction
 for manual rebroadcast may degrade privacy by leaking the transaction's origin, as
 nodes will normally not rebroadcast non-wallet transactions already in their mempool.
 
-Also see createrawtransaction and signrawtransactionwithkey calls.
+A specific exception, RPC_TRANSACTION_ALREADY_IN_UTXO_SET, may throw if the transaction cannot be added to the mempool.
+
+Related RPCs: createrawtransaction, signrawtransactionwithkey
 
 Argument #1 - hexstring
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,10 +26,20 @@ The hex string of the raw transaction
 Argument #2 - maxfeerate
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Type:** numeric or string, optional, default=0.10
+**Type:** numeric or string, optional, default="0.10"
 
-Reject transactions whose fee rate is higher than the specified value, expressed in BTC/kB.
+Reject transactions whose fee rate is higher than the specified value, expressed in BTC/kvB.
+       Fee rates larger than 1BTC/kvB are rejected.
        Set to 0 to accept any fee rate.
+
+Argument #3 - maxburnamount
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Type:** numeric or string, optional, default="0.00"
+
+Reject transactions with provably unspendable outputs (e.g. 'datacarrier' outputs that use the OP_RETURN opcode) greater than the specified value, expressed in BTC.
+       If burning funds through unspendable outputs is desired, increase this value.
+       This check is based on heuristics and does not guarantee spendability of outputs.
        
 
 Result
@@ -63,5 +75,5 @@ Send the transaction (signed hex)::
 
 As a JSON-RPC call::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "sendrawtransaction", "params": ["signedhex"]}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "sendrawtransaction", "params": ["signedhex"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

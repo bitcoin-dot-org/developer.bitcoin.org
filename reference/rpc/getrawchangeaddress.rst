@@ -15,7 +15,7 @@ Argument #1 - address_type
 
 **Type:** string, optional, default=set by -changetype
 
-The address type to use. Options are "legacy", "p2sh-segwit", and "bech32".
+The address type to use. Options are "legacy", "p2sh-segwit", "bech32", "bech32m".
 
 Result
 ~~~~~~
@@ -42,5 +42,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getrawchangeaddress", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getrawchangeaddress", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

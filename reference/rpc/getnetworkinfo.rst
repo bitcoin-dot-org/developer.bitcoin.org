@@ -30,7 +30,7 @@ Result
     "networkactive" : true|false,                      (boolean) whether p2p networking is enabled
     "networks" : [                                     (json array) information per network
       {                                                (json object)
-        "name" : "str",                                (string) network (ipv4, ipv6 or onion)
+        "name" : "str",                                (string) network (ipv4, ipv6, onion, i2p, cjdns)
         "limited" : true|false,                        (boolean) is the network limited using -onlynet?
         "reachable" : true|false,                      (boolean) is the network reachable?
         "proxy" : "str",                               (string) ("host:port") the proxy that is used for this network, or empty if none
@@ -38,8 +38,8 @@ Result
       },
       ...
     ],
-    "relayfee" : n,                                    (numeric) minimum relay fee for transactions in BTC/kB
-    "incrementalfee" : n,                              (numeric) minimum fee increment for mempool limiting or BIP 125 replacement in BTC/kB
+    "relayfee" : n,                                    (numeric) minimum relay fee rate for transactions in BTC/kvB
+    "incrementalfee" : n,                              (numeric) minimum fee rate increment for mempool limiting or replacement in BTC/kvB
     "localaddresses" : [                               (json array) list of local addresses
       {                                                (json object)
         "address" : "str",                             (string) network address
@@ -48,7 +48,10 @@ Result
       },
       ...
     ],
-    "warnings" : "str"                                 (string) any network and blockchain warnings
+    "warnings" : [                                     (json array) any network and blockchain warnings (run with `-deprecatedrpc=warnings` to return the latest warning as a single string)
+      "str",                                           (string) warning
+      ...
+    ]
   }
 
 Examples
@@ -63,5 +66,5 @@ Examples
 
 ::
 
-  curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnetworkinfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+  curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "getnetworkinfo", "params": []}' -H 'content-type: application/json' http://127.0.0.1:8332/
 

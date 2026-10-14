@@ -6,14 +6,14 @@ generatetoaddress
 
 ``generatetoaddress nblocks "address" ( maxtries )``
 
-Mine blocks immediately to a specified address (before the RPC call returns)
+Mine to a specified address and return the block hashes.
 
 Argument #1 - nblocks
 ~~~~~~~~~~~~~~~~~~~~~
 
 **Type:** numeric, required
 
-How many blocks are generated immediately.
+How many blocks are generated.
 
 Argument #2 - address
 ~~~~~~~~~~~~~~~~~~~~~
